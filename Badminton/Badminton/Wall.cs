@@ -30,6 +30,7 @@ namespace Badminton
 			body.Position = new Vector2(x, y);
 			body.BodyType = BodyType.Static;
 			body.CollisionCategories = Category.Cat31; // change when more players are added
+			body.UserData = this;
 		}
 
 		public void Draw(SpriteBatch sb)

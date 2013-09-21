@@ -23,7 +23,7 @@ namespace Badminton
 		public ForceWave(World w, Vector2 position, Vector2 power, Category collisionCat)
 		{
 			this.world = w;
-			body = BodyFactory.CreateRectangle(w, 32 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 10f);
+			body = BodyFactory.CreateRectangle(w, 32 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 10000f);
 			body.Position = position;
 			body.BodyType = BodyType.Dynamic;
 			body.LinearVelocity = power;
@@ -42,17 +42,12 @@ namespace Badminton
 			body.ApplyForce(-Vector2.UnitY * body.Mass * 9.8f);
 			destroyTimer++;
 			if (destroyTimer >= 3)
-			{
 				body.UserData = null;
-				if (world.BodyList.Contains(body))
-					world.BodyList.Remove(body);
-			}
 		}
 
 		public void Draw(SpriteBatch sb)
 		{
-//			sb.Draw(MainGame.tex_box, body.Position * MainGame.METER_TO_PIXEL, Color.White);
-//			sb.DrawString(MainGame.fnt_basicFont, destroyTimer.ToString(), Vector2.UnitX * 64 + Vector2.UnitY * 128, Color.Black);
+			sb.Draw(MainGame.tex_box, body.Position * MainGame.METER_TO_PIXEL, Color.White);
 		}
 	}
 }

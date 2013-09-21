@@ -293,10 +293,15 @@ namespace Badminton.Stick_Figures
 
 		private bool OnGroundCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
 		{
-			Vector2 normal = contact.Manifold.LocalNormal;
-			if (normal.X == 0 || normal.Y / normal.X > 1)
-				onGround = true;
-			return contact.IsTouching();
+			if (fixtureB.Body.UserData is Wall)
+			{
+				Vector2 normal = contact.Manifold.LocalNormal;
+				if (normal.X == 0 || normal.Y / normal.X > 1)
+					onGround = true;
+				return contact.IsTouching();
+			}
+
+			return false;
 		}
 		private void OnGroundSeparation(Fixture fixtureA, Fixture fixtureB)
 		{
@@ -308,15 +313,15 @@ namespace Badminton.Stick_Figures
 			if (fixtureB.Body.UserData is ForceWave)
 			{
 				ForceWave f = (ForceWave)fixtureB.Body.UserData;
-				health[fixtureA.Body] -= 0.05f;
 				fixtureB.Body.UserData = null;
-				if (punches.Contains(f))
-					punches.Remove(f);
-			
+
+				health[fixtureA.Body] -= 0.05f;
+
 				// TODO: Play punch sound
+
 			}
 
-			return true;
+			return contact.IsTouching();
 		}
 
 		#endregion
@@ -530,17 +535,24 @@ namespace Badminton.Stick_Figures
 			}*/
 
 			UpdateArms();
+//			Console.WriteLine("---------------");
+//			foreach (Body f in world.BodyList)
+//				if (f.UserData is ForceWave)
+//					Console.WriteLine(f.Position);
 
 			List<ForceWave> toRemove = new List<ForceWave>();
 			foreach (ForceWave f in punches)
 			{
+				f.Update();
 				if (f.body.UserData == null)
 					toRemove.Add(f);
-				f.Update();
 			}
-
 			foreach (ForceWave f in toRemove)
+			{
+				if (world.BodyList.Contains(f.body))
+					world.RemoveBody(f.body);
 				punches.Remove(f);
+			}
 
 			UpdateLimbStrength();
 			
@@ -723,11 +735,15 @@ namespace Badminton.Stick_Figures
 			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
 
 			// Debug
-//			sb.DrawString(MainGame.fnt_basicFont, "L", LeftHandPosition * MainGame.METER_TO_PIXEL, Color.Blue);
-//			sb.DrawString(MainGame.fnt_basicFont, "R", RightHandPosition * MainGame.METER_TO_PIXEL, Color.Lime);
-//			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);
+			//			sb.DrawString(MainGame.fnt_basicFont, "L", LeftHandPosition * MainGame.METER_TO_PIXEL, Color.Blue);
+			//			sb.DrawString(MainGame.fnt_basicFont, "R", RightHandPosition * MainGame.METER_TO_PIXEL, Color.Lime);
+			//			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);
 			foreach (ForceWave f in punches)
-				f.Draw(sb);
+			{
+				if (world.BodyList.Contains(f.body))
+					sb.Draw(MainGame.tex_box, f.body.Position * MainGame.METER_TO_PIXEL, Color.White);
+			
+			}
 		}
 
 		/// <summary>Blends the specified colors together.</summary>
