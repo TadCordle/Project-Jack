@@ -29,7 +29,7 @@ namespace Badminton
 			body.Rotation = rotation;
 			body.Position = new Vector2(x, y);
 			body.BodyType = BodyType.Static;
-			body.CollisionCategories = Category.All & ~Category.Cat1; // change when more players are added
+			body.CollisionCategories = Category.Cat31; // change when more players are added
 		}
 
 		public void Draw(SpriteBatch sb)

@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <GenerateResourceNeverLockTypeAssemblies>true</GenerateResourceNeverLockTypeAssemblies>
-	<ProjectGuid>{C6C59A54-2083-479E-A5DB-08E5F19391FA}</ProjectGuid>
+    <ProjectGuid>{C6C59A54-2083-479E-A5DB-08E5F19391FA}</ProjectGuid>
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ForceWave.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Screens\MainMenu.cs" />

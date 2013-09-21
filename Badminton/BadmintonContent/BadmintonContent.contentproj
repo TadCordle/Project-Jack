@@ -56,13 +56,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="textures\weapons\boolit.png">
-      <Name>boolit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="textures\stick figure\head.png">
       <Name>head</Name>
       <Importer>TextureImporter</Importer>
@@ -75,13 +68,6 @@
     </Compile>
     <Compile Include="textures\stick figure\torso.png">
       <Name>torso</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="textures\weapons\temp gun.png">
-      <Name>temp gun</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

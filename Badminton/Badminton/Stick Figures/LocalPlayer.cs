@@ -34,7 +34,7 @@ namespace Badminton.Stick_Figures
 			jumpBtn = Buttons.A;
 			rightBtn = Buttons.LeftThumbstickRight;
 			leftBtn = Buttons.LeftThumbstickLeft;
-			crouchBtn = Buttons.X;
+			crouchBtn = Buttons.LeftShoulder;
 			punchBtn = Buttons.RightTrigger;
 
 			if (player == PlayerIndex.One)

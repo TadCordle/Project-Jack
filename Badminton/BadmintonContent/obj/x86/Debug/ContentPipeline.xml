@@ -11,15 +11,6 @@
       <Time>2013-06-06T00:26:34.5908725-04:00</Time>
     </Item>
     <Item>
-      <Source>textures\weapons\boolit.png</Source>
-      <Name>textures\weapons\boolit</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\weapons\boolit.xnb</Output>
-      <Time>2013-06-07T13:50:17.0179617-04:00</Time>
-    </Item>
-    <Item>
       <Source>textures\stick figure\head.png</Source>
       <Name>textures\stick figure\head</Name>
       <Importer>TextureImporter</Importer>
@@ -45,15 +36,6 @@
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb</Output>
       <Time>2013-06-06T16:52:12.3397419-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\weapons\temp gun.png</Source>
-      <Name>textures\weapons\temp gun</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\weapons\temp gun.xnb</Output>
-      <Time>2013-06-09T13:24:22.7354815-04:00</Time>
     </Item>
     <Item>
       <Source>fonts\basicFont.spritefont</Source>

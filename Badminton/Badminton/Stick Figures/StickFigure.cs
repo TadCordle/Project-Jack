@@ -30,6 +30,8 @@ namespace Badminton.Stick_Figures
 		public Dictionary<Body, float> health;
 		private float maxImpulse;
 
+		private List<ForceWave> punches;
+
 		// Position properties
 		/// <summary>
 		/// The torso's position
@@ -102,6 +104,7 @@ namespace Badminton.Stick_Figures
 			punching = false;
 			punchArm = false;
 			punchStage = 0;
+			punches = new List<ForceWave>();
 
 			groundCheck = 0;
 			this.collisionCat = collisionCat;
@@ -163,7 +166,7 @@ namespace Badminton.Stick_Figures
 			leftUpperArm.Position = torso.Position + new Vector2(-7.5f, -15) * MainGame.PIXEL_TO_METER;
 			leftUpperArm.BodyType = BodyType.Dynamic;
 			leftUpperArm.CollisionCategories = collisionCat;
-			leftUpperArm.CollidesWith = Category.None; //Category.All & ~collisionCat;
+			leftUpperArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
 			health.Add(leftUpperArm, 1.0f);
 
 			rightUpperArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -171,7 +174,7 @@ namespace Badminton.Stick_Figures
 			rightUpperArm.Position = torso.Position + new Vector2(7.5f, -15) * MainGame.PIXEL_TO_METER;
 			rightUpperArm.BodyType = BodyType.Dynamic;
 			rightUpperArm.CollisionCategories = collisionCat;
-			rightUpperArm.CollidesWith = Category.None; //Category.All & ~collisionCat;
+			rightUpperArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
 			health.Add(rightUpperArm, 1.0f);
 
 			leftLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -179,7 +182,7 @@ namespace Badminton.Stick_Figures
 			leftLowerArm.Position = torso.Position + new Vector2(-22.5f, -15) * MainGame.PIXEL_TO_METER;
 			leftLowerArm.BodyType = BodyType.Dynamic;
 			leftLowerArm.CollisionCategories = collisionCat;
-			leftLowerArm.CollidesWith = Category.None; //Category.All & ~collisionCat;
+			leftLowerArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
 			health.Add(leftLowerArm, 1.0f);
 
 			rightLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -187,7 +190,7 @@ namespace Badminton.Stick_Figures
 			rightLowerArm.Position = torso.Position + new Vector2(22.5f, -15) * MainGame.PIXEL_TO_METER;
 			rightLowerArm.BodyType = BodyType.Dynamic;
 			rightLowerArm.CollisionCategories = collisionCat;
-			rightLowerArm.CollidesWith = Category.None; //Category.All & ~collisionCat;
+			rightLowerArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
 			health.Add(rightLowerArm, 1.0f);
 
 			leftUpperLeg = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 5f);
@@ -302,7 +305,16 @@ namespace Badminton.Stick_Figures
 
 		private bool OtherCollisions(Fixture fixtureA, Fixture fixtureB, Contact contact)
 		{
-			// Check limb collision
+			if (fixtureB.Body.UserData is ForceWave)
+			{
+				ForceWave f = (ForceWave)fixtureB.Body.UserData;
+				health[fixtureA.Body] -= 0.05f;
+				fixtureB.Body.UserData = null;
+				if (punches.Contains(f))
+					punches.Remove(f);
+			
+				// TODO: Play punch sound
+			}
 
 			return true;
 		}
@@ -511,8 +523,27 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public virtual void Update()
 		{
+/*			List<Body> bodies = health.Keys.ToList<Body>();
+			foreach (Body b in bodies)
+			{
+				health[b] -= 0.002f;
+			}*/
+
 			UpdateArms();
+
+			List<ForceWave> toRemove = new List<ForceWave>();
+			foreach (ForceWave f in punches)
+			{
+				if (f.body.UserData == null)
+					toRemove.Add(f);
+				f.Update();
+			}
+
+			foreach (ForceWave f in toRemove)
+				punches.Remove(f);
+
 			UpdateLimbStrength();
+			
 			if (Crouching)
 				Crouch();
 
@@ -562,12 +593,14 @@ namespace Badminton.Stick_Figures
 				{
 					if (JointsAreInPosition(checkThese))
 					{
+						float angle = attackAngle - MathHelper.PiOver2;
 						if (punchArm)
 						{
 							leftShoulder.TargetAngle = 3 * MathHelper.PiOver4; // FindClosestAngle(3 * MathHelper.PiOver4, torso.Rotation, leftShoulder.TargetAngle);
 							leftElbow.TargetAngle = MathHelper.PiOver4;
 							leftShoulder.MaxImpulse = maxImpulse;
 							leftElbow.MaxImpulse = maxImpulse;
+							punches.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						else
 						{
@@ -575,6 +608,7 @@ namespace Badminton.Stick_Figures
 							rightElbow.TargetAngle = -MathHelper.PiOver4;
 							rightShoulder.MaxImpulse = maxImpulse;
 							rightElbow.MaxImpulse = maxImpulse;
+							punches.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						punchStage = 1;
 					}
@@ -692,6 +726,8 @@ namespace Badminton.Stick_Figures
 //			sb.DrawString(MainGame.fnt_basicFont, "L", LeftHandPosition * MainGame.METER_TO_PIXEL, Color.Blue);
 //			sb.DrawString(MainGame.fnt_basicFont, "R", RightHandPosition * MainGame.METER_TO_PIXEL, Color.Lime);
 //			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);
+			foreach (ForceWave f in punches)
+				f.Draw(sb);
 		}
 
 		/// <summary>Blends the specified colors together.</summary>
