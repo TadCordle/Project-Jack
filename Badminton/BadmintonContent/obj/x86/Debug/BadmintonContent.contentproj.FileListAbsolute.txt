@@ -1,0 +1,3 @@
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Badminton\Badminton\BadmintonContent\obj\x86\Debug\BadmintonContent.contentprojResolveAssemblyReference.cache
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\BadmintonContent\obj\x86\Debug\BadmintonContent.contentprojResolveAssemblyReference.cache
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing - Copy\Badminton\BadmintonContent\obj\x86\Debug\BadmintonContent.contentprojResolveAssemblyReference.cache
