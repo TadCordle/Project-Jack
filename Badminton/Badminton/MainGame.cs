@@ -35,8 +35,12 @@ namespace Badminton
 		Screens.GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont;
-		public static Texture2D tex_box;
+		public static Texture2D tex_box, tex_wave;
 		public static Texture2D tex_head, tex_torso, tex_limb;
+		public static Texture2D tex_bg;
+
+		public static SoundEffect[] sfx_punches;
+		public static SoundEffect sfx_whoosh;
 
 		private bool escapePressed;
 
@@ -77,10 +81,18 @@ namespace Badminton
 
 			fnt_basicFont = Content.Load<SpriteFont>("fonts/basicFont");
 
+			tex_bg = Content.Load<Texture2D>("textures/background");
 			tex_box = Content.Load<Texture2D>("textures/box");
 			tex_head = Content.Load<Texture2D>("textures/stick figure/head");
 			tex_limb = Content.Load<Texture2D>("textures/stick figure/limb");
 			tex_torso = Content.Load<Texture2D>("textures/stick figure/torso");
+			tex_wave = Content.Load<Texture2D>("textures/force wave");
+
+			sfx_punches = new SoundEffect[] {
+				Content.Load<SoundEffect>("sfx/Punch1"),
+				Content.Load<SoundEffect>("sfx/Punch2"),
+				Content.Load<SoundEffect>("sfx/Thwap") };
+			sfx_whoosh = Content.Load<SoundEffect>("sfx/Whoosh");
 
 			currentScreen = new Screens.SingleMap();
 		}
@@ -133,7 +145,7 @@ namespace Badminton
 		{
 			GraphicsDevice.Clear(Color.Multiply(Color.DarkGray, 0.7f));
 
-			spriteBatch.Begin(SpriteSortMode.Texture, BlendState.NonPremultiplied);
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
 			currentScreen.Draw(spriteBatch);
 			spriteBatch.End();
 

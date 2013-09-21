@@ -1,7 +1,11 @@
 Content\textures\box.xnb
-Content\textures\weapons\boolit.xnb
 Content\textures\stick figure\head.xnb
 Content\textures\stick figure\limb.xnb
 Content\textures\stick figure\torso.xnb
-Content\textures\weapons\temp gun.xnb
 Content\fonts\basicFont.xnb
+Content\textures\force wave.xnb
+Content\sfx\Punch1.xnb
+Content\sfx\Punch2.xnb
+Content\sfx\Thwap.xnb
+Content\sfx\Whoosh.xnb
+Content\textures\background.xnb

@@ -27,8 +27,8 @@ namespace Badminton
 			body.Position = position;
 			body.BodyType = BodyType.Dynamic;
 			body.LinearVelocity = power;
-			this.collisionCat = collisionCat;
-			body.CollisionCategories = this.collisionCat;
+			this.collisionCat = (collisionCat == Category.Cat1 ? Category.Cat11 : Category.Cat12);
+			body.CollisionCategories = collisionCat;
 			body.UserData = this;
 
 			destroyTimer = 0;
@@ -45,9 +45,9 @@ namespace Badminton
 				body.UserData = null;
 		}
 
-		public void Draw(SpriteBatch sb)
+		public void Draw(SpriteBatch sb, Color c)
 		{
-			sb.Draw(MainGame.tex_box, body.Position * MainGame.METER_TO_PIXEL, Color.White);
+			sb.Draw(MainGame.tex_wave, body.Position * MainGame.METER_TO_PIXEL, null, c, (float)Math.Atan2(body.LinearVelocity.Y, body.LinearVelocity.X), new Vector2(MainGame.tex_wave.Width / 2, MainGame.tex_wave.Height / 2), 0.5f, SpriteEffects.None, 1f);
 		}
 	}
 }

@@ -103,7 +103,7 @@ namespace Badminton.Stick_Figures
 			attackAngle = 0f;
 			punching = false;
 			punchArm = false;
-			punchStage = 0;
+			punchStage = -1;
 			punches = new List<ForceWave>();
 
 			groundCheck = 0;
@@ -166,7 +166,7 @@ namespace Badminton.Stick_Figures
 			leftUpperArm.Position = torso.Position + new Vector2(-7.5f, -15) * MainGame.PIXEL_TO_METER;
 			leftUpperArm.BodyType = BodyType.Dynamic;
 			leftUpperArm.CollisionCategories = collisionCat;
-			leftUpperArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
+			leftUpperArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
 			health.Add(leftUpperArm, 1.0f);
 
 			rightUpperArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -174,7 +174,7 @@ namespace Badminton.Stick_Figures
 			rightUpperArm.Position = torso.Position + new Vector2(7.5f, -15) * MainGame.PIXEL_TO_METER;
 			rightUpperArm.BodyType = BodyType.Dynamic;
 			rightUpperArm.CollisionCategories = collisionCat;
-			rightUpperArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
+			rightUpperArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
 			health.Add(rightUpperArm, 1.0f);
 
 			leftLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -182,7 +182,7 @@ namespace Badminton.Stick_Figures
 			leftLowerArm.Position = torso.Position + new Vector2(-22.5f, -15) * MainGame.PIXEL_TO_METER;
 			leftLowerArm.BodyType = BodyType.Dynamic;
 			leftLowerArm.CollisionCategories = collisionCat;
-			leftLowerArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
+			leftLowerArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
 			health.Add(leftLowerArm, 1.0f);
 
 			rightLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -190,7 +190,7 @@ namespace Badminton.Stick_Figures
 			rightLowerArm.Position = torso.Position + new Vector2(22.5f, -15) * MainGame.PIXEL_TO_METER;
 			rightLowerArm.BodyType = BodyType.Dynamic;
 			rightLowerArm.CollisionCategories = collisionCat;
-			rightLowerArm.CollidesWith = Category.Cat31; //Category.All & ~collisionCat;
+			rightLowerArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
 			health.Add(rightLowerArm, 1.0f);
 
 			leftUpperLeg = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 5f);
@@ -317,8 +317,9 @@ namespace Badminton.Stick_Figures
 
 				health[fixtureA.Body] -= 0.05f;
 
-				// TODO: Play punch sound
-
+				Random r = new Random();
+				int index = r.Next(MainGame.sfx_punches.Length);
+				MainGame.sfx_punches[index].Play();
 			}
 
 			return contact.IsTouching();
@@ -535,10 +536,6 @@ namespace Badminton.Stick_Figures
 			}*/
 
 			UpdateArms();
-//			Console.WriteLine("---------------");
-//			foreach (Body f in world.BodyList)
-//				if (f.UserData is ForceWave)
-//					Console.WriteLine(f.Position);
 
 			List<ForceWave> toRemove = new List<ForceWave>();
 			foreach (ForceWave f in punches)
@@ -555,6 +552,7 @@ namespace Badminton.Stick_Figures
 			}
 
 			UpdateLimbStrength();
+			UpdateLimbAttachment();
 			
 			if (Crouching)
 				Crouch();
@@ -584,18 +582,19 @@ namespace Badminton.Stick_Figures
 				AngleJoint[] checkThese = new AngleJoint[] { (punchArm ? leftShoulder : rightShoulder) };
 				if (punchStage == -1)
 				{
+					MainGame.sfx_whoosh.Play();
 					punchStage = 0;
 					float angle = attackAngle - MathHelper.PiOver2;
 					if (punchArm)
 					{
-						leftShoulder.TargetAngle = GetArmTargetAngle(angle, true); // FindClosestAngle(angle, torso.Rotation, leftShoulder.TargetAngle);
+						leftShoulder.TargetAngle = GetArmTargetAngle(angle, true);
 						leftElbow.TargetAngle = 0f;
 						leftShoulder.MaxImpulse = 1000f;
 						leftElbow.MaxImpulse = 1000f;
 					}
 					else
 					{
-						rightShoulder.TargetAngle = GetArmTargetAngle(angle, false); // FindClosestAngle(angle, torso.Rotation, rightShoulder.TargetAngle);
+						rightShoulder.TargetAngle = GetArmTargetAngle(angle, false);
 						rightElbow.TargetAngle = 0f;
 						rightShoulder.MaxImpulse = 1000f;
 						rightElbow.MaxImpulse = 1000f;
@@ -608,7 +607,7 @@ namespace Badminton.Stick_Figures
 						float angle = attackAngle - MathHelper.PiOver2;
 						if (punchArm)
 						{
-							leftShoulder.TargetAngle = 3 * MathHelper.PiOver4; // FindClosestAngle(3 * MathHelper.PiOver4, torso.Rotation, leftShoulder.TargetAngle);
+							leftShoulder.TargetAngle = 3 * MathHelper.PiOver4;
 							leftElbow.TargetAngle = MathHelper.PiOver4;
 							leftShoulder.MaxImpulse = maxImpulse;
 							leftElbow.MaxImpulse = maxImpulse;
@@ -616,7 +615,7 @@ namespace Badminton.Stick_Figures
 						}
 						else
 						{
-							rightShoulder.TargetAngle = -3 * MathHelper.PiOver4; // FindClosestAngle(-3 * MathHelper.PiOver4, torso.Rotation, rightShoulder.TargetAngle);
+							rightShoulder.TargetAngle = -3 * MathHelper.PiOver4;
 							rightElbow.TargetAngle = -MathHelper.PiOver4;
 							rightShoulder.MaxImpulse = maxImpulse;
 							rightElbow.MaxImpulse = maxImpulse;
@@ -634,6 +633,102 @@ namespace Badminton.Stick_Figures
 						punchStage = -1;
 					}
 				}
+			}
+		}
+
+		/// <summary>
+		/// Detaches limbs that lose all their health
+		/// </summary>
+		private void UpdateLimbAttachment()
+		{
+			// Left arm
+			if (health[leftUpperArm] <= 0 && health[leftLowerArm] <= 0)
+			{
+				leftUpperArm.Friction = 3.0f;
+				if (world.JointList.Contains(leftShoulder))
+					world.RemoveJoint(leftShoulder);
+				if (world.JointList.Contains(r_leftShoulder))
+					world.RemoveJoint(r_leftShoulder);
+			}
+			if (health[leftLowerArm] <= 0)
+			{
+				leftLowerArm.Friction = 3.0f;
+				if (world.JointList.Contains(leftElbow))
+					world.RemoveJoint(leftElbow);
+				if (world.JointList.Contains(r_leftElbow))
+					world.RemoveJoint(r_leftElbow);
+			}
+
+			// Right arm
+			if (health[rightUpperArm] <= 0 && health[rightLowerArm] <= 0)
+			{
+				rightUpperArm.Friction = 3.0f;
+				if (world.JointList.Contains(rightShoulder))
+					world.RemoveJoint(rightShoulder);
+				if (world.JointList.Contains(r_rightShoulder))
+					world.RemoveJoint(r_rightShoulder);
+			}
+			if (health[rightLowerArm] <= 0)
+			{
+				rightLowerArm.Friction = 3.0f;
+				if (world.JointList.Contains(rightElbow))
+					world.RemoveJoint(rightElbow);
+				if (world.JointList.Contains(r_rightElbow))
+					world.RemoveJoint(r_rightElbow);
+			}
+
+			// Left leg
+			if (health[leftUpperLeg] <= 0 && health[leftLowerLeg] <= 0)
+			{
+				leftUpperLeg.Friction = 3.0f;
+				if (world.JointList.Contains(leftHip))
+					world.RemoveJoint(leftHip);
+				if (world.JointList.Contains(r_leftHip))
+					world.RemoveJoint(r_leftHip);
+			}
+			if (health[leftLowerLeg] <= 0)
+			{
+				leftLowerLeg.Friction = 3.0f;
+				if (world.JointList.Contains(leftKnee))
+					world.RemoveJoint(leftKnee);
+				if (world.JointList.Contains(r_leftKnee))
+					world.RemoveJoint(r_leftKnee);
+			}
+
+			// Right leg
+			if (health[rightUpperLeg] <= 0 && health[rightLowerLeg] <= 0)
+			{
+				rightUpperLeg.Friction = 3.0f;
+				if (world.JointList.Contains(rightHip))
+					world.RemoveJoint(rightHip);
+				if (world.JointList.Contains(r_rightHip))
+					world.RemoveJoint(r_rightHip);
+			}
+			if (health[rightLowerLeg] <= 0)
+			{
+				rightLowerLeg.Friction = 3.0f;
+				if (world.JointList.Contains(rightKnee))
+					world.RemoveJoint(rightKnee);
+				if (world.JointList.Contains(r_rightKnee))
+					world.RemoveJoint(r_rightKnee);
+			}
+
+			// Torso
+			if (health[torso] <= 0)
+			{
+				torso.Friction = 3.0f;
+				if (world.JointList.Contains(upright))
+					world.RemoveJoint(upright);
+			}
+
+			// Head
+			if (health[head] <= 0)
+			{
+				head.Friction = 3.0f;
+				if (world.JointList.Contains(neck))
+					world.RemoveJoint(neck);
+				if (world.JointList.Contains(r_neck))
+					world.RemoveJoint(r_neck);
 			}
 		}
 
@@ -739,11 +834,7 @@ namespace Badminton.Stick_Figures
 			//			sb.DrawString(MainGame.fnt_basicFont, "R", RightHandPosition * MainGame.METER_TO_PIXEL, Color.Lime);
 			//			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);
 			foreach (ForceWave f in punches)
-			{
-				if (world.BodyList.Contains(f.body))
-					sb.Draw(MainGame.tex_box, f.body.Position * MainGame.METER_TO_PIXEL, Color.White);
-			
-			}
+				f.Draw(sb, this.color);
 		}
 
 		/// <summary>Blends the specified colors together.</summary>

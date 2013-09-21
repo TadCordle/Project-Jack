@@ -34,8 +34,8 @@ namespace Badminton.Stick_Figures
 			jumpBtn = Buttons.A;
 			rightBtn = Buttons.LeftThumbstickRight;
 			leftBtn = Buttons.LeftThumbstickLeft;
-			crouchBtn = Buttons.LeftShoulder;
-			punchBtn = Buttons.RightTrigger;
+			crouchBtn = Buttons.LeftTrigger;
+			punchBtn = Buttons.X;
 
 			if (player == PlayerIndex.One)
 			{
@@ -92,7 +92,7 @@ namespace Badminton.Stick_Figures
 				if (!punchPressed)
 				{
 					punchPressed = true;
-					Punch((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Right.Y, GamePad.GetState(player).ThumbSticks.Right.X));
+					Punch((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X));
 				}
 			}
 			else

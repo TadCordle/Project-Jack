@@ -44,3 +44,9 @@ C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing -
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing - Copy\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Badminton.pdb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\obj\x86\Debug\Badminton.exe
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb

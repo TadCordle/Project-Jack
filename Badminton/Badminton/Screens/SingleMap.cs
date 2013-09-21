@@ -56,6 +56,8 @@ namespace Badminton.Screens
 
 		public void Draw(SpriteBatch sb)
 		{
+			sb.Draw(MainGame.tex_bg, new Rectangle(0, 0, 1920, 1080), Color.White);
+
 			testFigure1.Draw(sb);
 			testFigure2.Draw(sb);
 

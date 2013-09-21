@@ -46,6 +46,60 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb</Output>
       <Time>2013-06-06T00:26:34.5888724-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\force wave.png</Source>
+      <Name>textures\force wave</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb</Output>
+      <Time>2013-09-21T16:02:16.6573108-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Punch1.wav</Source>
+      <Name>sfx\Punch1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb</Output>
+      <Time>2013-09-21T16:18:11.5114086-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Punch2.wav</Source>
+      <Name>sfx\Punch2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb</Output>
+      <Time>2013-09-21T16:18:19.1814193-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Thwap.wav</Source>
+      <Name>sfx\Thwap</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb</Output>
+      <Time>2013-09-21T16:18:26.6614298-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Whoosh.wav</Source>
+      <Name>sfx\Whoosh</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb</Output>
+      <Time>2013-09-21T16:18:30.1014346-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\background.jpg</Source>
+      <Name>textures\background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb</Output>
+      <Time>2013-09-21T17:00:32-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
