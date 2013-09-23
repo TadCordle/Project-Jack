@@ -22,15 +22,15 @@ namespace Badminton.Stick_Figures
 
 		private Keys jumpKey, rightKey, leftKey, crouchKey, punchKey;
 		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn;
-		private bool punchPressed;
+		private bool punchPressed, lastFacedLeft;
 
 		public LocalPlayer(World world, Vector2 position, Category collisionCat, Color color, PlayerIndex player)
 			: base(world, position, collisionCat, color)
 		{
 			this.player = player;
-
+            //hascontroller = GamePad.GetState(player).IsConnected;
 			punchPressed = true;
-
+            lastFacedLeft = true;
 			jumpBtn = Buttons.A;
 			rightBtn = Buttons.LeftThumbstickRight;
 			leftBtn = Buttons.LeftThumbstickLeft;
@@ -50,8 +50,8 @@ namespace Badminton.Stick_Figures
 				jumpKey = Keys.Up;
 				rightKey = Keys.Right;
 				leftKey = Keys.Left;
-				crouchKey = Keys.RightControl;
-				punchKey = Keys.G;
+				crouchKey = Keys.Down;
+				punchKey = Keys.RightControl;
 			}
 		}
 
@@ -69,11 +69,15 @@ namespace Badminton.Stick_Figures
 			{
 				WalkRight();
 				stand = false;
+                lastFacedLeft = false;
 			}
+
+
 			else if (Keyboard.GetState().IsKeyDown(leftKey) || GamePad.GetState(player).IsButtonDown(leftBtn))
 			{
 				WalkLeft();
 				stand = false;
+                lastFacedLeft = true;
 			}
 
 			if (Keyboard.GetState().IsKeyDown(crouchKey) || GamePad.GetState(player).IsButtonDown(crouchBtn))
@@ -89,11 +93,23 @@ namespace Badminton.Stick_Figures
 
 			if (Keyboard.GetState().IsKeyDown(punchKey) || GamePad.GetState(player).IsButtonDown(punchBtn))
 			{
-				if (!punchPressed)
-				{
-					punchPressed = true;
-					Punch((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X));
-				}
+                if (!punchPressed && (lastFacedLeft || Keyboard.GetState().IsKeyDown(leftKey)))
+                {
+                    punchPressed = true;
+                    Punch((float)Math.PI);
+                }
+
+                else if (!punchPressed && (!lastFacedLeft || Keyboard.GetState().IsKeyDown(rightKey)))
+                {
+                    punchPressed = true;
+                    Punch((float)0);
+                }
+
+                else if (!punchPressed)
+                {
+                    punchPressed = true;
+                    Punch((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X));
+                }
 			}
 			else
 				punchPressed = false;
