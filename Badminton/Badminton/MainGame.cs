@@ -41,6 +41,7 @@ namespace Badminton
 
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh;
+		public static Song music;
 
 		private bool escapePressed;
 
@@ -94,6 +95,9 @@ namespace Badminton
 				Content.Load<SoundEffect>("sfx/Punch2"),
 				Content.Load<SoundEffect>("sfx/Thwap") };
 			sfx_whoosh = Content.Load<SoundEffect>("sfx/Whoosh");
+			music = Content.Load<Song>("music");
+			MediaPlayer.IsRepeating = true;
+			MediaPlayer.Play(music);
 
 			currentScreen = new Screens.SingleMap();
 		}

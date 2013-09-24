@@ -37,8 +37,8 @@ namespace Badminton.Screens
 
 			walls = new List<Wall>();
 			walls.Add(new Wall(world, 960 * MainGame.PIXEL_TO_METER, 1040 * MainGame.PIXEL_TO_METER, 1200 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 0.0f));
-			walls.Add(new Wall(world, 360 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
-			walls.Add(new Wall(world, 1560 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
+//			walls.Add(new Wall(world, 360 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
+//			walls.Add(new Wall(world, 1560 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
 		}
 
 		public GameScreen Update(GameTime gameTime)
@@ -53,7 +53,7 @@ namespace Badminton.Screens
 
 		public GameScreen Exit()
 		{
-			return new MainMenu(); // Change this to show confirmation dialog later
+			return null; //new MainMenu(); // Change this to show confirmation dialog later
 		}
 
 		public void Draw(SpriteBatch sb)

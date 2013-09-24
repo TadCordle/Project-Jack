@@ -145,7 +145,7 @@ namespace Badminton.Stick_Figures
 
 		public override void Draw(SpriteBatch sb)
 		{
-			sb.DrawString(MainGame.fnt_basicFont, (Math.Atan2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.Y, GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X) - MathHelper.PiOver2).ToString(), Vector2.One * 64, Color.Black);
+//			sb.DrawString(MainGame.fnt_basicFont, (Math.Atan2(GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.Y, GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X) - MathHelper.PiOver2).ToString(), Vector2.One * 64, Color.Black);
 
 			base.Draw(sb);
 		}
