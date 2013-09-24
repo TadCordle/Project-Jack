@@ -27,7 +27,7 @@ namespace Badminton
 			body.Position = position;
 			body.BodyType = BodyType.Dynamic;
 			body.LinearVelocity = power;
-			this.collisionCat = (collisionCat == Category.Cat1 ? Category.Cat11 : Category.Cat12);
+			this.collisionCat = collisionCat;
 			body.CollisionCategories = collisionCat;
 			body.UserData = this;
 

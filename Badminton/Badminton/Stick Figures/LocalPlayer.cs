@@ -20,7 +20,7 @@ namespace Badminton.Stick_Figures
 	{
 		private PlayerIndex player;
 
-		private Keys jumpKey, rightKey, leftKey, crouchKey, punchKey;
+		private Keys upKey, rightKey, leftKey, downKey, punchKey;
 		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn;
 		private bool punchPressed, lastFacedLeft;
 
@@ -39,18 +39,18 @@ namespace Badminton.Stick_Figures
 
 			if (player == PlayerIndex.One)
 			{
-				jumpKey = Keys.W;
+				upKey = Keys.W;
 				rightKey = Keys.D;
 				leftKey = Keys.A;
-				crouchKey = Keys.LeftControl;
+				downKey = Keys.S;
 				punchKey = Keys.G;
 			}
 			else if (player == PlayerIndex.Two)
 			{
-				jumpKey = Keys.Up;
+				upKey = Keys.Up;
 				rightKey = Keys.Right;
 				leftKey = Keys.Left;
-				crouchKey = Keys.Down;
+				downKey = Keys.Down;
 				punchKey = Keys.RightControl;
 			}
 		}
@@ -59,7 +59,7 @@ namespace Badminton.Stick_Figures
 		{
 			bool stand = true;
 
-			if (Keyboard.GetState().IsKeyDown(jumpKey) || GamePad.GetState(player).IsButtonDown(jumpBtn))
+			if (Keyboard.GetState().IsKeyDown(upKey) || GamePad.GetState(player).IsButtonDown(jumpBtn))
 			{
 				Jump();
 				stand = false;
@@ -80,9 +80,9 @@ namespace Badminton.Stick_Figures
                 lastFacedLeft = true;
 			}
 
-			if (Keyboard.GetState().IsKeyDown(crouchKey) || GamePad.GetState(player).IsButtonDown(crouchBtn))
+			if (Keyboard.GetState().IsKeyDown(downKey) || GamePad.GetState(player).IsButtonDown(crouchBtn))
 			{
-				if (!Keyboard.GetState().IsKeyDown(jumpKey) && !GamePad.GetState(player).IsButtonDown(jumpBtn))
+				if (!Keyboard.GetState().IsKeyDown(upKey) && !GamePad.GetState(player).IsButtonDown(jumpBtn))
 				{
 					Crouching = true;
 					stand = false;
@@ -91,28 +91,51 @@ namespace Badminton.Stick_Figures
 			else
 				Crouching = false;
 
-			if (Keyboard.GetState().IsKeyDown(punchKey) || GamePad.GetState(player).IsButtonDown(punchBtn))
+			if (Keyboard.GetState().IsKeyDown(punchKey))
 			{
-                if (!punchPressed && (lastFacedLeft || Keyboard.GetState().IsKeyDown(leftKey)))
-                {
-                    punchPressed = true;
-                    Punch((float)Math.PI);
-                }
+				if (!punchPressed)
+				{
+					Vector2 direction = Vector2.Zero;
 
-                else if (!punchPressed && (!lastFacedLeft || Keyboard.GetState().IsKeyDown(rightKey)))
-                {
-                    punchPressed = true;
-                    Punch((float)0);
-                }
+					if (Keyboard.GetState().IsKeyDown(upKey))
+						direction += Vector2.UnitY;
+					
+					if (Keyboard.GetState().IsKeyDown(downKey))
+						direction -= Vector2.UnitY;
 
-                else if (!punchPressed)
+					if (Keyboard.GetState().IsKeyDown(leftKey))
+					{
+						punchPressed = true;
+						direction -= Vector2.UnitX;
+					}
+					else if (Keyboard.GetState().IsKeyDown(rightKey))
+					{
+						punchPressed = true;
+						direction += Vector2.UnitX;
+					}
+
+					if (direction.Length() == 0)
+					{
+						if (lastFacedLeft)
+							direction = -Vector2.UnitX;
+						else
+							direction = Vector2.UnitX;
+					}
+
+					Punch((float)Math.Atan2(direction.Y, direction.X));
+				}
+			}
+			else
+				punchPressed = false;
+
+			if (GamePad.GetState(player).IsButtonDown(punchBtn))
+			{
+				if (!punchPressed)
                 {
                     punchPressed = true;
                     Punch((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X));
                 }
 			}
-			else
-				punchPressed = false;
 
 			if (stand)
 				Stand();
