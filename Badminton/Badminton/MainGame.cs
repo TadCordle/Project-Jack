@@ -97,7 +97,7 @@ namespace Badminton
 			sfx_whoosh = Content.Load<SoundEffect>("sfx/Whoosh");
 			music = Content.Load<Song>("music");
 			MediaPlayer.IsRepeating = true;
-			MediaPlayer.Play(music);
+//			MediaPlayer.Play(music);
 
 			currentScreen = new Screens.SingleMap();
 		}

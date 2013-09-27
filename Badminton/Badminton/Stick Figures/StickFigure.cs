@@ -30,7 +30,7 @@ namespace Badminton.Stick_Figures
 		public Dictionary<Body, float> health;
 		private float maxImpulse;
 
-		private List<ForceWave> punches;
+		private List<ForceWave> normalAttacks;
 
 		// Position properties
 		/// <summary>
@@ -71,9 +71,9 @@ namespace Badminton.Stick_Figures
 		private int walkStage;
 
 		private float attackAngle;
-		private bool punching;
-		private bool punchArm; // true=left, false=right
-		private int punchStage;
+		private bool punching, kicking;
+		private bool punchArm, kickLeg; // true=left, false=right
+		private int punchStage, kickStage;
 
 		// Other
 		private Color color;
@@ -101,10 +101,10 @@ namespace Badminton.Stick_Figures
 			walkStage = 0;
 
 			attackAngle = 0f;
-			punching = false;
-			punchArm = false;
-			punchStage = -1;
-			punches = new List<ForceWave>();
+			punching = kicking = false;
+			punchArm = kickLeg = false;
+			punchStage = kickStage = -1;
+			normalAttacks = new List<ForceWave>();
 
 			groundCheck = 0;
 			this.collisionCat = collisionCat;
@@ -337,12 +337,18 @@ namespace Badminton.Stick_Figures
 			Crouching = false;
 			upright.TargetAngle = 0.0f;
 			walkStage = 0;
-			leftHip.TargetAngle = 3 * MathHelper.PiOver4;
-			leftKnee.TargetAngle = -5 * MathHelper.PiOver4;
-			rightHip.TargetAngle = -3 * MathHelper.PiOver4;
-			rightKnee.TargetAngle = -3 * MathHelper.PiOver4;
-			leftLowerLeg.Friction = 0f;
-			rightLowerLeg.Friction = 0f;
+			if (!kicking || kicking && !kickLeg)
+			{
+				leftHip.TargetAngle = 3 * MathHelper.PiOver4;
+				leftKnee.TargetAngle = -5 * MathHelper.PiOver4;
+				leftLowerLeg.Friction = 0f;
+			}
+			if (!kicking || kicking && kickLeg)
+			{
+				rightHip.TargetAngle = -3 * MathHelper.PiOver4;
+				rightKnee.TargetAngle = -3 * MathHelper.PiOver4;
+				rightLowerLeg.Friction = 0f;
+			}
 			AngleJoint[] checkThese = new AngleJoint[] { leftHip, leftKnee, rightHip, rightKnee };
 			if (JointsAreInPosition(checkThese))
 			{
@@ -357,6 +363,9 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void WalkRight()
 		{
+			if (kicking)
+				return;
+
 			upright.TargetAngle = -0.1f;
 			if (torso.LinearVelocity.X < (onGround ? 4 : 3) && !(Crouching && onGround))
 				torso.ApplyForce(new Vector2(150, 0) * maxImpulse); // Change limb dependency
@@ -413,6 +422,8 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void WalkLeft()
 		{
+			if (kicking)
+				return;
 			upright.TargetAngle = 0.1f;
 			if (torso.LinearVelocity.X > (onGround ? -4 : -3))
 				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse); // Change limb dependency
@@ -469,10 +480,16 @@ namespace Badminton.Stick_Figures
 		public void Jump()
 		{
 			upright.TargetAngle = 0.0f;
-			leftHip.TargetAngle = MathHelper.Pi;
-			leftKnee.TargetAngle = -MathHelper.Pi;
-			rightHip.TargetAngle = -MathHelper.Pi;
-			rightKnee.TargetAngle = -MathHelper.Pi;
+			if (!kicking || kicking && !kickLeg)
+			{
+				leftHip.TargetAngle = MathHelper.Pi;
+				leftKnee.TargetAngle = -MathHelper.Pi;
+			}
+			if (!kicking || kicking && kickLeg)
+			{
+				rightHip.TargetAngle = -MathHelper.Pi;
+				rightKnee.TargetAngle = -MathHelper.Pi;
+			}
 			if (onGround)
 			{
 				leftLowerLeg.Friction = 100.0f;
@@ -487,21 +504,39 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void Crouch()
 		{
-			leftLowerLeg.Friction = 3f;
-			rightLowerLeg.Friction = 3f;
 			upright.TargetAngle = 0.0f;
-			leftHip.TargetAngle = MathHelper.PiOver4;
-			leftKnee.TargetAngle = -7 * MathHelper.PiOver4;
-			rightHip.TargetAngle = -MathHelper.PiOver4;
-			rightKnee.TargetAngle = -MathHelper.PiOver4;
+			if (!kicking || kicking && !kickLeg)
+			{
+				leftLowerLeg.Friction = 3f;
+				leftHip.TargetAngle = MathHelper.PiOver4;
+				leftKnee.TargetAngle = -7 * MathHelper.PiOver4;
+			}
+			if (!kicking || kicking && kickLeg)
+			{
+				rightLowerLeg.Friction = 3f;
+				rightHip.TargetAngle = -MathHelper.PiOver4;
+				rightKnee.TargetAngle = -MathHelper.PiOver4;
+			}
 		}
 
 		/// <summary>
 		/// Punches
 		/// </summary>
+		/// <param name="angle">The angle at which to punch</param>
 		public void Punch(float angle)
 		{
 			punching = true;
+			attackAngle = angle;
+		}
+
+		/// <summary>
+		/// Kicks
+		/// </summary>
+		/// <param name="angle">The angle at which to kick</param>
+		public void Kick(float angle)
+		{
+			kicking = true;
+			kickLeg = angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2;
 			attackAngle = angle;
 		}
 
@@ -536,9 +571,11 @@ namespace Badminton.Stick_Figures
 			}*/
 
 			UpdateArms();
+			if (kicking)
+				UpdateKicks();
 
 			List<ForceWave> toRemove = new List<ForceWave>();
-			foreach (ForceWave f in punches)
+			foreach (ForceWave f in normalAttacks)
 			{
 				f.Update();
 				if (f.body.UserData == null)
@@ -548,7 +585,7 @@ namespace Badminton.Stick_Figures
 			{
 				if (world.BodyList.Contains(f.body))
 					world.RemoveBody(f.body);
-				punches.Remove(f);
+				normalAttacks.Remove(f);
 			}
 
 			UpdateLimbStrength();
@@ -611,7 +648,7 @@ namespace Badminton.Stick_Figures
 							leftElbow.TargetAngle = MathHelper.PiOver4;
 							leftShoulder.MaxImpulse = maxImpulse;
 							leftElbow.MaxImpulse = maxImpulse;
-							punches.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							normalAttacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						else
 						{
@@ -619,7 +656,7 @@ namespace Badminton.Stick_Figures
 							rightElbow.TargetAngle = -MathHelper.PiOver4;
 							rightShoulder.MaxImpulse = maxImpulse;
 							rightElbow.MaxImpulse = maxImpulse;
-							punches.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							normalAttacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						punchStage = 1;
 					}
@@ -632,6 +669,70 @@ namespace Badminton.Stick_Figures
 						punching = false;
 						punchStage = -1;
 					}
+				}
+			}
+		}
+
+		/// <summary>
+		/// Updates the kick animation
+		/// </summary>
+		private void UpdateKicks()
+		{
+			AngleJoint[] checkThese = new AngleJoint[] { (kickLeg ? leftHip : rightHip) };
+			if (kickStage == -1)
+			{
+				this.walkStage = 0;
+				leftLowerLeg.Friction = 0f;
+				rightLowerLeg.Friction = 0f;
+				MainGame.sfx_whoosh.Play();
+				kickStage = 0;
+				float angle = attackAngle - MathHelper.PiOver2;
+				if (kickLeg)
+				{
+					leftHip.TargetAngle = GetLegTargetAngle(angle, kickLeg);
+					leftKnee.TargetAngle = -MathHelper.Pi;
+					leftHip.MaxImpulse = 1000f;
+					leftKnee.MaxImpulse = 1000f;
+				}
+				else
+				{
+					rightHip.TargetAngle = GetLegTargetAngle(angle, kickLeg);
+					rightKnee.TargetAngle = -MathHelper.Pi;
+					rightHip.MaxImpulse = 1000f;
+					rightKnee.MaxImpulse = 1000f;
+				}
+			}
+			else if (kickStage == 0)
+			{
+				if (JointsAreInPosition(checkThese))
+				{
+					float angle = attackAngle - MathHelper.PiOver2;
+					if (kickLeg)
+					{
+						leftHip.TargetAngle = 3 * MathHelper.PiOver4;
+						leftKnee.TargetAngle = -3 * MathHelper.PiOver4;
+						leftHip.MaxImpulse = maxImpulse;
+						leftKnee.MaxImpulse = maxImpulse;
+						normalAttacks.Add(new ForceWave(world, leftLowerLeg.Position, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+					}
+					else
+					{
+						rightHip.TargetAngle = -3 * MathHelper.PiOver4;
+						rightKnee.TargetAngle = -MathHelper.PiOver4;
+						rightHip.MaxImpulse = maxImpulse;
+						rightKnee.MaxImpulse = maxImpulse;
+						normalAttacks.Add(new ForceWave(world, rightLowerLeg.Position, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+					}
+					kickStage = 1;
+				}
+			}
+			else if (kickStage == 1)
+			{
+				if (JointsAreInPosition(checkThese))
+				{
+					kickLeg = !kickLeg;
+					kicking = false;
+					kickStage = -1;
 				}
 			}
 		}
@@ -779,6 +880,12 @@ namespace Badminton.Stick_Figures
 			return physAngle;
 		}
 
+		/// <summary>
+		/// Takes an angle and converts it to an angle suitable for punching
+		/// </summary>
+		/// <param name="physAngle">The original angle</param>
+		/// <param name="leftArm">Which arm is doing the punching</param>
+		/// <returns></returns>
 		private float GetArmTargetAngle(float physAngle, bool leftArm)
 		{
 			if (leftArm)
@@ -795,6 +902,25 @@ namespace Badminton.Stick_Figures
 				else
 					return physAngle;
 			}
+		}
+
+		/// <summary>
+		/// Takes an angle and converts it to an angle suitable for kicking
+		/// </summary>
+		/// <param name="physAngle">The original angle</param>
+		/// <param name="leftLeg">Which leg is kicking</param>
+		/// <returns></returns>
+		private float GetLegTargetAngle(float physAngle, bool leftLeg)
+		{
+			if (leftLeg)
+			{
+				if (physAngle > 0)
+					return physAngle;
+				else
+					return physAngle + MathHelper.TwoPi;
+			}
+			else
+				return physAngle;
 		}
 
 		#endregion
@@ -829,10 +955,11 @@ namespace Badminton.Stick_Figures
 			c = Blend(color, deathColor, health[head]);
 			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
 
-			foreach (ForceWave f in punches)
+			foreach (ForceWave f in normalAttacks)
 				f.Draw(sb, this.color);
 
 			// Debug
+			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
 //			sb.DrawString(MainGame.fnt_basicFont, "L", LeftHandPosition * MainGame.METER_TO_PIXEL, Color.Blue);
 //			sb.DrawString(MainGame.fnt_basicFont, "R", RightHandPosition * MainGame.METER_TO_PIXEL, Color.Lime);
 //			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);
