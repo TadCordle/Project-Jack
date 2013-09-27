@@ -166,7 +166,7 @@ namespace Badminton.Stick_Figures
 			leftUpperArm.Position = torso.Position + new Vector2(-7.5f, -15) * MainGame.PIXEL_TO_METER;
 			leftUpperArm.BodyType = BodyType.Dynamic;
 			leftUpperArm.CollisionCategories = collisionCat;
-			leftUpperArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
+			leftUpperArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(leftUpperArm, 1.0f);
 
 			rightUpperArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -174,7 +174,7 @@ namespace Badminton.Stick_Figures
 			rightUpperArm.Position = torso.Position + new Vector2(7.5f, -15) * MainGame.PIXEL_TO_METER;
 			rightUpperArm.BodyType = BodyType.Dynamic;
 			rightUpperArm.CollisionCategories = collisionCat;
-			rightUpperArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
+			rightUpperArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(rightUpperArm, 1.0f);
 
 			leftLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -182,7 +182,7 @@ namespace Badminton.Stick_Figures
 			leftLowerArm.Position = torso.Position + new Vector2(-22.5f, -15) * MainGame.PIXEL_TO_METER;
 			leftLowerArm.BodyType = BodyType.Dynamic;
 			leftLowerArm.CollisionCategories = collisionCat;
-			leftLowerArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
+			leftLowerArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(leftLowerArm, 1.0f);
 
 			rightLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
@@ -190,7 +190,7 @@ namespace Badminton.Stick_Figures
 			rightLowerArm.Position = torso.Position + new Vector2(22.5f, -15) * MainGame.PIXEL_TO_METER;
 			rightLowerArm.BodyType = BodyType.Dynamic;
 			rightLowerArm.CollisionCategories = collisionCat;
-			rightLowerArm.CollidesWith = Category.Cat31 | (collisionCat == Category.Cat1 ? Category.Cat12 : Category.Cat11);
+			rightLowerArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(rightLowerArm, 1.0f);
 
 			leftUpperLeg = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 5f);
@@ -609,8 +609,8 @@ namespace Badminton.Stick_Figures
 		{
 			if (!punching)
 			{
-				leftShoulder.TargetAngle = 3 * MathHelper.PiOver4; //FindClosestAngle(3 * MathHelper.PiOver4, torso.Rotation, leftShoulder.TargetAngle);
-				rightShoulder.TargetAngle = -3 * MathHelper.PiOver4; //FindClosestAngle(-3 * MathHelper.PiOver4, torso.Rotation, rightShoulder.TargetAngle);
+				leftShoulder.TargetAngle = 3 * MathHelper.PiOver4;
+				rightShoulder.TargetAngle = -3 * MathHelper.PiOver4;
 				leftElbow.TargetAngle = MathHelper.PiOver4;
 				rightElbow.TargetAngle = -MathHelper.PiOver4;
 			}
@@ -628,6 +628,8 @@ namespace Badminton.Stick_Figures
 						leftElbow.TargetAngle = 0f;
 						leftShoulder.MaxImpulse = 1000f;
 						leftElbow.MaxImpulse = 1000f;
+						leftUpperArm.CollidesWith = Category.Cat31;
+						leftLowerArm.CollidesWith = Category.Cat31;
 					}
 					else
 					{
@@ -635,6 +637,8 @@ namespace Badminton.Stick_Figures
 						rightElbow.TargetAngle = 0f;
 						rightShoulder.MaxImpulse = 1000f;
 						rightElbow.MaxImpulse = 1000f;
+						rightUpperArm.CollidesWith = Category.Cat31;
+						rightLowerArm.CollidesWith = Category.Cat31;
 					}
 				}
 				else if (punchStage == 0)
@@ -668,6 +672,10 @@ namespace Badminton.Stick_Figures
 						punchArm = !punchArm;
 						punching = false;
 						punchStage = -1;
+						leftUpperArm.CollidesWith = Category.All & ~this.collisionCat;
+						leftLowerArm.CollidesWith = Category.All & ~this.collisionCat;
+						rightUpperArm.CollidesWith = Category.All & ~this.collisionCat;
+						rightLowerArm.CollidesWith = Category.All & ~this.collisionCat;
 					}
 				}
 			}
@@ -693,6 +701,8 @@ namespace Badminton.Stick_Figures
 					leftKnee.TargetAngle = -MathHelper.Pi;
 					leftHip.MaxImpulse = 1000f;
 					leftKnee.MaxImpulse = 1000f;
+					leftLowerLeg.CollidesWith = Category.Cat31;
+					leftUpperLeg.CollidesWith = Category.Cat31;
 				}
 				else
 				{
@@ -700,6 +710,8 @@ namespace Badminton.Stick_Figures
 					rightKnee.TargetAngle = -MathHelper.Pi;
 					rightHip.MaxImpulse = 1000f;
 					rightKnee.MaxImpulse = 1000f;
+					rightLowerLeg.CollidesWith = Category.Cat31;
+					rightUpperLeg.CollidesWith = Category.Cat31;
 				}
 			}
 			else if (kickStage == 0)
@@ -733,6 +745,10 @@ namespace Badminton.Stick_Figures
 					kickLeg = !kickLeg;
 					kicking = false;
 					kickStage = -1;
+					leftLowerLeg.CollidesWith = Category.All & ~this.collisionCat;
+					leftUpperLeg.CollidesWith = Category.All & ~this.collisionCat;
+					rightLowerLeg.CollidesWith = Category.All & ~this.collisionCat;
+					rightUpperLeg.CollidesWith = Category.All & ~this.collisionCat;
 				}
 			}
 		}
