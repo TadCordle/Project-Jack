@@ -975,7 +975,7 @@ namespace Badminton.Stick_Figures
 				f.Draw(sb, this.color);
 
 			// Debug
-			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
+//			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
 //			sb.DrawString(MainGame.fnt_basicFont, "L", LeftHandPosition * MainGame.METER_TO_PIXEL, Color.Blue);
 //			sb.DrawString(MainGame.fnt_basicFont, "R", RightHandPosition * MainGame.METER_TO_PIXEL, Color.Lime);
 //			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);

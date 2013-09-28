@@ -22,15 +22,15 @@ namespace Badminton.Stick_Figures
 
 		private Keys upKey, rightKey, leftKey, downKey, punchKey, kickKey;
 		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn;
-		private bool punchPressed, kickPressed, lastFacedLeft;
+		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed, lastFacedLeft;
 
 		public LocalPlayer(World world, Vector2 position, Category collisionCat, Color color, PlayerIndex player)
 			: base(world, position, collisionCat, color)
 		{
 			this.player = player;
             //hascontroller = GamePad.GetState(player).IsConnected;
-			punchPressed = true;
-			kickPressed = true;
+			punchBtnPressed = punchKeyPressed = true;
+			kickBtnPressed = kickKeyPressed = true;
             lastFacedLeft = true;
 			jumpBtn = Buttons.A;
 			rightBtn = Buttons.LeftThumbstickRight;
@@ -63,20 +63,20 @@ namespace Badminton.Stick_Figures
 		{
 			bool stand = true;
 
+			// Jump
 			if (Keyboard.GetState().IsKeyDown(upKey) || GamePad.GetState(player).IsButtonDown(jumpBtn))
 			{
 				Jump();
 				stand = false;
 			}
 
+			// Walk
 			if (Keyboard.GetState().IsKeyDown(rightKey) || GamePad.GetState(player).IsButtonDown(rightBtn))
 			{
 				WalkRight();
 				stand = false;
                 lastFacedLeft = false;
 			}
-
-
 			else if (Keyboard.GetState().IsKeyDown(leftKey) || GamePad.GetState(player).IsButtonDown(leftBtn))
 			{
 				WalkLeft();
@@ -84,6 +84,7 @@ namespace Badminton.Stick_Figures
                 lastFacedLeft = true;
 			}
 
+			// Crouch
 			if (Keyboard.GetState().IsKeyDown(downKey) || GamePad.GetState(player).IsButtonDown(crouchBtn))
 			{
 				if (!Keyboard.GetState().IsKeyDown(upKey) && !GamePad.GetState(player).IsButtonDown(jumpBtn))
@@ -95,28 +96,21 @@ namespace Badminton.Stick_Figures
 			else
 				Crouching = false;
 
+			// Punch
 			if (Keyboard.GetState().IsKeyDown(punchKey))
 			{
-				if (!punchPressed)
+				if (!punchKeyPressed)
 				{
 					Vector2 direction = Vector2.Zero;
 
 					if (Keyboard.GetState().IsKeyDown(upKey))
 						direction += Vector2.UnitY;
-					
 					if (Keyboard.GetState().IsKeyDown(downKey))
 						direction -= Vector2.UnitY;
-
 					if (Keyboard.GetState().IsKeyDown(leftKey))
-					{
-						punchPressed = true;
 						direction -= Vector2.UnitX;
-					}
-					else if (Keyboard.GetState().IsKeyDown(rightKey))
-					{
-						punchPressed = true;
+					if (Keyboard.GetState().IsKeyDown(rightKey))
 						direction += Vector2.UnitX;
-					}
 
 					if (direction.Length() == 0)
 					{
@@ -126,33 +120,74 @@ namespace Badminton.Stick_Figures
 							direction = Vector2.UnitX;
 					}
 
+					punchKeyPressed = true;
 					Punch((float)Math.Atan2(direction.Y, direction.X));
 				}
 			}
 			else
-				punchPressed = false;
+				punchKeyPressed = false;
 
 			if (GamePad.GetState(player).IsButtonDown(punchBtn))
 			{
-				if (!punchPressed)
+				if (!punchBtnPressed)
 				{
-					punchPressed = true;
-					Punch((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X));
+					punchBtnPressed = true;
+					float angle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X);
+					if (angle == 0)
+					{
+						if (lastFacedLeft)
+							Punch(MathHelper.Pi);
+						else
+							Punch(0);
+					}
+					else
+						Punch(angle);
 				}
 			}
 			else
-				punchPressed = false;
+				punchBtnPressed = false;
+
+			// Kick
+			if (Keyboard.GetState().IsKeyDown(kickKey))
+			{
+				if (!kickKeyPressed)
+				{
+					Vector2 direction = Vector2.Zero;
+
+					if (Keyboard.GetState().IsKeyDown(upKey))
+						direction += Vector2.UnitY;
+					if (Keyboard.GetState().IsKeyDown(downKey))
+						direction -= Vector2.UnitY;
+					if (Keyboard.GetState().IsKeyDown(leftKey))
+						direction -= Vector2.UnitX;
+					if (Keyboard.GetState().IsKeyDown(rightKey))
+						direction += Vector2.UnitX;
+
+					if (direction.Length() == 0)
+					{
+						if (lastFacedLeft)
+							direction = -Vector2.UnitX;
+						else
+							direction = Vector2.UnitX;
+					}
+
+					kickKeyPressed = true;
+					Kick((float)Math.Atan2(direction.Y, direction.X));
+				}
+			}
+			else
+				kickKeyPressed = false;
 
 			if (GamePad.GetState(player).IsButtonDown(kickBtn))
 			{
-				if (!kickPressed)
+				if (!kickBtnPressed)
 				{
-					kickPressed = true;
+					kickBtnPressed = true;
 					Kick((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X));
 				}
 			}
 			else
-				kickPressed = false;
+				kickBtnPressed = false;
 
 			if (stand)
 				Stand();
@@ -162,6 +197,8 @@ namespace Badminton.Stick_Figures
 
 		public override void Draw(SpriteBatch sb)
 		{
+			sb.DrawString(MainGame.fnt_basicFont, Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X).ToString(), Vector2.Zero, Color.White);
+
 			base.Draw(sb);
 		}
 	}
