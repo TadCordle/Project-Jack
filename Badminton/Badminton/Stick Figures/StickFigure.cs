@@ -65,6 +65,34 @@ namespace Badminton.Stick_Figures
 					return -Vector2.One;
 			}
 		}
+
+		/// <summary>
+		/// The left foot's position
+		/// </summary>
+		public Vector2 LeftFootPosition
+		{
+			get
+			{
+				if (health[leftLowerLeg] > 0)
+					return leftLowerLeg.Position - new Vector2((float)Math.Sin(leftLowerLeg.Rotation), -(float)Math.Cos(leftLowerLeg.Rotation)) * 7.5f * scale * MainGame.PIXEL_TO_METER;
+				else
+					return -Vector2.One;
+			}
+		}
+
+		/// <summary>
+		/// The right foot's position
+		/// </summary>
+		public Vector2 RightFootPosition
+		{
+			get
+			{
+				if (health[rightLowerLeg] > 0)
+					return rightLowerLeg.Position - new Vector2((float)Math.Sin(rightLowerLeg.Rotation), -(float)Math.Cos(rightLowerLeg.Rotation)) * 7.5f * scale * MainGame.PIXEL_TO_METER;
+				else
+					return -Vector2.One;
+			}
+		}
 		
 		// Action flags
 		public bool Crouching { get; set; }
@@ -727,7 +755,7 @@ namespace Badminton.Stick_Figures
 						leftKnee.TargetAngle = -3 * MathHelper.PiOver4;
 						leftHip.MaxImpulse = maxImpulse * scale;
 						leftKnee.MaxImpulse = maxImpulse * scale;
-						normalAttacks.Add(new ForceWave(world, leftLowerLeg.Position, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+						normalAttacks.Add(new ForceWave(world, LeftFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 					}
 					else
 					{
@@ -735,7 +763,7 @@ namespace Badminton.Stick_Figures
 						rightKnee.TargetAngle = -MathHelper.PiOver4;
 						rightHip.MaxImpulse = maxImpulse * scale;
 						rightKnee.MaxImpulse = maxImpulse * scale;
-						normalAttacks.Add(new ForceWave(world, rightLowerLeg.Position, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+						normalAttacks.Add(new ForceWave(world, RightFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 					}
 					kickStage = 1;
 				}
@@ -978,8 +1006,8 @@ namespace Badminton.Stick_Figures
 
 			// Debug
 //			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
-//			sb.DrawString(MainGame.fnt_basicFont, "L", LeftHandPosition * MainGame.METER_TO_PIXEL, Color.Blue);
-//			sb.DrawString(MainGame.fnt_basicFont, "R", RightHandPosition * MainGame.METER_TO_PIXEL, Color.Lime);
+//			sb.DrawString(MainGame.fnt_basicFont, "L", LeftFootPosition * MainGame.METER_TO_PIXEL, Color.Blue);
+//			sb.DrawString(MainGame.fnt_basicFont, "R", RightFootPosition * MainGame.METER_TO_PIXEL, Color.Lime);
 //			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);
 		}
 
