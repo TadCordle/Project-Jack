@@ -24,8 +24,8 @@ namespace Badminton.Stick_Figures
 		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn;
 		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed, lastFacedLeft;
 
-		public LocalPlayer(World world, Vector2 position, Category collisionCat, Color color, PlayerIndex player)
-			: base(world, position, collisionCat, color)
+		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, Color color, PlayerIndex player)
+			: base(world, position, collisionCat, scale, color)
 		{
 			this.player = player;
             //hascontroller = GamePad.GetState(player).IsConnected;

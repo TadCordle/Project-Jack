@@ -46,7 +46,7 @@ namespace Badminton.Stick_Figures
 			get
 			{
 				if (health[leftLowerArm] > 0)
-					return leftLowerArm.Position + new Vector2((float)Math.Sin(leftLowerArm.Rotation), -(float)Math.Cos(leftLowerArm.Rotation)) * 7.5f * MainGame.PIXEL_TO_METER;
+					return leftLowerArm.Position + new Vector2((float)Math.Sin(leftLowerArm.Rotation), -(float)Math.Cos(leftLowerArm.Rotation)) * 7.5f * scale * MainGame.PIXEL_TO_METER;
 				else
 					return -Vector2.One;
 			}
@@ -60,7 +60,7 @@ namespace Badminton.Stick_Figures
 			get
 			{
 				if (health[rightLowerArm] > 0)
-					return rightLowerArm.Position + new Vector2((float)Math.Sin(rightLowerArm.Rotation), -(float)Math.Cos(rightLowerArm.Rotation)) * 7.5f * MainGame.PIXEL_TO_METER;
+					return rightLowerArm.Position + new Vector2((float)Math.Sin(rightLowerArm.Rotation), -(float)Math.Cos(rightLowerArm.Rotation)) * 7.5f * scale * MainGame.PIXEL_TO_METER;
 				else
 					return -Vector2.One;
 			}
@@ -76,6 +76,7 @@ namespace Badminton.Stick_Figures
 		private int punchStage, kickStage;
 
 		// Other
+		private float scale;
 		private Color color;
 		private bool onGround;
 		private int groundCheck;
@@ -90,13 +91,14 @@ namespace Badminton.Stick_Figures
 		/// <param name="position">The position to place the center of the stick figure's torso</param>
 		/// <param name="collisionCat">The collision category of the figure. Different players will have different collision categories.</param>
 		/// <param name="c">The color of the stick figure</param>
-		public StickFigure(World world, Vector2 position, Category collisionCat, Color c)
+		public StickFigure(World world, Vector2 position, Category collisionCat, float scale, Color c)
 		{
 			this.world = world;
-			maxImpulse = 0.2f;
+			maxImpulse = 0.2f * scale;
 			Crouching = false;
 			health = new Dictionary<Body, float>();
 			this.color = c;
+			this.scale = scale;
 
 			walkStage = 0;
 
@@ -141,7 +143,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="collisionCat">The collision category of the stick figure</param>
 		protected void GenerateBody(World world, Vector2 position, Category collisionCat)
 		{
-			torso = BodyFactory.CreateCapsule(world, 40 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 10.0f);
+			torso = BodyFactory.CreateCapsule(world, 40 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 10.0f);
 			torso.Position = position;
 			torso.BodyType = BodyType.Dynamic;
 			torso.CollisionCategories = collisionCat;
@@ -153,66 +155,66 @@ namespace Badminton.Stick_Figures
 			gyro.FixedRotation = true;
 			health.Add(torso, 1.0f);
 
-			head = BodyFactory.CreateCircle(world, 12.5f * MainGame.PIXEL_TO_METER, 1.0f);
-			head.Position = torso.Position - new Vector2(0, 29f) * MainGame.PIXEL_TO_METER;
+			head = BodyFactory.CreateCircle(world, 12.5f * scale * MainGame.PIXEL_TO_METER, 1.0f);
+			head.Position = torso.Position - new Vector2(0, 29f) * scale * MainGame.PIXEL_TO_METER;
 			head.BodyType = BodyType.Dynamic;
 			head.CollisionCategories = collisionCat;
 			head.CollidesWith = Category.All & ~collisionCat;
 			head.Restitution = 0.2f;
 			health.Add(head, 1.0f);
 
-			leftUpperArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
+			leftUpperArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			leftUpperArm.Rotation = -MathHelper.PiOver2;
-			leftUpperArm.Position = torso.Position + new Vector2(-7.5f, -15) * MainGame.PIXEL_TO_METER;
+			leftUpperArm.Position = torso.Position + new Vector2(-7.5f, -15) * scale * MainGame.PIXEL_TO_METER;
 			leftUpperArm.BodyType = BodyType.Dynamic;
 			leftUpperArm.CollisionCategories = collisionCat;
 			leftUpperArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(leftUpperArm, 1.0f);
 
-			rightUpperArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
+			rightUpperArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			rightUpperArm.Rotation = MathHelper.PiOver2;
-			rightUpperArm.Position = torso.Position + new Vector2(7.5f, -15) * MainGame.PIXEL_TO_METER;
+			rightUpperArm.Position = torso.Position + new Vector2(7.5f, -15) * scale * MainGame.PIXEL_TO_METER;
 			rightUpperArm.BodyType = BodyType.Dynamic;
 			rightUpperArm.CollisionCategories = collisionCat;
 			rightUpperArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(rightUpperArm, 1.0f);
 
-			leftLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
+			leftLowerArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			leftLowerArm.Rotation = -MathHelper.PiOver2;
-			leftLowerArm.Position = torso.Position + new Vector2(-22.5f, -15) * MainGame.PIXEL_TO_METER;
+			leftLowerArm.Position = torso.Position + new Vector2(-22.5f, -15) * scale * MainGame.PIXEL_TO_METER;
 			leftLowerArm.BodyType = BodyType.Dynamic;
 			leftLowerArm.CollisionCategories = collisionCat;
 			leftLowerArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(leftLowerArm, 1.0f);
 
-			rightLowerArm = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 0.1f);
+			rightLowerArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			rightLowerArm.Rotation = MathHelper.PiOver2;
-			rightLowerArm.Position = torso.Position + new Vector2(22.5f, -15) * MainGame.PIXEL_TO_METER;
+			rightLowerArm.Position = torso.Position + new Vector2(22.5f, -15) * scale * MainGame.PIXEL_TO_METER;
 			rightLowerArm.BodyType = BodyType.Dynamic;
 			rightLowerArm.CollisionCategories = collisionCat;
 			rightLowerArm.CollidesWith = Category.All & ~collisionCat;
 			health.Add(rightLowerArm, 1.0f);
 
-			leftUpperLeg = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 5f);
+			leftUpperLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 5f);
 			leftUpperLeg.Rotation = -3 * MathHelper.PiOver4;
-			leftUpperLeg.Position = torso.Position + new Vector2(-25f / (float)Math.Sqrt(8) + 4, 10 + 25f / (float)Math.Sqrt(8)) * MainGame.PIXEL_TO_METER;
+			leftUpperLeg.Position = torso.Position + new Vector2(-25f / (float)Math.Sqrt(8) + 4, 10 + 25f / (float)Math.Sqrt(8)) * scale * MainGame.PIXEL_TO_METER;
 			leftUpperLeg.BodyType = BodyType.Dynamic;
 			leftUpperLeg.CollisionCategories = collisionCat;
 			leftUpperLeg.CollidesWith = Category.All & ~collisionCat;
 			leftUpperLeg.Restitution = 0.15f;
 			health.Add(leftUpperLeg, 1.0f);
 
-			rightUpperLeg = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 5f);
+			rightUpperLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 5f);
 			rightUpperLeg.Rotation = 3 * MathHelper.PiOver4;
-			rightUpperLeg.Position = torso.Position + new Vector2(25f / (float)Math.Sqrt(8) - 4, 10 + 25f / (float)Math.Sqrt(8)) * MainGame.PIXEL_TO_METER;
+			rightUpperLeg.Position = torso.Position + new Vector2(25f / (float)Math.Sqrt(8) - 4, 10 + 25f / (float)Math.Sqrt(8)) * scale * MainGame.PIXEL_TO_METER;
 			rightUpperLeg.BodyType = BodyType.Dynamic;
 			rightUpperLeg.CollisionCategories = collisionCat;
 			rightUpperLeg.CollidesWith = Category.All & ~collisionCat;
 			rightUpperLeg.Restitution = 0.15f;
 			health.Add(rightUpperLeg, 1.0f);
 
-			leftLowerLeg = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 10.0f);
-			leftLowerLeg.Position = torso.Position + new Vector2(-50f / (float)Math.Sqrt(8) + 6, 25 + 25f / (float)Math.Sqrt(8)) * MainGame.PIXEL_TO_METER;
+			leftLowerLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 10.0f);
+			leftLowerLeg.Position = torso.Position + new Vector2(-50f / (float)Math.Sqrt(8) + 6, 25 + 25f / (float)Math.Sqrt(8)) * scale * MainGame.PIXEL_TO_METER;
 			leftLowerLeg.BodyType = BodyType.Dynamic;
 			leftLowerLeg.CollisionCategories = collisionCat;
 			leftLowerLeg.CollidesWith = Category.All & ~collisionCat;
@@ -220,8 +222,8 @@ namespace Badminton.Stick_Figures
 			leftLowerLeg.Friction = 3.0f;
 			health.Add(leftLowerLeg, 1.0f);
 
-			rightLowerLeg = BodyFactory.CreateCapsule(world, 25 * MainGame.PIXEL_TO_METER, 5 * MainGame.PIXEL_TO_METER, 10.0f);
-			rightLowerLeg.Position = torso.Position + new Vector2(50f / (float)Math.Sqrt(8) - 6, 25 + 25f / (float)Math.Sqrt(8)) * MainGame.PIXEL_TO_METER;
+			rightLowerLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 10.0f);
+			rightLowerLeg.Position = torso.Position + new Vector2(50f / (float)Math.Sqrt(8) - 6, 25 + 25f / (float)Math.Sqrt(8)) * scale * MainGame.PIXEL_TO_METER;
 			rightLowerLeg.BodyType = BodyType.Dynamic;
 			rightLowerLeg.CollisionCategories = collisionCat;
 			rightLowerLeg.CollidesWith = Category.All & ~collisionCat;
@@ -241,47 +243,47 @@ namespace Badminton.Stick_Figures
 			upright.TargetAngle = 0.0f;
 			upright.CollideConnected = false;
 
-			r_neck = JointFactory.CreateRevoluteJoint(world, head, torso, -Vector2.UnitY * 20 * MainGame.PIXEL_TO_METER);
+			r_neck = JointFactory.CreateRevoluteJoint(world, head, torso, -Vector2.UnitY * 20 * scale * MainGame.PIXEL_TO_METER);
 			neck = JointFactory.CreateAngleJoint(world, head, torso);
 			neck.CollideConnected = false;
 			neck.MaxImpulse = maxImpulse;
 
-			r_leftShoulder = JointFactory.CreateRevoluteJoint(world, leftUpperArm, torso, -Vector2.UnitY * 15 * MainGame.PIXEL_TO_METER);
+			r_leftShoulder = JointFactory.CreateRevoluteJoint(world, leftUpperArm, torso, -Vector2.UnitY * 15 * scale * MainGame.PIXEL_TO_METER);
 			leftShoulder = JointFactory.CreateAngleJoint(world, leftUpperArm, torso);
 			leftShoulder.CollideConnected = false;
 			leftShoulder.MaxImpulse = maxImpulse;
 
-			r_rightShoulder = JointFactory.CreateRevoluteJoint(world, rightUpperArm, torso, -Vector2.UnitY * 15 * MainGame.PIXEL_TO_METER);
+			r_rightShoulder = JointFactory.CreateRevoluteJoint(world, rightUpperArm, torso, -Vector2.UnitY * 15 * scale * MainGame.PIXEL_TO_METER);
 			rightShoulder = JointFactory.CreateAngleJoint(world, rightUpperArm, torso);
 			rightShoulder.CollideConnected = false;
 			rightShoulder.MaxImpulse = maxImpulse;
 
-			r_leftElbow = JointFactory.CreateRevoluteJoint(world, leftLowerArm, leftUpperArm, -Vector2.UnitY * 7.5f * MainGame.PIXEL_TO_METER);
+			r_leftElbow = JointFactory.CreateRevoluteJoint(world, leftLowerArm, leftUpperArm, -Vector2.UnitY * 7.5f * scale * MainGame.PIXEL_TO_METER);
 			leftElbow = JointFactory.CreateAngleJoint(world, leftLowerArm, leftUpperArm);
 			leftElbow.CollideConnected = false;
 			leftElbow.MaxImpulse = maxImpulse;
 
-			r_rightElbow = JointFactory.CreateRevoluteJoint(world, rightLowerArm, rightUpperArm, -Vector2.UnitY * 7.5f * MainGame.PIXEL_TO_METER);
+			r_rightElbow = JointFactory.CreateRevoluteJoint(world, rightLowerArm, rightUpperArm, -Vector2.UnitY * 7.5f * scale * MainGame.PIXEL_TO_METER);
 			rightElbow = JointFactory.CreateAngleJoint(world, rightLowerArm, rightUpperArm);
 			rightElbow.CollideConnected = false;
 			rightElbow.MaxImpulse = maxImpulse;
 
-			r_leftHip = JointFactory.CreateRevoluteJoint(world, leftUpperLeg, torso, Vector2.UnitY * 15 * MainGame.PIXEL_TO_METER);
+			r_leftHip = JointFactory.CreateRevoluteJoint(world, leftUpperLeg, torso, Vector2.UnitY * 15 * scale * MainGame.PIXEL_TO_METER);
 			leftHip = JointFactory.CreateAngleJoint(world, leftUpperLeg, torso);
 			leftHip.CollideConnected = false;
 			leftHip.MaxImpulse = maxImpulse;
 
-			r_rightHip = JointFactory.CreateRevoluteJoint(world, rightUpperLeg, torso, Vector2.UnitY * 15 * MainGame.PIXEL_TO_METER);
+			r_rightHip = JointFactory.CreateRevoluteJoint(world, rightUpperLeg, torso, Vector2.UnitY * 15 * scale * MainGame.PIXEL_TO_METER);
 			rightHip = JointFactory.CreateAngleJoint(world, rightUpperLeg, torso);
 			rightHip.CollideConnected = false;
 			rightHip.MaxImpulse = maxImpulse;
 
-			r_leftKnee = JointFactory.CreateRevoluteJoint(world, leftLowerLeg, leftUpperLeg, -Vector2.UnitY * 7.5f * MainGame.PIXEL_TO_METER);
+			r_leftKnee = JointFactory.CreateRevoluteJoint(world, leftLowerLeg, leftUpperLeg, -Vector2.UnitY * 7.5f * scale * MainGame.PIXEL_TO_METER);
 			leftKnee = JointFactory.CreateAngleJoint(world, leftUpperLeg, leftLowerLeg);
 			leftKnee.CollideConnected = false;
 			leftKnee.MaxImpulse = maxImpulse;
 
-			r_rightKnee = JointFactory.CreateRevoluteJoint(world, rightLowerLeg, rightUpperLeg, -Vector2.UnitY * 7.5f * MainGame.PIXEL_TO_METER);
+			r_rightKnee = JointFactory.CreateRevoluteJoint(world, rightLowerLeg, rightUpperLeg, -Vector2.UnitY * 7.5f * scale * MainGame.PIXEL_TO_METER);
 			rightKnee = JointFactory.CreateAngleJoint(world, rightUpperLeg, rightLowerLeg);
 			rightKnee.CollideConnected = false;
 			rightKnee.MaxImpulse = maxImpulse;
@@ -315,7 +317,7 @@ namespace Badminton.Stick_Figures
 				ForceWave f = (ForceWave)fixtureB.Body.UserData;
 				fixtureB.Body.UserData = null;
 
-				health[fixtureA.Body] -= 0.05f;
+				health[fixtureA.Body] -= 1f;
 
 				Random r = new Random();
 				int index = r.Next(MainGame.sfx_punches.Length);
@@ -368,7 +370,7 @@ namespace Badminton.Stick_Figures
 
 			upright.TargetAngle = -0.1f;
 			if (torso.LinearVelocity.X < (onGround ? 4 : 3) && !(Crouching && onGround))
-				torso.ApplyForce(new Vector2(150, 0) * maxImpulse); // Change limb dependency
+				torso.ApplyForce(new Vector2(150, 0) * maxImpulse * scale); // Change limb dependency
 			AngleJoint[] checkThese = new AngleJoint[] { leftHip, rightHip };
 			if (walkStage == 0)
 			{
@@ -376,7 +378,7 @@ namespace Badminton.Stick_Figures
 				leftKnee.TargetAngle = -MathHelper.PiOver2 - torso.Rotation;
 				rightHip.TargetAngle = -3 * MathHelper.PiOver4 - torso.Rotation;
 				rightKnee.TargetAngle = -3 * MathHelper.PiOver4 - torso.Rotation;
-				rightKnee.MaxImpulse = maxImpulse * 3 * health[rightLowerLeg] * health[rightUpperLeg];
+				rightKnee.MaxImpulse = maxImpulse * 3 * scale * health[rightLowerLeg] * health[rightUpperLeg];
 				leftLowerLeg.Friction = 0.0f;
 				rightLowerLeg.Friction = 1000f;
 				if (JointsAreInPosition(checkThese))
@@ -388,7 +390,7 @@ namespace Badminton.Stick_Figures
 				leftKnee.TargetAngle = -MathHelper.PiOver2 - torso.Rotation;
 				rightHip.TargetAngle = -5 * MathHelper.PiOver4 - torso.Rotation;
 				rightKnee.TargetAngle = -(float)Math.PI - torso.Rotation;
-				rightKnee.MaxImpulse = maxImpulse * health[rightLowerLeg] * health[rightUpperLeg];
+				rightKnee.MaxImpulse = maxImpulse * scale * health[rightLowerLeg] * health[rightUpperLeg];
 				if (JointsAreInPosition(checkThese))
 					walkStage = 2;
 			}
@@ -396,7 +398,7 @@ namespace Badminton.Stick_Figures
 			{
 				leftHip.TargetAngle = 5 * MathHelper.PiOver4 - torso.Rotation;
 				leftKnee.TargetAngle = -3 * MathHelper.PiOver4 - torso.Rotation;
-				leftKnee.MaxImpulse = maxImpulse * 3 * health[leftLowerLeg] * health[leftUpperLeg];
+				leftKnee.MaxImpulse = maxImpulse * 3 * scale * health[leftLowerLeg] * health[leftUpperLeg];
 				rightHip.TargetAngle = -(float)Math.PI - torso.Rotation;
 				rightKnee.TargetAngle = -MathHelper.PiOver2 - torso.Rotation;
 				rightLowerLeg.Friction = 0.0f;
@@ -408,7 +410,7 @@ namespace Badminton.Stick_Figures
 			{
 				leftHip.TargetAngle = 3 * MathHelper.PiOver4 - torso.Rotation;
 				leftKnee.TargetAngle = -(float)Math.PI - torso.Rotation;
-				leftKnee.MaxImpulse = maxImpulse * health[leftLowerLeg] * health[leftUpperLeg];
+				leftKnee.MaxImpulse = maxImpulse * scale * health[leftLowerLeg] * health[leftUpperLeg];
 				rightHip.TargetAngle = -MathHelper.PiOver2 - torso.Rotation;
 				rightKnee.TargetAngle = -MathHelper.PiOver2 - torso.Rotation;
 				if (JointsAreInPosition(checkThese))
@@ -426,7 +428,7 @@ namespace Badminton.Stick_Figures
 				return;
 			upright.TargetAngle = 0.1f;
 			if (torso.LinearVelocity.X > (onGround ? -4 : -3))
-				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse); // Change limb dependency
+				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse * scale); // Change limb dependency
 			AngleJoint[] checkThese = new AngleJoint[] { leftHip, rightHip };
 			if (walkStage == 0)
 			{
@@ -434,7 +436,7 @@ namespace Badminton.Stick_Figures
 				rightKnee.TargetAngle = -3 * MathHelper.PiOver2 - torso.Rotation;
 				leftHip.TargetAngle = 3 * MathHelper.PiOver4 - torso.Rotation;
 				leftKnee.TargetAngle = -5 * MathHelper.PiOver4 - torso.Rotation;
-				leftKnee.MaxImpulse = maxImpulse * 3 * health[leftLowerLeg] * health[leftUpperLeg];
+				leftKnee.MaxImpulse = maxImpulse * scale * 3 * health[leftLowerLeg] * health[leftUpperLeg];
 				leftLowerLeg.Friction = 1000.0f;
 				rightLowerLeg.Friction = 0f;
 				if (JointsAreInPosition(checkThese))
@@ -446,7 +448,7 @@ namespace Badminton.Stick_Figures
 				rightKnee.TargetAngle = -3 * MathHelper.PiOver2 - torso.Rotation;
 				leftHip.TargetAngle = 5 * MathHelper.PiOver4 - torso.Rotation;
 				leftKnee.TargetAngle = -(float)Math.PI - torso.Rotation;
-				leftKnee.MaxImpulse = maxImpulse * health[leftLowerLeg] * health[leftUpperLeg];
+				leftKnee.MaxImpulse = maxImpulse * scale * health[leftLowerLeg] * health[leftUpperLeg];
 				if (JointsAreInPosition(checkThese))
 					walkStage = 2;
 			}
@@ -454,7 +456,7 @@ namespace Badminton.Stick_Figures
 			{
 				rightHip.TargetAngle = -5 * MathHelper.PiOver4 - torso.Rotation;
 				rightKnee.TargetAngle = -5 * MathHelper.PiOver4 - torso.Rotation;
-				rightKnee.MaxImpulse = maxImpulse * 3 * health[rightLowerLeg] * health[rightUpperLeg];
+				rightKnee.MaxImpulse = maxImpulse * scale * 3 * health[rightLowerLeg] * health[rightUpperLeg];
 				leftHip.TargetAngle = (float)Math.PI - torso.Rotation;
 				leftKnee.TargetAngle = -3 * MathHelper.PiOver2 - torso.Rotation;
 				leftLowerLeg.Friction = 0.0f;
@@ -466,7 +468,7 @@ namespace Badminton.Stick_Figures
 			{
 				rightHip.TargetAngle = -3 * MathHelper.PiOver4 - torso.Rotation;
 				rightKnee.TargetAngle = -(float)Math.PI - torso.Rotation;
-				rightKnee.MaxImpulse = maxImpulse * health[rightLowerLeg] * health[rightUpperLeg];
+				rightKnee.MaxImpulse = maxImpulse * scale * health[rightLowerLeg] * health[rightUpperLeg];
 				leftHip.TargetAngle = MathHelper.PiOver2 - torso.Rotation;
 				leftKnee.TargetAngle = -3 * MathHelper.PiOver2 - torso.Rotation;
 				if (JointsAreInPosition(checkThese))
@@ -494,7 +496,7 @@ namespace Badminton.Stick_Figures
 			{
 				leftLowerLeg.Friction = 100.0f;
 				rightLowerLeg.Friction = 100.0f;
-				torso.ApplyLinearImpulse(Vector2.UnitY * (Crouching ? -25 : -15)); // Change joint dependancy
+				torso.ApplyLinearImpulse(Vector2.UnitY * (Crouching ? -25 : -15) * scale); // Change joint dependancy
 			}
 			Crouching = false;
 		}
@@ -626,8 +628,8 @@ namespace Badminton.Stick_Figures
 					{
 						leftShoulder.TargetAngle = GetArmTargetAngle(angle, true);
 						leftElbow.TargetAngle = 0f;
-						leftShoulder.MaxImpulse = 1000f;
-						leftElbow.MaxImpulse = 1000f;
+						leftShoulder.MaxImpulse = 1000f * scale;
+						leftElbow.MaxImpulse = 1000f * scale;
 						leftUpperArm.CollidesWith = Category.Cat31;
 						leftLowerArm.CollidesWith = Category.Cat31;
 					}
@@ -635,8 +637,8 @@ namespace Badminton.Stick_Figures
 					{
 						rightShoulder.TargetAngle = GetArmTargetAngle(angle, false);
 						rightElbow.TargetAngle = 0f;
-						rightShoulder.MaxImpulse = 1000f;
-						rightElbow.MaxImpulse = 1000f;
+						rightShoulder.MaxImpulse = 1000f * scale;
+						rightElbow.MaxImpulse = 1000f * scale;
 						rightUpperArm.CollidesWith = Category.Cat31;
 						rightLowerArm.CollidesWith = Category.Cat31;
 					}
@@ -650,16 +652,16 @@ namespace Badminton.Stick_Figures
 						{
 							leftShoulder.TargetAngle = 3 * MathHelper.PiOver4;
 							leftElbow.TargetAngle = MathHelper.PiOver4;
-							leftShoulder.MaxImpulse = maxImpulse;
-							leftElbow.MaxImpulse = maxImpulse;
+							leftShoulder.MaxImpulse = maxImpulse * scale;
+							leftElbow.MaxImpulse = maxImpulse * scale;
 							normalAttacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						else
 						{
 							rightShoulder.TargetAngle = -3 * MathHelper.PiOver4;
 							rightElbow.TargetAngle = -MathHelper.PiOver4;
-							rightShoulder.MaxImpulse = maxImpulse;
-							rightElbow.MaxImpulse = maxImpulse;
+							rightShoulder.MaxImpulse = maxImpulse * scale;
+							rightElbow.MaxImpulse = maxImpulse * scale;
 							normalAttacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						punchStage = 1;
@@ -699,8 +701,8 @@ namespace Badminton.Stick_Figures
 				{
 					leftHip.TargetAngle = GetLegTargetAngle(angle, kickLeg);
 					leftKnee.TargetAngle = -MathHelper.Pi;
-					leftHip.MaxImpulse = 1000f;
-					leftKnee.MaxImpulse = 1000f;
+					leftHip.MaxImpulse = 1000f * scale;
+					leftKnee.MaxImpulse = 1000f * scale;
 					leftLowerLeg.CollidesWith = Category.Cat31;
 					leftUpperLeg.CollidesWith = Category.Cat31;
 				}
@@ -708,8 +710,8 @@ namespace Badminton.Stick_Figures
 				{
 					rightHip.TargetAngle = GetLegTargetAngle(angle, kickLeg);
 					rightKnee.TargetAngle = -MathHelper.Pi;
-					rightHip.MaxImpulse = 1000f;
-					rightKnee.MaxImpulse = 1000f;
+					rightHip.MaxImpulse = 1000f * scale;
+					rightKnee.MaxImpulse = 1000f * scale;
 					rightLowerLeg.CollidesWith = Category.Cat31;
 					rightUpperLeg.CollidesWith = Category.Cat31;
 				}
@@ -723,16 +725,16 @@ namespace Badminton.Stick_Figures
 					{
 						leftHip.TargetAngle = 3 * MathHelper.PiOver4;
 						leftKnee.TargetAngle = -3 * MathHelper.PiOver4;
-						leftHip.MaxImpulse = maxImpulse;
-						leftKnee.MaxImpulse = maxImpulse;
+						leftHip.MaxImpulse = maxImpulse * scale;
+						leftKnee.MaxImpulse = maxImpulse * scale;
 						normalAttacks.Add(new ForceWave(world, leftLowerLeg.Position, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 					}
 					else
 					{
 						rightHip.TargetAngle = -3 * MathHelper.PiOver4;
 						rightKnee.TargetAngle = -MathHelper.PiOver4;
-						rightHip.MaxImpulse = maxImpulse;
-						rightKnee.MaxImpulse = maxImpulse;
+						rightHip.MaxImpulse = maxImpulse * scale;
+						rightKnee.MaxImpulse = maxImpulse * scale;
 						normalAttacks.Add(new ForceWave(world, rightLowerLeg.Position, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 					}
 					kickStage = 1;
@@ -951,25 +953,25 @@ namespace Badminton.Stick_Figures
 		{
 			Color deathColor = Color.Black;
 			Color c = Blend(color, deathColor, health[torso]);
-			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, torso.Rotation, new Vector2(5f, 20f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, torso.Rotation, new Vector2(5f, 20f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperArm]);
-			sb.Draw(MainGame.tex_limb, leftUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperArm]);
-			sb.Draw(MainGame.tex_limb, rightUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerArm]);
-			sb.Draw(MainGame.tex_limb, leftLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerArm]);
-			sb.Draw(MainGame.tex_limb, rightLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperLeg]);
-			sb.Draw(MainGame.tex_limb, leftUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperLeg]);
-			sb.Draw(MainGame.tex_limb, rightUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerLeg]);
-			sb.Draw(MainGame.tex_limb, leftLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerLeg]);
-			sb.Draw(MainGame.tex_limb, rightLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[head]);
-			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
 
 			foreach (ForceWave f in normalAttacks)
 				f.Draw(sb, this.color);
