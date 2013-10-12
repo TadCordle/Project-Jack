@@ -22,7 +22,7 @@ namespace Badminton.Stick_Figures
 
 		private Keys upKey, rightKey, leftKey, downKey, punchKey, kickKey;
 		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn;
-		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed, lastFacedLeft;
+		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed;
 
 		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, Color color, PlayerIndex player)
 			: base(world, position, collisionCat, scale, color)
@@ -31,7 +31,7 @@ namespace Badminton.Stick_Figures
             //hascontroller = GamePad.GetState(player).IsConnected;
 			punchBtnPressed = punchKeyPressed = true;
 			kickBtnPressed = kickKeyPressed = true;
-            lastFacedLeft = true;
+            LastFacedLeft = true;
 			jumpBtn = Buttons.A;
 			rightBtn = Buttons.LeftThumbstickRight;
 			leftBtn = Buttons.LeftThumbstickLeft;
@@ -75,13 +75,13 @@ namespace Badminton.Stick_Figures
 			{
 				WalkRight();
 				stand = false;
-                lastFacedLeft = false;
+                LastFacedLeft = false;
 			}
 			else if (Keyboard.GetState().IsKeyDown(leftKey) || GamePad.GetState(player).IsButtonDown(leftBtn))
 			{
 				WalkLeft();
 				stand = false;
-                lastFacedLeft = true;
+                LastFacedLeft = true;
 			}
 
 			// Crouch
@@ -114,7 +114,7 @@ namespace Badminton.Stick_Figures
 
 					if (direction.Length() == 0)
 					{
-						if (lastFacedLeft)
+						if (LastFacedLeft)
 							direction = -Vector2.UnitX;
 						else
 							direction = Vector2.UnitX;
@@ -135,7 +135,7 @@ namespace Badminton.Stick_Figures
 					float angle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X);
 					if (angle == 0)
 					{
-						if (lastFacedLeft)
+						if (LastFacedLeft)
 							Punch(MathHelper.Pi);
 						else
 							Punch(0);
@@ -165,7 +165,7 @@ namespace Badminton.Stick_Figures
 
 					if (direction.Length() == 0)
 					{
-						if (lastFacedLeft)
+						if (LastFacedLeft)
 							direction = -Vector2.UnitX;
 						else
 							direction = Vector2.UnitX;

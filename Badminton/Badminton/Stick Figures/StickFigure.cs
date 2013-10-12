@@ -109,7 +109,8 @@ namespace Badminton.Stick_Figures
 		private bool onGround;
 		private int groundCheck;
 		private Category collisionCat;
-		
+		protected bool LastFacedLeft { get; set; }
+
 		#region Creation
 
 		/// <summary>
@@ -138,6 +139,7 @@ namespace Badminton.Stick_Figures
 
 			groundCheck = 0;
 			this.collisionCat = collisionCat;
+			LastFacedLeft = true;
 
 			GenerateBody(world, position, collisionCat);
 			ConnectBody(world);
@@ -149,16 +151,15 @@ namespace Badminton.Stick_Figures
 			leftLowerLeg.OnSeparation += new OnSeparationEventHandler(OnGroundSeparation);
 			rightLowerLeg.OnSeparation += new OnSeparationEventHandler(OnGroundSeparation);
 
-			head.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			torso.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			leftUpperArm.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			leftLowerArm.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			rightUpperArm.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			rightLowerArm.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			leftUpperLeg.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			leftLowerLeg.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			rightUpperLeg.OnCollision += new OnCollisionEventHandler(OtherCollisions);
-			rightLowerLeg.OnCollision += new OnCollisionEventHandler(OtherCollisions);
+			head.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			leftUpperArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			leftLowerArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			rightUpperArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			rightLowerArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			leftUpperLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			leftLowerLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			rightUpperLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			rightLowerLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
 
 			Stand();
 		}
@@ -338,14 +339,14 @@ namespace Badminton.Stick_Figures
 			onGround = false;
 		}
 
-		private bool OtherCollisions(Fixture fixtureA, Fixture fixtureB, Contact contact)
+		private bool DamageCollisions(Fixture fixtureA, Fixture fixtureB, Contact contact)
 		{
 			if (fixtureB.Body.UserData is ForceWave)
 			{
 				ForceWave f = (ForceWave)fixtureB.Body.UserData;
 				fixtureB.Body.UserData = null;
 
-				health[fixtureA.Body] -= 1f;
+				health[fixtureA.Body] -= f.Damage;
 
 				Random r = new Random();
 				int index = r.Next(MainGame.sfx_punches.Length);
@@ -752,7 +753,7 @@ namespace Badminton.Stick_Figures
 					if (kickLeg)
 					{
 						leftHip.TargetAngle = 3 * MathHelper.PiOver4;
-						leftKnee.TargetAngle = -3 * MathHelper.PiOver4;
+						leftKnee.TargetAngle = -5 * MathHelper.PiOver4;
 						leftHip.MaxImpulse = maxImpulse * scale;
 						leftKnee.MaxImpulse = maxImpulse * scale;
 						normalAttacks.Add(new ForceWave(world, LeftFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
@@ -760,7 +761,7 @@ namespace Badminton.Stick_Figures
 					else
 					{
 						rightHip.TargetAngle = -3 * MathHelper.PiOver4;
-						rightKnee.TargetAngle = -MathHelper.PiOver4;
+						rightKnee.TargetAngle = -3 * MathHelper.PiOver4;
 						rightHip.MaxImpulse = maxImpulse * scale;
 						rightKnee.MaxImpulse = maxImpulse * scale;
 						normalAttacks.Add(new ForceWave(world, RightFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
@@ -789,13 +790,14 @@ namespace Badminton.Stick_Figures
 		private void UpdateLimbAttachment()
 		{
 			// Left arm
-			if (health[leftUpperArm] <= 0 && health[leftLowerArm] <= 0)
+			if (health[leftUpperArm] <= 0)
 			{
 				leftUpperArm.Friction = 3.0f;
 				if (world.JointList.Contains(leftShoulder))
 					world.RemoveJoint(leftShoulder);
 				if (world.JointList.Contains(r_leftShoulder))
 					world.RemoveJoint(r_leftShoulder);
+				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
 			}
 			if (health[leftLowerArm] <= 0)
 			{
@@ -807,13 +809,14 @@ namespace Badminton.Stick_Figures
 			}
 
 			// Right arm
-			if (health[rightUpperArm] <= 0 && health[rightLowerArm] <= 0)
+			if (health[rightUpperArm] <= 0)
 			{
 				rightUpperArm.Friction = 3.0f;
 				if (world.JointList.Contains(rightShoulder))
 					world.RemoveJoint(rightShoulder);
 				if (world.JointList.Contains(r_rightShoulder))
 					world.RemoveJoint(r_rightShoulder);
+				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
 			}
 			if (health[rightLowerArm] <= 0)
 			{
@@ -825,13 +828,14 @@ namespace Badminton.Stick_Figures
 			}
 
 			// Left leg
-			if (health[leftUpperLeg] <= 0 && health[leftLowerLeg] <= 0)
+			if (health[leftUpperLeg] <= 0)
 			{
 				leftUpperLeg.Friction = 3.0f;
 				if (world.JointList.Contains(leftHip))
 					world.RemoveJoint(leftHip);
 				if (world.JointList.Contains(r_leftHip))
 					world.RemoveJoint(r_leftHip);
+				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
 			}
 			if (health[leftLowerLeg] <= 0)
 			{
@@ -843,13 +847,14 @@ namespace Badminton.Stick_Figures
 			}
 
 			// Right leg
-			if (health[rightUpperLeg] <= 0 && health[rightLowerLeg] <= 0)
+			if (health[rightUpperLeg] <= 0)
 			{
 				rightUpperLeg.Friction = 3.0f;
 				if (world.JointList.Contains(rightHip))
 					world.RemoveJoint(rightHip);
 				if (world.JointList.Contains(r_rightHip))
 					world.RemoveJoint(r_rightHip);
+				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
 			}
 			if (health[rightLowerLeg] <= 0)
 			{
@@ -981,25 +986,25 @@ namespace Badminton.Stick_Figures
 		{
 			Color deathColor = Color.Black;
 			Color c = Blend(color, deathColor, health[torso]);
-			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, torso.Rotation, new Vector2(5f, 20f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, torso.Rotation, new Vector2(5f, 20f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperArm]);
-			sb.Draw(MainGame.tex_limb, leftUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperArm]);
-			sb.Draw(MainGame.tex_limb, rightUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerArm]);
-			sb.Draw(MainGame.tex_limb, leftLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerArm]);
-			sb.Draw(MainGame.tex_limb, rightLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperLeg]);
-			sb.Draw(MainGame.tex_limb, leftUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperLeg]);
-			sb.Draw(MainGame.tex_limb, rightUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerLeg]);
-			sb.Draw(MainGame.tex_limb, leftLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerLeg]);
-			sb.Draw(MainGame.tex_limb, rightLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[head]);
-			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 
 			foreach (ForceWave f in normalAttacks)
 				f.Draw(sb, this.color);

@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using FarseerPhysics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 
 namespace Badminton
@@ -20,16 +21,19 @@ namespace Badminton
 		private World world;
 		private int destroyTimer;
 
+		public float Damage { get; set; }
+
 		public ForceWave(World w, Vector2 position, Vector2 power, Category collisionCat)
 		{
 			this.world = w;
-			body = BodyFactory.CreateRectangle(w, 32 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 10000f);
+			body = BodyFactory.CreateRectangle(w, 8 * MainGame.PIXEL_TO_METER, 8 * MainGame.PIXEL_TO_METER, 10000f);
 			body.Position = position;
 			body.BodyType = BodyType.Dynamic;
 			body.LinearVelocity = power;
 			this.collisionCat = collisionCat;
 			body.CollisionCategories = collisionCat;
 			body.UserData = this;
+			this.Damage = 0.2f;
 
 			destroyTimer = 0;
 		}
