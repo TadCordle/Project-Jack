@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb</Output>
-      <Time>2013-06-06T16:51:43.248078-04:00</Time>
+      <Time>2013-10-04T14:18:55.0777426-04:00</Time>
     </Item>
     <Item>
       <Source>textures\stick figure\limb.png</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb</Output>
-      <Time>2013-06-06T16:52:02.6241862-04:00</Time>
+      <Time>2013-10-04T14:19:20.2499234-04:00</Time>
     </Item>
     <Item>
       <Source>textures\stick figure\torso.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb</Output>
-      <Time>2013-06-06T16:52:12.3397419-04:00</Time>
+      <Time>2013-10-04T14:19:33.1126371-04:00</Time>
     </Item>
     <Item>
       <Source>fonts\basicFont.spritefont</Source>

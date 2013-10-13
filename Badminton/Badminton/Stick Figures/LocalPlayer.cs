@@ -183,7 +183,16 @@ namespace Badminton.Stick_Figures
 				if (!kickBtnPressed)
 				{
 					kickBtnPressed = true;
-					Kick((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X));
+					float angle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X);
+					if (angle == 0)
+					{
+						if (LastFacedLeft)
+							Kick(MathHelper.Pi);
+						else
+							Kick(0);
+					}
+					else
+						Kick(angle);
 				}
 			}
 			else
