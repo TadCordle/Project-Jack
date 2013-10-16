@@ -52,3 +52,25 @@ C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\B
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\music.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\music.wma
+E:\FT Project\Project-Jack\Badminton\Badminton\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\FT Project\Project-Jack\Badminton\Badminton\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\FT Project\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.exe
+E:\FT Project\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Badminton.exe
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\Badminton.pdb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysicsXNA.dll
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysicsXNA.pdb
+E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysicsXNA.xml

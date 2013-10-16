@@ -1,0 +1,7 @@
+E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.xml
+E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.dll
+E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.pdb
+E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
+E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb

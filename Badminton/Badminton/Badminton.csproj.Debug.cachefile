@@ -2,12 +2,12 @@ Content\textures\box.xnb
 Content\textures\stick figure\head.xnb
 Content\textures\stick figure\limb.xnb
 Content\textures\stick figure\torso.xnb
-Content\fonts\basicFont.xnb
 Content\textures\force wave.xnb
+Content\textures\background.xnb
+Content\fonts\basicFont.xnb
 Content\sfx\Punch1.xnb
 Content\sfx\Punch2.xnb
 Content\sfx\Thwap.xnb
 Content\sfx\Whoosh.xnb
-Content\textures\background.xnb
 Content\music.xnb
 Content\music.wma
