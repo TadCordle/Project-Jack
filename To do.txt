@@ -1,0 +1,52 @@
+StickFigure (Tad will work on this mostly)
+	- Long-range attack
+	- Trap creation
+	- More consistent "onGround" detection
+	- Make physics more consistent with scaling
+	- Make movement depend more on limb health
+	- Customization: pass character model file in constructor
+
+Game Modes
+	- Figure out "map" file structure
+		* Either XML or plain text would work. Probably plain text because maps
+			will be simple
+	- Implement GameScreen interface to make something like the "SingleMap" class, but
+		for each game mode
+		* Match_TDM
+			- Randomly assign 4 players to teams
+			- Make colors of teammates similar
+			- In player constructors, making the collision categories of the
+				each player in a pair the same to handle friendly fire
+		* Match_FreeForAll
+			- Pretty much how SingleMap is now, but add stuff like endgame
+				conditions/rounds
+			- Probably best to start here, then do TDM
+		* Match_OneVsAll
+			- Same as TDM, but only one player has a different collision cat
+			- Tweak end game so that lone player wins if timer runs out
+	- Pass parameters in constructors for things listed under "Custom games" in 
+		project doc
+		* For maps, pass file name, and load map from file in constructor probably
+
+Menus
+	- Implement GameScreen interface, add menu options
+	- Menu options return new GameScreen to navigate to upon being clicked
+	- Structure:
+	  -> Main Menu
+	    * Multiplayer game
+		-> Map/fighter/game settings select screen
+		   -> Start new game based on settings
+	    * Character customization
+		-> Character customization screen, select hats/free for all color
+			-Can save character model to use in game
+			-Probably use plaintext again
+	    * Exit
+
+Map Editor
+	- Load in an image (what the map will look like)
+	- Create boxes that define collision boundaries (will end up being invisible in
+		game)
+	- Set player spawn points
+		* Different spawn points for each game type
+	- Set trap ammo spawn points
+	- Options to save and load maps

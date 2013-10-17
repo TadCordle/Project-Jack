@@ -1,9 +1,17 @@
 -- Project Jack --
 Bullets with "?" means subject to change/discussion
 
-Project Jack is a physics-based, 2D platform brawler. Each fighter will be 100% balanced in that everyone gets the same simple attacks, which do the same amount of damage. Since each character is a ragdoll, characters are animated by moving the limbs through code rather than through drawn animations. Also, each individual limb is assigned its own health, and when a limb becomes more and more damaged, it becomes more and more difficult to use (they will also eventually fall off).
+Project Jack is a physics-based, 2D platform brawler. Each fighter will be 100% balanced in 
+that everyone gets the same simple attacks, which do the same amount of damage. Since each 
+character is a ragdoll, characters are animated by moving the limbs through code rather than 
+through drawn animations. Also, each individual limb is assigned its own health, and when a 
+limb becomes more and more damaged, it becomes more and more difficult to use (they will also 
+eventually fall off).
 
-In terms of art style, animating these characters will be difficult, so it'd probably be best to embrace a silly-ish theme. I like the original skeleton idea. Characters could be customizable, but probably only with cosmetics, as we need to keep the gameplay balanced. Refer to Cory's original ppt on the GDC group on myUMBC for more info.
+In terms of art style, animating these characters will be difficult, so it'd probably be best 
+to embrace a silly-ish theme. I like the original skeleton idea. Characters could be 
+customizable, but probably only with cosmetics, as we need to keep the gameplay balanced. 
+Refer to Cory's original ppt on the GDC group on myUMBC for more info.
 
 
 -- Gameplay --
@@ -14,7 +22,7 @@ Again, each character gets the same set of simple attacks:
 	- Long ranged attack
 		* If players become too cowardly and run away, this can be used to keep
 			the action alive.
-		? Set on a cooldown timer so it won't completely invalid close-range
+		? Set on a cooldown timer so it won't completely invalidate close-range
 			attacks.
 		* Hold button to aim, release to fire (may need to phase out keyboard
 			control
@@ -42,12 +50,14 @@ Primarily deathmatch style gamemode:
 Possible game modes (? means not necessary, mostly just ideas):
 	- Team deathmatch
 	- Free-for-all
-	? Fugitive - everybody kill one guy who needs to survive until timer runs out
+	- Fugitive - everybody kill one guy who needs to survive until timer runs out
 	? Some form of king of the hill
 	? Single player horde w/ AI
 	- Custom games
+		* Map select
 		* Variable gravity
 		* Variable player strength (aka drunk bar-fight mode)
+		* Variable game time
 		* Sudden death mode
 		* Select which attacks are available
 

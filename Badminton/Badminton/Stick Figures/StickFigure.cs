@@ -329,7 +329,7 @@ namespace Badminton.Stick_Figures
 				Vector2 normal = contact.Manifold.LocalNormal;
 				if (normal.X == 0 || normal.Y / normal.X > 1)
 					onGround = true;
-				return contact.IsTouching();
+				return contact.IsTouching;
 			}
 
 			return false;
@@ -353,7 +353,7 @@ namespace Badminton.Stick_Figures
 				MainGame.sfx_punches[index].Play();
 			}
 
-			return contact.IsTouching();
+			return contact.IsTouching;
 		}
 
 		#endregion

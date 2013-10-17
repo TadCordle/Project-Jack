@@ -5,3 +5,9 @@ E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\R
 E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
 E:\Farseer Physics Engine 3.5 Samples\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.dll
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.pdb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\obj\x86\Debug\Farseer Physics XNA.csprojResolveAssemblyReference.cache
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb
