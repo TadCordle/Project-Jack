@@ -26,6 +26,7 @@ namespace Badminton
 			this.width = width;
 			this.height = height;
 			body = BodyFactory.CreateRectangle(w, width, height, 1f);
+			body.Friction = 100f;
 			body.Rotation = rotation;
 			body.Position = new Vector2(x, y);
 			body.BodyType = BodyType.Static;

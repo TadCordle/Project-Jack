@@ -29,6 +29,7 @@ namespace Badminton.Stick_Figures
 		// Limb control
 		public Dictionary<Body, float> health;
 		private float maxImpulse;
+		private float friction;
 
 		private List<ForceWave> normalAttacks;
 
@@ -123,7 +124,8 @@ namespace Badminton.Stick_Figures
 		public StickFigure(World world, Vector2 position, Category collisionCat, float scale, Color c)
 		{
 			this.world = world;
-			maxImpulse = 0.2f * scale;
+			maxImpulse = 0.2f * scale * scale;
+			friction = 5f * scale;
 			Crouching = false;
 			health = new Dictionary<Body, float>();
 			this.color = c;
@@ -248,7 +250,7 @@ namespace Badminton.Stick_Figures
 			leftLowerLeg.CollisionCategories = collisionCat;
 			leftLowerLeg.CollidesWith = Category.All & ~collisionCat;
 			leftLowerLeg.Restitution = 0.15f;
-			leftLowerLeg.Friction = 3.0f;
+			leftLowerLeg.Friction = friction;
 			health.Add(leftLowerLeg, 1.0f);
 
 			rightLowerLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 10.0f);
@@ -257,7 +259,7 @@ namespace Badminton.Stick_Figures
 			rightLowerLeg.CollisionCategories = collisionCat;
 			rightLowerLeg.CollidesWith = Category.All & ~collisionCat;
 			rightLowerLeg.Restitution = 0.15f;
-			rightLowerLeg.Friction = 3.0f;
+			rightLowerLeg.Friction = friction;
 			health.Add(rightLowerLeg, 1.0f);
 		}
 
@@ -329,10 +331,8 @@ namespace Badminton.Stick_Figures
 				Vector2 normal = contact.Manifold.LocalNormal;
 				if (normal.X == 0 || normal.Y / normal.X > 1)
 					onGround = true;
-				return contact.IsTouching;
 			}
-
-			return false;
+			return contact.IsTouching;
 		}
 		private void OnGroundSeparation(Fixture fixtureA, Fixture fixtureB)
 		{
@@ -383,14 +383,17 @@ namespace Badminton.Stick_Figures
 			AngleJoint[] checkThese = new AngleJoint[] { leftHip, leftKnee, rightHip, rightKnee };
 			if (JointsAreInPosition(checkThese))
 			{
-				leftLowerLeg.Friction = 1f;
-				rightLowerLeg.Friction = 1f;
+				leftLowerLeg.Friction = friction;
+				rightLowerLeg.Friction = friction;
 			}
+
+			// Fixes friction not working
+			if (onGround && Math.Abs(torso.LinearVelocity.X) > 0.1)
+				torso.ApplyForce(Vector2.UnitX * -Math.Sign(torso.LinearVelocity.X) * scale * 150f);
 		}
 
 		/// <summary>
 		/// Makes figure walk the the right (place in Update method)
-		/// TODO: Add parameter to change walk speed
 		/// </summary>
 		public void WalkRight()
 		{
@@ -399,7 +402,7 @@ namespace Badminton.Stick_Figures
 
 			upright.TargetAngle = -0.1f;
 			if (torso.LinearVelocity.X < (onGround ? 4 : 3) && !(Crouching && onGround))
-				torso.ApplyForce(new Vector2(150, 0) * maxImpulse * scale); // Change limb dependency
+				torso.ApplyForce(new Vector2(150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
 			AngleJoint[] checkThese = new AngleJoint[] { leftHip, rightHip };
 			if (walkStage == 0)
 			{
@@ -408,8 +411,8 @@ namespace Badminton.Stick_Figures
 				rightHip.TargetAngle = -3 * MathHelper.PiOver4 - torso.Rotation;
 				rightKnee.TargetAngle = -3 * MathHelper.PiOver4 - torso.Rotation;
 				rightKnee.MaxImpulse = maxImpulse * 3 * scale * health[rightLowerLeg] * health[rightUpperLeg];
-				leftLowerLeg.Friction = 0.0f;
-				rightLowerLeg.Friction = 1000f;
+				leftLowerLeg.Friction = 0f;
+				rightLowerLeg.Friction = friction;
 				if (JointsAreInPosition(checkThese))
 					walkStage = 1;
 			}
@@ -430,8 +433,8 @@ namespace Badminton.Stick_Figures
 				leftKnee.MaxImpulse = maxImpulse * 3 * scale * health[leftLowerLeg] * health[leftUpperLeg];
 				rightHip.TargetAngle = -(float)Math.PI - torso.Rotation;
 				rightKnee.TargetAngle = -MathHelper.PiOver2 - torso.Rotation;
-				rightLowerLeg.Friction = 0.0f;
-				leftLowerLeg.Friction = 1000f;
+				rightLowerLeg.Friction = 0f;
+				leftLowerLeg.Friction = friction;
 				if (JointsAreInPosition(checkThese))
 					walkStage = 3;
 			}
@@ -449,7 +452,6 @@ namespace Badminton.Stick_Figures
 	
 		/// <summary>
 		/// Makes figure walk to the left (place in Update method)
-		/// TODO: Add parameter to change walk speed
 		/// </summary>
 		public void WalkLeft()
 		{
@@ -457,7 +459,7 @@ namespace Badminton.Stick_Figures
 				return;
 			upright.TargetAngle = 0.1f;
 			if (torso.LinearVelocity.X > (onGround ? -4 : -3))
-				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse * scale); // Change limb dependency
+				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
 			AngleJoint[] checkThese = new AngleJoint[] { leftHip, rightHip };
 			if (walkStage == 0)
 			{
@@ -466,8 +468,8 @@ namespace Badminton.Stick_Figures
 				leftHip.TargetAngle = 3 * MathHelper.PiOver4 - torso.Rotation;
 				leftKnee.TargetAngle = -5 * MathHelper.PiOver4 - torso.Rotation;
 				leftKnee.MaxImpulse = maxImpulse * scale * 3 * health[leftLowerLeg] * health[leftUpperLeg];
-				leftLowerLeg.Friction = 1000.0f;
 				rightLowerLeg.Friction = 0f;
+				leftLowerLeg.Friction = friction;
 				if (JointsAreInPosition(checkThese))
 					walkStage = 1;
 			}
@@ -488,8 +490,8 @@ namespace Badminton.Stick_Figures
 				rightKnee.MaxImpulse = maxImpulse * scale * 3 * health[rightLowerLeg] * health[rightUpperLeg];
 				leftHip.TargetAngle = (float)Math.PI - torso.Rotation;
 				leftKnee.TargetAngle = -3 * MathHelper.PiOver2 - torso.Rotation;
-				leftLowerLeg.Friction = 0.0f;
-				rightLowerLeg.Friction = 1000f;
+				leftLowerLeg.Friction = 0f;
+				rightLowerLeg.Friction = friction;
 				if (JointsAreInPosition(checkThese))
 					walkStage = 3;
 			}
@@ -523,9 +525,9 @@ namespace Badminton.Stick_Figures
 			}
 			if (onGround)
 			{
-				leftLowerLeg.Friction = 100.0f;
-				rightLowerLeg.Friction = 100.0f;
-				torso.ApplyLinearImpulse(Vector2.UnitY * (Crouching ? -25 : -15) * scale); // Change joint dependancy
+				leftLowerLeg.Friction = friction;
+				rightLowerLeg.Friction = friction;
+				torso.ApplyLinearImpulse(Vector2.UnitY * (Crouching ? -25 : -15) * (float)Math.Pow(scale, 2.5)); // Change joint dependancy
 			}
 			Crouching = false;
 		}
@@ -538,13 +540,13 @@ namespace Badminton.Stick_Figures
 			upright.TargetAngle = 0.0f;
 			if (!kicking || kicking && !kickLeg)
 			{
-				leftLowerLeg.Friction = 3f;
+				leftLowerLeg.Friction = friction;
 				leftHip.TargetAngle = MathHelper.PiOver4;
 				leftKnee.TargetAngle = -7 * MathHelper.PiOver4;
 			}
 			if (!kicking || kicking && kickLeg)
 			{
-				rightLowerLeg.Friction = 3f;
+				rightLowerLeg.Friction = friction;
 				rightHip.TargetAngle = -MathHelper.PiOver4;
 				rightKnee.TargetAngle = -MathHelper.PiOver4;
 			}
@@ -893,16 +895,16 @@ namespace Badminton.Stick_Figures
 			List<Body> bodies = health.Keys.ToList();
 			foreach (Body b in bodies)
 				health[b] = Math.Max(health[b], 0f);
-			upright.MaxImpulse = maxImpulse * health[torso] * health[head];
-			neck.MaxImpulse = maxImpulse * health[head] * health[torso];
-			leftShoulder.MaxImpulse = maxImpulse * health[torso] * health[leftUpperArm] * health[head];
-			leftElbow.MaxImpulse = maxImpulse * health[leftUpperArm] * health[leftLowerArm] * health[torso] * health[head];
-			rightShoulder.MaxImpulse = maxImpulse * health[torso] * health[rightUpperArm] * health[head];
-			rightElbow.MaxImpulse = maxImpulse * health[rightUpperArm] * health[rightLowerArm] * health[torso] * health[head];
-			leftHip.MaxImpulse = maxImpulse * health[torso] * health[leftUpperLeg] * health[head];
-			leftKnee.MaxImpulse = maxImpulse * health[leftUpperLeg] * health[leftLowerLeg] * health[torso] * health[head];
-			rightHip.MaxImpulse = maxImpulse * health[torso] * health[rightUpperLeg] * health[head];
-			rightKnee.MaxImpulse = maxImpulse * health[rightUpperLeg] * health[rightLowerLeg] * health[torso] * health[head];
+			upright.MaxImpulse = maxImpulse * health[torso] * health[head] * scale;
+			neck.MaxImpulse = maxImpulse * health[head] * health[torso] * scale;
+			leftShoulder.MaxImpulse = maxImpulse * health[torso] * health[leftUpperArm] * health[head] * scale;
+			leftElbow.MaxImpulse = maxImpulse * health[leftUpperArm] * health[leftLowerArm] * health[torso] * health[head] * scale;
+			rightShoulder.MaxImpulse = maxImpulse * health[torso] * health[rightUpperArm] * health[head] * scale;
+			rightElbow.MaxImpulse = maxImpulse * health[rightUpperArm] * health[rightLowerArm] * health[torso] * health[head] * scale;
+			leftHip.MaxImpulse = maxImpulse * health[torso] * health[leftUpperLeg] * health[head] * scale;
+			leftKnee.MaxImpulse = maxImpulse * health[leftUpperLeg] * health[leftLowerLeg] * health[torso] * health[head] * scale;
+			rightHip.MaxImpulse = maxImpulse * health[torso] * health[rightUpperLeg] * health[head] * scale;
+			rightKnee.MaxImpulse = maxImpulse * health[rightUpperLeg] * health[rightLowerLeg] * health[torso] * health[head] * scale;
 		}
 
 		#endregion
@@ -1013,7 +1015,9 @@ namespace Badminton.Stick_Figures
 //			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
 //			sb.DrawString(MainGame.fnt_basicFont, "L", LeftFootPosition * MainGame.METER_TO_PIXEL, Color.Blue);
 //			sb.DrawString(MainGame.fnt_basicFont, "R", RightFootPosition * MainGame.METER_TO_PIXEL, Color.Lime);
-//			sb.DrawString(MainGame.fnt_basicFont, torso.Position.ToString(), Vector2.UnitY * 64, Color.White);
+//			sb.DrawString(MainGame.fnt_basicFont, leftLowerLeg.Friction.ToString(), Vector2.UnitY * 32, Color.White);
+//			sb.DrawString(MainGame.fnt_basicFont, rightLowerLeg.Friction.ToString(), Vector2.UnitY * 64, Color.White);
+//			sb.DrawString(MainGame.fnt_basicFont, onGround.ToString(), Vector2.UnitY * 96, Color.White);
 		}
 
 		/// <summary>Blends the specified colors together.</summary>

@@ -28,7 +28,6 @@ namespace Badminton.Stick_Figures
 			: base(world, position, collisionCat, scale, color)
 		{
 			this.player = player;
-            //hascontroller = GamePad.GetState(player).IsConnected;
 			punchBtnPressed = punchKeyPressed = true;
 			kickBtnPressed = kickKeyPressed = true;
             LastFacedLeft = true;
@@ -206,8 +205,6 @@ namespace Badminton.Stick_Figures
 
 		public override void Draw(SpriteBatch sb)
 		{
-			sb.DrawString(MainGame.fnt_basicFont, Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X).ToString(), Vector2.Zero, Color.White);
-
 			base.Draw(sb);
 		}
 	}

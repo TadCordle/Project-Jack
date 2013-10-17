@@ -28,9 +28,9 @@ namespace Badminton
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
-		public const float METER_TO_PIXEL = 60f; // May want to change these depending on player size
+		public const float METER_TO_PIXEL = 60f;
         public const float PIXEL_TO_METER = 1f / METER_TO_PIXEL;
-		public static Vector2 RESOLUTION_SCALE = new Vector2(1f, 1f);
+		public static Vector2 RESOLUTION_SCALE = new Vector2(0.5f, 0.5f);
 
 		Screens.GameScreen currentScreen;
 
@@ -52,7 +52,7 @@ namespace Badminton
             graphics.PreferredBackBufferWidth = Math.Min(1920, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width);
             graphics.PreferredBackBufferHeight = Math.Min(1080, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
             RESOLUTION_SCALE.X = graphics.PreferredBackBufferWidth / 1920f;
-            RESOLUTION_SCALE.Y = graphics.PreferredBackBufferHeight / 1080f;
+			RESOLUTION_SCALE.Y = graphics.PreferredBackBufferHeight / 1080f;
 			graphics.IsFullScreen = true;
 			IsMouseVisible = true;
 			graphics.ApplyChanges();
