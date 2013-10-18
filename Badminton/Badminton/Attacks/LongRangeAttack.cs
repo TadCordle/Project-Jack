@@ -25,7 +25,7 @@ namespace Badminton.Attacks
 	
 		public LongRangeAttack(World w, Vector2 position, Vector2 power, float damage, Category collisionCat)
 		{
-			body = BodyFactory.CreateRectangle(w, (float)power.Length() * MainGame.PIXEL_TO_METER, 16f * MainGame.PIXEL_TO_METER, 5000f);
+			body = BodyFactory.CreateRectangle(w, 100f * MainGame.PIXEL_TO_METER, 16f * MainGame.PIXEL_TO_METER, 5000f);
 			body.BodyType = BodyType.Dynamic;
 			body.Position = position;
 			body.LinearVelocity = power;
