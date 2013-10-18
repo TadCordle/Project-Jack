@@ -13,6 +13,8 @@ using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
 
+using Badminton.Attacks;
+
 namespace Badminton.Stick_Figures
 {
 	class StickFigure
@@ -31,7 +33,7 @@ namespace Badminton.Stick_Figures
 		private float maxImpulse;
 		private float friction;
 
-		private List<ForceWave> normalAttacks;
+		private List<Attack> attacks;
 
 		// Position properties
 		/// <summary>
@@ -100,7 +102,7 @@ namespace Badminton.Stick_Figures
 		private int walkStage;
 
 		private float attackAngle;
-		private bool punching, kicking;
+		private bool punching, kicking, aiming;
 		private bool punchArm, kickLeg; // true=left, false=right
 		private int punchStage, kickStage;
 
@@ -137,7 +139,7 @@ namespace Badminton.Stick_Figures
 			punching = kicking = false;
 			punchArm = kickLeg = false;
 			punchStage = kickStage = -1;
-			normalAttacks = new List<ForceWave>();
+			attacks = new List<Attack>();
 
 			groundCheck = 0;
 			this.collisionCat = collisionCat;
@@ -351,6 +353,15 @@ namespace Badminton.Stick_Figures
 				Random r = new Random();
 				int index = r.Next(MainGame.sfx_punches.Length);
 				MainGame.sfx_punches[index].Play();
+			}
+			else if (fixtureB.Body.UserData is LongRangeAttack)
+			{
+				LongRangeAttack f = (LongRangeAttack)fixtureB.Body.UserData;
+				fixtureB.Body.UserData = null;
+
+				health[fixtureA.Body] -= f.Damage;
+
+				// TODO: Play sound
 			}
 
 			return contact.IsTouching;
@@ -574,6 +585,25 @@ namespace Badminton.Stick_Figures
 		}
 
 		/// <summary>
+		/// Readys the figure's long range attack
+		/// </summary>
+		/// <param name="angle">The angle to aim at</param>
+		public void Aim(float angle)
+		{
+			aiming = true;
+			attackAngle = angle;
+		}
+
+		/// <summary>
+		/// Executes a long range attack
+		/// </summary>
+		public void LongRangeAttack()
+		{
+			aiming = false;
+			attacks.Add(new LongRangeAttack(world, LeftHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * 10f, 0.1f, collisionCat));
+		}
+
+		/// <summary>
 		/// Checks if all the joints in a list are close to their target angle
 		/// </summary>
 		/// <param name="joints">The array of joints to check</param>
@@ -607,18 +637,18 @@ namespace Badminton.Stick_Figures
 			if (kicking)
 				UpdateKicks();
 
-			List<ForceWave> toRemove = new List<ForceWave>();
-			foreach (ForceWave f in normalAttacks)
+			List<Attack> toRemove = new List<Attack>();
+			foreach (Attack a in attacks)
 			{
-				f.Update();
-				if (f.body.UserData == null)
-					toRemove.Add(f);
+				a.Update();
+				if (a.PhysicsBody.UserData == null)
+					toRemove.Add(a);
 			}
-			foreach (ForceWave f in toRemove)
+			foreach (Attack a in toRemove)
 			{
-				if (world.BodyList.Contains(f.body))
-					world.RemoveBody(f.body);
-				normalAttacks.Remove(f);
+				if (world.BodyList.Contains(a.PhysicsBody))
+					world.RemoveBody(a.PhysicsBody);
+				attacks.Remove(a);
 			}
 
 			UpdateLimbStrength();
@@ -627,7 +657,7 @@ namespace Badminton.Stick_Figures
 			if (Crouching)
 				Crouch();
 
-			if (Math.Abs(torso.LinearVelocity.Y) < 0.01f)
+			if (Math.Abs(torso.LinearVelocity.Y) < 0.05f)
 				groundCheck++;
 			else
 				groundCheck = 0;
@@ -640,14 +670,21 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		private void UpdateArms()
 		{
-			if (!punching)
+			if (!punching && !aiming)
 			{
 				leftShoulder.TargetAngle = 3 * MathHelper.PiOver4;
 				rightShoulder.TargetAngle = -3 * MathHelper.PiOver4;
 				leftElbow.TargetAngle = MathHelper.PiOver4;
 				rightElbow.TargetAngle = -MathHelper.PiOver4;
 			}
-			else
+			else if (aiming)
+			{
+				leftShoulder.TargetAngle = GetArmTargetAngle(attackAngle - MathHelper.PiOver2, true);
+				rightShoulder.TargetAngle = GetArmTargetAngle(attackAngle - MathHelper.PiOver2, false);
+				leftElbow.TargetAngle = 0f;
+				rightElbow.TargetAngle = 0f;
+			}
+			else if (punching)
 			{
 				AngleJoint[] checkThese = new AngleJoint[] { (punchArm ? leftShoulder : rightShoulder) };
 				if (punchStage == -1)
@@ -685,7 +722,7 @@ namespace Badminton.Stick_Figures
 							leftElbow.TargetAngle = MathHelper.PiOver4;
 							leftShoulder.MaxImpulse = maxImpulse * scale;
 							leftElbow.MaxImpulse = maxImpulse * scale;
-							normalAttacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							attacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						else
 						{
@@ -693,7 +730,7 @@ namespace Badminton.Stick_Figures
 							rightElbow.TargetAngle = -MathHelper.PiOver4;
 							rightShoulder.MaxImpulse = maxImpulse * scale;
 							rightElbow.MaxImpulse = maxImpulse * scale;
-							normalAttacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							attacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						punchStage = 1;
 					}
@@ -758,7 +795,7 @@ namespace Badminton.Stick_Figures
 						leftKnee.TargetAngle = -5 * MathHelper.PiOver4;
 						leftHip.MaxImpulse = maxImpulse * scale;
 						leftKnee.MaxImpulse = maxImpulse * scale;
-						normalAttacks.Add(new ForceWave(world, LeftFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+						attacks.Add(new ForceWave(world, LeftFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 					}
 					else
 					{
@@ -766,7 +803,7 @@ namespace Badminton.Stick_Figures
 						rightKnee.TargetAngle = -3 * MathHelper.PiOver4;
 						rightHip.MaxImpulse = maxImpulse * scale;
 						rightKnee.MaxImpulse = maxImpulse * scale;
-						normalAttacks.Add(new ForceWave(world, RightFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+						attacks.Add(new ForceWave(world, RightFootPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 					}
 					kickStage = 1;
 				}
@@ -1008,8 +1045,8 @@ namespace Badminton.Stick_Figures
 			c = Blend(color, deathColor, health[head]);
 			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 
-			foreach (ForceWave f in normalAttacks)
-				f.Draw(sb, this.color);
+			foreach (Attack a in attacks)
+				a.Draw(sb, this.color);
 
 			// Debug
 //			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
@@ -1017,7 +1054,6 @@ namespace Badminton.Stick_Figures
 //			sb.DrawString(MainGame.fnt_basicFont, "R", RightFootPosition * MainGame.METER_TO_PIXEL, Color.Lime);
 //			sb.DrawString(MainGame.fnt_basicFont, leftLowerLeg.Friction.ToString(), Vector2.UnitY * 32, Color.White);
 //			sb.DrawString(MainGame.fnt_basicFont, rightLowerLeg.Friction.ToString(), Vector2.UnitY * 64, Color.White);
-//			sb.DrawString(MainGame.fnt_basicFont, onGround.ToString(), Vector2.UnitY * 96, Color.White);
 		}
 
 		/// <summary>Blends the specified colors together.</summary>

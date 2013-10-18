@@ -108,7 +108,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ForceWave.cs" />
+    <Compile Include="Attacks\Attack.cs" />
+    <Compile Include="Attacks\ForceWave.cs" />
+    <Compile Include="Attacks\LongRangeAttack.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Screens\MainMenu.cs" />

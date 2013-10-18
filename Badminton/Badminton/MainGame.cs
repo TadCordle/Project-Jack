@@ -35,7 +35,7 @@ namespace Badminton
 		Screens.GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont;
-		public static Texture2D tex_box, tex_wave;
+		public static Texture2D tex_box, tex_wave, tex_longRange;
 		public static Texture2D tex_head, tex_torso, tex_limb;
 		public static Texture2D tex_bg;
 
@@ -89,6 +89,7 @@ namespace Badminton
 			tex_limb = Content.Load<Texture2D>("textures/stick figure/limb");
 			tex_torso = Content.Load<Texture2D>("textures/stick figure/torso");
 			tex_wave = Content.Load<Texture2D>("textures/force wave");
+			tex_longRange = Content.Load<Texture2D>("textures/long range");
 
 			sfx_punches = new SoundEffect[] {
 				Content.Load<SoundEffect>("sfx/Punch1"),

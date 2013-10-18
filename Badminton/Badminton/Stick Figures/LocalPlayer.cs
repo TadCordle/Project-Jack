@@ -21,15 +21,16 @@ namespace Badminton.Stick_Figures
 		private PlayerIndex player;
 
 		private Keys upKey, rightKey, leftKey, downKey, punchKey, kickKey;
-		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn;
-		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed;
+		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn, shootBtn;
+		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed, shootBtnPressed;
 
 		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, Color color, PlayerIndex player)
 			: base(world, position, collisionCat, scale, color)
 		{
 			this.player = player;
-			punchBtnPressed = punchKeyPressed = true;
-			kickBtnPressed = kickKeyPressed = true;
+			punchBtnPressed = punchKeyPressed = false;
+			kickBtnPressed = kickKeyPressed = false;
+			shootBtnPressed = false;
             LastFacedLeft = true;
 			jumpBtn = Buttons.A;
 			rightBtn = Buttons.LeftThumbstickRight;
@@ -37,6 +38,7 @@ namespace Badminton.Stick_Figures
 			crouchBtn = Buttons.LeftTrigger;
 			punchBtn = Buttons.X;
 			kickBtn = Buttons.B;
+			shootBtn = Buttons.RightTrigger;
 
 			if (player == PlayerIndex.One)
 			{
@@ -126,25 +128,37 @@ namespace Badminton.Stick_Figures
 			else
 				punchKeyPressed = false;
 
-			if (GamePad.GetState(player).IsButtonDown(punchBtn))
+			if (GamePad.GetState(player).IsButtonDown(shootBtn))
 			{
-				if (!punchBtnPressed)
-				{
-					punchBtnPressed = true;
-					float angle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X);
-					if (angle == 0)
-					{
-						if (LastFacedLeft)
-							Punch(MathHelper.Pi);
-						else
-							Punch(0);
-					}
-					else
-						Punch(angle);
-				}
+				shootBtnPressed = true;
+				Aim((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Right.Y, GamePad.GetState(player).ThumbSticks.Right.X));
 			}
 			else
-				punchBtnPressed = false;
+			{
+				if (shootBtnPressed)
+					LongRangeAttack();
+				shootBtnPressed = false;
+
+				if (GamePad.GetState(player).IsButtonDown(punchBtn))
+				{
+					if (!punchBtnPressed)
+					{
+						punchBtnPressed = true;
+						float angle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X);
+						if (angle == 0)
+						{
+							if (LastFacedLeft)
+								Punch(MathHelper.Pi);
+							else
+								Punch(0);
+						}
+						else
+							Punch(angle);
+					}
+				}
+				else
+					punchBtnPressed = false;
+			}
 
 			// Kick
 			if (Keyboard.GetState().IsKeyDown(kickKey))

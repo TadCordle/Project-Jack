@@ -74,3 +74,4 @@ E:\FT Project\Project-Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysicsXNA.x
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.dll
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.pdb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.xml
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb
