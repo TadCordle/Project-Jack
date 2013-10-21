@@ -7,26 +7,39 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using FarseerPhysics.Dynamics;
+using FarseerPhysics.Factories;
 
 namespace Badminton.Attacks
 {
-	interface Attack
+	public abstract class Attack
 	{
-		Body PhysicsBody { get; }
+		public Body PhysicsBody { get { return body; } }
+		public float Damage { get { return damage; } }
 
-		/// <summary>
-		/// The damage dealt by the attack
-		/// </summary>
-		float Damage { get; }
+		protected float damage;
+		protected Body body;
+		protected Category collisionCat;
+
+		public Attack(World w, Vector2 position, Vector2 power, float damage, Category collisionCat)
+		{
+			body = BodyFactory.CreateRectangle(w, 100f * MainGame.PIXEL_TO_METER, 16f * MainGame.PIXEL_TO_METER, 5000f);
+			body.BodyType = BodyType.Dynamic;
+			body.Position = position;
+			body.LinearVelocity = power;
+			this.collisionCat = collisionCat;
+			body.CollisionCategories = collisionCat;
+			body.UserData = this;
+			this.damage = damage;
+		}
 
 		/// <summary>
 		/// Called once every frame
 		/// </summary>
-		void Update();
+		public abstract void Update();
 
 		/// <summary>
 		/// Draws the attack
 		/// </summary>
-		void Draw(SpriteBatch sb, Color c);
+		public abstract void Draw(SpriteBatch sb, Color c);
 	}
 }

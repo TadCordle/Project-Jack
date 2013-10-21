@@ -16,14 +16,8 @@ namespace Badminton.Attacks
 {
 	class LongRangeAttack : Attack
 	{
-		private float damage;
-		public Body body;
-		private Category collisionCat;
-
-		public float Damage { get { return damage; } }
-		public Body PhysicsBody { get { return body; } }
-	
 		public LongRangeAttack(World w, Vector2 position, Vector2 power, float damage, Category collisionCat)
+			: base(w, position, power, damage, collisionCat)
 		{
 			body = BodyFactory.CreateRectangle(w, 100f * MainGame.PIXEL_TO_METER, 16f * MainGame.PIXEL_TO_METER, 5000f);
 			body.BodyType = BodyType.Dynamic;
@@ -39,12 +33,12 @@ namespace Badminton.Attacks
 
 		private bool HitWall(Fixture f1, Fixture f2, Contact c)
 		{
-			if (f2.Body.UserData is Wall)
+			if (f2.Body.UserData is Wall || f2.Body.UserData is Attack)
 				body.UserData = null;
 			return true;
 		}
 
-		public void Update()
+		public override void Update()
 		{
 			if (body.UserData == null)
 				return;
@@ -52,7 +46,7 @@ namespace Badminton.Attacks
 			body.ApplyForce(-Vector2.UnitY * body.Mass * 9.8f);
 		}
 
-		public void Draw(SpriteBatch sb, Color c)
+		public override void Draw(SpriteBatch sb, Color c)
 		{
 			sb.Draw(MainGame.tex_longRange, body.Position * MainGame.METER_TO_PIXEL, null, c, (float)Math.Atan2(body.LinearVelocity.Y, body.LinearVelocity.X), new Vector2(MainGame.tex_wave.Width / 2, MainGame.tex_wave.Height / 2), 1f, SpriteEffects.None, 1f);
 		}

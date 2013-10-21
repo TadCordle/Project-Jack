@@ -105,7 +105,7 @@ namespace Badminton.Stick_Figures
 		private bool punching, kicking, aiming;
 		private bool punchArm, kickLeg; // true=left, false=right
 		private int punchStage, kickStage, chargeUp, coolDown;
-		private const int MAX_CHARGE = 150, COOL_PERIOD = 50;
+		private const int MAX_CHARGE = 100, COOL_PERIOD = 30;
 
 		// Other
 		private float scale;
@@ -607,7 +607,7 @@ namespace Badminton.Stick_Figures
 			aiming = false;
 			if (coolDown <= 0)
 			{
-				attacks.Add(new LongRangeAttack(world, LeftHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (8f + chargeUp / 10f), 0.1f + 0.1f * (chargeUp / MAX_CHARGE), collisionCat));
+				attacks.Add(new LongRangeAttack(world, LeftHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (8f + chargeUp / 10f), 0.2f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
 				chargeUp = 0;
 				coolDown = COOL_PERIOD;
 			}
