@@ -20,8 +20,15 @@ namespace Badminton.Attacks
 		private int destroyTimer;
 
 		public ForceWave(World w, Vector2 position, Vector2 power, Category collisionCat)
-			: base(w, position, power, DAMAGE, collisionCat)
 		{
+			body = BodyFactory.CreateRectangle(w, 16f * MainGame.PIXEL_TO_METER, 16f * MainGame.PIXEL_TO_METER, 5000f);
+			body.BodyType = BodyType.Dynamic;
+			body.Position = position;
+			body.LinearVelocity = power;
+			this.collisionCat = collisionCat;
+			body.CollisionCategories = collisionCat;
+			body.UserData = this;
+			this.damage = DAMAGE;
 			destroyTimer = 0;
 		}
 
