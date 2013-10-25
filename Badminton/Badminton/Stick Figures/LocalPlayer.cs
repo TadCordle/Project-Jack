@@ -76,13 +76,11 @@ namespace Badminton.Stick_Figures
 			{
 				WalkRight();
 				stand = false;
-                LastFacedLeft = false;
 			}
 			else if (Keyboard.GetState().IsKeyDown(leftKey) || GamePad.GetState(player).IsButtonDown(leftBtn))
 			{
 				WalkLeft();
 				stand = false;
-                LastFacedLeft = true;
 			}
 
 			// Crouch

@@ -96,7 +96,15 @@ namespace Badminton.Stick_Figures
 					return -Vector2.One;
 			}
 		}
-		
+
+		/// <summary>
+		/// Whether or not the figure is dead
+		/// </summary>
+		public bool IsDead
+		{
+			get { return health[head] <= 0 || health[torso] <= 0; }
+		}
+
 		// Action flags
 		public bool Crouching { get; set; }
 		private int walkStage;
@@ -410,9 +418,10 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void WalkRight()
 		{
-			if (kicking)
+			if (kicking || IsDead)
 				return;
 
+			LastFacedLeft = false;
 			upright.TargetAngle = -0.1f;
 			if (torso.LinearVelocity.X < (onGround ? 4 : 3) && !(Crouching && onGround))
 				torso.ApplyForce(new Vector2(150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
@@ -468,8 +477,10 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void WalkLeft()
 		{
-			if (kicking)
+			if (kicking || IsDead)
 				return;
+
+			LastFacedLeft = true;
 			upright.TargetAngle = 0.1f;
 			if (torso.LinearVelocity.X > (onGround ? -4 : -3))
 				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
@@ -525,6 +536,9 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void Jump()
 		{
+			if (IsDead)
+				return;
+
 			upright.TargetAngle = 0.0f;
 			if (!kicking || kicking && !kickLeg)
 			{
@@ -571,8 +585,11 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle at which to punch</param>
 		public void Punch(float angle)
 		{
-			punching = true;
-			attackAngle = angle;
+			if (!IsDead)
+			{
+				punching = true;
+				attackAngle = angle;
+			}
 		}
 
 		/// <summary>
@@ -581,9 +598,12 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle at which to kick</param>
 		public void Kick(float angle)
 		{
-			kicking = true;
-			kickLeg = angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2;
-			attackAngle = angle;
+			if (!IsDead)
+			{
+				kicking = true;
+				kickLeg = angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2;
+				attackAngle = angle;
+			}
 		}
 
 		/// <summary>
@@ -592,11 +612,14 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle to aim at</param>
 		public void Aim(float angle)
 		{
-			aiming = true;
-			attackAngle = angle;
+			if (!IsDead)
+			{
+				aiming = true;
+				attackAngle = angle;
 
-			if (chargeUp < MAX_CHARGE)
-				chargeUp++;
+				if (chargeUp < MAX_CHARGE)
+					chargeUp++;
+			}
 		}
 
 		/// <summary>
@@ -605,7 +628,7 @@ namespace Badminton.Stick_Figures
 		public void LongRangeAttack()
 		{
 			aiming = false;
-			if (coolDown <= 0)
+			if (coolDown <= 0 && !IsDead)
 			{
 				attacks.Add(new LongRangeAttack(world, LeftHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f), 0.1f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
 				chargeUp = 0;

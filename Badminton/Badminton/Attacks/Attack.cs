@@ -17,8 +17,16 @@ namespace Badminton.Attacks
 		public float Damage { get { return damage; } }
 
 		protected float damage;
+		protected World world;
 		protected Body body;
 		protected Category collisionCat;
+
+		public Attack(World w, Category collisionCat, float damage)
+		{
+			this.world = w;
+			this.collisionCat = collisionCat;
+			this.damage = damage;
+		}
 
 		/// <summary>
 		/// Called once every frame
