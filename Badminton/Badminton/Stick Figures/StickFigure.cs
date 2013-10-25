@@ -627,8 +627,11 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void LongRangeAttack()
 		{
+			if (IsDead)
+				return;
+
 			aiming = false;
-			if (coolDown <= 0 && !IsDead)
+			if (coolDown <= 0)
 			{
 				attacks.Add(new LongRangeAttack(world, LeftHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f), 0.1f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
 				chargeUp = 0;
@@ -1060,25 +1063,25 @@ namespace Badminton.Stick_Figures
 		{
 			Color deathColor = Color.Black;
 			Color c = Blend(color, deathColor, health[torso]);
-			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, torso.Rotation, new Vector2(5f, 20f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL, null, c, torso.Rotation, new Vector2(5f, 20f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperArm]);
-			sb.Draw(MainGame.tex_limb, leftUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperArm]);
-			sb.Draw(MainGame.tex_limb, rightUpperArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerArm]);
-			sb.Draw(MainGame.tex_limb, leftLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftLowerArm.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerArm]);
-			sb.Draw(MainGame.tex_limb, rightLowerArm.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerArm.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightLowerArm.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperLeg]);
-			sb.Draw(MainGame.tex_limb, leftUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperLeg]);
-			sb.Draw(MainGame.tex_limb, rightUpperLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightUpperLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerLeg]);
-			sb.Draw(MainGame.tex_limb, leftLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, leftLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, leftLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerLeg]);
-			sb.Draw(MainGame.tex_limb, rightLowerLeg.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, rightLowerLeg.Rotation, new Vector2(5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_limb, rightLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[head]);
-			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE, null, c, head.Rotation, new Vector2(12.5f, 12.5f), MainGame.RESOLUTION_SCALE * scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL, null, c, head.Rotation, new Vector2(12.5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 
 			foreach (Attack a in attacks)
 				a.Draw(sb, this.color);

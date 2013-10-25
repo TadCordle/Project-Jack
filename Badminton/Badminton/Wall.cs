@@ -37,10 +37,10 @@ namespace Badminton
 		public void Draw(SpriteBatch sb)
 		{
 			// change texture when stuff, maybe add as parameter
-			sb.Draw(MainGame.tex_box, new Rectangle((int)(body.Position.X * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE.X),
-										(int)(body.Position.Y * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE.Y),
-										(int)(width * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE.X), 
-										(int)(height * MainGame.METER_TO_PIXEL * MainGame.RESOLUTION_SCALE.Y)), 
+			sb.Draw(MainGame.tex_box, new Rectangle((int)(body.Position.X * MainGame.METER_TO_PIXEL),
+										(int)(body.Position.Y * MainGame.METER_TO_PIXEL),
+										(int)(width * MainGame.METER_TO_PIXEL), 
+										(int)(height * MainGame.METER_TO_PIXEL)), 
 					null, Color.White, body.Rotation, new Vector2(16, 16), SpriteEffects.None, 0.0f);
 		}
 	}

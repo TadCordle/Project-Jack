@@ -30,7 +30,7 @@ namespace Badminton
 
 		public const float METER_TO_PIXEL = 60f;
         public const float PIXEL_TO_METER = 1f / METER_TO_PIXEL;
-		public static Vector2 RESOLUTION_SCALE = new Vector2(0.5f, 0.5f);
+		public const float RESOLUTION_SCALE = 1f;
 
 		Screens.GameScreen currentScreen;
 
@@ -49,11 +49,11 @@ namespace Badminton
 		{
 			graphics = new GraphicsDeviceManager(this);
             // Not all monitors can support 1920x1080 resolution
-            graphics.PreferredBackBufferWidth = Math.Min(1920, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width);
-            graphics.PreferredBackBufferHeight = Math.Min(1080, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
-            RESOLUTION_SCALE.X = graphics.PreferredBackBufferWidth / 1920f;
-			RESOLUTION_SCALE.Y = graphics.PreferredBackBufferHeight / 1080f;
-			graphics.IsFullScreen = true;
+			graphics.PreferredBackBufferWidth = Math.Min((int)(1920 * RESOLUTION_SCALE), GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width);
+			graphics.PreferredBackBufferHeight = Math.Min((int)(1080 * RESOLUTION_SCALE), GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+//			RESOLUTION_SCALE.X = graphics.PreferredBackBufferWidth / 1920f;
+//			RESOLUTION_SCALE.Y = graphics.PreferredBackBufferHeight / 1080f;
+			graphics.IsFullScreen = false;
 			IsMouseVisible = true;
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
@@ -151,7 +151,8 @@ namespace Badminton
 		{
 			GraphicsDevice.Clear(Color.Multiply(Color.DarkGray, 0.7f));
 
-			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied);
+			Matrix transformMatrix = Matrix.CreateScale(RESOLUTION_SCALE);
+			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, transformMatrix);
 			currentScreen.Draw(spriteBatch);
 			spriteBatch.End();
 

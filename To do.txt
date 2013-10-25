@@ -2,7 +2,6 @@ StickFigure (Tad will work on this mostly)
 	- Long-range attack
 	- Trap creation
 	- More consistent "onGround" detection
-	- Make movement depend more on limb health
 	- Customization: pass character model file in constructor
 
 Game Modes
