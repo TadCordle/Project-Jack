@@ -40,7 +40,7 @@ namespace Badminton.Screens
 					if (currentChoice == 0)
 						return new SingleMapSelect();
 					else if (currentChoice == 1)
-						return this; // Change this when we make multiplayer lobby
+						return new MultiModeSelect(); // Change this when we make multiplayer lobby
 					else if (currentChoice == 2)
 						return this; // Change this when we make an options menu
 					else

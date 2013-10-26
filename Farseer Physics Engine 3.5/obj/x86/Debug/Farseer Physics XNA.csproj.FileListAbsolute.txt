@@ -11,3 +11,15 @@ C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\F
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb
+C:\Users\Administrator\Documents\GitHub\Project-Jack\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.dll
+C:\Users\Administrator\Documents\GitHub\Project-Jack\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.pdb
+C:\Users\Administrator\Documents\GitHub\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Administrator\Documents\GitHub\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
+C:\Users\Administrator\Documents\GitHub\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb
+E:\FT Project\Project-Jack\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.dll
+E:\FT Project\Project-Jack\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.pdb
+E:\FT Project\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\FT Project\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+E:\FT Project\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
+E:\FT Project\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb
