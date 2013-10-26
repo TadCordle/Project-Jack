@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb</Output>
-      <Time>2013-10-26T03:46:24.9224765+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb</Output>
+      <Time>2013-06-06T00:26:34.5908725-04:00</Time>
     </Item>
     <Item>
       <Source>textures\stick figure\head.png</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb</Output>
-      <Time>2013-10-26T03:46:24.9394775+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb</Output>
+      <Time>2013-10-04T14:18:55.0777426-04:00</Time>
     </Item>
     <Item>
       <Source>textures\stick figure\limb.png</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb</Output>
-      <Time>2013-10-26T03:46:24.9464779+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb</Output>
+      <Time>2013-10-04T14:19:20.2499234-04:00</Time>
     </Item>
     <Item>
       <Source>textures\stick figure\torso.png</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb</Output>
-      <Time>2013-10-26T03:46:24.9514782+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb</Output>
+      <Time>2013-10-04T14:19:33.1126371-04:00</Time>
     </Item>
     <Item>
       <Source>textures\force wave.png</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb</Output>
-      <Time>2013-10-26T03:46:24.9274768+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb</Output>
+      <Time>2013-09-21T16:02:16.6573108-04:00</Time>
     </Item>
     <Item>
       <Source>textures\background.jpg</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb</Output>
-      <Time>2013-10-26T03:46:24.9174762+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb</Output>
+      <Time>2013-09-21T17:00:32-04:00</Time>
     </Item>
     <Item>
       <Source>textures\long range.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb</Output>
-      <Time>2013-10-26T03:46:24.9334772+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb</Output>
+      <Time>2013-10-18T13:52:07.2686287-04:00</Time>
     </Item>
     <Item>
       <Source>fonts\basicFont.spritefont</Source>
@@ -70,8 +70,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb</Output>
-      <Time>2013-10-26T03:46:24.7184649+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb</Output>
+      <Time>2013-06-06T00:26:34.5888724-04:00</Time>
     </Item>
     <Item>
       <Source>sfx\Punch1.wav</Source>
@@ -79,8 +79,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb</Output>
-      <Time>2013-10-26T03:46:24.8894746+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb</Output>
+      <Time>2013-09-21T16:18:11.5114086-04:00</Time>
     </Item>
     <Item>
       <Source>sfx\Punch2.wav</Source>
@@ -88,8 +88,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb</Output>
-      <Time>2013-10-26T03:46:24.896475+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb</Output>
+      <Time>2013-09-21T16:18:19.1814193-04:00</Time>
     </Item>
     <Item>
       <Source>sfx\Thwap.wav</Source>
@@ -97,8 +97,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb</Output>
-      <Time>2013-10-26T03:46:24.9044755+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb</Output>
+      <Time>2013-09-21T16:18:26.6614298-04:00</Time>
     </Item>
     <Item>
       <Source>sfx\Whoosh.wav</Source>
@@ -106,8 +106,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb</Output>
-      <Time>2013-10-26T03:46:24.9104758+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb</Output>
+      <Time>2013-09-21T16:18:30.1014346-04:00</Time>
     </Item>
     <Item>
       <Source>music.mp3</Source>
@@ -115,9 +115,9 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb</Output>
-      <Extra>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
-      <Time>2013-10-26T03:46:24.791469+08:00</Time>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\music.xnb</Output>
+      <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
+      <Time>2013-04-19T10:52:54-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -125,39 +125,39 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\BadmintonContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\BadmintonContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Administrator\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\BadmintonContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\BadmintonContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+08:00</Value>
+        <Value>2010-08-23T13:41:18-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
-        <Value>2010-08-23T12:41:18+08:00</Value>
+        <Value>2010-08-23T13:41:18-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+08:00</Value>
+        <Value>2010-08-23T13:41:18-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+08:00</Value>
+        <Value>2010-08-23T13:41:18-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
-        <Value>2010-08-23T12:41:18+08:00</Value>
+        <Value>2010-08-23T13:41:18-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
-        <Value>2010-08-23T12:41:18+08:00</Value>
+        <Value>2010-08-23T13:41:18-04:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2013-10-10T06:09:04.7524994+08:00</Value>
+        <Value>2011-12-25T17:39:42.9320882-05:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

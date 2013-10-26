@@ -123,7 +123,7 @@ namespace Badminton.Stick_Figures
 		private Category collisionCat;
 		protected bool LastFacedLeft { get; set; }
 
-		#region Creation
+		#region Creation/Destruction
 
 		/// <summary>
 		/// Stick figure constructor
@@ -330,6 +330,76 @@ namespace Badminton.Stick_Figures
 			rightKnee = JointFactory.CreateAngleJoint(world, rightUpperLeg, rightLowerLeg);
 			rightKnee.CollideConnected = false;
 			rightKnee.MaxImpulse = maxImpulse;
+		}
+
+		/// <summary>
+		/// Removes all limbs and joints from the physics world. Call this before respawning
+		/// </summary>
+		public void Destroy()
+		{
+			// Remove joints
+			if (world.JointList.Contains(neck))
+				world.RemoveJoint(neck);
+			if (world.JointList.Contains(r_neck))
+				world.RemoveJoint(r_neck);
+			if (world.JointList.Contains(leftShoulder))
+				world.RemoveJoint(leftShoulder);
+			if (world.JointList.Contains(r_leftShoulder))
+				world.RemoveJoint(r_leftShoulder);
+			if (world.JointList.Contains(leftElbow))
+				world.RemoveJoint(leftElbow);
+			if (world.JointList.Contains(r_leftElbow))
+				world.RemoveJoint(r_leftElbow);
+			if (world.JointList.Contains(rightShoulder))
+				world.RemoveJoint(rightShoulder);
+			if (world.JointList.Contains(r_rightShoulder))
+				world.RemoveJoint(r_rightShoulder);
+			if (world.JointList.Contains(rightElbow))
+				world.RemoveJoint(rightElbow);
+			if (world.JointList.Contains(r_rightElbow))
+				world.RemoveJoint(r_rightElbow);
+			if (world.JointList.Contains(leftHip))
+				world.RemoveJoint(leftHip);
+			if (world.JointList.Contains(r_leftHip))
+				world.RemoveJoint(r_leftHip);
+			if (world.JointList.Contains(leftKnee))
+				world.RemoveJoint(leftKnee);
+			if (world.JointList.Contains(r_leftKnee))
+				world.RemoveJoint(r_leftKnee);
+			if (world.JointList.Contains(rightHip))
+				world.RemoveJoint(rightHip);
+			if (world.JointList.Contains(r_rightHip))
+				world.RemoveJoint(r_rightHip);
+			if (world.JointList.Contains(rightKnee))
+				world.RemoveJoint(rightKnee);
+			if (world.JointList.Contains(r_rightKnee))
+				world.RemoveJoint(r_rightKnee);
+			if (world.JointList.Contains(upright))
+				world.RemoveJoint(upright);
+
+			// Remove limbs
+			if (world.BodyList.Contains(head))
+				world.RemoveBody(head);
+			if (world.BodyList.Contains(torso))
+				world.RemoveBody(torso);
+			if (world.BodyList.Contains(leftUpperArm))
+				world.RemoveBody(leftUpperArm);
+			if (world.BodyList.Contains(leftLowerArm))
+				world.RemoveBody(leftLowerArm);
+			if (world.BodyList.Contains(rightUpperArm))
+				world.RemoveBody(rightUpperArm);
+			if (world.BodyList.Contains(rightLowerArm))
+				world.RemoveBody(rightLowerArm);
+			if (world.BodyList.Contains(leftUpperLeg))
+				world.RemoveBody(leftUpperLeg);
+			if (world.BodyList.Contains(leftLowerLeg))
+				world.RemoveBody(leftLowerLeg);
+			if (world.BodyList.Contains(rightUpperLeg))
+				world.RemoveBody(rightUpperLeg);
+			if (world.BodyList.Contains(rightLowerLeg))
+				world.RemoveBody(rightLowerLeg);
+			if (world.BodyList.Contains(gyro))
+				world.RemoveBody(gyro);
 		}
 
 		#endregion

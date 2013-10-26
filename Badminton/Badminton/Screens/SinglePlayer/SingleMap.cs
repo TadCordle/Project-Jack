@@ -28,6 +28,8 @@ namespace Badminton.Screens
 
 		LocalPlayer testFigure1, testFigure2;
 
+		private int respawnTimer = 0;
+
 		public SingleMap()
 		{
 			world = new World(new Vector2(0, 9.8f)); // That'd be cool to have gravity as a map property, so you could play 0G levels
@@ -45,6 +47,14 @@ namespace Badminton.Screens
 		{
 			testFigure1.Update();
 			testFigure2.Update();
+
+			respawnTimer++;
+			if (respawnTimer == 150)
+			{
+				respawnTimer = 0;
+				testFigure1.Destroy();
+				testFigure1 = new LocalPlayer(world, new Vector2(480 * MainGame.PIXEL_TO_METER, 480 * MainGame.PIXEL_TO_METER), Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
+			}
 
 			// These two lines stay here, even after we delete testing stuff
 			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
