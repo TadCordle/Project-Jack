@@ -35,7 +35,8 @@ namespace Badminton.Stick_Figures
 
 		private List<Attack> attacks;
 
-		// Position properties
+		#region Position Properites
+
 		/// <summary>
 		/// The torso's position
 		/// </summary>
@@ -97,6 +98,8 @@ namespace Badminton.Stick_Figures
 			}
 		}
 
+		#endregion
+
 		/// <summary>
 		/// Whether or not the figure is dead
 		/// </summary>
@@ -105,8 +108,17 @@ namespace Badminton.Stick_Figures
 			get { return health[head] <= 0 || health[torso] <= 0; }
 		}
 
-		// Action flags
+		/// <summary>
+		/// Whether or not the stick figure is crouching
+		/// </summary>
 		public bool Crouching { get; set; }
+
+		/// <summary>
+		/// Gets/sets which direction the stick figure was last facing
+		/// </summary>
+		protected bool LastFacedLeft { get; set; }
+
+		// Action flags
 		private int walkStage;
 
 		private float attackAngle;
@@ -121,7 +133,6 @@ namespace Badminton.Stick_Figures
 		private bool onGround;
 		private int groundCheck;
 		private Category collisionCat;
-		protected bool LastFacedLeft { get; set; }
 
 		#region Creation/Destruction
 
@@ -337,6 +348,14 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void Destroy()
 		{
+			// Remove attacks
+			for (int i = 0; i < attacks.Count; i++)
+			{
+				if (world.BodyList.Contains(attacks[i].PhysicsBody))
+					world.RemoveBody(attacks[i].PhysicsBody);
+			}
+			attacks.Clear();
+
 			// Remove joints
 			List<Body> keys = health.Keys.ToList<Body>();
 			foreach (Body b in keys)
@@ -436,7 +455,15 @@ namespace Badminton.Stick_Figures
 				rightKnee.TargetAngle = -3 * MathHelper.PiOver4;
 				rightLowerLeg.Friction = 0f;
 			}
-			AngleJoint[] checkThese = new AngleJoint[] { leftHip, leftKnee, rightHip, rightKnee };
+			List<AngleJoint> checkThese = new List<AngleJoint>();
+			if (health[leftUpperLeg] > 0f)
+				checkThese.Add(leftHip);
+			if (health[leftLowerLeg] > 0f)
+				checkThese.Add(leftKnee);
+			if (health[rightUpperLeg] > 0f)
+				checkThese.Add(rightHip);
+			if (health[rightLowerLeg] > 0f)
+				checkThese.Add(rightKnee);
 			if (JointsAreInPosition(checkThese))
 			{
 				leftLowerLeg.Friction = friction;
@@ -460,7 +487,11 @@ namespace Badminton.Stick_Figures
 			upright.TargetAngle = -0.1f;
 			if (torso.LinearVelocity.X < (onGround ? 4 : 3) && !(Crouching && onGround))
 				torso.ApplyForce(new Vector2(150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
-			AngleJoint[] checkThese = new AngleJoint[] { leftHip, rightHip };
+			List<AngleJoint> checkThese = new List<AngleJoint>();
+			if (health[leftUpperLeg] > 0f)
+				checkThese.Add(leftHip);
+			if (health[rightUpperLeg] > 0f)
+				checkThese.Add(rightHip);
 			if (walkStage == 0)
 			{
 				leftHip.TargetAngle = (float)Math.PI - torso.Rotation;
@@ -519,7 +550,11 @@ namespace Badminton.Stick_Figures
 			upright.TargetAngle = 0.1f;
 			if (torso.LinearVelocity.X > (onGround ? -4 : -3))
 				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
-			AngleJoint[] checkThese = new AngleJoint[] { leftHip, rightHip };
+			List<AngleJoint> checkThese = new List<AngleJoint>();
+			if (health[leftUpperLeg] > 0f)
+				checkThese.Add(leftHip);
+			if (health[rightUpperLeg] > 0f)
+				checkThese.Add(rightHip);
 			if (walkStage == 0)
 			{
 				rightHip.TargetAngle = -(float)Math.PI - torso.Rotation;
@@ -571,7 +606,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void Jump()
 		{
-			if (IsDead)
+			if (IsDead || health[leftUpperLeg] <= 0f && health[rightUpperLeg] <= 0f)
 				return;
 
 			upright.TargetAngle = 0.0f;
@@ -654,6 +689,8 @@ namespace Badminton.Stick_Figures
 
 				if (chargeUp < MAX_CHARGE)
 					chargeUp++;
+
+				// TODO: Start charge up sound
 			}
 		}
 
@@ -662,31 +699,18 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void LongRangeAttack()
 		{
-			if (IsDead)
+			aiming = false;
+			if (IsDead || health[leftLowerArm] <= 0f && health[rightLowerArm] <= 0f)
 				return;
 
-			aiming = false;
 			if (coolDown <= 0)
 			{
-				attacks.Add(new LongRangeAttack(world, LeftHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f), 0.1f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
+				attacks.Add(new LongRangeAttack(world, health[leftLowerArm] > 0f ? LeftHandPosition : RightHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f), 0.1f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
 				chargeUp = 0;
 				coolDown = COOL_PERIOD;
 			}
-		}
 
-		/// <summary>
-		/// Checks if all the joints in a list are close to their target angle
-		/// </summary>
-		/// <param name="joints">The array of joints to check</param>
-		/// <returns>True if the joints are at their target angles, false if not</returns>
-		private bool JointsAreInPosition(AngleJoint[] joints)
-		{
-			foreach (AngleJoint j in joints)
-			{
-				if (Math.Abs(j.BodyB.Rotation - j.BodyA.Rotation - j.TargetAngle) > 0.20)
-					return false;
-			}
-			return true;
+			// TODO: End charge up sound, play shoot sound
 		}
 
 		#endregion
@@ -759,7 +783,17 @@ namespace Badminton.Stick_Figures
 			}
 			else if (punching)
 			{
-				AngleJoint[] checkThese = new AngleJoint[] { (punchArm ? leftShoulder : rightShoulder) };
+				if (punchArm && health[leftUpperArm] <= 0f || !punchArm && health[rightUpperArm] <= 0f)
+					punchArm = !punchArm;
+
+				List<AngleJoint> checkThese = new List<AngleJoint>();
+				if (punchArm && health[leftUpperArm] > 0f)
+					checkThese.Add(leftShoulder);
+				if (!punchArm && health[rightUpperArm] > 0f)
+					checkThese.Add(rightShoulder);
+				if (checkThese.Count == 0)
+					return;
+
 				if (punchStage == -1)
 				{
 					MainGame.sfx_whoosh.Play();
@@ -812,7 +846,8 @@ namespace Badminton.Stick_Figures
 				{
 					if (JointsAreInPosition(checkThese))
 					{
-						punchArm = !punchArm;
+						if (punchArm && health[rightUpperArm] > 0f || !punchArm && health[leftUpperArm] > 0f)
+							punchArm = !punchArm;
 						punching = false;
 						punchStage = -1;
 						leftUpperArm.CollidesWith = Category.All & ~this.collisionCat;
@@ -829,7 +864,14 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		private void UpdateKicks()
 		{
-			AngleJoint[] checkThese = new AngleJoint[] { (kickLeg ? leftHip : rightHip) };
+			List<AngleJoint> checkThese = new List<AngleJoint>();
+			if (kickLeg && health[leftUpperLeg] > 0f)
+				checkThese.Add(leftHip);
+			if (!kickLeg && health[rightUpperLeg] > 0f)
+				checkThese.Add(rightHip);
+			if (checkThese.Count == 0)
+				return;
+
 			if (kickStage == -1)
 			{
 				this.walkStage = 0;
@@ -838,6 +880,8 @@ namespace Badminton.Stick_Figures
 				MainGame.sfx_whoosh.Play();
 				kickStage = 0;
 				float angle = attackAngle - MathHelper.PiOver2;
+				if (kickLeg && health[leftUpperLeg] <= 0f || !kickLeg && health[rightUpperLeg] <= 0f)
+					kickLeg = !kickLeg;
 				if (kickLeg)
 				{
 					leftHip.TargetAngle = GetLegTargetAngle(angle, kickLeg);
@@ -904,6 +948,7 @@ namespace Badminton.Stick_Figures
 			// Left arm
 			if (health[leftUpperArm] <= 0)
 			{
+				health[leftLowerArm] = 0f;
 				leftUpperArm.Friction = 3.0f;
 				if (world.JointList.Contains(leftShoulder))
 					world.RemoveJoint(leftShoulder);
@@ -923,6 +968,7 @@ namespace Badminton.Stick_Figures
 			// Right arm
 			if (health[rightUpperArm] <= 0)
 			{
+				health[rightLowerArm] = 0f;
 				rightUpperArm.Friction = 3.0f;
 				if (world.JointList.Contains(rightShoulder))
 					world.RemoveJoint(rightShoulder);
@@ -942,6 +988,7 @@ namespace Badminton.Stick_Figures
 			// Left leg
 			if (health[leftUpperLeg] <= 0)
 			{
+				health[leftLowerLeg] = 0f;
 				leftUpperLeg.Friction = 3.0f;
 				if (world.JointList.Contains(leftHip))
 					world.RemoveJoint(leftHip);
@@ -961,6 +1008,7 @@ namespace Badminton.Stick_Figures
 			// Right leg
 			if (health[rightUpperLeg] <= 0)
 			{
+				health[rightLowerLeg] = 0f;
 				rightUpperLeg.Friction = 3.0f;
 				if (world.JointList.Contains(rightHip))
 					world.RemoveJoint(rightHip);
@@ -1020,6 +1068,21 @@ namespace Badminton.Stick_Figures
 		#endregion
 
 		#region Helpers/debug
+
+		/// <summary>
+		/// Checks if all the joints in a list are close to their target angle
+		/// </summary>
+		/// <param name="joints">The array of joints to check</param>
+		/// <returns>True if the joints are at their target angles, false if not</returns>
+		private bool JointsAreInPosition(List<AngleJoint> joints)
+		{
+			foreach (AngleJoint j in joints)
+			{
+				if (Math.Abs(j.BodyB.Rotation - j.BodyA.Rotation - j.TargetAngle) > 0.20)
+					return false;
+			}
+			return true;
+		}
 
 		public void ApplyForce(Vector2 v)
 		{

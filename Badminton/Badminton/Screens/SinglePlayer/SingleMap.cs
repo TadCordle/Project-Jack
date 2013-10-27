@@ -28,8 +28,6 @@ namespace Badminton.Screens
 
 		LocalPlayer testFigure1, testFigure2;
 
-		private int respawnTimer = 0;
-
 		public SingleMap()
 		{
 			world = new World(new Vector2(0, 9.8f)); // That'd be cool to have gravity as a map property, so you could play 0G levels
@@ -39,8 +37,8 @@ namespace Badminton.Screens
             
 			walls = new List<Wall>();
 			walls.Add(new Wall(world, 960 * MainGame.PIXEL_TO_METER, 1040 * MainGame.PIXEL_TO_METER, 1200 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 0.0f));
-//			walls.Add(new Wall(world, 360 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
-//			walls.Add(new Wall(world, 1560 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
+			walls.Add(new Wall(world, 360 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
+			walls.Add(new Wall(world, 1560 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
 		}
 
 		public GameScreen Update(GameTime gameTime)
