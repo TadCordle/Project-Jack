@@ -30,7 +30,7 @@ namespace Badminton
 
 		public const float METER_TO_PIXEL = 60f;
         public const float PIXEL_TO_METER = 1f / METER_TO_PIXEL;
-	    public const float RESOLUTION_SCALE = 1.0f;
+	    public const float RESOLUTION_SCALE = 1;
 		Screens.GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont;
@@ -47,11 +47,11 @@ namespace Badminton
 		public MainGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
-            // Not all monitors can support 1920x1080 resolution
-		    graphics.PreferredBackBufferWidth = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,(int)(1920 * RESOLUTION_SCALE));
+			// Not all monitors can support 1920x1080 resolution
+			graphics.PreferredBackBufferWidth = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,(int)(1920 * RESOLUTION_SCALE));
 			graphics.PreferredBackBufferHeight = Math.Min( GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,(int)(1080 * RESOLUTION_SCALE));
-		   //RESOLUTION_SCALE.X = graphics.PreferredBackBufferWidth / 1920f;
-           // RESOLUTION_SCALE.Y = graphics.PreferredBackBufferHeight / 1080f;
+//			RESOLUTION_SCALE.X = graphics.PreferredBackBufferWidth / 1920f;
+//			RESOLUTION_SCALE.Y = graphics.PreferredBackBufferHeight / 1080f;
        
 			graphics.IsFullScreen = true;
 			IsMouseVisible = true;

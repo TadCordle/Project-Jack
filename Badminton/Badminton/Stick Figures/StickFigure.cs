@@ -338,44 +338,9 @@ namespace Badminton.Stick_Figures
 		public void Destroy()
 		{
 			// Remove joints
-			if (world.JointList.Contains(neck))
-				world.RemoveJoint(neck);
-			if (world.JointList.Contains(r_neck))
-				world.RemoveJoint(r_neck);
-			if (world.JointList.Contains(leftShoulder))
-				world.RemoveJoint(leftShoulder);
-			if (world.JointList.Contains(r_leftShoulder))
-				world.RemoveJoint(r_leftShoulder);
-			if (world.JointList.Contains(leftElbow))
-				world.RemoveJoint(leftElbow);
-			if (world.JointList.Contains(r_leftElbow))
-				world.RemoveJoint(r_leftElbow);
-			if (world.JointList.Contains(rightShoulder))
-				world.RemoveJoint(rightShoulder);
-			if (world.JointList.Contains(r_rightShoulder))
-				world.RemoveJoint(r_rightShoulder);
-			if (world.JointList.Contains(rightElbow))
-				world.RemoveJoint(rightElbow);
-			if (world.JointList.Contains(r_rightElbow))
-				world.RemoveJoint(r_rightElbow);
-			if (world.JointList.Contains(leftHip))
-				world.RemoveJoint(leftHip);
-			if (world.JointList.Contains(r_leftHip))
-				world.RemoveJoint(r_leftHip);
-			if (world.JointList.Contains(leftKnee))
-				world.RemoveJoint(leftKnee);
-			if (world.JointList.Contains(r_leftKnee))
-				world.RemoveJoint(r_leftKnee);
-			if (world.JointList.Contains(rightHip))
-				world.RemoveJoint(rightHip);
-			if (world.JointList.Contains(r_rightHip))
-				world.RemoveJoint(r_rightHip);
-			if (world.JointList.Contains(rightKnee))
-				world.RemoveJoint(rightKnee);
-			if (world.JointList.Contains(r_rightKnee))
-				world.RemoveJoint(r_rightKnee);
-			if (world.JointList.Contains(upright))
-				world.RemoveJoint(upright);
+			List<Body> keys = health.Keys.ToList<Body>();
+			foreach (Body b in keys)
+				health[b] = 0f;
 
 			// Remove limbs
 			if (world.BodyList.Contains(head))

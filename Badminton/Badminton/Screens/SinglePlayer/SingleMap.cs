@@ -48,12 +48,15 @@ namespace Badminton.Screens
 			testFigure1.Update();
 			testFigure2.Update();
 
-			respawnTimer++;
-			if (respawnTimer == 150)
+			if (testFigure1.IsDead || testFigure1.Position.Y * MainGame.METER_TO_PIXEL > 1080)
 			{
-				respawnTimer = 0;
 				testFigure1.Destroy();
 				testFigure1 = new LocalPlayer(world, new Vector2(480 * MainGame.PIXEL_TO_METER, 480 * MainGame.PIXEL_TO_METER), Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
+			}
+			if (testFigure2.IsDead || testFigure2.Position.Y * MainGame.METER_TO_PIXEL > 1080)
+			{
+				testFigure2.Destroy();
+				testFigure2 = new LocalPlayer(world, new Vector2(1200 * MainGame.PIXEL_TO_METER, 480 * MainGame.PIXEL_TO_METER), Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
 			}
 
 			// These two lines stay here, even after we delete testing stuff
