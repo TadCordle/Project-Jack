@@ -36,11 +36,13 @@ namespace Badminton
 		public static SpriteFont fnt_basicFont;
 		public static Texture2D tex_box, tex_wave, tex_longRange;
 		public static Texture2D tex_head, tex_torso, tex_limb;
-		public static Texture2D tex_bg;
+		public static Texture2D tex_bg_castle;
 
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh;
 		public static Song music;
+
+		public static Game mainGame;
 
 		private bool escapePressed;
 
@@ -57,6 +59,8 @@ namespace Badminton
 			IsMouseVisible = true;
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
+
+			mainGame = this;
 		}
 
 		/// <summary>
@@ -83,7 +87,7 @@ namespace Badminton
 
 			fnt_basicFont = Content.Load<SpriteFont>("fonts/basicFont");
 
-			tex_bg = Content.Load<Texture2D>("textures/background");
+			tex_bg_castle = Content.Load<Texture2D>("textures/background");
 			tex_box = Content.Load<Texture2D>("textures/box");
 			tex_head = Content.Load<Texture2D>("textures/stick figure/head");
 			tex_limb = Content.Load<Texture2D>("textures/stick figure/limb");

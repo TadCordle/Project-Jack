@@ -624,7 +624,7 @@ namespace Badminton.Stick_Figures
 			{
 				leftLowerLeg.Friction = friction;
 				rightLowerLeg.Friction = friction;
-				torso.ApplyLinearImpulse(Vector2.UnitY * (Crouching ? -25 : -15) * (float)Math.Pow(scale, 2.5)); // Change joint dependancy
+				torso.ApplyLinearImpulse(Vector2.UnitY * -23 * (float)Math.Pow(scale, 2.5)); // Change joint dependancy
 			}
 			Crouching = false;
 		}

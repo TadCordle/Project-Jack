@@ -40,9 +40,9 @@ namespace Badminton.Screens.MultiPlayer
             return this;
         }
 
-        public void Draw(SpriteBatch sb)
+		public void Draw(SpriteBatch sb)
         {
-            sb.Draw(MainGame.tex_bg, new Rectangle(0, 0, 1920, 1080), Color.White);
+            sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
 
             testFigure1.Draw(sb);
             testFigure2.Draw(sb);
@@ -53,7 +53,7 @@ namespace Badminton.Screens.MultiPlayer
                 w.Draw(sb);
         }
 
-        public GameScreen Exit()
+		public GameScreen Exit()
         {
             return new MainMenu();
         }

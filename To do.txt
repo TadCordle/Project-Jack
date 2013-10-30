@@ -6,16 +6,6 @@ LocalPlayer
 	- Fix controls
 		* Number of players = num of controllers plugged in + keyboard, if num of controllers < 4
 			For n players, players 1-n use controller, player n uses keyboard
-		* Keyboard/mouse (for long range attacks)
-			WASD - move/jump/crouch
-			Left mouse - punch
-			Right mouse - kick
-			Middle mouse - long range
-			Space - trap
-
-Fix Glitches
-	- Can't walk when one leg is gone
-	- Fix jumping when both legs are detached
 
 Game Modes
 	- Figure out "map" file structure

@@ -111,6 +111,7 @@
     <Compile Include="Attacks\Attack.cs" />
     <Compile Include="Attacks\ForceWave.cs" />
     <Compile Include="Attacks\LongRangeAttack.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Screens\MultiPlayer\FreeForAll.cs" />
     <Compile Include="Screens\MultiPlayer\Match_TDM.cs" />
     <Compile Include="Screens\MultiPlayer\MultiMapSelect.cs" />

@@ -23,12 +23,12 @@ namespace Badminton
 
 		public Wall(World w, float x, float y, float width, float height, float rotation)
 		{
-			this.width = width;
-			this.height = height;
-			body = BodyFactory.CreateRectangle(w, width, height, 1f);
+			this.width = width * MainGame.PIXEL_TO_METER;
+			this.height = height * MainGame.PIXEL_TO_METER;
+			body = BodyFactory.CreateRectangle(w, this.width, this.height, 1f);
 			body.Friction = 100f;
 			body.Rotation = rotation;
-			body.Position = new Vector2(x, y);
+			body.Position = new Vector2(x, y) * MainGame.PIXEL_TO_METER;
 			body.BodyType = BodyType.Static;
 			body.CollisionCategories = Category.Cat31; // change when more players are added
 			body.UserData = this;

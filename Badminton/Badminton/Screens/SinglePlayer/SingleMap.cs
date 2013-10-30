@@ -25,6 +25,8 @@ namespace Badminton.Screens
 	{
 		World world;
 		List<Wall> walls;
+		Vector2[] spawnPoints;
+		Texture2D background;
 
 		LocalPlayer testFigure1, testFigure2;
 
@@ -32,16 +34,16 @@ namespace Badminton.Screens
 		{
 			world = new World(new Vector2(0, 9.8f)); // That'd be cool to have gravity as a map property, so you could play 0G levels
 
-			testFigure1 = new LocalPlayer(world, new Vector2(480 * MainGame.PIXEL_TO_METER, 480 * MainGame.PIXEL_TO_METER), Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
-			testFigure2 = new LocalPlayer(world, new Vector2(1200 * MainGame.PIXEL_TO_METER, 480 * MainGame.PIXEL_TO_METER), Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
-            
-			walls = new List<Wall>();
-			walls.Add(new Wall(world, 960 * MainGame.PIXEL_TO_METER, 1040 * MainGame.PIXEL_TO_METER, 1200 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 0.0f));
-			walls.Add(new Wall(world, 360 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
-			walls.Add(new Wall(world, 1560 * MainGame.PIXEL_TO_METER, 540 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 1080 * MainGame.PIXEL_TO_METER, 0.0f));
+			object[] map = Map.LoadCastle(world);
+			background = (Texture2D)map[0];
+			walls = (List<Wall>)map[1];
+			spawnPoints = (Vector2[])map[2];
+
+			testFigure1 = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
+			testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
 		}
 
-		public GameScreen Update(GameTime gameTime)
+		public virtual GameScreen Update(GameTime gameTime)
 		{
 			testFigure1.Update();
 			testFigure2.Update();
@@ -49,12 +51,12 @@ namespace Badminton.Screens
 			if (testFigure1.IsDead || testFigure1.Position.Y * MainGame.METER_TO_PIXEL > 1080)
 			{
 				testFigure1.Destroy();
-				testFigure1 = new LocalPlayer(world, new Vector2(480 * MainGame.PIXEL_TO_METER, 480 * MainGame.PIXEL_TO_METER), Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
+				testFigure1 = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
 			}
 			if (testFigure2.IsDead || testFigure2.Position.Y * MainGame.METER_TO_PIXEL > 1080)
 			{
 				testFigure2.Destroy();
-				testFigure2 = new LocalPlayer(world, new Vector2(1200 * MainGame.PIXEL_TO_METER, 480 * MainGame.PIXEL_TO_METER), Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
+				testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
 			}
 
 			// These two lines stay here, even after we delete testing stuff
@@ -62,20 +64,20 @@ namespace Badminton.Screens
 			return this;
 		}
 
-		public GameScreen Exit()
+		public virtual GameScreen Exit()
 		{
 			return null; //new MainMenu(); // Change this to show confirmation dialog later
 		}
 
-		public void Draw(SpriteBatch sb)
+		public virtual void Draw(SpriteBatch sb)
 		{
-			sb.Draw(MainGame.tex_bg, new Rectangle(0, 0, 1920, 1080), Color.White);
+			sb.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
 
 			testFigure1.Draw(sb);
 			testFigure2.Draw(sb);
 
-			foreach (Wall w in walls)
-				w.Draw(sb);
+//			foreach (Wall w in walls)
+//				w.Draw(sb);
 		}
 	}
 }
