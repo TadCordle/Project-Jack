@@ -37,6 +37,7 @@ namespace Badminton
 		public static Texture2D tex_box, tex_wave, tex_longRange;
 		public static Texture2D tex_head, tex_torso, tex_limb;
 		public static Texture2D tex_bg_castle;
+		public static Texture2D tex_blank;
 
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh;
@@ -103,6 +104,9 @@ namespace Badminton
 			music = Content.Load<Song>("music");
 			MediaPlayer.IsRepeating = true;
 //			MediaPlayer.Play(music);
+
+			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+			tex_blank.SetData(new[] { Color.White });
 
 			currentScreen = new Screens.MainMenu();
 		}

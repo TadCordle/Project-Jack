@@ -18,7 +18,7 @@ namespace Badminton
 			walls.Add(new Wall(w, 980, 880, 1404, 128, 0));
 			walls.Add(new Wall(w, 319, 368, 152, 976, 0));
 			walls.Add(new Wall(w, 1564, 359, 108, 915, 0));
-			walls.Add(new Wall(w, 980, -100, 1404, 128, 0));
+			walls.Add(new Wall(w, 980, -200, 1404, 128, 0));
 			walls.Add(new Wall(w, 450, 518, 209, 47, 0));
 			walls.Add(new Wall(w, 1402, 518, 216, 55, 0));
 			walls.Add(new Wall(w, 963, 256, 172, 44, 0));

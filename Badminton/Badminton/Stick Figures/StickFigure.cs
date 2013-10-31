@@ -35,7 +35,24 @@ namespace Badminton.Stick_Figures
 
 		private List<Attack> attacks;
 
-		#region Position Properites
+		// Action flags
+		private int walkStage;
+
+		private float attackAngle;
+		private bool punching, kicking, aiming;
+		private bool punchArm, kickLeg; // true=left, false=right
+		private int punchStage, kickStage, chargeUp, coolDown;
+		private const int MAX_CHARGE = 100, COOL_PERIOD = 30;
+
+		// Other
+		private float scale;
+		private Color color;
+		private Category collisionCat;
+		private Vector2 groundSensorStart, groundSensorEnd;
+
+		#region Properties
+
+		#region Position properties
 
 		/// <summary>
 		/// The torso's position
@@ -55,7 +72,7 @@ namespace Badminton.Stick_Figures
 					return -Vector2.One;
 			}
 		}
-		
+
 		/// <summary>
 		/// The right hand's position
 		/// </summary>
@@ -85,6 +102,20 @@ namespace Badminton.Stick_Figures
 		}
 
 		/// <summary>
+		/// The left knee's position
+		/// </summary>
+		public Vector2 LeftKneePosition
+		{
+			get
+			{
+				if (health[leftUpperLeg] > 0)
+					return leftUpperLeg.Position + new Vector2((float)Math.Sin(leftUpperLeg.Rotation), -(float)Math.Cos(leftUpperLeg.Rotation)) * 7.5f * scale * MainGame.PIXEL_TO_METER;
+				else
+					return -Vector2.One;
+			}
+		}
+
+		/// <summary>
 		/// The right foot's position
 		/// </summary>
 		public Vector2 RightFootPosition
@@ -93,6 +124,20 @@ namespace Badminton.Stick_Figures
 			{
 				if (health[rightLowerLeg] > 0)
 					return rightLowerLeg.Position - new Vector2((float)Math.Sin(rightLowerLeg.Rotation), -(float)Math.Cos(rightLowerLeg.Rotation)) * 7.5f * scale * MainGame.PIXEL_TO_METER;
+				else
+					return -Vector2.One;
+			}
+		}
+
+		/// <summary>
+		/// The left knee's position
+		/// </summary>
+		public Vector2 RightKneePosition
+		{
+			get
+			{
+				if (health[rightUpperLeg] > 0)
+					return rightUpperLeg.Position + new Vector2((float)Math.Sin(rightUpperLeg.Rotation), -(float)Math.Cos(rightUpperLeg.Rotation)) * 7.5f * scale * MainGame.PIXEL_TO_METER;
 				else
 					return -Vector2.One;
 			}
@@ -114,25 +159,61 @@ namespace Badminton.Stick_Figures
 		public bool Crouching { get; set; }
 
 		/// <summary>
+		/// Returns whether or not the stick figure is standing on solid ground
+		/// </summary>
+		public bool OnGround
+		{
+			get
+			{
+				bool onGround = false;
+
+				// Find limbs that 
+				List<Vector2> checkThese = new List<Vector2>();
+				if (health[leftLowerLeg] > 0)
+					checkThese.Add(LeftFootPosition);
+				else if (health[leftUpperLeg] > 0)
+					checkThese.Add(LeftKneePosition);
+
+				if (health[rightLowerLeg] > 0)
+					checkThese.Add(RightFootPosition);
+				else if (health[leftUpperLeg] > 0)
+					checkThese.Add(RightKneePosition);
+
+				if (checkThese.Count == 0)
+					checkThese.Add(torso.Position + Vector2.UnitY * 17.5f * scale * MainGame.PIXEL_TO_METER);
+
+				foreach (Vector2 v in checkThese)
+				{
+					groundSensorStart = v;
+					groundSensorEnd = groundSensorStart + new Vector2(0, 20 * MainGame.PIXEL_TO_METER * scale);
+					world.RayCast((f, p, n, fr) =>
+					{
+						if (f != null && f.Body.UserData is Wall)
+						{
+							onGround = true;
+							return 0;
+						}
+						else
+						{
+							onGround = false;
+							return -1;
+						}
+					}, groundSensorStart, groundSensorEnd);
+
+					if (onGround)
+						return true;
+				}
+
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// Gets/sets which direction the stick figure was last facing
 		/// </summary>
 		protected bool LastFacedLeft { get; set; }
 
-		// Action flags
-		private int walkStage;
-
-		private float attackAngle;
-		private bool punching, kicking, aiming;
-		private bool punchArm, kickLeg; // true=left, false=right
-		private int punchStage, kickStage, chargeUp, coolDown;
-		private const int MAX_CHARGE = 100, COOL_PERIOD = 30;
-
-		// Other
-		private float scale;
-		private Color color;
-		private bool onGround;
-		private int groundCheck;
-		private Category collisionCat;
+		#endregion
 
 		#region Creation/Destruction
 
@@ -162,19 +243,11 @@ namespace Badminton.Stick_Figures
 			chargeUp = 0;
 			attacks = new List<Attack>();
 
-			groundCheck = 0;
 			this.collisionCat = collisionCat;
 			LastFacedLeft = true;
 
 			GenerateBody(world, position, collisionCat);
 			ConnectBody(world);
-
-			// TODO: Replace with ray tracing for more consistent ground detection
-			onGround = false;
-			leftLowerLeg.OnCollision += new OnCollisionEventHandler(OnGroundCollision);
-			rightLowerLeg.OnCollision += new OnCollisionEventHandler(OnGroundCollision);
-			leftLowerLeg.OnSeparation += new OnSeparationEventHandler(OnGroundSeparation);
-			rightLowerLeg.OnSeparation += new OnSeparationEventHandler(OnGroundSeparation);
 
 			head.OnCollision += new OnCollisionEventHandler(DamageCollisions);
 			leftUpperArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
@@ -390,21 +463,6 @@ namespace Badminton.Stick_Figures
 
 		#region Collision handlers
 
-		private bool OnGroundCollision(Fixture fixtureA, Fixture fixtureB, Contact contact)
-		{
-			if (fixtureB.Body.UserData is Wall)
-			{
-				Vector2 normal = contact.Manifold.LocalNormal;
-				if (normal.X == 0 || normal.Y / normal.X > 1)
-					onGround = true;
-			}
-			return contact.IsTouching;
-		}
-		private void OnGroundSeparation(Fixture fixtureA, Fixture fixtureB)
-		{
-			onGround = false;
-		}
-
 		private bool DamageCollisions(Fixture fixtureA, Fixture fixtureB, Contact contact)
 		{
 			if (fixtureB.Body.UserData is ForceWave)
@@ -471,8 +529,13 @@ namespace Badminton.Stick_Figures
 			}
 
 			// Fixes friction not working
-			if (onGround && Math.Abs(torso.LinearVelocity.X) > 0.1)
-				torso.ApplyForce(Vector2.UnitX * -Math.Sign(torso.LinearVelocity.X) * scale * 150f);
+			if (OnGround)
+			{
+				if (Math.Abs(torso.LinearVelocity.X) > 0.05)
+					torso.ApplyForce(Vector2.UnitX * -Math.Sign(torso.LinearVelocity.X) * scale * 150f);
+				else
+					torso.LinearVelocity = new Vector2(0f, torso.LinearVelocity.Y);
+			}
 		}
 
 		/// <summary>
@@ -485,7 +548,7 @@ namespace Badminton.Stick_Figures
 
 			LastFacedLeft = false;
 			upright.TargetAngle = -0.1f;
-			if (torso.LinearVelocity.X < (onGround ? 4 : 3) && !(Crouching && onGround))
+			if (torso.LinearVelocity.X < (OnGround ? 4 : 3) && !(Crouching && OnGround))
 				torso.ApplyForce(new Vector2(150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
 			List<AngleJoint> checkThese = new List<AngleJoint>();
 			if (health[leftUpperLeg] > 0f)
@@ -548,7 +611,7 @@ namespace Badminton.Stick_Figures
 
 			LastFacedLeft = true;
 			upright.TargetAngle = 0.1f;
-			if (torso.LinearVelocity.X > (onGround ? -4 : -3))
+			if (torso.LinearVelocity.X > (OnGround ? -4 : -3))
 				torso.ApplyForce(new Vector2(-150, 0) * maxImpulse * (float)Math.Pow(scale, 1.5));
 			List<AngleJoint> checkThese = new List<AngleJoint>();
 			if (health[leftUpperLeg] > 0f)
@@ -606,7 +669,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void Jump()
 		{
-			if (IsDead || health[leftUpperLeg] <= 0f && health[rightUpperLeg] <= 0f)
+			if (IsDead)
 				return;
 
 			upright.TargetAngle = 0.0f;
@@ -620,11 +683,11 @@ namespace Badminton.Stick_Figures
 				rightHip.TargetAngle = -MathHelper.Pi;
 				rightKnee.TargetAngle = -MathHelper.Pi;
 			}
-			if (onGround)
+			if (OnGround)
 			{
 				leftLowerLeg.Friction = friction;
 				rightLowerLeg.Friction = friction;
-				torso.ApplyLinearImpulse(Vector2.UnitY * -23 * (float)Math.Pow(scale, 2.5)); // Change joint dependancy
+				torso.LinearVelocity = new Vector2(torso.LinearVelocity.X, -8f * (float)Math.Pow(scale, 2.5));
 			}
 			Crouching = false;
 		}
@@ -646,6 +709,15 @@ namespace Badminton.Stick_Figures
 				rightLowerLeg.Friction = friction;
 				rightHip.TargetAngle = -MathHelper.PiOver4;
 				rightKnee.TargetAngle = -MathHelper.PiOver4;
+			}
+
+			// Fixes friction not working
+			if (OnGround)
+			{
+				if (Math.Abs(torso.LinearVelocity.X) > 0.05)
+					torso.ApplyForce(Vector2.UnitX * -Math.Sign(torso.LinearVelocity.X) * scale * 150f);
+				else
+					torso.LinearVelocity = new Vector2(0f, torso.LinearVelocity.Y);
 			}
 		}
 
@@ -753,13 +825,6 @@ namespace Badminton.Stick_Figures
 			
 			if (Crouching)
 				Crouch();
-
-			if (Math.Abs(torso.LinearVelocity.Y) < 0.05f)
-				groundCheck++;
-			else
-				groundCheck = 0;
-			if (groundCheck >= 5)
-				onGround = true;
 		}
 
 		/// <summary>
@@ -1185,11 +1250,33 @@ namespace Badminton.Stick_Figures
 				a.Draw(sb, this.color);
 
 			// Debug
+//			DrawLine(sb, MainGame.tex_blank, 2, Color.Cyan, groundSensorStart * MainGame.METER_TO_PIXEL, groundSensorEnd * MainGame.METER_TO_PIXEL);
+//			sb.DrawString(MainGame.fnt_basicFont, OnGround.ToString(), Vector2.Zero, Color.Cyan);
 //			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
 //			sb.DrawString(MainGame.fnt_basicFont, "L", LeftFootPosition * MainGame.METER_TO_PIXEL, Color.Blue);
 //			sb.DrawString(MainGame.fnt_basicFont, "R", RightFootPosition * MainGame.METER_TO_PIXEL, Color.Lime);
 //			sb.DrawString(MainGame.fnt_basicFont, leftLowerLeg.Friction.ToString(), Vector2.UnitY * 32, Color.White);
 //			sb.DrawString(MainGame.fnt_basicFont, rightLowerLeg.Friction.ToString(), Vector2.UnitY * 64, Color.White);
+		}
+
+		/// <summary>
+		/// Used for drawing lines for debugging
+		/// </summary>
+		/// <param name="batch">The SpriteBatch used to draw the line</param>
+		/// <param name="blank">A white texture</param>
+		/// <param name="width">The thickness of the line</param>
+		/// <param name="color">The color of the line</param>
+		/// <param name="point1">Start point of line draw</param>
+		/// <param name="point2">End point of line draw</param>
+		private void DrawLine(SpriteBatch batch, Texture2D blank,
+			  float width, Color color, Vector2 point1, Vector2 point2)
+		{
+			float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
+			float length = Vector2.Distance(point1, point2);
+
+			batch.Draw(blank, point1, null, color,
+					   angle, Vector2.Zero, new Vector2(length, width),
+					   SpriteEffects.None, 0);
 		}
 
 		/// <summary>Blends the specified colors together.</summary>

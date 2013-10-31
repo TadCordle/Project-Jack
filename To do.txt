@@ -1,7 +1,7 @@
 StickFigure (Tad will work on this mostly)
 	- Trap creation
-	- More consistent "onGround" detection
 	- Customization: pass character model file in constructor
+	- Balance jump height depending on limb health
 LocalPlayer
 	- Fix controls
 		* Number of players = num of controllers plugged in + keyboard, if num of controllers < 4

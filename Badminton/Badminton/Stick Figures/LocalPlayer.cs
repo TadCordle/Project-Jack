@@ -52,13 +52,6 @@ namespace Badminton.Stick_Figures
 		{
 			bool stand = true;
 
-			// Jump
-			if (usesKeyboard ? Keyboard.GetState().IsKeyDown(upKey) : GamePad.GetState(player).IsButtonDown(jumpBtn))
-			{
-				Jump();
-				stand = false;
-			}
-
 			// Walk
 			if (usesKeyboard ? Keyboard.GetState().IsKeyDown(rightKey) : GamePad.GetState(player).IsButtonDown(rightBtn))
 			{
@@ -68,6 +61,13 @@ namespace Badminton.Stick_Figures
 			else if (usesKeyboard ? Keyboard.GetState().IsKeyDown(leftKey) : GamePad.GetState(player).IsButtonDown(leftBtn))
 			{
 				WalkLeft();
+				stand = false;
+			}
+
+			// Jump
+			if (usesKeyboard ? Keyboard.GetState().IsKeyDown(upKey) : GamePad.GetState(player).IsButtonDown(jumpBtn))
+			{
+				Jump();
 				stand = false;
 			}
 
