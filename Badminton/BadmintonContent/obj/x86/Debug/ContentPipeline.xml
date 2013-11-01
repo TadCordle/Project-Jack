@@ -119,6 +119,24 @@
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
       <Time>2013-04-19T10:52:54-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\trap_closed.png</Source>
+      <Name>textures\trap_closed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb</Output>
+      <Time>2013-11-01T13:10:47.2516813-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\trap_open.png</Source>
+      <Name>textures\trap_open</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb</Output>
+      <Time>2013-11-01T13:12:34.2918037-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

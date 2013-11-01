@@ -12,3 +12,5 @@ Content\sfx\Thwap.xnb
 Content\sfx\Whoosh.xnb
 Content\music.xnb
 Content\music.wma
+Content\textures\trap_closed.xnb
+Content\textures\trap_open.xnb

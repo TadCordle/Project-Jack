@@ -20,9 +20,9 @@ namespace Badminton.Stick_Figures
 	{
 		private PlayerIndex player;
 
-		private Keys upKey, rightKey, leftKey, downKey;
-		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn, shootBtn;
-		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed, shootBtnPressed, shootKeyPressed;
+		private Keys upKey, rightKey, leftKey, downKey, trapKey;
+		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn, shootBtn, trapBtn;
+		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed, shootBtnPressed, shootKeyPressed, trapKeyPressed, trapBtnPressed;
 		private bool usesKeyboard;
 
 		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, Color color, PlayerIndex player)
@@ -32,6 +32,7 @@ namespace Badminton.Stick_Figures
 			punchBtnPressed = punchKeyPressed = false;
 			kickBtnPressed = kickKeyPressed = false;
 			shootBtnPressed = shootKeyPressed = false;
+			trapBtnPressed = trapKeyPressed = false;
 			usesKeyboard = !GamePad.GetState(player).IsConnected;
 
 			jumpBtn = Buttons.A;
@@ -41,11 +42,13 @@ namespace Badminton.Stick_Figures
 			punchBtn = Buttons.X;
 			kickBtn = Buttons.B;
 			shootBtn = Buttons.RightTrigger;
+			trapBtn = Buttons.Y;
 
 			upKey = Keys.W;
 			rightKey = Keys.D;
 			leftKey = Keys.A;
 			downKey = Keys.S;
+			trapKey = Keys.T;
 		}
 
 		public override void Update()
@@ -128,6 +131,19 @@ namespace Badminton.Stick_Figures
 					}
 					else
 						punchKeyPressed = false;
+
+					if (Keyboard.GetState().IsKeyDown(trapKey))
+					{
+						if (!trapKeyPressed)
+						{
+							trapKeyPressed = true;
+							float angle = (float)-Math.Atan2(Mouse.GetState().Y / MainGame.RESOLUTION_SCALE - torso.Position.Y * MainGame.METER_TO_PIXEL,
+										  Mouse.GetState().X / MainGame.RESOLUTION_SCALE - torso.Position.X * MainGame.METER_TO_PIXEL);
+							ThrowTrap(angle);
+						}
+					}
+					else
+						trapKeyPressed = false;
 				}
 
 				// Kick
@@ -195,8 +211,29 @@ namespace Badminton.Stick_Figures
 					}
 					else
 						punchBtnPressed = false;
+
+					if (GamePad.GetState(player).IsButtonDown(trapBtn))
+					{
+						if (!trapBtnPressed)
+						{
+							trapBtnPressed = true;
+							float angle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X);
+							if (angle == 0)
+							{
+								if (LastFacedLeft)
+									ThrowTrap(MathHelper.Pi);
+								else
+									ThrowTrap(0);
+							}
+							else
+								ThrowTrap(angle);
+						}
+					}
+					else
+						trapBtnPressed = false;
 				}
 
+				// Kick
 				if (GamePad.GetState(player).IsButtonDown(kickBtn))
 				{
 					if (!kickBtnPressed)

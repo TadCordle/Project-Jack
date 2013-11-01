@@ -39,8 +39,8 @@ namespace Badminton.Stick_Figures
 		private int walkStage;
 
 		private float attackAngle;
-		private bool punching, kicking, aiming;
-		private bool punchArm, kickLeg; // true=left, false=right
+		private bool punching, kicking, aiming, throwing;
+		private bool punchArm, kickLeg, throwArm; // true=left, false=right
 		private int punchStage, kickStage, chargeUp, coolDown;
 		private const int MAX_CHARGE = 100, COOL_PERIOD = 30;
 
@@ -785,6 +785,19 @@ namespace Badminton.Stick_Figures
 			// TODO: End charge up sound, play shoot sound
 		}
 
+		/// <summary>
+		/// Throws a trap
+		/// </summary>
+		public void ThrowTrap(float angle)
+		{
+			if (!IsDead)
+			{
+				throwing = true;
+				throwArm = angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2;
+				attackAngle = angle;
+			}
+		}
+
 		#endregion
 
 		#region Updating
@@ -832,7 +845,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		private void UpdateArms()
 		{
-			if (!punching && !aiming)
+			if (!punching && !aiming && !throwing)
 			{
 				leftShoulder.TargetAngle = 3 * MathHelper.PiOver4;
 				rightShoulder.TargetAngle = -3 * MathHelper.PiOver4;
@@ -846,15 +859,15 @@ namespace Badminton.Stick_Figures
 				leftElbow.TargetAngle = 0f;
 				rightElbow.TargetAngle = 0f;
 			}
-			else if (punching)
+			else if (punching || throwing)
 			{
 				if (punchArm && health[leftUpperArm] <= 0f || !punchArm && health[rightUpperArm] <= 0f)
 					punchArm = !punchArm;
 
 				List<AngleJoint> checkThese = new List<AngleJoint>();
-				if (punchArm && health[leftUpperArm] > 0f)
+				if ((punching && punchArm) || (throwing && throwArm) && health[leftUpperArm] > 0f)
 					checkThese.Add(leftShoulder);
-				if (!punchArm && health[rightUpperArm] > 0f)
+				if (!(punching && punchArm) || (throwing && throwArm) && health[rightUpperArm] > 0f)
 					checkThese.Add(rightShoulder);
 				if (checkThese.Count == 0)
 					return;
@@ -864,7 +877,7 @@ namespace Badminton.Stick_Figures
 					MainGame.sfx_whoosh.Play();
 					punchStage = 0;
 					float angle = attackAngle - MathHelper.PiOver2;
-					if (punchArm)
+					if (punching && punchArm || throwing && throwArm)
 					{
 						leftShoulder.TargetAngle = GetArmTargetAngle(angle, true);
 						leftElbow.TargetAngle = 0f;
@@ -888,13 +901,16 @@ namespace Badminton.Stick_Figures
 					if (JointsAreInPosition(checkThese))
 					{
 						float angle = attackAngle - MathHelper.PiOver2;
-						if (punchArm)
+						if (punching && punchArm || throwing && throwArm)
 						{
 							leftShoulder.TargetAngle = 3 * MathHelper.PiOver4;
 							leftElbow.TargetAngle = MathHelper.PiOver4;
 							leftShoulder.MaxImpulse = maxImpulse * scale;
 							leftElbow.MaxImpulse = maxImpulse * scale;
-							attacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							if (punching)
+								attacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							else
+								attacks.Add(new ClosedTrap(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						else
 						{
@@ -902,7 +918,10 @@ namespace Badminton.Stick_Figures
 							rightElbow.TargetAngle = -MathHelper.PiOver4;
 							rightShoulder.MaxImpulse = maxImpulse * scale;
 							rightElbow.MaxImpulse = maxImpulse * scale;
-							attacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							if (punching)
+								attacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+							else
+								attacks.Add(new ClosedTrap(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						punchStage = 1;
 					}
@@ -914,6 +933,7 @@ namespace Badminton.Stick_Figures
 						if (punchArm && health[rightUpperArm] > 0f || !punchArm && health[leftUpperArm] > 0f)
 							punchArm = !punchArm;
 						punching = false;
+						throwing = false;
 						punchStage = -1;
 						leftUpperArm.CollidesWith = Category.All & ~this.collisionCat;
 						leftLowerArm.CollidesWith = Category.All & ~this.collisionCat;

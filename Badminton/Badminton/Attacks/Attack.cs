@@ -11,7 +11,7 @@ using FarseerPhysics.Factories;
 
 namespace Badminton.Attacks
 {
-	public class Attack
+	public abstract class Attack
 	{
 		public Body PhysicsBody { get { return body; } }
 		public float Damage { get { return damage; } }
@@ -31,11 +31,11 @@ namespace Badminton.Attacks
 		/// <summary>
 		/// Called once every frame
 		/// </summary>
-		public virtual void Update() { }
+		public abstract void Update();
 
 		/// <summary>
 		/// Draws the attack
 		/// </summary>
-		public virtual void Draw(SpriteBatch sb, Color c) { }
+		public abstract void Draw(SpriteBatch sb, Color c);
 	}
 }
