@@ -910,7 +910,7 @@ namespace Badminton.Stick_Figures
 							if (punching)
 								attacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 							else
-								attacks.Add(new ClosedTrap(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+								attacks.Add(new Trap(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						else
 						{
@@ -921,7 +921,7 @@ namespace Badminton.Stick_Figures
 							if (punching)
 								attacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 							else
-								attacks.Add(new ClosedTrap(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
+								attacks.Add(new Trap(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						punchStage = 1;
 					}
