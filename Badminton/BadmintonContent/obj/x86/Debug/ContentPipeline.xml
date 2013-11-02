@@ -137,6 +137,15 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb</Output>
       <Time>2013-11-01T13:12:34.2918037-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\explosion particle.png</Source>
+      <Name>textures\explosion particle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\explosion particle.xnb</Output>
+      <Time>2013-11-01T23:15:29.6855009-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

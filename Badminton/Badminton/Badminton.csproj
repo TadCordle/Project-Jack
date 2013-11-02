@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attacks\Attack.cs" />
+    <Compile Include="Attacks\ExplosionParticle.cs" />
     <Compile Include="Attacks\ForceWave.cs" />
     <Compile Include="Attacks\LongRangeAttack.cs" />
     <Compile Include="Attacks\Trap.cs" />

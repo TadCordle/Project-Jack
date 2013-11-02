@@ -463,6 +463,13 @@ namespace Badminton.Stick_Figures
 
 		#region Collision handlers
 
+		/// <summary>
+		/// Deals damage to limbs that collide with attacks
+		/// </summary>
+		/// <param name="fixtureA">The limb being damaged</param>
+		/// <param name="fixtureB">The attack</param>
+		/// <param name="contact">The contact between the two objects</param>
+		/// <returns></returns>
 		private bool DamageCollisions(Fixture fixtureA, Fixture fixtureB, Contact contact)
 		{
 			if (fixtureB.Body.UserData is ForceWave)
@@ -484,6 +491,17 @@ namespace Badminton.Stick_Figures
 				health[fixtureA.Body] -= f.Damage;
 
 				// TODO: Play sound
+			}
+			else if (fixtureB.Body.UserData is Trap)
+			{
+				Trap t = (Trap)fixtureB.Body.UserData;
+				if (t.Open)
+					t.Explode();
+			}
+			else if (fixtureB.Body.UserData is ExplosionParticle)
+			{
+				fixtureB.Body.CollidesWith = Category.None;
+				health[fixtureA.Body] -= ((ExplosionParticle)fixtureB.Body.UserData).Damage;
 			}
 
 			return contact.IsTouching;
@@ -861,13 +879,13 @@ namespace Badminton.Stick_Figures
 			}
 			else if (punching || throwing)
 			{
-				if (punchArm && health[leftUpperArm] <= 0f || !punchArm && health[rightUpperArm] <= 0f)
+				if (punchArm && health[leftLowerArm] <= 0f || !punchArm && health[rightLowerArm] <= 0f)
 					punchArm = !punchArm;
 
 				List<AngleJoint> checkThese = new List<AngleJoint>();
-				if ((punching && punchArm) || (throwing && throwArm) && health[leftUpperArm] > 0f)
+				if ((punching && punchArm) || (throwing && throwArm) && health[leftLowerArm] > 0f)
 					checkThese.Add(leftShoulder);
-				if (!(punching && punchArm) || (throwing && throwArm) && health[rightUpperArm] > 0f)
+				if (!(punching && punchArm) || (throwing && throwArm) && health[rightLowerArm] > 0f)
 					checkThese.Add(rightShoulder);
 				if (checkThese.Count == 0)
 					return;
@@ -909,7 +927,7 @@ namespace Badminton.Stick_Figures
 							leftElbow.MaxImpulse = maxImpulse * scale;
 							if (punching)
 								attacks.Add(new ForceWave(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
-							else
+							else if (health[leftLowerArm] > 0f)
 								attacks.Add(new Trap(world, LeftHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						else
@@ -920,7 +938,7 @@ namespace Badminton.Stick_Figures
 							rightElbow.MaxImpulse = maxImpulse * scale;
 							if (punching)
 								attacks.Add(new ForceWave(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
-							else
+							else if (health[rightLowerArm] > 0f)
 								attacks.Add(new Trap(world, RightHandPosition, new Vector2(-(float)Math.Sin(angle), -(float)Math.Cos(angle)) * 10, this.collisionCat));
 						}
 						punchStage = 1;

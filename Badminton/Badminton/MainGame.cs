@@ -34,7 +34,7 @@ namespace Badminton
 		Screens.GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont;
-		public static Texture2D tex_box, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen;
+		public static Texture2D tex_box, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_limb;
 		public static Texture2D tex_bg_castle;
 		public static Texture2D tex_blank;
@@ -97,6 +97,7 @@ namespace Badminton
 			tex_longRange = Content.Load<Texture2D>("textures/long range");
 			tex_trapClosed = Content.Load<Texture2D>("textures/trap_closed");
 			tex_trapOpen = Content.Load<Texture2D>("textures/trap_open");
+			tex_explosionParticle = Content.Load<Texture2D>("textures/explosion particle");
 
 			sfx_punches = new SoundEffect[] {
 				Content.Load<SoundEffect>("sfx/Punch1"),

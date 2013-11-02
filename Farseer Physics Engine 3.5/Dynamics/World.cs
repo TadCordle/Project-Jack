@@ -549,8 +549,10 @@ namespace FarseerPhysics.Dynamics
                             continue;
                         }
 
-                        Debug.Assert(stackCount < stackSize);
-                        _stack[stackCount++] = other;
+//                      Debug.Assert(stackCount < stackSize);
+						if (stackCount >= stackSize)
+							continue;
+						_stack[stackCount++] = other;
 
 #if USE_ISLAND_SET
                         if (!IslandSet.Contains(body))
