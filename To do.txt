@@ -1,16 +1,14 @@
 StickFigure (Tad will work on this mostly)
-	- Trap creation
 	- Customization: pass character model file in constructor
-	- Balance jump height depending on limb health
+Fixes:
+	- Make traps less overpowered (add ammo)
+	- Fix trap lag
 LocalPlayer
 	- Fix controls
 		* Number of players = num of controllers plugged in + keyboard, if num of controllers < 4
 			For n players, players 1-n use controller, player n uses keyboard
 
 Game Modes
-	- Figure out "map" file structure
-		* Either XML or plain text would work. Probably plain text because maps
-			will be simple
 	- Implement GameScreen interface to make something like the "SingleMap" class, but
 		for each game mode
 		* Match_TDM
@@ -42,12 +40,3 @@ Menus
 			-Can save character model to use in game
 			-Probably use plaintext again
 	    * Exit
-
-Map Editor
-	- Load in an image (what the map will look like)
-	- Create boxes that define collision boundaries (will end up being invisible in
-		game)
-	- Set player spawn points
-		* Different spawn points for each game type
-	- Set trap ammo spawn points
-	- Options to save and load maps

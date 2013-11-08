@@ -275,6 +275,7 @@ namespace Badminton.Stick_Figures
 			torso.BodyType = BodyType.Dynamic;
 			torso.CollisionCategories = collisionCat;
 			torso.CollidesWith = Category.All & ~collisionCat;
+			torso.Friction = friction;
 			gyro = BodyFactory.CreateBody(world, torso.Position);
 			gyro.CollidesWith = Category.None;
 			gyro.BodyType = BodyType.Dynamic;
@@ -288,6 +289,7 @@ namespace Badminton.Stick_Figures
 			head.CollisionCategories = collisionCat;
 			head.CollidesWith = Category.All & ~collisionCat;
 			head.Restitution = 0.2f;
+			head.Friction = friction;
 			health.Add(head, 1.0f);
 
 			leftUpperArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
@@ -296,6 +298,7 @@ namespace Badminton.Stick_Figures
 			leftUpperArm.BodyType = BodyType.Dynamic;
 			leftUpperArm.CollisionCategories = collisionCat;
 			leftUpperArm.CollidesWith = Category.All & ~collisionCat;
+			leftUpperArm.Friction = friction;
 			health.Add(leftUpperArm, 1.0f);
 
 			rightUpperArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
@@ -304,6 +307,7 @@ namespace Badminton.Stick_Figures
 			rightUpperArm.BodyType = BodyType.Dynamic;
 			rightUpperArm.CollisionCategories = collisionCat;
 			rightUpperArm.CollidesWith = Category.All & ~collisionCat;
+			rightUpperArm.Friction = friction;
 			health.Add(rightUpperArm, 1.0f);
 
 			leftLowerArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
@@ -312,6 +316,7 @@ namespace Badminton.Stick_Figures
 			leftLowerArm.BodyType = BodyType.Dynamic;
 			leftLowerArm.CollisionCategories = collisionCat;
 			leftLowerArm.CollidesWith = Category.All & ~collisionCat;
+			leftLowerArm.Friction = friction;
 			health.Add(leftLowerArm, 1.0f);
 
 			rightLowerArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
@@ -320,6 +325,7 @@ namespace Badminton.Stick_Figures
 			rightLowerArm.BodyType = BodyType.Dynamic;
 			rightLowerArm.CollisionCategories = collisionCat;
 			rightLowerArm.CollidesWith = Category.All & ~collisionCat;
+			rightLowerArm.Friction = friction;
 			health.Add(rightLowerArm, 1.0f);
 
 			leftUpperLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 5f);
@@ -329,6 +335,7 @@ namespace Badminton.Stick_Figures
 			leftUpperLeg.CollisionCategories = collisionCat;
 			leftUpperLeg.CollidesWith = Category.All & ~collisionCat;
 			leftUpperLeg.Restitution = 0.15f;
+			leftUpperLeg.Friction = friction;
 			health.Add(leftUpperLeg, 1.0f);
 
 			rightUpperLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 5f);
@@ -338,6 +345,7 @@ namespace Badminton.Stick_Figures
 			rightUpperLeg.CollisionCategories = collisionCat;
 			rightUpperLeg.CollidesWith = Category.All & ~collisionCat;
 			rightUpperLeg.Restitution = 0.15f;
+			rightUpperLeg.Friction = friction;
 			health.Add(rightUpperLeg, 1.0f);
 
 			leftLowerLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 10.0f);
@@ -705,7 +713,26 @@ namespace Badminton.Stick_Figures
 			{
 				leftLowerLeg.Friction = friction;
 				rightLowerLeg.Friction = friction;
-				torso.LinearVelocity = new Vector2(torso.LinearVelocity.X, -8f * (float)Math.Pow(scale, 2.5));
+				int deadLimbs = 0;
+				if (health[leftLowerLeg] <= 0)
+					deadLimbs++;
+				if (health[leftUpperLeg] <= 0)
+					deadLimbs++;
+				if (health[rightLowerLeg] <= 0)
+					deadLimbs++;
+				if (health[rightUpperLeg] <= 0)
+					deadLimbs++;
+
+				float force = -8f;
+				if (deadLimbs == 1)
+					force = -5.5f;
+				else if (deadLimbs == 2)
+					force = -5f;
+				else if (deadLimbs == 3)
+					force = -6f;
+				else if (deadLimbs == 4)
+					force = -4.5f;
+				torso.LinearVelocity = new Vector2(torso.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5)) * health[torso];
 			}
 			Crouching = false;
 		}
@@ -825,12 +852,6 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public virtual void Update()
 		{
-/*			List<Body> bodies = health.Keys.ToList<Body>();
-			foreach (Body b in bodies)
-			{
-				health[b] -= 0.002f;
-			}*/
-
 			UpdateArms();
 			if (kicking)
 				UpdateKicks();
@@ -853,6 +874,7 @@ namespace Badminton.Stick_Figures
 
 			UpdateLimbStrength();
 			UpdateLimbAttachment();
+			UpdateLimbFriction();
 			
 			if (Crouching)
 				Crouch();
@@ -881,6 +903,8 @@ namespace Badminton.Stick_Figures
 			{
 				if (punchArm && health[leftLowerArm] <= 0f || !punchArm && health[rightLowerArm] <= 0f)
 					punchArm = !punchArm;
+				if (throwArm && health[leftLowerArm] <= 0f || !throwArm && health[rightLowerArm] <= 0f)
+					throwArm = !throwArm;
 
 				List<AngleJoint> checkThese = new List<AngleJoint>();
 				if ((punching && punchArm) || (throwing && throwArm) && health[leftLowerArm] > 0f)
@@ -950,6 +974,8 @@ namespace Badminton.Stick_Figures
 					{
 						if (punchArm && health[rightUpperArm] > 0f || !punchArm && health[leftUpperArm] > 0f)
 							punchArm = !punchArm;
+						if (throwArm && health[leftLowerArm] <= 0f || !throwArm && health[rightLowerArm] <= 0f)
+							throwArm = !throwArm;
 						punching = false;
 						throwing = false;
 						punchStage = -1;
@@ -1155,7 +1181,9 @@ namespace Badminton.Stick_Figures
 		{
 			List<Body> bodies = health.Keys.ToList();
 			foreach (Body b in bodies)
+			{
 				health[b] = Math.Max(health[b], 0f);
+			}
 			upright.MaxImpulse = maxImpulse * health[torso] * health[head] * scale;
 			neck.MaxImpulse = maxImpulse * health[head] * health[torso] * scale;
 			leftShoulder.MaxImpulse = maxImpulse * health[torso] * health[leftUpperArm] * health[head] * scale;
@@ -1166,6 +1194,26 @@ namespace Badminton.Stick_Figures
 			leftKnee.MaxImpulse = maxImpulse * health[leftUpperLeg] * health[leftLowerLeg] * health[torso] * health[head] * scale;
 			rightHip.MaxImpulse = maxImpulse * health[torso] * health[rightUpperLeg] * health[head] * scale;
 			rightKnee.MaxImpulse = maxImpulse * health[rightUpperLeg] * health[rightLowerLeg] * health[torso] * health[head] * scale;
+		}
+
+		/// <summary>
+		/// Prevents the Stick Figure from sticking to walls
+		/// Lol, "stick" figure.
+		/// </summary>
+		private void UpdateLimbFriction()
+		{
+			head.Friction = OnGround || health[head] <= 0 || !(health[leftLowerLeg] <= 0 && health[rightLowerLeg] <= 0 && health[leftUpperLeg] <= 0 && health[rightUpperLeg] <= 0) ? friction : 0f;
+			torso.Friction = OnGround || health[torso] <= 0 ? friction : 0f;
+			leftUpperArm.Friction = OnGround || health[leftUpperArm] <= 0 ? friction : 0f;
+			leftLowerArm.Friction = OnGround || health[leftLowerArm] <= 0 ? friction : 0f;
+			rightUpperArm.Friction = OnGround || health[rightUpperArm] <= 0 ? friction : 0f;
+			rightLowerArm.Friction = OnGround || health[rightLowerArm] <= 0 ? friction : 0f;
+			leftUpperLeg.Friction = OnGround || health[leftUpperLeg] <= 0 ? friction : 0f;
+			rightUpperLeg.Friction = OnGround || health[rightUpperLeg] <= 0 ? friction : 0f;
+			if (health[leftLowerLeg] <= 0)
+				leftLowerLeg.Friction = friction;
+			if (health[rightLowerLeg] <= 0)
+				rightLowerLeg.Friction = friction;
 		}
 
 		#endregion
@@ -1185,11 +1233,6 @@ namespace Badminton.Stick_Figures
 					return false;
 			}
 			return true;
-		}
-
-		public void ApplyForce(Vector2 v)
-		{
-			torso.ApplyForce(v * 10);
 		}
 
 		/// <summary>

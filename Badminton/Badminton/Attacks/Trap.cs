@@ -66,6 +66,10 @@ namespace Badminton.Attacks
 					((Trap)b.Body.UserData).Explode();
 				}
 			}
+			else if (b.Body.UserData is LongRangeAttack)
+			{
+				Explode();
+			}
 			else if (b.Body.UserData is Stick_Figures.StickFigure)
 			{
 				if (Open)
@@ -85,6 +89,7 @@ namespace Badminton.Attacks
 			}
 
 			// Assign user data to lone particle. This will keep the explosion updated/drawn even after the trap is destroyed.
+			body.CollisionCategories = Category.None;
 			body.UserData = new ExplosionParticle(world, Vector2.One * -10000, Vector2.Zero, Category.None);
 			particles.Add((ExplosionParticle)body.UserData);
 
