@@ -35,14 +35,17 @@ namespace Badminton.Stick_Figures
 
 		private List<Attack> attacks;
 
-		// Action flags
+		// Keep track of animation states
 		private int walkStage;
+		private int punchStage, kickStage;
 
+		// Attacking
 		private float attackAngle;
 		private bool punching, kicking, aiming, throwing;
 		private bool punchArm, kickLeg, throwArm; // true=left, false=right
-		private int punchStage, kickStage, chargeUp, coolDown;
+		private int chargeUp, coolDown, trapAmmo, trapThrowTime;
 		private const int MAX_CHARGE = 100, COOL_PERIOD = 30;
+		private const int MAX_AMMO = 3, THROW_TIME = 50;
 
 		// Other
 		private float scale;
@@ -241,6 +244,8 @@ namespace Badminton.Stick_Figures
 			punchArm = kickLeg = false;
 			punchStage = kickStage = -1;
 			chargeUp = 0;
+			trapAmmo = MAX_AMMO;
+			trapThrowTime = THROW_TIME;
 			attacks = new List<Attack>();
 
 			this.collisionCat = collisionCat;
@@ -249,15 +254,15 @@ namespace Badminton.Stick_Figures
 			GenerateBody(world, position, collisionCat);
 			ConnectBody(world);
 
-			head.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			leftUpperArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			leftLowerArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			rightUpperArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			rightLowerArm.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			leftUpperLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			leftLowerLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			rightUpperLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
-			rightLowerLeg.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+			head.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			leftUpperArm.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			leftLowerArm.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			rightUpperArm.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			rightLowerArm.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			leftUpperLeg.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			leftLowerLeg.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			rightUpperLeg.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+			rightLowerLeg.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
 
 			Stand();
 		}
@@ -478,7 +483,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="fixtureB">The attack</param>
 		/// <param name="contact">The contact between the two objects</param>
 		/// <returns></returns>
-		private bool DamageCollisions(Fixture fixtureA, Fixture fixtureB, Contact contact)
+		private bool SpecialCollisions(Fixture fixtureA, Fixture fixtureB, Contact contact)
 		{
 			if (fixtureB.Body.UserData is ForceWave)
 			{
@@ -510,6 +515,11 @@ namespace Badminton.Stick_Figures
 			{
 				fixtureB.Body.CollidesWith = Category.None;
 				health[fixtureA.Body] -= ((ExplosionParticle)fixtureB.Body.UserData).Damage;
+			}
+			else if (fixtureB.Body.UserData is TrapAmmo)
+			{
+				((TrapAmmo)fixtureB.Body.UserData).PickUp();
+				this.trapAmmo = MAX_AMMO;
 			}
 
 			return contact.IsTouching;
@@ -835,8 +845,10 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void ThrowTrap(float angle)
 		{
-			if (!IsDead)
+			if (!IsDead && trapAmmo > 0 && trapThrowTime <= 0)
 			{
+				trapAmmo--;
+				trapThrowTime = THROW_TIME;
 				throwing = true;
 				throwArm = angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2;
 				attackAngle = angle;
@@ -871,6 +883,8 @@ namespace Badminton.Stick_Figures
 			}
 			if (coolDown > 0)
 				coolDown--;
+			if (trapThrowTime > 0)
+				trapThrowTime--;
 
 			UpdateLimbStrength();
 			UpdateLimbAttachment();
@@ -1083,7 +1097,7 @@ namespace Badminton.Stick_Figures
 					world.RemoveJoint(leftShoulder);
 				if (world.JointList.Contains(r_leftShoulder))
 					world.RemoveJoint(r_leftShoulder);
-				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
 			}
 			if (health[leftLowerArm] <= 0)
 			{
@@ -1103,7 +1117,7 @@ namespace Badminton.Stick_Figures
 					world.RemoveJoint(rightShoulder);
 				if (world.JointList.Contains(r_rightShoulder))
 					world.RemoveJoint(r_rightShoulder);
-				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
 			}
 			if (health[rightLowerArm] <= 0)
 			{
@@ -1123,7 +1137,7 @@ namespace Badminton.Stick_Figures
 					world.RemoveJoint(leftHip);
 				if (world.JointList.Contains(r_leftHip))
 					world.RemoveJoint(r_leftHip);
-				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
 			}
 			if (health[leftLowerLeg] <= 0)
 			{
@@ -1143,7 +1157,7 @@ namespace Badminton.Stick_Figures
 					world.RemoveJoint(rightHip);
 				if (world.JointList.Contains(r_rightHip))
 					world.RemoveJoint(r_rightHip);
-				torso.OnCollision += new OnCollisionEventHandler(DamageCollisions);
+				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
 			}
 			if (health[rightLowerLeg] <= 0)
 			{

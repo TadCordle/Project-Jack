@@ -18,6 +18,7 @@ using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Factories;
 
 using Badminton.Stick_Figures;
+using Badminton.Attacks;
 
 namespace Badminton.Screens
 {
@@ -26,6 +27,7 @@ namespace Badminton.Screens
 		World world;
 		List<Wall> walls;
 		Vector2[] spawnPoints;
+		TrapAmmo[] ammo;
 		Texture2D background;
 
 		LocalPlayer testFigure1, testFigure2;
@@ -38,6 +40,10 @@ namespace Badminton.Screens
 			background = (Texture2D)map[0];
 			walls = (List<Wall>)map[1];
 			spawnPoints = (Vector2[])map[2];
+			Vector3[] ammoPoints = (Vector3[])map[3];
+			ammo = new TrapAmmo[ammoPoints.Length];
+			for (int i = 0; i < ammoPoints.Length; i++)
+				ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
 
 			testFigure1 = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
 			testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
@@ -59,6 +65,9 @@ namespace Badminton.Screens
 				testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
 			}
 
+			foreach (TrapAmmo t in ammo)
+				t.Update();
+
 			// These two lines stay here, even after we delete testing stuff
 			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
 			return this;
@@ -75,6 +84,9 @@ namespace Badminton.Screens
 
 			testFigure1.Draw(sb);
 			testFigure2.Draw(sb);
+
+			foreach (TrapAmmo t in ammo)
+				t.Draw(sb);
 
 //			foreach (Wall w in walls)
 //				w.Draw(sb);

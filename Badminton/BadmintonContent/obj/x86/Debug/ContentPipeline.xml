@@ -7,7 +7,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb</Output>
       <Time>2013-06-06T00:26:34.5908725-04:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb</Output>
       <Time>2013-10-04T14:18:55.0777426-04:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb</Output>
       <Time>2013-10-04T14:19:20.2499234-04:00</Time>
     </Item>
     <Item>
@@ -34,7 +34,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb</Output>
       <Time>2013-10-04T14:19:33.1126371-04:00</Time>
     </Item>
     <Item>
@@ -43,7 +43,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb</Output>
       <Time>2013-09-21T16:02:16.6573108-04:00</Time>
     </Item>
     <Item>
@@ -52,7 +52,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\background.xnb</Output>
       <Time>2013-10-30T11:27:21.5840317-04:00</Time>
     </Item>
     <Item>
@@ -61,63 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb</Output>
       <Time>2013-10-18T13:52:07.2686287-04:00</Time>
-    </Item>
-    <Item>
-      <Source>fonts\basicFont.spritefont</Source>
-      <Name>fonts\basicFont</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb</Output>
-      <Time>2013-06-06T00:26:34.5888724-04:00</Time>
-    </Item>
-    <Item>
-      <Source>sfx\Punch1.wav</Source>
-      <Name>sfx\Punch1</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb</Output>
-      <Time>2013-09-21T16:18:11.5114086-04:00</Time>
-    </Item>
-    <Item>
-      <Source>sfx\Punch2.wav</Source>
-      <Name>sfx\Punch2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb</Output>
-      <Time>2013-09-21T16:18:19.1814193-04:00</Time>
-    </Item>
-    <Item>
-      <Source>sfx\Thwap.wav</Source>
-      <Name>sfx\Thwap</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb</Output>
-      <Time>2013-09-21T16:18:26.6614298-04:00</Time>
-    </Item>
-    <Item>
-      <Source>sfx\Whoosh.wav</Source>
-      <Name>sfx\Whoosh</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb</Output>
-      <Time>2013-09-21T16:18:30.1014346-04:00</Time>
-    </Item>
-    <Item>
-      <Source>music.mp3</Source>
-      <Name>music</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\music.xnb</Output>
-      <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
-      <Time>2013-04-19T10:52:54-04:00</Time>
     </Item>
     <Item>
       <Source>textures\trap_closed.png</Source>
@@ -125,7 +70,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb</Output>
       <Time>2013-11-01T13:10:47.2516813-04:00</Time>
     </Item>
     <Item>
@@ -134,7 +79,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb</Output>
       <Time>2013-11-01T13:12:34.2918037-04:00</Time>
     </Item>
     <Item>
@@ -143,8 +88,63 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\explosion particle.xnb</Output>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\explosion particle.xnb</Output>
       <Time>2013-11-01T23:15:29.6855009-04:00</Time>
+    </Item>
+    <Item>
+      <Source>fonts\basicFont.spritefont</Source>
+      <Name>fonts\basicFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb</Output>
+      <Time>2013-06-06T00:26:34.5888724-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Punch1.wav</Source>
+      <Name>sfx\Punch1</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb</Output>
+      <Time>2013-09-21T16:18:11.5114086-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Punch2.wav</Source>
+      <Name>sfx\Punch2</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb</Output>
+      <Time>2013-09-21T16:18:19.1814193-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Thwap.wav</Source>
+      <Name>sfx\Thwap</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb</Output>
+      <Time>2013-09-21T16:18:26.6614298-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\Whoosh.wav</Source>
+      <Name>sfx\Whoosh</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb</Output>
+      <Time>2013-09-21T16:18:30.1014346-04:00</Time>
+    </Item>
+    <Item>
+      <Source>music.mp3</Source>
+      <Name>music</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb</Output>
+      <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
+      <Time>2013-04-19T10:52:54-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -152,10 +152,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\BadmintonContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\BadmintonContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\BadmintonContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\BadmintonContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

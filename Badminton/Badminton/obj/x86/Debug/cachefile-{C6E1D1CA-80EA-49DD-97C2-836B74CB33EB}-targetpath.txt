@@ -5,6 +5,9 @@ Content\textures\stick figure\torso.xnb
 Content\textures\force wave.xnb
 Content\textures\background.xnb
 Content\textures\long range.xnb
+Content\textures\trap_closed.xnb
+Content\textures\trap_open.xnb
+Content\textures\explosion particle.xnb
 Content\fonts\basicFont.xnb
 Content\sfx\Punch1.xnb
 Content\sfx\Punch2.xnb
@@ -12,6 +15,3 @@ Content\sfx\Thwap.xnb
 Content\sfx\Whoosh.xnb
 Content\music.xnb
 Content\music.wma
-Content\textures\trap_closed.xnb
-Content\textures\trap_open.xnb
-Content\textures\explosion particle.xnb

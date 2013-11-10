@@ -113,6 +113,7 @@
     <Compile Include="Attacks\ForceWave.cs" />
     <Compile Include="Attacks\LongRangeAttack.cs" />
     <Compile Include="Attacks\Trap.cs" />
+    <Compile Include="Attacks\TrapAmmo.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Screens\MultiPlayer\FreeForAll.cs" />
     <Compile Include="Screens\MultiPlayer\Match_TDM.cs" />

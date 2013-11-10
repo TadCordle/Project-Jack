@@ -29,10 +29,14 @@ namespace Badminton
 			spawnPoints[2] = new Vector2(486, 699);
 			spawnPoints[3] = new Vector2(1380, 704);
 
-			object[] map = new object[3];
+			Vector3[] ammoPoints = new Vector3[1];
+			ammoPoints[0] = new Vector3(960, 170, 1800); // (x, y, respawn time)
+
+			object[] map = new object[4];
 			map[0] = MainGame.tex_bg_castle;
 			map[1] = walls;
 			map[2] = spawnPoints;
+			map[3] = ammoPoints;
 
 			return map;
 		}
