@@ -66,10 +66,6 @@ namespace Badminton.Attacks
 					((Trap)b.Body.UserData).Explode();
 				}
 			}
-			else if (b.Body.UserData is LongRangeAttack)
-			{
-				Explode();
-			}
 			else if (b.Body.UserData is Stick_Figures.StickFigure)
 			{
 				if (Open)

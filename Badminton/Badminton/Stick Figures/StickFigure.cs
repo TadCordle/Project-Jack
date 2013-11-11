@@ -45,7 +45,7 @@ namespace Badminton.Stick_Figures
 		private bool punchArm, kickLeg, throwArm; // true=left, false=right
 		private int chargeUp, coolDown, trapAmmo, trapThrowTime;
 		private const int MAX_CHARGE = 100, COOL_PERIOD = 30;
-		private const int MAX_AMMO = 3, THROW_TIME = 50;
+		private const int MAX_AMMO = 2, THROW_TIME = 40;
 
 		// Other
 		private float scale;

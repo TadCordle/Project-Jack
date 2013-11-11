@@ -1,8 +1,5 @@
 StickFigure (Tad will work on this mostly)
-	- Customization: pass character model file in constructor
-Fixes:
-	- Make traps less overpowered (add ammo)
-	- Fix trap lag
+	- Customization
 LocalPlayer
 	- Fix controls
 		* Number of players = num of controllers plugged in + keyboard, if num of controllers < 4

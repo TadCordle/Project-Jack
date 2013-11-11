@@ -31,7 +31,11 @@ namespace Badminton.Attacks
 		private bool HitWall(Fixture f1, Fixture f2, Contact c)
 		{
 			if (f2.Body.UserData is Wall || f2.Body.UserData is Attack)
+			{
+				if (f2.Body.UserData is Trap)
+					((Trap)f2.Body.UserData).Explode();
 				body.UserData = null;
+			}
 			return true;
 		}
 
