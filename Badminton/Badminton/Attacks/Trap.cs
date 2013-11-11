@@ -89,7 +89,7 @@ namespace Badminton.Attacks
 			body.UserData = new ExplosionParticle(world, Vector2.One * -10000, Vector2.Zero, Category.None);
 			particles.Add((ExplosionParticle)body.UserData);
 
-			// TODO: Play sound
+			// TODO: Play explosion sound
 		}
 
 		public override void Update()

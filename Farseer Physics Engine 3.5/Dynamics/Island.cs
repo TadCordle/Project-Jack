@@ -405,20 +405,26 @@ namespace FarseerPhysics.Dynamics
 
         public void Add(Body body)
         {
-            Debug.Assert(BodyCount < BodyCapacity);
+			if (BodyCount >= BodyCapacity)
+				return;
+//			Debug.Assert(BodyCount < BodyCapacity);
             body.IslandIndex = BodyCount;
             Bodies[BodyCount++] = body;
         }
 
         public void Add(Contact contact)
         {
-            Debug.Assert(ContactCount < ContactCapacity);
+			if (ContactCount >= ContactCapacity)
+				return;
+//			Debug.Assert(ContactCount < ContactCapacity);
             _contacts[ContactCount++] = contact;
         }
 
         public void Add(Joint joint)
         {
-            Debug.Assert(JointCount < JointCapacity);
+			if (JointCount >= JointCapacity)
+				return;
+//			Debug.Assert(JointCount < JointCapacity);
             _joints[JointCount++] = joint;
         }
 

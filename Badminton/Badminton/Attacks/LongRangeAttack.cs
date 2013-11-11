@@ -23,6 +23,7 @@ namespace Badminton.Attacks
 			body.BodyType = BodyType.Dynamic;
 			body.Position = position;
 			body.LinearVelocity = power;
+			body.Rotation = (float)Math.Atan2(body.LinearVelocity.Y, body.LinearVelocity.X);
 			body.CollisionCategories = collisionCat;
 			body.UserData = this;
 			body.OnCollision += new OnCollisionEventHandler(HitWall);
@@ -36,6 +37,9 @@ namespace Badminton.Attacks
 					((Trap)f2.Body.UserData).Explode();
 				body.UserData = null;
 			}
+			if (f2.Body.UserData is TrapAmmo)
+				return false;
+
 			return true;
 		}
 
@@ -49,7 +53,7 @@ namespace Badminton.Attacks
 
 		public override void Draw(SpriteBatch sb, Color c)
 		{
-			sb.Draw(MainGame.tex_box, body.Position * MainGame.METER_TO_PIXEL, null, c, (float)Math.Atan2(body.LinearVelocity.Y, body.LinearVelocity.X), new Vector2(MainGame.tex_box.Width / 2, MainGame.tex_box.Height / 2), new Vector2(100f / MainGame.tex_box.Width, 16f / MainGame.tex_box.Height), SpriteEffects.None, 1f);
+			sb.Draw(MainGame.tex_box, body.Position * MainGame.METER_TO_PIXEL, null, c, body.Rotation, new Vector2(MainGame.tex_box.Width / 2, MainGame.tex_box.Height / 2), new Vector2(100f / MainGame.tex_box.Width, 16f / MainGame.tex_box.Height), SpriteEffects.None, 1f);
 		}
 	}
 }
