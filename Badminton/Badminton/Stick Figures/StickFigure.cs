@@ -798,7 +798,7 @@ namespace Badminton.Stick_Figures
 			if (!IsDead)
 			{
 				kicking = true;
-				kickLeg = angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2;
+				kickLeg = (angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2) && health[leftUpperLeg] > 0f || health[rightUpperLeg] <= 0f;
 				attackAngle = angle;
 			}
 		}
