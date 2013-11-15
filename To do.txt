@@ -4,6 +4,7 @@ LocalPlayer
 	- Fix controls
 		* Number of players = num of controllers plugged in + keyboard, if num of controllers < 4
 			For n players, players 1-n use controller, player n uses keyboard
+		* Set default to aim to last direction you aimed
 
 Game Modes
 	- Implement GameScreen interface to make something like the "SingleMap" class, but
