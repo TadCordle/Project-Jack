@@ -29,9 +29,10 @@ Menus
 	- Menu options return new GameScreen to navigate to upon being clicked
 	- Structure:
 	  -> Main Menu
-	    * Multiplayer game
-		-> Map/fighter/game settings select screen
-		   -> Start new game based on settings
+	    * Competitive game
+		-> Player selection/naming
+		* Map selection/game settings screen
+		    * Start game
 	    * Character customization
 		-> Character customization screen, select hats/free for all color
 			-Can save character model to use in game

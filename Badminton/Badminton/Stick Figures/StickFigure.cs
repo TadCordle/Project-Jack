@@ -735,13 +735,13 @@ namespace Badminton.Stick_Figures
 
 				float force = -8f;
 				if (deadLimbs == 1)
-					force = -5.5f;
+					force = -5.8f;
 				else if (deadLimbs == 2)
-					force = -5f;
+					force = -6.5f;
 				else if (deadLimbs == 3)
 					force = -6f;
 				else if (deadLimbs == 4)
-					force = -4.5f;
+					force = -5.5f;
 				torso.LinearVelocity = new Vector2(torso.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5)) * health[torso];
 			}
 			Crouching = false;
@@ -795,7 +795,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle at which to kick</param>
 		public void Kick(float angle)
 		{
-			if (!IsDead)
+			if (!IsDead && (health[leftUpperLeg] > 0f || health[rightUpperLeg] > 0f))
 			{
 				kicking = true;
 				kickLeg = (angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2) && health[leftUpperLeg] > 0f || health[rightUpperLeg] <= 0f;
@@ -1023,8 +1023,6 @@ namespace Badminton.Stick_Figures
 				MainGame.sfx_whoosh.Play();
 				kickStage = 0;
 				float angle = attackAngle - MathHelper.PiOver2;
-				if (kickLeg && health[leftUpperLeg] <= 0f || !kickLeg && health[rightUpperLeg] <= 0f)
-					kickLeg = !kickLeg;
 				if (kickLeg)
 				{
 					leftHip.TargetAngle = GetLegTargetAngle(angle, kickLeg);
@@ -1195,9 +1193,7 @@ namespace Badminton.Stick_Figures
 		{
 			List<Body> bodies = health.Keys.ToList();
 			foreach (Body b in bodies)
-			{
 				health[b] = Math.Max(health[b], 0f);
-			}
 			upright.MaxImpulse = maxImpulse * health[torso] * health[head] * scale;
 			neck.MaxImpulse = maxImpulse * health[head] * health[torso] * scale;
 			leftShoulder.MaxImpulse = maxImpulse * health[torso] * health[leftUpperArm] * health[head] * scale;

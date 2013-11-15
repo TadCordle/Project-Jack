@@ -18,6 +18,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using Badminton.Screens;
+using Badminton.Screens.Menus;
+
 namespace Badminton
 {
 	/// <summary>
@@ -31,7 +34,7 @@ namespace Badminton
 		public const float METER_TO_PIXEL = 60f;
         public const float PIXEL_TO_METER = 1f / METER_TO_PIXEL;
 	    public static float RESOLUTION_SCALE;
-		Screens.GameScreen currentScreen;
+		GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont;
 		public static Texture2D tex_box, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
@@ -114,7 +117,7 @@ namespace Badminton
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });
 
-			currentScreen = new Screens.MainMenu();
+			currentScreen = new SingleMap();
 		}
 
 		/// <summary>
