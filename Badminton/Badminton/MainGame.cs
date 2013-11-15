@@ -42,6 +42,8 @@ namespace Badminton
 		public static Texture2D tex_bg_castle;
 		public static Texture2D tex_blank;
 
+		public static Texture2D tex_logo, tex_mm_coop, tex_mm_comp, tex_mm_cust, tex_mm_exit;
+
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh;
 		public static Song music;
@@ -105,6 +107,12 @@ namespace Badminton
 			tex_trapOpen = Content.Load<Texture2D>("textures/trap_open");
 			tex_explosionParticle = Content.Load<Texture2D>("textures/explosion particle");
 
+			tex_logo = Content.Load<Texture2D>("textures/menu assets/logo");
+			tex_mm_comp = Content.Load<Texture2D>("textures/menu assets/mm_competitive");
+			tex_mm_coop = Content.Load<Texture2D>("textures/menu assets/mm_cooperative");
+			tex_mm_cust = Content.Load<Texture2D>("textures/menu assets/mm_custom");
+			tex_mm_exit = Content.Load<Texture2D>("textures/menu assets/mm_exit");
+
 			sfx_punches = new SoundEffect[] {
 				Content.Load<SoundEffect>("sfx/Punch1"),
 				Content.Load<SoundEffect>("sfx/Punch2"),
@@ -117,7 +125,8 @@ namespace Badminton
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });
 
-			currentScreen = new SingleMap();
+//			currentScreen = new SingleMap();
+			currentScreen = new MainMenu();
 		}
 
 		/// <summary>
