@@ -191,6 +191,42 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\logo.xnb</Output>
       <Time>2013-11-15T14:21:37.1200192-05:00</Time>
     </Item>
+    <Item>
+      <Source>textures\menu assets\ps_blank.png</Source>
+      <Name>textures\menu assets\ps_blank</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_blank.xnb</Output>
+      <Time>2013-11-15T20:18:39.7995043-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\ps_controller.png</Source>
+      <Name>textures\menu assets\ps_controller</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_controller.xnb</Output>
+      <Time>2013-11-15T20:17:36.2605927-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\ps_keyboard.png</Source>
+      <Name>textures\menu assets\ps_keyboard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_keyboard.xnb</Output>
+      <Time>2013-11-15T20:16:35.6544863-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\ps_off.png</Source>
+      <Name>textures\menu assets\ps_off</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_off.xnb</Output>
+      <Time>2013-11-15T20:18:11.9066553-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

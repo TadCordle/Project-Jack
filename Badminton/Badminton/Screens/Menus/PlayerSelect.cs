@@ -7,29 +7,30 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using Badminton.Screens.Menus.Components;
+
 namespace Badminton.Screens.Menus
 {
 	class PlayerSelect : GameScreen
 	{
 		public int Mode { get; set; }
 
-		private bool enterPressed;
+		List<PlayerSelectBox> boxes;
 
 		public PlayerSelect(int mode)
 		{
 			this.Mode = mode;
-			enterPressed = true;
+			boxes = new List<PlayerSelectBox>();
+			boxes.Add(new PlayerSelectBox(new Vector2(470, 145), PlayerIndex.One));
+			boxes.Add(new PlayerSelectBox(new Vector2(970, 145), PlayerIndex.Two));
+			boxes.Add(new PlayerSelectBox(new Vector2(470, 550), PlayerIndex.Three));
+			boxes.Add(new PlayerSelectBox(new Vector2(970, 550), PlayerIndex.Four));
 		}
 
 		public GameScreen Update(GameTime time)
 		{
-			if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-			{
-				if (!enterPressed)
-					return new SettingsScreen(this);
-			}
-			else
-				enterPressed = false;
+			foreach (PlayerSelectBox box in boxes)
+				box.Update();
 
 			return this;
 		}
@@ -41,6 +42,8 @@ namespace Badminton.Screens.Menus
 
 		public void Draw(SpriteBatch sb)
 		{
+			foreach (PlayerSelectBox box in boxes)
+				box.Draw(sb);
 		}
 	}
 }

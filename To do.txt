@@ -1,10 +1,12 @@
 StickFigure (Tad will work on this mostly)
+	- Draw laser sight when charging long range attack
 	- Customization
 LocalPlayer
 	- Fix controls
 		* Number of players = num of controllers plugged in + keyboard, if num of controllers < 4
 			For n players, players 1-n use controller, player n uses keyboard
-		* Set default to aim to last direction you aimed
+		* Set default to aim priority: right stick > leftstick > last direction you fired
+	- Add name property
 
 Game Modes
 	- Implement GameScreen interface to make something like the "SingleMap" class, but

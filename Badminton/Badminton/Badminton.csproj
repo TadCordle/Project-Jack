@@ -116,6 +116,7 @@
     <Compile Include="Attacks\TrapAmmo.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Screens\Menus\Components\Button.cs" />
+    <Compile Include="Screens\Menus\Components\PlayerSelectBox.cs" />
     <Compile Include="Screens\Menus\PlayerSelect.cs" />
     <Compile Include="Screens\Menus\SettingsScreen.cs" />
     <Compile Include="Screens\MultiPlayer\FreeForAll.cs" />

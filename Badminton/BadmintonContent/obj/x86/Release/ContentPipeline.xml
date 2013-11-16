@@ -146,6 +146,51 @@
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\music.wma</Extra>
       <Time>2013-04-19T10:52:54-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\menu assets\mm_competitive.png</Source>
+      <Name>textures\menu assets\mm_competitive</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\menu assets\mm_competitive.xnb</Output>
+      <Time>2013-11-15T13:41:07.2210369-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\mm_cooperative.png</Source>
+      <Name>textures\menu assets\mm_cooperative</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\menu assets\mm_cooperative.xnb</Output>
+      <Time>2013-11-15T13:41:28.95428-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\mm_custom.png</Source>
+      <Name>textures\menu assets\mm_custom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\menu assets\mm_custom.xnb</Output>
+      <Time>2013-11-15T13:41:50.7325256-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\mm_exit.png</Source>
+      <Name>textures\menu assets\mm_exit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\menu assets\mm_exit.xnb</Output>
+      <Time>2013-11-15T13:42:02.3291889-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\logo.png</Source>
+      <Name>textures\menu assets\logo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\menu assets\logo.xnb</Output>
+      <Time>2013-11-15T14:21:37.1200192-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
