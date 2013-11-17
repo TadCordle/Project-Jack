@@ -14,7 +14,7 @@ namespace Badminton.Screens.Menus
 	class MainMenu : GameScreen
 	{
 		List<Button> choices;
-		private bool upPressed, downPressed, confirmPressed;
+		private bool upPressed, downPressed, confirmPressed, mouseClicked;
 
 		public MainMenu()
 		{
@@ -25,6 +25,7 @@ namespace Badminton.Screens.Menus
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 860, MainGame.tex_mm_exit, "exit"));
 			choices[0].Selected = true;
 			confirmPressed = true;
+			mouseClicked = true;
 			upPressed = true;
 			downPressed = true;
 		}
@@ -84,6 +85,30 @@ namespace Badminton.Screens.Menus
 			}
 			else
 				upPressed = false;
+
+			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+			{
+				if (!mouseClicked)
+				{
+					mouseClicked = true;
+					foreach (Button b in choices)
+					{
+						if (b.IsMouseOver())
+						{
+							if (b.ReturnString == "comp")
+								return new Menus.PlayerSelect(0);
+							else if (b.ReturnString == "coop")
+								return new Menus.PlayerSelect(1);
+							else if (b.ReturnString == "cust")		// TODO: Change this when we have character customization
+								return this;
+							else
+								return null;
+						}
+					}
+				}
+			}
+			else
+				mouseClicked = false;
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A))
 			{

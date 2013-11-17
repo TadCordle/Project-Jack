@@ -83,6 +83,16 @@ namespace Badminton.Screens.Menus.Components
 			}
 			else if (state == State.SelectingPlayer)
 			{
+				if (GamePad.GetState(index).IsButtonDown(Buttons.A))
+				{
+					if (!joinPressed)
+					{
+						joinPressed = true;
+						state = State.Ready;
+					}
+				}
+				else
+					joinPressed = false;
 			}
 		}
 

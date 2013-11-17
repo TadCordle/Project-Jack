@@ -733,16 +733,34 @@ namespace Badminton.Stick_Figures
 				if (health[rightUpperLeg] <= 0)
 					deadLimbs++;
 
-				float force = -8f;
+				float force = -4f;
 				if (deadLimbs == 1)
-					force = -5.8f;
+					force = -3.8f;
 				else if (deadLimbs == 2)
-					force = -6.5f;
+					force = -3.5f;
 				else if (deadLimbs == 3)
-					force = -6f;
+					force = -3f;
 				else if (deadLimbs == 4)
-					force = -5.5f;
-				torso.LinearVelocity = new Vector2(torso.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5)) * health[torso];
+					force = -2.5f;
+
+				torso.LinearVelocity = new Vector2(torso.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				head.LinearVelocity = new Vector2(head.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[leftUpperArm] > 0f)
+					leftUpperArm.LinearVelocity = new Vector2(leftUpperArm.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[rightUpperArm] > 0f)				
+					rightUpperArm.LinearVelocity = new Vector2(rightUpperArm.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[leftLowerArm] > 0f)
+					leftLowerArm.LinearVelocity = new Vector2(leftLowerArm.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[rightLowerArm] > 0f)
+					rightLowerArm.LinearVelocity = new Vector2(rightLowerArm.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[leftUpperLeg] > 0f)
+					leftUpperLeg.LinearVelocity = new Vector2(leftUpperLeg.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[rightUpperLeg] > 0f)
+					rightUpperLeg.LinearVelocity = new Vector2(rightUpperLeg.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[leftLowerLeg] > 0f)
+					leftLowerLeg.LinearVelocity = new Vector2(leftLowerLeg.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
+				if (health[rightLowerLeg] > 0f)
+					rightLowerLeg.LinearVelocity = new Vector2(rightLowerLeg.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
 			}
 			Crouching = false;
 		}
