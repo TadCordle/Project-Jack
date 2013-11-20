@@ -734,15 +734,6 @@ namespace Badminton.Stick_Figures
 					deadLimbs++;
 
 				float force = -4f;
-				if (deadLimbs == 1)
-					force = -3.8f;
-				else if (deadLimbs == 2)
-					force = -3.5f;
-				else if (deadLimbs == 3)
-					force = -3f;
-				else if (deadLimbs == 4)
-					force = -2.5f;
-
 				torso.LinearVelocity = new Vector2(torso.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
 				head.LinearVelocity = new Vector2(head.LinearVelocity.X, force * (float)Math.Pow(scale, 2.5));
 				if (health[leftUpperArm] > 0f)
@@ -1334,26 +1325,26 @@ namespace Badminton.Stick_Figures
 		public virtual void Draw(SpriteBatch sb)
 		{
 			Color deathColor = Color.Black;
-			Color c = Blend(color, deathColor, health[torso]);
-			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL, null, c, torso.Rotation, new Vector2(5f, 20f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[leftUpperArm]);
-			sb.Draw(MainGame.tex_limb, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			Color c = Blend(color, deathColor, health[leftUpperArm]);
+			sb.Draw(MainGame.tex_armUpper, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperArm]);
-			sb.Draw(MainGame.tex_limb, rightUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_armUpper, rightUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerArm]);
-			sb.Draw(MainGame.tex_limb, leftLowerArm.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_armLower, leftLowerArm.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerArm.Rotation, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerArm]);
-			sb.Draw(MainGame.tex_limb, rightLowerArm.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerArm.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_armLower, rightLowerArm.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerArm.Rotation, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperLeg]);
-			sb.Draw(MainGame.tex_limb, leftUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_legUpper, leftUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperLeg]);
-			sb.Draw(MainGame.tex_limb, rightUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_legUpper, rightUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerLeg]);
-			sb.Draw(MainGame.tex_limb, leftLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_legLower, leftLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerLeg]);
-			sb.Draw(MainGame.tex_limb, rightLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerLeg.Rotation, new Vector2(5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_legLower, rightLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			c = Blend(color, deathColor, health[torso]);
+			sb.Draw(MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL, null, c, torso.Rotation, new Vector2(MainGame.tex_torso.Width / 2, MainGame.tex_torso.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[head]);
-			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL, null, c, head.Rotation, new Vector2(12.5f, 12.5f), scale, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL, null, c, head.Rotation, new Vector2(MainGame.tex_head.Width / 2, MainGame.tex_head.Height / 2), scale / 12f, LastFacedLeft ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 
 			foreach (Attack a in attacks)
 				a.Draw(sb, this.color);

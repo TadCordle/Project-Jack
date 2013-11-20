@@ -23,4 +23,8 @@ Content\textures\menu assets\ps_blank.xnb
 Content\textures\menu assets\ps_controller.xnb
 Content\textures\menu assets\ps_keyboard.xnb
 Content\textures\menu assets\ps_off.xnb
+Content\textures\stick figure\armlower.xnb
+Content\textures\stick figure\armupper.xnb
+Content\textures\stick figure\leglower.xnb
+Content\textures\stick figure\legupper.xnb
 Content\music.wma

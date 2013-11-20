@@ -1,5 +1,8 @@
 StickFigure (Tad will work on this mostly)
+	- Make graphics line up more properly
+	- Flip texture based on state of stick figure
 	- Draw laser sight when charging long range attack
+	- Update art
 	- Customization
 LocalPlayer
 	- Fix controls
@@ -28,16 +31,22 @@ Game Modes
 		* For maps, pass file name, and load map from file in constructor probably
 
 Menus
-	- Implement GameScreen interface, add menu options
-	- Menu options return new GameScreen to navigate to upon being clicked
-	- Structure:
-	  -> Main Menu
-	    * Competitive game
-		-> Player selection/naming
-		* Map selection/game settings screen
-		    * Start game
-	    * Character customization
-		-> Character customization screen, select hats/free for all color
-			-Can save character model to use in game
-			-Probably use plaintext again
-	    * Exit
+	- Main Menu
+		* Background video
+		* Update art
+	- Character Select
+		* Show stick figure in select phase
+		* Name entry
+			- Make text entry object
+		* Show check mark when ready
+		* Allow to move onto next screen when all players are ready
+	- Game Settings
+		* Map select
+		* Custom game settings
+			- Gravity entry (0 - 9.8)
+			- Limb strength (20% - 100%)
+			- Time Limit (1:00 - 10:00)
+			- Sudden death (check box)
+			- Allow long range (check box)
+			- Allow traps (check box)
+	- Character customization

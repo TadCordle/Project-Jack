@@ -38,7 +38,7 @@ namespace Badminton
 
 		public static SpriteFont fnt_basicFont;
 		public static Texture2D tex_box, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
-		public static Texture2D tex_head, tex_torso, tex_limb;
+		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower;
 		public static Texture2D tex_bg_castle;
 		public static Texture2D tex_blank;
 
@@ -100,7 +100,10 @@ namespace Badminton
 			tex_bg_castle = Content.Load<Texture2D>("textures/background");
 			tex_box = Content.Load<Texture2D>("textures/box");
 			tex_head = Content.Load<Texture2D>("textures/stick figure/head");
-			tex_limb = Content.Load<Texture2D>("textures/stick figure/limb");
+			tex_armUpper = Content.Load<Texture2D>("textures/stick figure/armupper");
+			tex_armLower = Content.Load<Texture2D>("textures/stick figure/armlower");
+			tex_legUpper = Content.Load<Texture2D>("textures/stick figure/legupper");
+			tex_legLower = Content.Load<Texture2D>("textures/stick figure/leglower");
 			tex_torso = Content.Load<Texture2D>("textures/stick figure/torso");
 			tex_wave = Content.Load<Texture2D>("textures/force wave");
 			tex_longRange = Content.Load<Texture2D>("textures/long range");
