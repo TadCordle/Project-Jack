@@ -8,13 +8,6 @@ Content\textures\long range.xnb
 Content\textures\trap_closed.xnb
 Content\textures\trap_open.xnb
 Content\textures\explosion particle.xnb
-Content\fonts\basicFont.xnb
-Content\sfx\Punch1.xnb
-Content\sfx\Punch2.xnb
-Content\sfx\Thwap.xnb
-Content\sfx\Whoosh.xnb
-Content\music.xnb
-Content\music.wma
 Content\textures\menu assets\mm_competitive.xnb
 Content\textures\menu assets\mm_cooperative.xnb
 Content\textures\menu assets\mm_custom.xnb
@@ -28,3 +21,10 @@ Content\textures\stick figure\armlower.xnb
 Content\textures\stick figure\armupper.xnb
 Content\textures\stick figure\leglower.xnb
 Content\textures\stick figure\legupper.xnb
+Content\fonts\basicFont.xnb
+Content\sfx\Punch1.xnb
+Content\sfx\Punch2.xnb
+Content\sfx\Thwap.xnb
+Content\sfx\Whoosh.xnb
+Content\music.xnb
+Content\music.wma
