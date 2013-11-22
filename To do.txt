@@ -45,7 +45,7 @@ Menus
 		* Custom game settings
 			- Gravity entry (0 - 9.8)
 			- Limb strength (20% - 100%)
-			- Time Limit (1:00 - 10:00)
+			- Time Limit (1:00 - 10:00) (or none)
 			- Sudden death (check box)
 			- Allow long range (check box)
 			- Allow traps (check box)

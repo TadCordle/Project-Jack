@@ -34,19 +34,19 @@ Again, each character gets the same set of simple attacks:
 
 Primarily deathmatch style gamemode:
 	- 2-4 players
-	- Ends when a player is knocked off the map, incapacitated, or when timer runs out
-	- Multiple rounds
-	- If timer runs down, either:
-		* Tally up health, winner is person with more total limb health
-		* Go into sudden death mode (melee only)
+	- Each player has a certain number of lives
+	- A player loses a life when they are incapacitated or knocked off the map
+	- Game ends/winner is determined when only one player has remaining lives or timer runs down
+	- If timer runs down:
+		* Winner is person with most lives
+		* Go into sudden death mode (melee only) if there's a tie for winner
 			- Make sure timer is long enough to make this happen only
 				occasionally, we don't want every game to be decided on a
 				sudden death round
 	- Maps would be mostly static
 		* Single image (may or may not have an animated background)
 		* Made up of invisible, rotated boxes to define floors/walls/etc.
-		* May need a level editor for this
-
+		
 Possible game modes (? means not necessary, mostly just ideas):
 	- Team deathmatch
 	- Free-for-all
