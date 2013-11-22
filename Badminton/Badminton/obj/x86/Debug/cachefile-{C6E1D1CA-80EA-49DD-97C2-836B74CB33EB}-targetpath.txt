@@ -28,3 +28,5 @@ Content\sfx\Thwap.xnb
 Content\sfx\Whoosh.xnb
 Content\music.xnb
 Content\music.wma
+Content\textures\stick figure\debug head.xnb
+Content\textures\stick figure\debug torso.xnb

@@ -28,3 +28,5 @@ Content\textures\stick figure\armlower.xnb
 Content\textures\stick figure\armupper.xnb
 Content\textures\stick figure\leglower.xnb
 Content\textures\stick figure\legupper.xnb
+Content\textures\stick figure\debug head.xnb
+Content\textures\stick figure\debug torso.xnb

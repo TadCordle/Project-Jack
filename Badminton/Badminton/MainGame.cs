@@ -38,7 +38,7 @@ namespace Badminton
 
 		public static SpriteFont fnt_basicFont;
 		public static Texture2D tex_box, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
-		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower;
+		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
 		public static Texture2D tex_bg_castle;
 		public static Texture2D tex_blank;
 
@@ -57,7 +57,7 @@ namespace Badminton
 		{
 			graphics = new GraphicsDeviceManager(this);
 			
-			RESOLUTION_SCALE = 0.667f;
+			RESOLUTION_SCALE = 1f;
 			graphics.PreferredBackBufferWidth = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, (int)(1920 * RESOLUTION_SCALE));
 			graphics.PreferredBackBufferHeight = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height, (int)(1080 * RESOLUTION_SCALE));
 
@@ -105,6 +105,9 @@ namespace Badminton
 			tex_legUpper = Content.Load<Texture2D>("textures/stick figure/legupper");
 			tex_legLower = Content.Load<Texture2D>("textures/stick figure/leglower");
 			tex_torso = Content.Load<Texture2D>("textures/stick figure/torso");
+			tex_debugHead = Content.Load<Texture2D>("textures/stick figure/debug head");
+			tex_debugTorso = Content.Load<Texture2D>("textures/stick figure/debug torso");
+			tex_debugLimb = Content.Load<Texture2D>("textures/stick figure/limb");
 			tex_wave = Content.Load<Texture2D>("textures/force wave");
 			tex_longRange = Content.Load<Texture2D>("textures/long range");
 			tex_trapClosed = Content.Load<Texture2D>("textures/trap_closed");
