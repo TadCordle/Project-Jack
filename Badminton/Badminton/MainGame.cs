@@ -20,6 +20,7 @@ using Microsoft.Xna.Framework.Media;
 
 using Badminton.Screens;
 using Badminton.Screens.Menus;
+using Badminton.Screens.MultiPlayer;
 
 namespace Badminton
 {
@@ -139,7 +140,7 @@ namespace Badminton
 
             // pass: playerName,playerColor,Round,mapName,playerSum,Gravity
 //			currentScreen = new s_FreeForAll("jack", Color.WhiteSmoke, 5, "map name", 3, new Vector2(0, 9.8f));
-			currentScreen = new SingleMap();
+			currentScreen = new FreeForAll();
 //			currentScreen = new MainMenu();
 		}
 

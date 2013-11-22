@@ -209,6 +209,24 @@
       <Time>2013-11-22T13:41:28.1436323-05:00</Time>
     </Item>
     <Item>
+      <Source>textures\stick figure\debug head.png</Source>
+      <Name>textures\stick figure\debug head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb</Output>
+      <Time>2013-11-22T13:19:21.4877519-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\stick figure\debug torso.png</Source>
+      <Name>textures\stick figure\debug torso</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb</Output>
+      <Time>2013-11-22T13:20:40.6392791-05:00</Time>
+    </Item>
+    <Item>
       <Source>fonts\basicFont.spritefont</Source>
       <Name>fonts\basicFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -262,24 +280,6 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb</Output>
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
       <Time>2013-04-19T10:52:54-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\stick figure\debug head.png</Source>
-      <Name>textures\stick figure\debug head</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb</Output>
-      <Time>2013-11-22T13:19:21.4877519-05:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\stick figure\debug torso.png</Source>
-      <Name>textures\stick figure\debug torso</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb</Output>
-      <Time>2013-11-22T13:20:40.6392791-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

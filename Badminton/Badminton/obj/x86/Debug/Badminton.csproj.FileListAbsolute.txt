@@ -150,3 +150,5 @@ C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\B
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
+C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb
+C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
