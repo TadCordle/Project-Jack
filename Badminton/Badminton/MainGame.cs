@@ -57,7 +57,7 @@ namespace Badminton
 		{
 			graphics = new GraphicsDeviceManager(this);
 			
-			RESOLUTION_SCALE = 1f;
+			RESOLUTION_SCALE = 0.667f;
 			graphics.PreferredBackBufferWidth = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, (int)(1920 * RESOLUTION_SCALE));
 			graphics.PreferredBackBufferHeight = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height, (int)(1080 * RESOLUTION_SCALE));
 
@@ -138,8 +138,8 @@ namespace Badminton
 			tex_blank.SetData(new[] { Color.White });
 
             // pass: playerName,playerColor,Round,mapName,playerSum,Gravity
-            currentScreen = new s_FreeForAll("jack", Color.WhiteSmoke, 5, "map name", 3, new Vector2(0, 9.8f));
-//			currentScreen = new SingleMap();
+//			currentScreen = new s_FreeForAll("jack", Color.WhiteSmoke, 5, "map name", 3, new Vector2(0, 9.8f));
+			currentScreen = new SingleMap();
 //			currentScreen = new MainMenu();
 		}
 

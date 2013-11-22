@@ -24,6 +24,7 @@ namespace Badminton.Stick_Figures
 		private Buttons jumpBtn, rightBtn, leftBtn, crouchBtn, punchBtn, kickBtn, shootBtn, trapBtn;
 		private bool punchBtnPressed, punchKeyPressed, kickBtnPressed, kickKeyPressed, shootBtnPressed, shootKeyPressed, trapKeyPressed, trapBtnPressed;
 		private bool usesKeyboard;
+		private float lastShootAngle;
 
 		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, Color color, PlayerIndex player)
 			: base(world, position, collisionCat, scale, color)
@@ -34,6 +35,7 @@ namespace Badminton.Stick_Figures
 			shootBtnPressed = shootKeyPressed = false;
 			trapBtnPressed = trapKeyPressed = false;
 			usesKeyboard = !GamePad.GetState(player).IsConnected;
+			lastShootAngle = 0f;
 
 			jumpBtn = Buttons.A;
 			rightBtn = Buttons.LeftThumbstickRight;
@@ -183,7 +185,11 @@ namespace Badminton.Stick_Figures
 				if (GamePad.GetState(player).IsButtonDown(shootBtn))
 				{
 					shootBtnPressed = true;
-					Aim((float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Right.Y, GamePad.GetState(player).ThumbSticks.Right.X));
+					if (GamePad.GetState(player).ThumbSticks.Right.Length() > 0)
+						lastShootAngle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Right.Y, GamePad.GetState(player).ThumbSticks.Right.X);
+					else if (GamePad.GetState(player).ThumbSticks.Left.Length() > 0)
+						lastShootAngle = (float)Math.Atan2(GamePad.GetState(player).ThumbSticks.Left.Y, GamePad.GetState(player).ThumbSticks.Left.X);
+					Aim(lastShootAngle);
 				}
 				else
 				{

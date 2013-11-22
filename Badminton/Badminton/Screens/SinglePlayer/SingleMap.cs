@@ -30,7 +30,7 @@ namespace Badminton.Screens
 		TrapAmmo[] ammo;
 		Texture2D background;
 
-		LocalPlayer testFigure1, testFigure2;
+		LocalPlayer testFigure1, testFigure2, testFigure3, testFigure4;
 
 		public SingleMap()
 		{
@@ -47,12 +47,16 @@ namespace Badminton.Screens
 
 			testFigure1 = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
 			testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
+			testFigure3 = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Cyan, PlayerIndex.Three);
+			testFigure4 = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Yellow, PlayerIndex.Four);
 		}
 
 		public virtual GameScreen Update(GameTime gameTime)
 		{
 			testFigure1.Update();
 			testFigure2.Update();
+			testFigure3.Update();
+			testFigure4.Update();
 
 			if (testFigure1.IsDead || testFigure1.Position.Y * MainGame.METER_TO_PIXEL > 1080)
 			{
@@ -64,6 +68,17 @@ namespace Badminton.Screens
 				testFigure2.Destroy();
 				testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
 			}
+			if (testFigure3.IsDead || testFigure3.Position.Y * MainGame.METER_TO_PIXEL > 1080)
+			{
+				testFigure3.Destroy();
+				testFigure3 = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Cyan, PlayerIndex.Three);
+			}
+			if (testFigure4.IsDead || testFigure4.Position.Y * MainGame.METER_TO_PIXEL > 1080)
+			{
+				testFigure4.Destroy();
+				testFigure4 = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Yellow, PlayerIndex.Four);
+			}
+
 
 			foreach (TrapAmmo t in ammo)
 				t.Update();
@@ -84,6 +99,8 @@ namespace Badminton.Screens
 
 			testFigure1.Draw(sb);
 			testFigure2.Draw(sb);
+			testFigure3.Draw(sb);
+			testFigure4.Draw(sb);
 
 			foreach (TrapAmmo t in ammo)
 				t.Draw(sb);

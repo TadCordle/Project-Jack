@@ -45,7 +45,7 @@ namespace Badminton.Stick_Figures
 		private bool punchArm, kickLeg, throwArm; // true=left, false=right
 		private int chargeUp, coolDown, trapAmmo, trapThrowTime;
 		private const int MAX_CHARGE = 100, COOL_PERIOD = 30;
-		private const int MAX_AMMO = 2, THROW_TIME = 40;
+		private const int MAX_AMMO = 3, THROW_TIME = 40;
 
 		// Other
 		private float scale;
@@ -216,6 +216,11 @@ namespace Badminton.Stick_Figures
 		/// Gets/sets which direction the stick figure was last facing
 		/// </summary>
 		protected bool LastFacedLeft { get; set; }
+
+		/// <summary>
+		/// Returns the collision category (or team) of the stick figure
+		/// </summary>
+		public Category CollisionCategory { get { return collisionCat; } }
 
 		#endregion
 

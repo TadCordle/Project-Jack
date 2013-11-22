@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using FarseerPhysics.Dynamics;
+
 using Badminton.Screens.Menus.Components;
 
 namespace Badminton.Screens.Menus
@@ -16,22 +18,26 @@ namespace Badminton.Screens.Menus
 		public int Mode { get; set; }
 
 		List<PlayerSelectBox> boxes;
+		World world;
 
 		public PlayerSelect(int mode)
 		{
+			world = new World(Vector2.Zero);
+			
 			this.Mode = mode;
 			boxes = new List<PlayerSelectBox>();
-			boxes.Add(new PlayerSelectBox(new Vector2(470, 145), PlayerIndex.One));
-			boxes.Add(new PlayerSelectBox(new Vector2(970, 145), PlayerIndex.Two));
-			boxes.Add(new PlayerSelectBox(new Vector2(470, 550), PlayerIndex.Three));
-			boxes.Add(new PlayerSelectBox(new Vector2(970, 550), PlayerIndex.Four));
+			boxes.Add(new PlayerSelectBox(new Vector2(470, 145), PlayerIndex.One, Color.Red));
+			boxes.Add(new PlayerSelectBox(new Vector2(970, 145), PlayerIndex.Two, Color.Green));
+			boxes.Add(new PlayerSelectBox(new Vector2(470, 550), PlayerIndex.Three, Color.Cyan));
+			boxes.Add(new PlayerSelectBox(new Vector2(970, 550), PlayerIndex.Four, Color.Yellow));
 		}
 
 		public GameScreen Update(GameTime time)
 		{
 			foreach (PlayerSelectBox box in boxes)
-				box.Update();
+				box.Update(world);
 
+			world.Step((float)time.ElapsedGameTime.TotalSeconds);
 			return this;
 		}
 

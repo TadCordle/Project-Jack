@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using FarseerPhysics.Dynamics;
+
+using Badminton.Stick_Figures;
+
 namespace Badminton.Screens.Menus.Components
 {
 	class PlayerSelectBox
@@ -16,12 +20,16 @@ namespace Badminton.Screens.Menus.Components
 
 		private State state;
 
-		private bool joinPressed, backPressed;
+		private StickFigure player;
 
-		public PlayerSelectBox(Vector2 position, PlayerIndex index)
+		private bool joinPressed, backPressed;
+		private Color color;
+
+		public PlayerSelectBox(Vector2 position, PlayerIndex index, Color c)
 		{
 			this.position = position;
 			this.index = index;
+			this.color = c;
 
 			joinPressed = true;
 			backPressed = true;
@@ -50,7 +58,7 @@ namespace Badminton.Screens.Menus.Components
 			}
 		}
 
-		public void Update()
+		public void Update(World w)
 		{
 			if (state != State.SelectingPlayer && state != State.Ready)
 				state = GetState();
@@ -83,6 +91,14 @@ namespace Badminton.Screens.Menus.Components
 			}
 			else if (state == State.SelectingPlayer)
 			{
+				if (player == null)
+				{
+					player = new StickFigure(w, (position + Vector2.UnitY * 200 + Vector2.UnitX * 250) * MainGame.PIXEL_TO_METER, Category.None, 3f, color);
+					player.Stand();
+				}
+				else
+					player.Update();
+
 				if (GamePad.GetState(index).IsButtonDown(Buttons.A))
 				{
 					if (!joinPressed)
@@ -107,6 +123,8 @@ namespace Badminton.Screens.Menus.Components
 			else
 			{
 				sb.Draw(MainGame.tex_ps_blank, position, Color.White);
+				if (player != null)
+					player.Draw(sb);
 			}
 		}
 
