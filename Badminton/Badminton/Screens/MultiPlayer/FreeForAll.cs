@@ -178,23 +178,7 @@ namespace Badminton.Screens.MultiPlayer
 
             // draw player status
             for (int i = 0; i < 4; i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        sb.DrawString(MainGame.fnt_basicFont, "Player1: " + lives[0], new Vector2(20, 20), Color.Gold);
-                        break;
-                    case 1:
-                        sb.DrawString(MainGame.fnt_basicFont, "Player2: " + lives[1], new Vector2(20, 40), Color.Gold);
-                        break;
-                    case 2:
-                        sb.DrawString(MainGame.fnt_basicFont, "Player3: " + lives[2], new Vector2(20, 60), Color.Gold);
-                        break;
-                    case 3:
-                        sb.DrawString(MainGame.fnt_basicFont, "Player4: " + lives[3], new Vector2(20, 80), Color.Gold);
-                        break;
-                }
-            }
+	            sb.DrawString(MainGame.fnt_basicFont, "Player" + (i + 1).ToString() + ": " + lives[i], new Vector2(20, 20 + i * 20), Color.Gold);
         }
 
         public GameScreen Exit()

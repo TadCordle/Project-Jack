@@ -138,9 +138,8 @@ namespace Badminton
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });
 
-            // pass: playerName,playerColor,Round,mapName,playerSum,Gravity
-//			currentScreen = new s_FreeForAll("jack", Color.WhiteSmoke, 5, "map name", 3, new Vector2(0, 9.8f));
-			currentScreen = new FreeForAll();
+//			currentScreen = new SingleMap();
+            currentScreen = new FreeForAll();
 //			currentScreen = new MainMenu();
 		}
 
