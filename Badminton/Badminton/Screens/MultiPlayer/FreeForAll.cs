@@ -181,7 +181,7 @@ namespace Badminton.Screens.MultiPlayer
 	            sb.DrawString(MainGame.fnt_basicFont, "Player" + (i + 1).ToString() + ": " + lives[i], new Vector2(20, 20 + i * 20), Color.Gold);
         }
 
-        public GameScreen Exit()
+        public GameScreen GoBack()
         {
             return null;
             //        return new MainMenu();

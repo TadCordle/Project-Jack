@@ -139,8 +139,8 @@ namespace Badminton
 			tex_blank.SetData(new[] { Color.White });
 
 //			currentScreen = new SingleMap();
-            currentScreen = new FreeForAll();
-//			currentScreen = new MainMenu();
+//          currentScreen = new FreeForAll();
+			currentScreen = new MainMenu();
 		}
 
 		/// <summary>
@@ -170,7 +170,7 @@ namespace Badminton
 				if (!escapePressed)
 				{
 					escapePressed = true;
-					currentScreen = currentScreen == null ? null : currentScreen.Exit();
+					currentScreen = currentScreen == null ? null : currentScreen.GoBack();
 				}
 			}
 			else

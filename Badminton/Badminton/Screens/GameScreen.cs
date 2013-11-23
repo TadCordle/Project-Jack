@@ -20,7 +20,7 @@ namespace Badminton.Screens
 		/// Called when the escape key is pressed
 		/// </summary>
 		/// <returns>The screen to show when the current screen is exited</returns>
-		GameScreen Exit();
+		GameScreen GoBack();
 
 		/// <summary>
 		/// Draws the current game screen

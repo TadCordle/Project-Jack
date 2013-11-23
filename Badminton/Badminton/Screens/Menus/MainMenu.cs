@@ -32,15 +32,7 @@ namespace Badminton.Screens.Menus
 
 		public GameScreen Update(GameTime gameTime)
 		{
-			foreach (Button b in choices)
-			{
-				b.Update();
-				if (b.IsMouseOver())
-				{
-					GetSelectedButton().Selected = false;
-					b.Selected = true;
-				}
-			}
+			Button.UpdateButtons(choices);
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown))
 			{
@@ -137,18 +129,7 @@ namespace Badminton.Screens.Menus
 			return this;
 		}
 
-		private Button GetSelectedButton()
-		{
-			foreach (Button b in choices)
-				if (b.Selected)
-					return b;
-
-			// If no buttons are selected, select the first one
-			choices[0].Selected = true;
-			return choices[0];
-		}
-
-		public GameScreen Exit()
+		public GameScreen GoBack()
 		{
 			return null;
 		}

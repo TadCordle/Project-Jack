@@ -22,17 +22,22 @@ namespace Badminton.Screens.Menus.Components
 
 		private StickFigure player;
 
-		private bool joinPressed, backPressed;
-		private Color color;
+		private bool joinPressed, backPressed, leftPressed, rightPressed;
+		private bool usesKeyboard;
+		private int selectedColor;
 
-		public PlayerSelectBox(Vector2 position, PlayerIndex index, Color c)
+		public PlayerSelectBox(Vector2 position, PlayerIndex index, int colorIndex)
 		{
 			this.position = position;
 			this.index = index;
-			this.color = c;
 
 			joinPressed = true;
 			backPressed = true;
+			leftPressed = true;
+			rightPressed = true;
+
+			selectedColor = colorIndex;
+			usesKeyboard = false;
 
 			state = GetState();
 		}
@@ -70,6 +75,7 @@ namespace Badminton.Screens.Menus.Components
 					if (!joinPressed)
 					{
 						joinPressed = true;
+						usesKeyboard = true;
 						state = State.SelectingPlayer;
 					}
 				}
@@ -93,13 +99,67 @@ namespace Badminton.Screens.Menus.Components
 			{
 				if (player == null)
 				{
-					player = new StickFigure(w, (position + Vector2.UnitY * 200 + Vector2.UnitX * 250) * MainGame.PIXEL_TO_METER, Category.None, 3f, color);
+					player = new StickFigure(w, (position + Vector2.UnitY * 200 + Vector2.UnitX * 250) * MainGame.PIXEL_TO_METER, Category.None, 3f, LocalPlayer.Colors[selectedColor]);
 					player.Stand();
 				}
 				else
+				{
+					player.Color = LocalPlayer.Colors[selectedColor];
 					player.Update();
+				}
 
-				if (GamePad.GetState(index).IsButtonDown(Buttons.A))
+				bool pressingLeft, pressingRight, pressingBack;
+				if (usesKeyboard)
+				{
+					pressingLeft = Keyboard.GetState().IsKeyDown(Keys.Left);
+					pressingRight = Keyboard.GetState().IsKeyDown(Keys.Right);
+					pressingBack = Keyboard.GetState().IsKeyDown(Keys.Back) || Keyboard.GetState().IsKeyDown(Keys.Escape);
+				}
+				else
+				{
+					pressingLeft = GamePad.GetState(index).IsButtonDown(Buttons.DPadLeft) || GamePad.GetState(index).IsButtonDown(Buttons.LeftThumbstickLeft);
+					pressingRight = GamePad.GetState(index).IsButtonDown(Buttons.DPadRight) || GamePad.GetState(index).IsButtonDown(Buttons.LeftThumbstickRight);
+					pressingBack = GamePad.GetState(index).IsButtonDown(Buttons.Back) || GamePad.GetState(index).IsButtonDown(Buttons.B);
+				}
+
+				if (pressingLeft)
+				{
+					if (!leftPressed)
+					{
+						selectedColor = selectedColor == 0 ? LocalPlayer.Colors.Length - 1 : selectedColor - 1;
+						leftPressed = true;
+					}
+				}
+				else
+					leftPressed = false;
+
+				if (pressingRight)
+				{
+					if (!rightPressed)
+					{
+						selectedColor = selectedColor == LocalPlayer.Colors.Length - 1 ? 0 : selectedColor + 1;
+						rightPressed = true;
+					}
+				}
+				else
+					rightPressed = false;
+
+				if (pressingBack)
+				{
+					if (!backPressed)
+					{
+						backPressed = true;
+						usesKeyboard = false;
+						if (usesKeyboard)
+							state = State.Keyboard;
+						else
+							state = State.Controller;
+					}
+				}
+				else
+					backPressed = false;
+
+				if ((!usesKeyboard && GamePad.GetState(index).IsButtonDown(Buttons.A)) || (usesKeyboard && Keyboard.GetState().IsKeyDown(Keys.Enter)))
 				{
 					if (!joinPressed)
 					{
@@ -110,6 +170,35 @@ namespace Badminton.Screens.Menus.Components
 				else
 					joinPressed = false;
 			}
+			else if (state == State.Ready)
+			{
+				bool pressingBack;
+				if (usesKeyboard)
+					pressingBack = Keyboard.GetState().IsKeyDown(Keys.Escape) || Keyboard.GetState().IsKeyDown(Keys.Back);
+				else
+					pressingBack = GamePad.GetState(index).IsButtonDown(Buttons.Back) || GamePad.GetState(index).IsButtonDown(Buttons.B);
+
+				if (pressingBack)
+				{
+					if (!backPressed)
+					{
+						state = State.SelectingPlayer;
+						backPressed = true;
+					}
+				}
+				else
+					backPressed = false;
+			}
+		}
+
+		public bool IsReady()
+		{
+			return this.state == State.Off || this.state == State.Ready;
+		}
+
+		public bool CanExit()
+		{
+			return state == State.Off || state == State.Controller || state == State.Keyboard;
 		}
 
 		public void Draw(SpriteBatch sb)
@@ -125,6 +214,8 @@ namespace Badminton.Screens.Menus.Components
 				sb.Draw(MainGame.tex_ps_blank, position, Color.White);
 				if (player != null)
 					player.Draw(sb);
+				if (state == State.Ready)
+					sb.DrawString(MainGame.fnt_basicFont, "Ready!", this.position + Vector2.One * 10, Color.Green);
 			}
 		}
 

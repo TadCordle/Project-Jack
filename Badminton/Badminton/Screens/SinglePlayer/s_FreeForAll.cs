@@ -167,7 +167,7 @@ namespace Badminton.Screens
             return this;
         }
 
-        public virtual GameScreen Exit()
+        public virtual GameScreen GoBack()
         {
             return null; //new MainMenu(); // Change this to show confirmation dialog later
         }

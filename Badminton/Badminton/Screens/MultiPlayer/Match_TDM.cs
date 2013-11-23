@@ -58,7 +58,7 @@ namespace Badminton.Screens.MultiPlayer
                 w.Draw(sb);
         }
 
-		public GameScreen Exit()
+		public GameScreen GoBack()
         {
             return new MainMenu();
         }

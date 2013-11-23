@@ -63,5 +63,29 @@ namespace Badminton.Screens.Menus.Components
 		{
 			sb.Draw(texture, position, null, Color.White, 0f, new Vector2(texture.Width / 2, texture.Height / 2), scale, SpriteEffects.None, 1f);
 		}
+
+		public static void UpdateButtons(List<Button> buttons)
+		{
+			foreach (Button b in buttons)
+			{
+				b.Update();
+				if (b.IsMouseOver())
+				{
+					GetSelectedButton(buttons).Selected = false;
+					b.Selected = true;
+				}
+			}
+		}
+
+		public static Button GetSelectedButton(List<Button> buttons)
+		{
+			foreach (Button b in buttons)
+				if (b.Selected)
+					return b;
+
+			// If no buttons are selected, select the first one
+			buttons[0].Selected = true;
+			return buttons[0];
+		}
 	}
 }

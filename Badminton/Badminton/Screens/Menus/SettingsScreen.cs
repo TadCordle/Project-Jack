@@ -41,7 +41,7 @@ namespace Badminton.Screens.Menus
 			return this;
 		}
 
-		public GameScreen Exit()
+		public GameScreen GoBack()
 		{
 			return prevScreen;
 		}

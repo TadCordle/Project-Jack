@@ -222,6 +222,11 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public Category CollisionCategory { get { return collisionCat; } }
 
+		/// <summary>
+		/// Sets the color of the stick figure
+		/// </summary>
+		public Color Color { set { this.color = value; } }
+
 		#endregion
 
 		#region Creation/Destruction

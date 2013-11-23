@@ -26,6 +26,9 @@ namespace Badminton.Stick_Figures
 		private bool usesKeyboard;
 		private float lastShootAngle;
 
+		private static Color[] colors = new Color[] { Color.Red, Color.Green, Color.Blue, Color.Yellow, Color.Cyan, Color.Magenta, Color.White };
+		public static Color[] Colors { get { return colors; } }
+
 		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, Color color, PlayerIndex player)
 			: base(world, position, collisionCat, scale, color)
 		{
