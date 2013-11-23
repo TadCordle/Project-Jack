@@ -152,3 +152,6 @@ C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminto
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_checked.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_unchecked.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_next.xnb

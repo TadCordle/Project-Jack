@@ -281,6 +281,33 @@
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
       <Time>2013-04-19T10:52:54-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\menu assets\checkbox_checked.png</Source>
+      <Name>textures\menu assets\checkbox_checked</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_checked.xnb</Output>
+      <Time>2013-11-23T15:21:33.6074882-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\checkbox_unchecked.png</Source>
+      <Name>textures\menu assets\checkbox_unchecked</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_unchecked.xnb</Output>
+      <Time>2013-11-23T15:21:05.7958974-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\ps_next.png</Source>
+      <Name>textures\menu assets\ps_next</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_next.xnb</Output>
+      <Time>2013-11-23T15:47:36.7128927-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

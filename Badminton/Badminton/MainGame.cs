@@ -44,7 +44,8 @@ namespace Badminton
 		public static Texture2D tex_blank;
 
 		public static Texture2D tex_logo, tex_mm_coop, tex_mm_comp, tex_mm_cust, tex_mm_exit;
-		public static Texture2D tex_ps_blank, tex_ps_controller, tex_ps_keyboard, tex_ps_off;
+		public static Texture2D tex_ps_blank, tex_ps_controller, tex_ps_keyboard, tex_ps_off, tex_ps_next;
+		public static Texture2D tex_cbChecked, tex_cbUnchecked;
 
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh;
@@ -115,6 +116,8 @@ namespace Badminton
 			tex_trapOpen = Content.Load<Texture2D>("textures/trap_open");
 			tex_explosionParticle = Content.Load<Texture2D>("textures/explosion particle");
 
+			tex_cbChecked = Content.Load<Texture2D>("textures/menu assets/checkbox_checked");
+			tex_cbUnchecked = Content.Load<Texture2D>("textures/menu assets/checkbox_unchecked");
 			tex_logo = Content.Load<Texture2D>("textures/menu assets/logo");
 			tex_mm_comp = Content.Load<Texture2D>("textures/menu assets/mm_competitive");
 			tex_mm_coop = Content.Load<Texture2D>("textures/menu assets/mm_cooperative");
@@ -125,6 +128,7 @@ namespace Badminton
 			tex_ps_controller = Content.Load<Texture2D>("textures/menu assets/ps_controller");
 			tex_ps_keyboard = Content.Load<Texture2D>("textures/menu assets/ps_keyboard");
 			tex_ps_off = Content.Load<Texture2D>("textures/menu assets/ps_off");
+			tex_ps_next = Content.Load<Texture2D>("textures/menu assets/ps_next");
 
 			sfx_punches = new SoundEffect[] {
 				Content.Load<SoundEffect>("sfx/Punch1"),
