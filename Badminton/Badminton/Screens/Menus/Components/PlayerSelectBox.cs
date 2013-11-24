@@ -193,7 +193,12 @@ namespace Badminton.Screens.Menus.Components
 
 		public bool IsReady()
 		{
-			return index == PlayerIndex.One && state == State.Ready || index != PlayerIndex.One && this.state != State.SelectingPlayer;
+			return this.state != State.SelectingPlayer;
+		}
+
+		public bool PlayerSelected()
+		{
+			return this.state == State.Ready;
 		}
 
 		public bool CanExit()

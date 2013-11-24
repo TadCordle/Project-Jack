@@ -45,9 +45,9 @@ namespace Badminton.Screens.Menus
 			gameModes = new List<CheckBox>();
 			if (mode == 0)
 			{
-				gameModes.Add(new CheckBox(new Vector2(1400, 200), "Free For All", "ffa"));
-				gameModes.Add(new CheckBox(new Vector2(1400, 260), "Team Deathmatch", "tdm"));
-				gameModes.Add(new CheckBox(new Vector2(1400, 320), "1 Vs All", "1va"));
+				gameModes.Add(new CheckBox(new Vector2(1400, 300), "Free For All", "ffa"));
+				gameModes.Add(new CheckBox(new Vector2(1400, 360), "Team Deathmatch", "tdm"));
+				gameModes.Add(new CheckBox(new Vector2(1400, 420), "1 Vs All", "1va"));
 				gameModes[0].Checked = true;
 			}
 
@@ -60,6 +60,7 @@ namespace Badminton.Screens.Menus
 				box.Update(world);
 
 			CheckBox.UpdateCheckboxes(gameModes);
+			
 
 			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
 			{
@@ -74,6 +75,8 @@ namespace Badminton.Screens.Menus
 							cb.Checked = true;
 						}
 					}
+					if (showButton && allReady.IsMouseOver())
+						return new SettingsScreen(this);
 				}
 			}
 			else
@@ -197,10 +200,15 @@ namespace Badminton.Screens.Menus
 			}
 
 			bool ready = true;
+			bool playerSelected = false;
 			foreach (PlayerSelectBox p in boxes)
+			{
 				if (!p.IsReady())
 					ready = false;
-			if (ready)
+				if (p.PlayerSelected())
+					playerSelected = true;
+			}
+			if (ready && playerSelected)
 				showButton = true;
 			else
 			{
