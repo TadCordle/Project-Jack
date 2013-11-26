@@ -142,9 +142,9 @@ namespace Badminton
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });
 
-//			currentScreen = new SingleMap();
+			currentScreen = new SingleMap();
 //          currentScreen = new FreeForAll();
-			currentScreen = new MainMenu();
+//			currentScreen = new MainMenu();
 		}
 
 		/// <summary>

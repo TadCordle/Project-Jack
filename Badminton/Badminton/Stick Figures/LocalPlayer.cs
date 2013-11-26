@@ -75,9 +75,11 @@ namespace Badminton.Stick_Figures
 			// Jump
 			if (usesKeyboard ? Keyboard.GetState().IsKeyDown(upKey) : GamePad.GetState(player).IsButtonDown(jumpBtn))
 			{
-				Jump();
+				Jumping = true;
 				stand = false;
 			}
+			else
+				Jumping = false;
 
 			// Crouch
 			if (usesKeyboard ? Keyboard.GetState().IsKeyDown(downKey) : GamePad.GetState(player).IsButtonDown(crouchBtn))

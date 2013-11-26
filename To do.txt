@@ -1,8 +1,5 @@
 StickFigure (Tad will work on this mostly)
-	- Make graphics line up more properly
-	- Flip texture based on state of stick figure
 	- Draw laser sight when charging long range attack
-	- Update art
 	- Customization
 LocalPlayer
 	- Fix controls
@@ -35,11 +32,10 @@ Menus
 		* Background video
 		* Update art
 	- Character Select
+		* Add all button based components to single list so you can select one at a time
 		* Show stick figure in select phase
 		* Name entry
 			- Make text entry object
-		* Show check mark when ready
-		* Allow to move onto next screen when all players are ready
 	- Game Settings
 		* Map select
 		* Custom game settings

@@ -52,6 +52,7 @@ namespace Badminton.Stick_Figures
 		private Color color;
 		private Category collisionCat;
 		private Vector2 groundSensorStart, groundSensorEnd;
+		private bool increaseFall;
 		private bool leftLegLeft, rightLegLeft;
 
 		#region Properties
@@ -163,6 +164,21 @@ namespace Badminton.Stick_Figures
 		public bool Crouching { get; set; }
 
 		/// <summary>
+		/// Whether or not the stick figure in the jump stage
+		/// </summary>
+		public bool Jumping
+		{
+			get { return _jumping; }
+			set
+			{
+				if (value && OnGround)
+					increaseFall = true;
+				_jumping = value;
+			}
+		}
+		private bool _jumping;
+
+		/// <summary>
 		/// Returns whether or not the stick figure is standing on solid ground
 		/// </summary>
 		public bool OnGround
@@ -247,6 +263,8 @@ namespace Badminton.Stick_Figures
 			health = new Dictionary<Body, float>();
 			this.color = c;
 			this.scale = scale;
+			this.increaseFall = false;
+			_jumping = false;
 
 			walkStage = 0;
 
@@ -919,7 +937,16 @@ namespace Badminton.Stick_Figures
 			UpdateLimbStrength();
 			UpdateLimbAttachment();
 			UpdateLimbFriction();
-			
+
+			if (Jumping)
+				Jump();
+			else if (increaseFall)
+			{
+				if (torso.LinearVelocity.Y < -2)
+					torso.ApplyForce(Vector2.UnitY * 250);
+				else
+					increaseFall = false;
+			}
 			if (Crouching)
 				Crouch();
 		}
@@ -1383,7 +1410,7 @@ namespace Badminton.Stick_Figures
 				a.Draw(sb, this.color);
 
 			// Debug
-//			DrawLine(sb, MainGame.tex_blank, 2, Color.Cyan, groundSensorStart * MainGame.METER_TO_PIXEL, groundSensorEnd * MainGame.METER_TO_PIXEL);
+			DrawLine(sb, MainGame.tex_blank, 2, Color.Cyan, groundSensorStart * MainGame.METER_TO_PIXEL, groundSensorEnd * MainGame.METER_TO_PIXEL);
 //			sb.DrawString(MainGame.fnt_basicFont, OnGround.ToString(), Vector2.Zero, Color.Cyan);
 //			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
 //			sb.DrawString(MainGame.fnt_basicFont, "L", LeftFootPosition * MainGame.METER_TO_PIXEL, Color.Blue);
