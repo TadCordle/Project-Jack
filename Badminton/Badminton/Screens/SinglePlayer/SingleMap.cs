@@ -30,7 +30,8 @@ namespace Badminton.Screens
 		TrapAmmo[] ammo;
 		Texture2D background;
 
-		LocalPlayer testFigure1, testFigure2, testFigure3, testFigure4;
+		LocalPlayer testFigure1;
+        BotPlayer testFigure2, testFigure3,testFigure4;
 
 		public SingleMap()
 		{
@@ -46,9 +47,9 @@ namespace Badminton.Screens
 				ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
 
 			testFigure1 = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
-			testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
-			testFigure3 = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Cyan, PlayerIndex.Three);
-			testFigure4 = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Yellow, PlayerIndex.Four);
+			testFigure2 = new BotPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two,testFigure1);
+			testFigure3 = new BotPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Cyan, PlayerIndex.Three,testFigure1);
+			testFigure4 = new BotPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Yellow, PlayerIndex.Four,testFigure1);
 		}
 
 		public virtual GameScreen Update(GameTime gameTime)
@@ -66,17 +67,17 @@ namespace Badminton.Screens
 			if (testFigure2.IsDead || testFigure2.Position.Y * MainGame.METER_TO_PIXEL > 1080)
 			{
 				testFigure2.Destroy();
-				testFigure2 = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two);
+				testFigure2 = new BotPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Green, PlayerIndex.Two,testFigure1);
 			}
 			if (testFigure3.IsDead || testFigure3.Position.Y * MainGame.METER_TO_PIXEL > 1080)
 			{
 				testFigure3.Destroy();
-				testFigure3 = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Cyan, PlayerIndex.Three);
+                testFigure3 = new BotPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Cyan, PlayerIndex.Three,testFigure1);
 			}
 			if (testFigure4.IsDead || testFigure4.Position.Y * MainGame.METER_TO_PIXEL > 1080)
 			{
 				testFigure4.Destroy();
-				testFigure4 = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Yellow, PlayerIndex.Four);
+                testFigure4 = new BotPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Yellow, PlayerIndex.Four,testFigure1);
 			}
 
 

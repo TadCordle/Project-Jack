@@ -131,6 +131,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Screens\SinglePlayer\s_FreeForAll.cs" />
     <Compile Include="Screens\SinglePlayer\SingleMap.cs" />
+    <Compile Include="Stick Figures\BotPlayer.cs" />
     <Compile Include="Stick Figures\LocalPlayer.cs" />
     <Compile Include="Stick Figures\StickFigure.cs" />
     <Compile Include="Wall.cs" />
