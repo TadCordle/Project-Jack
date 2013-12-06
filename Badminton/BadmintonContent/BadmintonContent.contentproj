@@ -102,8 +102,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="textures\background.jpg">
-      <Name>background</Name>
+    <Compile Include="textures\castle.jpg">
+      <Name>castle</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

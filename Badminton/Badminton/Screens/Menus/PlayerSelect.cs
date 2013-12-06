@@ -18,8 +18,7 @@ namespace Badminton.Screens.Menus
 		public int Mode { get; set; }
 
 		List<PlayerSelectBox> boxes;
-		List<CheckBox> gameModes;
-		Button allReady;
+		List<Component> components;
 		World world;
 
 		bool backPressed, confirmPressed, mouseClicked, upPressed, downPressed;
@@ -42,16 +41,16 @@ namespace Badminton.Screens.Menus
 			boxes.Add(new PlayerSelectBox(new Vector2(270, 550), PlayerIndex.Three, 2));
 			boxes.Add(new PlayerSelectBox(new Vector2(770, 550), PlayerIndex.Four, 3));
 
-			gameModes = new List<CheckBox>();
+			components = new List<Component>();
 			if (mode == 0)
 			{
-				gameModes.Add(new CheckBox(new Vector2(1400, 300), "Free For All", "ffa"));
-				gameModes.Add(new CheckBox(new Vector2(1400, 360), "Team Deathmatch", "tdm"));
-				gameModes.Add(new CheckBox(new Vector2(1400, 420), "1 Vs All", "1va"));
-				gameModes[0].Checked = true;
+				components.Add(new CheckBox(new Vector2(1400, 300), "Free For All", "ffa"));
+				components.Add(new CheckBox(new Vector2(1400, 360), "Team Deathmatch", "tdm"));
+				components.Add(new CheckBox(new Vector2(1400, 420), "1 Vs All", "1va"));
+				((CheckBox)components[0]).Checked = true;
 			}
 
-			allReady = new Button(new Vector2(1500, 600), MainGame.tex_ps_next, "next");
+			components.Add(new Button(new Vector2(1500, 600), MainGame.tex_ps_next, "next"));
 		}
 
 		public GameScreen Update(GameTime time)
@@ -59,28 +58,34 @@ namespace Badminton.Screens.Menus
 			foreach (PlayerSelectBox box in boxes)
 				box.Update(world);
 
-			CheckBox.UpdateCheckboxes(gameModes);
+			Component.UpdateSelection(components);
 			
 
-			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-			{
-				if (!mouseClicked)
-				{
-					mouseClicked = true;
-					foreach (CheckBox cb in gameModes)
-					{
-						if (cb.IsMouseOver())
-						{
-							CheckBox.UncheckAll(gameModes);
-							cb.Checked = true;
-						}
-					}
-					if (showButton && allReady.IsMouseOver())
-						return new SettingsScreen(this);
-				}
-			}
-			else
-				mouseClicked = false;
+//			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+//			{
+//				if (!mouseClicked)
+//				{
+//					mouseClicked = true;
+//					foreach (Component c in components)
+//					{
+//						if (c.IsMouseOver())
+//						{
+//							if (c is CheckBox)
+//							{
+//								CheckBox.UncheckAll(components);
+//								((CheckBox)c).Checked = true;
+//							}
+//							else
+//							{
+//								if (showButton && components[components.Count - 1].IsMouseOver())
+//									return new SettingsScreen(this);
+//							}
+//						}
+//					}
+//				}
+//			}
+//			else
+//				mouseClicked = false;
 
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.B))
 			{
@@ -96,15 +101,15 @@ namespace Badminton.Screens.Menus
 			bool usingKeyboard = !GamePad.GetState(PlayerIndex.One).IsConnected;
 			if (boxes[0].IsReady())
 			{
-				if (!showButton)
+				if (showButton)
 				{
 					bool selectedBoxes = false;
-					foreach (CheckBox cb in gameModes)
+					foreach (Component cb in components)
 						if (cb.Selected)
 							selectedBoxes = true;
 
 					if (!selectedBoxes)
-						gameModes[0].Selected = true;
+						components[0].Selected = true;
 				}
 
 				if (usingKeyboard && Keyboard.GetState().IsKeyDown(Keys.Down) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown))
@@ -112,29 +117,16 @@ namespace Badminton.Screens.Menus
 					if (!downPressed)
 					{
 						downPressed = true;
-						if (showButton && allReady.Selected)
+						for (int i = 0; i < components.Count; i++)
 						{
-							allReady.Selected = false;
-							gameModes[0].Selected = true;
-						}
-						else
-						{
-							for (int i = 0; i < gameModes.Count; i++)
+							if (components[i].Selected)
 							{
-								if (gameModes[i].Selected)
-								{
-									gameModes[i].Selected = false;
-									i++;
-									if (i < gameModes.Count)
-										gameModes[i].Selected = true;
-									else
-									{
-										if (showButton)
-											allReady.Selected = true;
-										else
-											gameModes[0].Selected = true;
-									}
-								}
+								components[i].Selected = false;
+								i++;
+								if (i < components.Count)
+									components[i].Selected = true;
+								else
+									components[0].Selected = true;
 							}
 						}
 					}
@@ -147,29 +139,16 @@ namespace Badminton.Screens.Menus
 					if (!upPressed)
 					{
 						upPressed = true;
-						if (showButton && allReady.Selected)
+						for (int i = components.Count - 1; i >= 0; i--)
 						{
-							allReady.Selected = false;
-							gameModes[gameModes.Count - 1].Selected = true;
-						}
-						else
-						{
-							for (int i = gameModes.Count - 1; i >= 0; i--)
+							if (components[i].Selected)
 							{
-								if (gameModes[i].Selected)
-								{
-									gameModes[i].Selected = false;
-									i--;
-									if (i >= 0)
-										gameModes[i].Selected = true;
-									else
-									{
-										if (showButton)
-											allReady.Selected = true;
-										else
-											gameModes[gameModes.Count - 1].Selected = true;
-									}
-								}
+								components[i].Selected = false;
+								i--;
+								if (i >= 0)
+									components[i].Selected = true;
+								else
+									components[components.Count - 1].Selected = true;
 							}
 						}
 					}
@@ -182,22 +161,30 @@ namespace Badminton.Screens.Menus
 					if (!confirmPressed)
 					{
 						confirmPressed = true;
-						foreach (CheckBox cb in gameModes)
+						foreach (Component c in components)
 						{
-							if (cb.Selected)
+							if (c.Selected)
 							{
-								CheckBox.UncheckAll(gameModes);
-								cb.Checked = true;
+								if (c is CheckBox)
+								{
+									CheckBox.UncheckAll(components);
+									((CheckBox)c).Checked = true;
+								}
+								else
+								{
+									if (showButton && components[components.Count - 1].Selected)
+										return new SettingsScreen(this);
+								}
 							}
 						}
-
-						if (showButton && allReady.Selected)
-							return new SettingsScreen(this);
 					}
 				}
 				else
 					confirmPressed = false;
 			}
+			else
+				foreach (Component c in components)
+					c.Selected = false;
 
 			bool ready = true;
 			bool playerSelected = false;
@@ -213,11 +200,8 @@ namespace Badminton.Screens.Menus
 			else
 			{
 				showButton = false;
-				allReady.Selected = false;
+				components[components.Count - 1].Selected = false;
 			}
-
-			if (showButton)
-				allReady.Update();
 
 			world.Step((float)time.ElapsedGameTime.TotalSeconds);
 			return this;
@@ -236,10 +220,12 @@ namespace Badminton.Screens.Menus
 		{
 			foreach (PlayerSelectBox box in boxes)
 				box.Draw(sb);
-			foreach (CheckBox cb in gameModes)
-				cb.Draw(sb);
+			foreach (Component c in components)
+				if (c is CheckBox)
+					c.Draw(sb);
+
 			if (showButton)
-				allReady.Draw(sb);
+				components[components.Count - 1].Draw(sb);
 		}
 	}
 }

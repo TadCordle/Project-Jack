@@ -8,35 +8,37 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 using Badminton.Screens.MultiPlayer;
+using Badminton.Screens.Menus.Components;
 
 namespace Badminton.Screens.Menus
 {
 	class SettingsScreen : GameScreen
 	{
 		private PlayerSelect prevScreen;
+		bool backPressed, confirmPressed, mouseClicked, upPressed, downPressed;
 
-		private bool enterPressed;
+		List<Button> upDowns;
+		List<CheckBox> checkBoxes;
+		List<Texture2D> maps;
 
 		public SettingsScreen(PlayerSelect prevScreen)
 		{
 			this.prevScreen = prevScreen;
-			enterPressed = true;
+			backPressed = true;
+			confirmPressed = true;
+			mouseClicked = true;
+			upPressed = true;
+			downPressed = true;
+
+			maps = new List<Texture2D>();
+			maps.Add(MainGame.tex_bg_castle);
+
+			upDowns = new List<Button>();
+			checkBoxes = new List<CheckBox>();
 		}
 
 		public GameScreen Update(GameTime time)
 		{
-			if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-			{
-				if (!enterPressed)
-				{
-					if (prevScreen.Mode == 0)
-						return new SingleMap();
-					else
-						return new SingleMap();
-				}
-			}
-			else
-				enterPressed = false;
 
 			return this;
 		}

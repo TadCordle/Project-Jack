@@ -12,6 +12,14 @@ namespace Badminton
 {
 	public class Map
 	{
+		public static object[] LoadMap(World w, string name)
+		{
+			if (name == "castle")
+				return LoadCastle(w);
+
+			return LoadCastle(w);
+		}
+
 		public static object[] LoadCastle(World w)
 		{
 			List<Wall> walls = new List<Wall>();

@@ -13,12 +13,12 @@ namespace Badminton.Screens.Menus
 {
 	class MainMenu : GameScreen
 	{
-		List<Button> choices;
+		List<Component> choices;
 		private bool upPressed, downPressed, confirmPressed, mouseClicked;
 
 		public MainMenu()
 		{
-			choices = new List<Button>();
+			choices = new List<Component>();
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 500, MainGame.tex_mm_comp, "comp"));
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 620, MainGame.tex_mm_coop, "coop"));
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 740, MainGame.tex_mm_cust, "cust"));
@@ -32,7 +32,7 @@ namespace Badminton.Screens.Menus
 
 		public GameScreen Update(GameTime gameTime)
 		{
-			Button.UpdateButtons(choices);
+			Component.UpdateSelection(choices);
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown))
 			{
@@ -78,29 +78,29 @@ namespace Badminton.Screens.Menus
 			else
 				upPressed = false;
 
-			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-			{
-				if (!mouseClicked)
-				{
-					mouseClicked = true;
-					foreach (Button b in choices)
-					{
-						if (b.IsMouseOver())
-						{
-							if (b.ReturnString == "comp")
-								return new Menus.PlayerSelect(0);
-							else if (b.ReturnString == "coop")
-								return new Menus.PlayerSelect(1);
-							else if (b.ReturnString == "cust")		// TODO: Change this when we have character customization
-								return this;
-							else
-								return null;
-						}
-					}
-				}
-			}
-			else
-				mouseClicked = false;
+//			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+//			{
+//				if (!mouseClicked)
+//				{
+//					mouseClicked = true;
+//					foreach (Button b in choices)
+//					{
+//						if (b.IsMouseOver())
+//						{
+//							if (b.ReturnString == "comp")
+//								return new Menus.PlayerSelect(0);
+//							else if (b.ReturnString == "coop")
+//								return new Menus.PlayerSelect(1);
+//							else if (b.ReturnString == "cust")		// TODO: Change this when we have character customization
+//								return this;
+//							else
+//								return null;
+//						}
+//					}
+//				}
+//			}
+//			else
+//				mouseClicked = false;
 
 			if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A))
 			{
@@ -139,6 +139,7 @@ namespace Badminton.Screens.Menus
 			sb.Draw(MainGame.tex_logo, Vector2.UnitX * 960 + Vector2.UnitY * 240, null, Color.White, 0f, new Vector2(MainGame.tex_logo.Width / 2, MainGame.tex_logo.Height / 2), 1f, SpriteEffects.None, 0);
 			foreach (Button b in choices)
 				b.Draw(sb);
+			sb.DrawString(MainGame.fnt_basicFont, Mouse.GetState().X.ToString() + ", " + Mouse.GetState().Y.ToString(), Vector2.Zero, choices[0].IsMouseOver() ? Color.Red : Color.Black);
 		}
 	}
 }

@@ -117,6 +117,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Screens\Menus\Components\Button.cs" />
     <Compile Include="Screens\Menus\Components\CheckBox.cs" />
+    <Compile Include="Screens\Menus\Components\Component.cs" />
     <Compile Include="Screens\Menus\Components\PlayerSelectBox.cs" />
     <Compile Include="Screens\Menus\Components\TextField.cs" />
     <Compile Include="Screens\Menus\PlayerSelect.cs" />
