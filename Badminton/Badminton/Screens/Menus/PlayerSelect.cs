@@ -44,9 +44,9 @@ namespace Badminton.Screens.Menus
 			components = new List<Component>();
 			if (mode == 0)
 			{
-				components.Add(new CheckBox(new Vector2(1400, 300), "Free For All", "ffa"));
-				components.Add(new CheckBox(new Vector2(1400, 360), "Team Deathmatch", "tdm"));
-				components.Add(new CheckBox(new Vector2(1400, 420), "1 Vs All", "1va"));
+				components.Add(new CheckBox(new Vector2(1400, 300), "Free For All", "0"));
+				components.Add(new CheckBox(new Vector2(1400, 360), "Team Deathmatch", "1"));
+				components.Add(new CheckBox(new Vector2(1400, 420), "1 Vs All", "2"));
 				((CheckBox)components[0]).Checked = true;
 			}
 
@@ -169,6 +169,7 @@ namespace Badminton.Screens.Menus
 								{
 									CheckBox.UncheckAll(components);
 									((CheckBox)c).Checked = true;
+									this.Mode = int.Parse(((CheckBox)c).ReturnString);
 								}
 								else
 								{

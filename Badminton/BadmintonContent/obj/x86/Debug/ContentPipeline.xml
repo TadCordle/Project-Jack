@@ -308,6 +308,24 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\castle.xnb</Output>
       <Time>2013-10-30T11:27:21.5840317-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\menu assets\down.png</Source>
+      <Name>textures\menu assets\down</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\down.xnb</Output>
+      <Time>2013-12-06T16:50:13.4760522-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\up.png</Source>
+      <Name>textures\menu assets\up</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\up.xnb</Output>
+      <Time>2013-12-06T16:50:23.4016199-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

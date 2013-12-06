@@ -45,6 +45,7 @@ namespace Badminton
 
 		public static Texture2D tex_logo, tex_mm_coop, tex_mm_comp, tex_mm_cust, tex_mm_exit;
 		public static Texture2D tex_ps_blank, tex_ps_controller, tex_ps_keyboard, tex_ps_off, tex_ps_next;
+		public static Texture2D tex_btnUp, tex_btnDown;
 		public static Texture2D tex_cbChecked, tex_cbUnchecked;
 
 		public static SoundEffect[] sfx_punches;
@@ -130,6 +131,9 @@ namespace Badminton
 			tex_ps_keyboard = Content.Load<Texture2D>("textures/menu assets/ps_keyboard");
 			tex_ps_off = Content.Load<Texture2D>("textures/menu assets/ps_off");
 			tex_ps_next = Content.Load<Texture2D>("textures/menu assets/ps_next");
+
+			tex_btnUp = Content.Load<Texture2D>("textures/menu assets/up");
+			tex_btnDown = Content.Load<Texture2D>("textures/menu assets/down");
 
 			sfx_punches = new SoundEffect[] {
 				Content.Load<SoundEffect>("sfx/Punch1"),

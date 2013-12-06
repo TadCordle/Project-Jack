@@ -114,7 +114,7 @@ namespace Badminton.Screens.Menus
 							if (b.ReturnString == "comp")
 								return new Menus.PlayerSelect(0);
 							else if (b.ReturnString == "coop")
-								return new Menus.PlayerSelect(1);
+								return new Menus.PlayerSelect(-1);
 							else if (b.ReturnString == "cust")		// TODO: Change this when we have character customization
 								return this;
 							else

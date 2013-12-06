@@ -33,3 +33,5 @@ Content\sfx\Whoosh.xnb
 Content\music.xnb
 Content\music.wma
 Content\textures\castle.xnb
+Content\textures\menu assets\down.xnb
+Content\textures\menu assets\up.xnb

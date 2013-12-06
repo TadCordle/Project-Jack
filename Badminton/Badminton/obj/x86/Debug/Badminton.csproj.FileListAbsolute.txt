@@ -199,3 +199,5 @@ C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.exe
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\castle.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\down.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\up.xnb

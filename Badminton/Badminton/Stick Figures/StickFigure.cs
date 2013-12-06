@@ -1410,7 +1410,7 @@ namespace Badminton.Stick_Figures
 				a.Draw(sb, this.color);
 
 			// Debug
-			DrawLine(sb, MainGame.tex_blank, 2, Color.Cyan, groundSensorStart * MainGame.METER_TO_PIXEL, groundSensorEnd * MainGame.METER_TO_PIXEL);
+//			DrawLine(sb, MainGame.tex_blank, 2, Color.Cyan, groundSensorStart * MainGame.METER_TO_PIXEL, groundSensorEnd * MainGame.METER_TO_PIXEL);
 //			sb.DrawString(MainGame.fnt_basicFont, OnGround.ToString(), Vector2.Zero, Color.Cyan);
 //			sb.DrawString(MainGame.fnt_basicFont, attackAngle.ToString(), Vector2.One * 64, Color.White); 
 //			sb.DrawString(MainGame.fnt_basicFont, "L", LeftFootPosition * MainGame.METER_TO_PIXEL, Color.Blue);
