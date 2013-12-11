@@ -174,7 +174,10 @@ namespace Badminton.Screens.Menus
 								else
 								{
 									if (showButton && components[components.Count - 1].Selected)
+									{
+										backPressed = true; // Prevent from going back again if returning from settings screen
 										return new SettingsScreen(this);
+									}
 								}
 							}
 						}

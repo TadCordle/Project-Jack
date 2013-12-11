@@ -15,7 +15,7 @@ namespace Badminton.Screens.Menus
 	class SettingsScreen : GameScreen
 	{
 		private PlayerSelect prevScreen;
-		bool backPressed, confirmPressed, mouseClicked, upPressed, downPressed;
+		bool confirmPressed, mouseClicked, upPressed, downPressed, leftPressed, rightPressed;
 
 		float gravity;
 		float limbStrength;
@@ -24,22 +24,24 @@ namespace Badminton.Screens.Menus
 
 		List<Component> components;
 		List<Texture2D> maps;
-		int selectedMap;
+		int selectedComponent, selectedMap;
 
 		public SettingsScreen(PlayerSelect prevScreen)
 		{
 			this.prevScreen = prevScreen;
-			backPressed = true;
 			confirmPressed = true;
 			mouseClicked = true;
 			upPressed = true;
 			downPressed = true;
+			leftPressed = true;
+			rightPressed = true;
 
 			gravity = 9.8f;
 			limbStrength = 1f;
 			timeLimit = 0;
 			lives = 5;
 
+			selectedComponent = 0;
 			selectedMap = 0;
 
 			maps = new List<Texture2D>();
@@ -65,10 +67,62 @@ namespace Badminton.Screens.Menus
 		{
 			Component.UpdateSelection(components);
 
+			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.B))
+				return GoBack();
+
+			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickLeft) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft) || Keyboard.GetState().IsKeyDown(Keys.Left))
+			{
+				if (!leftPressed)
+				{
+					leftPressed = true;
+					selectedMap = selectedMap == 0 ? maps.Count - 1 : selectedMap - 1;
+				}
+			}
+			else
+				leftPressed = false;
+
+			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickRight) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) || Keyboard.GetState().IsKeyDown(Keys.Right))
+			{
+				if (!rightPressed)
+				{
+					rightPressed = true;
+					selectedMap = selectedMap == maps.Count - 1 ? 0 : selectedMap + 1;
+				}
+			}
+			else
+				rightPressed = false;
+
+			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickUp) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadUp) || Keyboard.GetState().IsKeyDown(Keys.Up))
+			{
+				if (!upPressed)
+				{
+					upPressed = true;
+					selectedComponent = selectedComponent == 0 ? components.Count - 1 : selectedComponent - 1;
+					Component.GetSelectedComponent(components).Selected = false;
+					components[selectedComponent].Selected = true;
+				}
+			}
+			else
+				upPressed = false;
+
+			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || Keyboard.GetState().IsKeyDown(Keys.Down))
+			{
+				if (!downPressed)
+				{
+					downPressed = true;
+					selectedComponent = selectedComponent == components.Count - 1 ? 0 : selectedComponent + 1;
+					Component.GetSelectedComponent(components).Selected = false;
+					components[selectedComponent].Selected = true;
+				}
+			}
+			else
+				downPressed = false;
+
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
 			{
 				switch (prevScreen.Mode)
 				{
+					// Pass parameters eventually
 					case -1:
 						return new SingleMap();
 					case 0:
