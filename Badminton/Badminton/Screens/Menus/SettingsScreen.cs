@@ -118,6 +118,38 @@ namespace Badminton.Screens.Menus
 			else
 				downPressed = false;
 
+			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A) || Keyboard.GetState().IsKeyDown(Keys.Left))
+			{
+				string s = Component.GetSelectedComponent(components).ReturnString;
+				
+				if (!confirmPressed)
+				{
+					confirmPressed = true;
+
+					if (s == "time_up")
+						timeLimit = Math.Min(10, timeLimit + 1);
+					else if (s == "time_down")
+						timeLimit = Math.Max(0, timeLimit - 1);
+					else if (s == "lives_up")
+						lives = Math.Min(10, lives + 1);
+					else if (s == "lives_down")
+						lives = Math.Max(1, lives - 1);
+					else if (s == "death" || s == "ranged" || s == "traps" || s == "bots")
+						((CheckBox)Component.GetSelectedComponent(components)).Checked = !((CheckBox)Component.GetSelectedComponent(components)).Checked;
+					}
+
+				if (s == "grav_up")
+					gravity = Math.Min(12f, gravity + 0.02f);
+				else if (s == "grav_down")
+					gravity = Math.Max(0f, gravity - 0.02f);
+				else if (s == "limb_up")
+					limbStrength = Math.Min(1, limbStrength + 0.01f);
+				else if (s == "limb_down")
+					limbStrength = Math.Max(0, limbStrength - 0.01f);
+			}
+			else
+				confirmPressed = false;
+
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
 			{
 				switch (prevScreen.Mode)
@@ -148,7 +180,7 @@ namespace Badminton.Screens.Menus
 			sb.DrawString(MainGame.fnt_basicFont, "Gravity:", new Vector2(540, 750), Color.Black);
 			sb.DrawString(MainGame.fnt_basicFont, gravity.ToString(), new Vector2(730, 750), Color.Black);
 			sb.DrawString(MainGame.fnt_basicFont, "Limb strength:", new Vector2(540, 830), Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, (limbStrength * 100).ToString() + "%", new Vector2(730, 830), Color.Black);
+			sb.DrawString(MainGame.fnt_basicFont, ((int)(limbStrength * 100)).ToString() + "%", new Vector2(730, 830), Color.Black);
 			sb.DrawString(MainGame.fnt_basicFont, "Time limit:", new Vector2(540, 910), Color.Black);
 			sb.DrawString(MainGame.fnt_basicFont, timeLimit.ToString(), new Vector2(730, 910), Color.Black);
 			sb.DrawString(MainGame.fnt_basicFont, "Lives:", new Vector2(540, 990), Color.Black);

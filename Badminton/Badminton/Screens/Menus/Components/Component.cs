@@ -16,12 +16,16 @@ namespace Badminton.Screens.Menus.Components
 
 		public bool Selected { get; set; }
 
+		private string retString;
+		public string ReturnString { get { return retString; } }
+
 		protected float scale;
 		protected Rectangle hitBox;
 		protected Vector2 position;
 
-		public Component(Vector2 position)
+		public Component(Vector2 position, string retString)
 		{
+			this.retString = retString;
 			this.scale = MIN_SCALE;
 			this.position = position;
 		}

@@ -11,17 +11,13 @@ namespace Badminton.Screens.Menus.Components
 {
 	public class CheckBox : Component
 	{
-		private string retString;
-		public string ReturnString { get { return retString; } }
-
 		private string text;
 
 		public bool Checked { get; set; }
 
 		public CheckBox(Vector2 position, string text, string retString)
-			: base(position)
+			: base(position, retString)
 		{
-			this.retString = retString;
 			this.text = text;
 
 			this.hitBox = new Rectangle((int)(position.X - 24), (int)(position.Y - 24), 48, 48);

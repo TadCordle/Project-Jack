@@ -11,15 +11,11 @@ namespace Badminton.Screens.Menus.Components
 {
 	public class Button : Component
 	{
-		private string retString;
-		public string ReturnString { get { return retString; } }
-
 		private Texture2D texture;
 
 		public Button(Vector2 position, Texture2D texture, string retString)
-			: base(position)
+			: base(position, retString)
 		{
-			this.retString = retString;
 			this.texture = texture;
 
 			hitBox = new Rectangle((int)position.X - texture.Width / 2, (int)position.Y - texture.Height / 2, texture.Width, texture.Height);
