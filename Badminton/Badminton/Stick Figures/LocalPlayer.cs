@@ -56,6 +56,11 @@ namespace Badminton.Stick_Figures
 			trapKey = Keys.T;
 		}
 
+		public override StickFigure Respawn()
+		{
+			return new LocalPlayer(world, startPosition, collisionCat, scale, color, player);
+		}
+
 		public override void Update()
 		{
 			bool stand = true;

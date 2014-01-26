@@ -19,7 +19,7 @@ namespace Badminton.Stick_Figures
 {
 	class StickFigure
 	{
-		private World world;
+		protected World world;
 
 		// Ragdoll
 		protected Body torso, head, leftUpperArm, rightUpperArm, leftLowerArm, rightLowerArm, leftUpperLeg, rightUpperLeg, leftLowerLeg, rightLowerLeg;
@@ -48,9 +48,10 @@ namespace Badminton.Stick_Figures
 		private const int MAX_AMMO = 3, THROW_TIME = 40;
 
 		// Other
-		private float scale;
-		private Color color;
-		private Category collisionCat;
+		protected Vector2 startPosition;
+		protected float scale;
+		protected Color color;
+		protected Category collisionCat;
 		private Vector2 groundSensorStart, groundSensorEnd;
 		private bool increaseFall;
 		private bool leftLegLeft, rightLegLeft;
@@ -257,6 +258,7 @@ namespace Badminton.Stick_Figures
 		public StickFigure(World world, Vector2 position, Category collisionCat, float scale, Color c)
 		{
 			this.world = world;
+			this.startPosition = position;
 			maxImpulse = 0.2f * scale * scale;
 			friction = 5f * scale;
 			Crouching = false;
@@ -296,6 +298,15 @@ namespace Badminton.Stick_Figures
 			Stand();
 		}
 
+		/// <summary>
+		/// Returns a new stick figure at its original spawn point
+		/// </summary>
+		/// <returns> a new stick figure at its original spawn point</returns>
+		public virtual StickFigure Respawn()
+		{
+			return new StickFigure(world, startPosition, collisionCat, scale, color);
+		}
+	
 		/// <summary>
 		/// Generates the stick figure's limbs, torso, and head
 		/// </summary>

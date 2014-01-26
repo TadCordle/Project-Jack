@@ -35,6 +35,11 @@ namespace Badminton.Stick_Figures
             this.target = target;
         }
 
+		public override StickFigure Respawn()
+		{
+			return new BotPlayer(world, startPosition, collisionCat, scale, color, player, this.target);
+		}
+
         public override void Update()
         {
             bool stand = true;

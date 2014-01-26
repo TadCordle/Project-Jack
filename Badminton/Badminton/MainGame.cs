@@ -148,8 +148,8 @@ namespace Badminton
 			tex_blank.SetData(new[] { Color.White });
 
 //			currentScreen = new SingleMap();
-//          currentScreen = new FreeForAll();
-			currentScreen = new MainMenu();
+			currentScreen = new FreeForAll();
+//			currentScreen = new MainMenu();
 		}
 
 		/// <summary>

@@ -19,130 +19,67 @@ namespace Badminton.Screens.MultiPlayer
         World world;
         List<Wall> walls;
 
-        LocalPlayer[] player;
+		StickFigure[] player;
         Vector2[] spawnPoints;
         TrapAmmo[] ammo;
         Texture2D background;
 
         int[] lives;
 
+		// Params:
+		// Array of player colors (length tells how many players there are)
+		// gravity
+		// time limit
+		// lives
+		// sudden death mode?
+		// allow traps?
+		// allow long range?
+		// fill empty with bots?
         public FreeForAll()
         {
-
-            lives = new int[4];
-            player = new LocalPlayer[4];
             world = new World(new Vector2(0, 9.8f)); // That'd be cool to have gravity as a map property, so you could play 0G levels
 
-            walls = new List<Wall>();
-            walls.Add(new Wall(world, 960 * MainGame.PIXEL_TO_METER, 1040 * MainGame.PIXEL_TO_METER, 1200 * MainGame.PIXEL_TO_METER, 32 * MainGame.PIXEL_TO_METER, 0.0f));
-
             object[] map = Map.LoadCastle(world);
-            background = (Texture2D)map[0];
+			background = (Texture2D)map[0];
+			walls = (List<Wall>)map[1];
             spawnPoints = (Vector2[])map[2];
             Vector3[] ammoPoints = (Vector3[])map[3];
             ammo = new TrapAmmo[ammoPoints.Length];
             for (int i = 0; i < ammoPoints.Length; i++)
                 ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
 
-            player[0] = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
-            player[1] = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Blue, PlayerIndex.Two);
-            player[2] = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Green, PlayerIndex.Three);
-            player[3] = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Cyan, PlayerIndex.Four);
+			lives = new int[4];
+			player = new LocalPlayer[4];
+			
+			player[0] = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
+			player[1] = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Blue, PlayerIndex.Two);
+			player[2] = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Green, PlayerIndex.Three);
+			player[3] = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Cyan, PlayerIndex.Four);
 
             // init lives
             for (int i = 0; i < 4; i++)
-            {
                 lives[i] = 2;
-            }
         }
 
         public GameScreen Update(GameTime gameTime)
         {
-            for (int i = 0; i < player.Length; i++)
-            {
-                if (player[i] != null)
-                {
-                    player[i].Update();
-                }
-            }
-
-            // end condition
-            for (int i = 0; i < player.Length; i++)
-            {
-                if (player[i] != null)
-                {
-                    if (player[i].IsDead || player[i].Position.Y * MainGame.METER_TO_PIXEL > 1080)
-                    {
-
-                        switch (i)
-                        {
-                            case 0:
-                                player[0].Destroy();
-                                if (lives[0] > 0)
-                                {
-                                    lives[0]--;
-                                    if (lives[0] > 0)
-                                    {
-                                        player[0] = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
-                                    }
-                                    else
-                                    {
-                                        player[0] = null;
-                                    }
-                                }
-                                break;
-
-                            case 1:
-                                player[1].Destroy();
-                                if (lives[1] > 0)
-                                {
-                                    lives[1]--;
-                                    if (lives[1] > 0)
-                                    {
-                                        player[1] = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Blue, PlayerIndex.Two);
-                                    }
-                                    else
-                                    {
-                                        player[1] = null;
-                                    }
-                                }
-                                break;
-
-                            case 2:
-                                player[2].Destroy();
-                                if (lives[2] > 0)
-                                {
-                                    lives[2]--;
-                                    if (lives[2] > 0)
-                                    {
-                                        player[2] = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Green, PlayerIndex.Three);
-                                    }
-                                    else
-                                    {
-                                        player[2] = null;
-                                    }
-                                }
-                                break;
-
-                            case 3:
-                                player[3].Destroy();
-                                if (lives[3] > 0)
-                                {
-                                    lives[3]--;
-                                    if (lives[3] > 0)
-                                    {
-                                        player[3] = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Cyan, PlayerIndex.Four);
-                                    }
-                                    else
-                                    {
-                                        player[3] = null;
-                                    }
-                                }
-                                break;
-                        }
-                    }
-                }
-            }
+			for (int i = 0; i < player.Length; i++)
+			{
+				if (player[i] != null && lives[i] > 0)
+				{
+					player[i].Update();
+					if (player[i].IsDead || player[i].Position.Y * MainGame.METER_TO_PIXEL > 1080)
+					{
+						player[i].Destroy();
+						// TODO: Add respawn timer
+						lives[i]--;
+						if (lives[i] > 0)
+							player[i] = player[i].Respawn();
+						else
+							player[i] = null;
+					}
+				}
+			}
 
             // update ammo
             foreach (TrapAmmo t in ammo)
@@ -164,13 +101,9 @@ namespace Badminton.Screens.MultiPlayer
                 t.Draw(sb);
 
             // draw players
-            for (int i = 0; i < player.Length; i++)
-            {
-                if (player[i] != null)
-                {
-                    player[i].Draw(sb);
-                }
-            }
+			for (int i = 0; i < player.Length; i++)
+				if (player[i] != null)
+					player[i].Draw(sb);
 
             // draw walls
             foreach (Wall w in walls)
@@ -184,7 +117,7 @@ namespace Badminton.Screens.MultiPlayer
         public GameScreen GoBack()
         {
             return null;
-            //        return new MainMenu();
+//			return new MainMenu();
         }
     }
 }
