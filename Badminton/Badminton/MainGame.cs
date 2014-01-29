@@ -73,6 +73,8 @@ namespace Badminton
 			graphics.ApplyChanges();
 			Content.RootDirectory = "Content";
 
+			Map.MapKeys = new Dictionary<Texture2D, string>();
+
 			mainGame = this;
 		}
 
@@ -147,9 +149,11 @@ namespace Badminton
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });
 
+			Map.MapKeys.Add(MainGame.tex_bg_castle, "castle");
+
 //			currentScreen = new SingleMap();
-			currentScreen = new FreeForAll();
-//			currentScreen = new MainMenu();
+//			currentScreen = new FreeForAll();
+			currentScreen = new MainMenu();
 		}
 
 		/// <summary>

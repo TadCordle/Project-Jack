@@ -14,7 +14,7 @@ namespace Badminton.Screens.Menus
 	class MainMenu : GameScreen
 	{
 		List<Component> choices;
-		private bool upPressed, downPressed, confirmPressed, mouseClicked;
+		private bool upPressed, downPressed, confirmPressed;
 
 		public MainMenu()
 		{
@@ -25,7 +25,6 @@ namespace Badminton.Screens.Menus
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 860, MainGame.tex_mm_exit, "exit"));
 			choices[0].Selected = true;
 			confirmPressed = true;
-			mouseClicked = true;
 			upPressed = true;
 			downPressed = true;
 		}

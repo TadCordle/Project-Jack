@@ -31,7 +31,9 @@ namespace Badminton.Stick_Figures
 		// Limb control
 		public Dictionary<Body, float> health;
 		private float maxImpulse;
+		protected float limbStrength;
 		private float friction;
+		protected bool suddenDeath;
 
 		private List<Attack> attacks;
 
@@ -40,6 +42,8 @@ namespace Badminton.Stick_Figures
 		private int punchStage, kickStage;
 
 		// Attacking
+		public static bool AllowTraps = true;
+		public static bool AllowLongRange = true;
 		private float attackAngle;
 		private bool punching, kicking, aiming, throwing;
 		private bool punchArm, kickLeg, throwArm; // true=left, false=right
@@ -242,7 +246,7 @@ namespace Badminton.Stick_Figures
 		/// <summary>
 		/// Sets the color of the stick figure
 		/// </summary>
-		public Color Color { set { this.color = value; } }
+		public Color Color { set { this.color = value; } get { return this.color; } }
 
 		#endregion
 
@@ -254,12 +258,17 @@ namespace Badminton.Stick_Figures
 		/// <param name="world">The world to place the physics objects in</param>
 		/// <param name="position">The position to place the center of the stick figure's torso</param>
 		/// <param name="collisionCat">The collision category of the figure. Different players will have different collision categories.</param>
+		/// <param name="scale">Scales the size of the stick figure</param>
+		/// <param name="limbStrength">Changes how well the stick figure performs its actions</param>
+		/// <param name="suddenDeath">Whether or not its limbs are super weak health-wise</param>
 		/// <param name="c">The color of the stick figure</param>
-		public StickFigure(World world, Vector2 position, Category collisionCat, float scale, Color c)
+		public StickFigure(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, bool suddenDeath, Color c)
 		{
 			this.world = world;
 			this.startPosition = position;
-			maxImpulse = 0.2f * scale * scale;
+			this.limbStrength = limbStrength;
+			this.maxImpulse = 0.2f * scale * scale * limbStrength;
+			this.suddenDeath = suddenDeath;
 			friction = 5f * scale;
 			Crouching = false;
 			health = new Dictionary<Body, float>();
@@ -304,7 +313,7 @@ namespace Badminton.Stick_Figures
 		/// <returns> a new stick figure at its original spawn point</returns>
 		public virtual StickFigure Respawn()
 		{
-			return new StickFigure(world, startPosition, collisionCat, scale, color);
+			return new StickFigure(world, startPosition, collisionCat, scale, limbStrength, suddenDeath, color);
 		}
 	
 		/// <summary>
@@ -530,7 +539,7 @@ namespace Badminton.Stick_Figures
 				ForceWave f = (ForceWave)fixtureB.Body.UserData;
 				fixtureB.Body.UserData = null;
 
-				health[fixtureA.Body] -= f.Damage;
+				health[fixtureA.Body] -= suddenDeath ? 10000 : f.Damage;
 
 				Random r = new Random();
 				int index = r.Next(MainGame.sfx_punches.Length);
@@ -541,7 +550,7 @@ namespace Badminton.Stick_Figures
 				LongRangeAttack f = (LongRangeAttack)fixtureB.Body.UserData;
 				fixtureB.Body.UserData = null;
 
-				health[fixtureA.Body] -= f.Damage;
+				health[fixtureA.Body] -= suddenDeath ? 10000 : f.Damage;
 
 				// TODO: Play sound
 			}
@@ -554,7 +563,7 @@ namespace Badminton.Stick_Figures
 			else if (fixtureB.Body.UserData is ExplosionParticle)
 			{
 				fixtureB.Body.CollidesWith = Category.None;
-				health[fixtureA.Body] -= ((ExplosionParticle)fixtureB.Body.UserData).Damage;
+				health[fixtureA.Body] -= suddenDeath ? 10000 : ((ExplosionParticle)fixtureB.Body.UserData).Damage;
 			}
 			else if (fixtureB.Body.UserData is TrapAmmo)
 			{
@@ -868,7 +877,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle to aim at</param>
 		public void Aim(float angle)
 		{
-			if (!IsDead)
+			if (!IsDead && AllowLongRange)
 			{
 				aiming = true;
 				attackAngle = angle;
@@ -886,7 +895,7 @@ namespace Badminton.Stick_Figures
 		public void LongRangeAttack()
 		{
 			aiming = false;
-			if (IsDead || health[leftLowerArm] <= 0f && health[rightLowerArm] <= 0f)
+			if (IsDead || health[leftLowerArm] <= 0f && health[rightLowerArm] <= 0f || !AllowLongRange)
 				return;
 
 			if (coolDown <= 0)
@@ -904,7 +913,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void ThrowTrap(float angle)
 		{
-			if (!IsDead && trapAmmo > 0 && trapThrowTime <= 0)
+			if (!IsDead && trapAmmo > 0 && trapThrowTime <= 0 && AllowTraps)
 			{
 				trapAmmo--;
 				trapThrowTime = THROW_TIME;

@@ -29,8 +29,8 @@ namespace Badminton.Stick_Figures
 		private static Color[] colors = new Color[] { Color.Red, Color.Green, Color.Blue, Color.Yellow, Color.Cyan, Color.Magenta, Color.White };
 		public static Color[] Colors { get { return colors; } }
 
-		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, Color color, PlayerIndex player)
-			: base(world, position, collisionCat, scale, color)
+		public LocalPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, bool suddenDeath, Color color, PlayerIndex player)
+			: base(world, position, collisionCat, scale, limbStrength, suddenDeath, color)
 		{
 			this.player = player;
 			punchBtnPressed = punchKeyPressed = false;
@@ -58,7 +58,7 @@ namespace Badminton.Stick_Figures
 
 		public override StickFigure Respawn()
 		{
-			return new LocalPlayer(world, startPosition, collisionCat, scale, color, player);
+			return new LocalPlayer(world, startPosition, collisionCat, scale, limbStrength, suddenDeath, color, player);
 		}
 
 		public override void Update()

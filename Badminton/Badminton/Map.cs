@@ -12,6 +12,8 @@ namespace Badminton
 {
 	public class Map
 	{
+		public static Dictionary<Texture2D, string> MapKeys;
+
 		public static object[] LoadMap(World w, string name)
 		{
 			if (name == "castle")

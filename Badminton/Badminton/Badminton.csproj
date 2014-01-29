@@ -130,7 +130,6 @@
     <Compile Include="Screens\MultiPlayer\OneVsAll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Screens\SinglePlayer\s_FreeForAll.cs" />
     <Compile Include="Screens\SinglePlayer\SingleMap.cs" />
     <Compile Include="Stick Figures\BotPlayer.cs" />
     <Compile Include="Stick Figures\LocalPlayer.cs" />

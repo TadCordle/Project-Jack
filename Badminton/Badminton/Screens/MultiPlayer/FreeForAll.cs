@@ -26,39 +26,50 @@ namespace Badminton.Screens.MultiPlayer
 
         int[] lives;
 
-		// Params:
-		// Array of player colors (length tells how many players there are)
-		// gravity
-		// time limit
-		// lives
-		// sudden death mode?
-		// allow traps?
-		// allow long range?
-		// fill empty with bots?
-        public FreeForAll()
-        {
-            world = new World(new Vector2(0, 9.8f)); // That'd be cool to have gravity as a map property, so you could play 0G levels
+		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
+		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
 
-            object[] map = Map.LoadCastle(world);
+		// TODO: Time limit
+        public FreeForAll(Color[] colors, string mapString, float gravity, int minutes, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
+        {
+            world = new World(new Vector2(0, gravity));
+
+			object[] map = Map.LoadMap(world, mapString);
 			background = (Texture2D)map[0];
 			walls = (List<Wall>)map[1];
             spawnPoints = (Vector2[])map[2];
             Vector3[] ammoPoints = (Vector3[])map[3];
             ammo = new TrapAmmo[ammoPoints.Length];
-            for (int i = 0; i < ammoPoints.Length; i++)
-                ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
+			if (traps)
+				for (int i = 0; i < ammoPoints.Length; i++)
+					ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
 
-			lives = new int[4];
-			player = new LocalPlayer[4];
+			StickFigure.AllowTraps = traps;
+			StickFigure.AllowLongRange = longRange;
+
+			if (bots)
+			{
+				this.lives = new int[4];
+				player = new StickFigure[4];
+			}
+			else
+			{
+				this.lives = new int[colors.Length];
+				player = new LocalPlayer[colors.Length];
+			}
+
+			for (int i = 0; i < colors.Length; i++)
+				player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath, colors[i], Players[i]);
 			
-			player[0] = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, Color.Red, PlayerIndex.One);
-			player[1] = new LocalPlayer(world, spawnPoints[1] * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, Color.Blue, PlayerIndex.Two);
-			player[2] = new LocalPlayer(world, spawnPoints[2] * MainGame.PIXEL_TO_METER, Category.Cat3, 1.5f, Color.Green, PlayerIndex.Three);
-			player[3] = new LocalPlayer(world, spawnPoints[3] * MainGame.PIXEL_TO_METER, Category.Cat4, 1.5f, Color.Cyan, PlayerIndex.Four);
+			if (bots && colors.Length < 4)
+			{
+				for (int i = colors.Length; i < 4; i++)
+					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath, new Color(i * 60, i * 60, i * 60), Players[i], player[0]);
+			}
 
             // init lives
             for (int i = 0; i < 4; i++)
-                lives[i] = 2;
+                this.lives[i] = lives;
         }
 
         public GameScreen Update(GameTime gameTime)
@@ -83,7 +94,8 @@ namespace Badminton.Screens.MultiPlayer
 
             // update ammo
             foreach (TrapAmmo t in ammo)
-                t.Update();
+				if (t != null)
+					t.Update();
 
             // These two lines stay here, even after we delete testing stuff
             world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
@@ -98,7 +110,8 @@ namespace Badminton.Screens.MultiPlayer
 
             // draw ammo
             foreach (TrapAmmo t in ammo)
-                t.Draw(sb);
+				if (t != null)
+					t.Draw(sb);
 
             // draw players
 			for (int i = 0; i < player.Length; i++)

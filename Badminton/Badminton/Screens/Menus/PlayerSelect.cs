@@ -16,12 +16,13 @@ namespace Badminton.Screens.Menus
 	class PlayerSelect : GameScreen
 	{
 		public int Mode { get; set; }
+		public Color[] Colors;
 
 		List<PlayerSelectBox> boxes;
 		List<Component> components;
 		World world;
 
-		bool backPressed, confirmPressed, mouseClicked, upPressed, downPressed;
+		bool backPressed, confirmPressed, upPressed, downPressed;
 		bool showButton;
 
 		public PlayerSelect(int mode)
@@ -29,7 +30,6 @@ namespace Badminton.Screens.Menus
 			world = new World(Vector2.Zero);
 			backPressed = true;
 			confirmPressed = true;
-			mouseClicked = true;
 			upPressed = true;
 			downPressed = true;
 			showButton = false;
@@ -175,6 +175,22 @@ namespace Badminton.Screens.Menus
 								{
 									if (showButton && components[components.Count - 1].Selected)
 									{
+										int numColors = 0;
+										foreach (PlayerSelectBox p in boxes)
+										{
+											if (p.PlayerSelected())
+												numColors++;
+										}
+										Colors = new Color[numColors];
+										int i = 0;
+										foreach (PlayerSelectBox p in boxes)
+										{
+											if (p.PlayerSelected())
+											{
+												Colors[i] = p.Color;
+												i++;
+											}
+										}
 										backPressed = true; // Prevent from going back again if returning from settings screen
 										return new SettingsScreen(this);
 									}

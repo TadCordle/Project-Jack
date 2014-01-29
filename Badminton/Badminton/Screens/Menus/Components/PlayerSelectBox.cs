@@ -26,6 +26,8 @@ namespace Badminton.Screens.Menus.Components
 		private bool usesKeyboard;
 		private int selectedColor;
 
+		public Color Color { get { return player.Color; } }
+
 		public PlayerSelectBox(Vector2 position, PlayerIndex index, int colorIndex)
 		{
 			this.position = position;
@@ -99,7 +101,7 @@ namespace Badminton.Screens.Menus.Components
 			{
 				if (player == null)
 				{
-					player = new StickFigure(w, (position + Vector2.UnitY * 200 + Vector2.UnitX * 250) * MainGame.PIXEL_TO_METER, Category.None, 3f, LocalPlayer.Colors[selectedColor]);
+					player = new StickFigure(w, (position + Vector2.UnitY * 200 + Vector2.UnitX * 250) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1f, false, LocalPlayer.Colors[selectedColor]);
 					player.Stand();
 				}
 				else

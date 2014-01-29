@@ -15,22 +15,21 @@ namespace Badminton.Screens.Menus
 	class SettingsScreen : GameScreen
 	{
 		private PlayerSelect prevScreen;
-		bool confirmPressed, mouseClicked, upPressed, downPressed, leftPressed, rightPressed;
+		bool upPressed, downPressed, leftPressed, rightPressed;
 
 		float gravity;
 		float limbStrength;
-		float timeLimit;
+		int timeLimit;
 		int lives;
 
 		List<Component> components;
 		List<Texture2D> maps;
+		Dictionary<string, bool> checkValues;
 		int selectedComponent, selectedMap;
 
 		public SettingsScreen(PlayerSelect prevScreen)
 		{
 			this.prevScreen = prevScreen;
-			confirmPressed = true;
-			mouseClicked = true;
 			upPressed = true;
 			downPressed = true;
 			leftPressed = true;
@@ -47,19 +46,21 @@ namespace Badminton.Screens.Menus
 			maps = new List<Texture2D>();
 			maps.Add(MainGame.tex_bg_castle);
 
+			checkValues = new Dictionary<string, bool>();
 			components = new List<Component>();
-			components.Add(new Button(new Vector2(800, 750), MainGame.tex_btnUp, "grav_up"));
-			components.Add(new Button(new Vector2(800, 782), MainGame.tex_btnDown, "grav_down"));
-			components.Add(new Button(new Vector2(800, 830), MainGame.tex_btnUp, "limb_up"));
-			components.Add(new Button(new Vector2(800, 862), MainGame.tex_btnDown, "limb_down"));
-			components.Add(new Button(new Vector2(800, 910), MainGame.tex_btnUp, "time_up"));
-			components.Add(new Button(new Vector2(800, 942), MainGame.tex_btnDown, "time_down"));
-			components.Add(new Button(new Vector2(800, 990), MainGame.tex_btnUp, "lives_up"));
-			components.Add(new Button(new Vector2(800, 1022), MainGame.tex_btnDown, "lives_down"));
+			components.Add(new Button(new Vector2(740, 350), maps[selectedMap], "map"));
+			components.Add(new Button(new Vector2(800, 765), MainGame.tex_btnUp, "grav"));
+			components.Add(new Button(new Vector2(800, 845), MainGame.tex_btnUp, "limb"));
+			components.Add(new Button(new Vector2(800, 925), MainGame.tex_btnUp, "time"));
+			components.Add(new Button(new Vector2(800, 1005), MainGame.tex_btnUp, "lives"));
 			components.Add(new CheckBox(new Vector2(1050, 765), "Sudden death mode", "death"));
+			checkValues.Add("death", false);
 			components.Add(new CheckBox(new Vector2(1050, 845), "Allow ranged attacks", "ranged"));
+			checkValues.Add("ranged", false);
 			components.Add(new CheckBox(new Vector2(1050, 925), "Allow mines", "traps"));
+			checkValues.Add("traps", false);
 			components.Add(new CheckBox(new Vector2(1050, 1005), "Fill empty slots with bots", "bots"));
+			checkValues.Add("bots", false);
 			components[0].Selected = true;
 		}
 
@@ -71,24 +72,12 @@ namespace Badminton.Screens.Menus
 				return GoBack();
 
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickLeft) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft) || Keyboard.GetState().IsKeyDown(Keys.Left))
-			{
-				if (!leftPressed)
-				{
-					leftPressed = true;
-					selectedMap = selectedMap == 0 ? maps.Count - 1 : selectedMap - 1;
-				}
-			}
+				UpdateSelection(false, ref leftPressed);
 			else
 				leftPressed = false;
 
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickRight) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) || Keyboard.GetState().IsKeyDown(Keys.Right))
-			{
-				if (!rightPressed)
-				{
-					rightPressed = true;
-					selectedMap = selectedMap == maps.Count - 1 ? 0 : selectedMap + 1;
-				}
-			}
+				UpdateSelection(true, ref rightPressed);
 			else
 				rightPressed = false;
 
@@ -118,54 +107,57 @@ namespace Badminton.Screens.Menus
 			else
 				downPressed = false;
 
-			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A) || Keyboard.GetState().IsKeyDown(Keys.Left))
-			{
-				string s = Component.GetSelectedComponent(components).ReturnString;
-				
-				if (!confirmPressed)
-				{
-					confirmPressed = true;
-
-					if (s == "time_up")
-						timeLimit = Math.Min(10, timeLimit + 1);
-					else if (s == "time_down")
-						timeLimit = Math.Max(0, timeLimit - 1);
-					else if (s == "lives_up")
-						lives = Math.Min(10, lives + 1);
-					else if (s == "lives_down")
-						lives = Math.Max(1, lives - 1);
-					else if (s == "death" || s == "ranged" || s == "traps" || s == "bots")
-						((CheckBox)Component.GetSelectedComponent(components)).Checked = !((CheckBox)Component.GetSelectedComponent(components)).Checked;
-					}
-
-				if (s == "grav_up")
-					gravity = Math.Min(12f, gravity + 0.02f);
-				else if (s == "grav_down")
-					gravity = Math.Max(0f, gravity - 0.02f);
-				else if (s == "limb_up")
-					limbStrength = Math.Min(1, limbStrength + 0.01f);
-				else if (s == "limb_down")
-					limbStrength = Math.Max(0, limbStrength - 0.01f);
-			}
-			else
-				confirmPressed = false;
-
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
 			{
+
 				switch (prevScreen.Mode)
 				{
 					// Pass parameters eventually
 					case -1:
-						return new SingleMap();
+						return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 					case 0:
-						return new Match_TDM();
+						return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 					case 1:
-						return new FreeForAll();
+						return new Match_TDM();
 					case 2:
 						return new OneVsAll();
 				}
 			}
 			return this;
+		}
+
+		private void UpdateSelection(bool positive, ref bool confirmPressed)
+		{
+			int delta = positive ? 1 : -1;
+			string s = Component.GetSelectedComponent(components).ReturnString;
+
+			if (!confirmPressed)
+			{
+				confirmPressed = true;
+
+				if (s == "map")
+				{
+					selectedMap = selectedMap + delta;
+					if (selectedMap < 0)
+						selectedMap = maps.Count - 1;
+					else if (selectedMap >= maps.Count)
+						selectedMap = 0;
+				}
+				else if (s == "time")
+					timeLimit = Math.Min(10, timeLimit + delta);
+				else if (s == "lives")
+					lives = Math.Min(10, lives + delta);
+				else if (s == "death" || s == "ranged" || s == "traps" || s == "bots")
+				{
+					((CheckBox)Component.GetSelectedComponent(components)).Checked = !((CheckBox)Component.GetSelectedComponent(components)).Checked;
+					checkValues[s] = ((CheckBox)Component.GetSelectedComponent(components)).Checked;
+				}
+			}
+
+			if (s == "grav")
+				gravity = Math.Min(12f, gravity + 0.02f * delta);
+			else if (s == "limb")
+				limbStrength = Math.Min(1, limbStrength + 0.01f * delta);
 		}
 
 		public GameScreen GoBack()
@@ -186,7 +178,8 @@ namespace Badminton.Screens.Menus
 			sb.DrawString(MainGame.fnt_basicFont, "Lives:", new Vector2(540, 990), Color.Black);
 			sb.DrawString(MainGame.fnt_basicFont, lives.ToString(), new Vector2(730, 990), Color.Black);
 			foreach (Component c in components)
-				c.Draw(sb);
+				if (c.ReturnString != "map")
+					c.Draw(sb);
 		}
 	}
 }
