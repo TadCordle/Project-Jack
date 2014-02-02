@@ -26,6 +26,11 @@ namespace Badminton.Screens.MultiPlayer
 
 		PlayerValues[] info;
 
+		bool timed;
+		int millisLeft;
+
+		bool gameOver;
+
 		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
 		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
 
@@ -61,6 +66,10 @@ namespace Badminton.Screens.MultiPlayer
 
 			for (int i = 0; i < info.Length; i++)
 				info[i] = new PlayerValues(lives);
+
+			timed = minutes > 0;
+			millisLeft = minutes * 60000;
+			gameOver = false;
 		}
 
         public GameScreen Update(GameTime gameTime)
@@ -90,12 +99,33 @@ namespace Badminton.Screens.MultiPlayer
 				}
 			}
 
-            // update ammo
+            // Update ammo
             foreach (TrapAmmo t in ammo)
 				if (t != null)
 					t.Update();
 
-            // These two lines stay here, even after we delete testing stuff
+			// Endgame
+			gameOver = true;
+			for (int i = 0, remaining = 0; i < info.Length; i++)
+			{
+				if (info[i].Lives > 0)
+				{
+					remaining++;
+					if (remaining >= 2)
+					{
+						gameOver = false;
+						break;
+					}
+				}
+			}
+
+			if (timed && !gameOver)
+			{
+				millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
+				if (millisLeft <= 0)
+					gameOver = true;
+			}
+
             world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
             return this;
 
@@ -120,12 +150,15 @@ namespace Badminton.Screens.MultiPlayer
 //			foreach (Wall w in walls)
 //				w.Draw(sb);
 
-            // draw player status
-//			for (int i = 0; i < player.Length; i++)
-//				sb.DrawString(MainGame.fnt_basicFont, "Player" + (i + 1).ToString() + ": " + info[i].Lives, new Vector2(20, 20 + i * 20), Color.Gold);
-
+			// Todo: reposition, make font bigger
+			MainGame.DrawOutlineText(sb, MainGame.fnt_basicFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.One, Color.White);
 			for (int i = 0; i < info.Length; i++)
 				info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
+
+			if (gameOver)
+			{
+				// draw game over results
+			}
         }
 
 		public GameScreen GoBack()

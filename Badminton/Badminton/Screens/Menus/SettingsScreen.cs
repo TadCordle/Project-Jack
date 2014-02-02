@@ -62,12 +62,14 @@ namespace Badminton.Screens.Menus
 			components.Add(new CheckBox(new Vector2(1050, 1005), "Fill empty slots with bots", "bots"));
 			checkValues.Add("bots", false);
 			components[0].Selected = true;
+
+			if (prevScreen.Colors.Length == 1)
+				((CheckBox)components[8]).Checked = true;
 		}
 
 		public GameScreen Update(GameTime time)
 		{
 			Component.UpdateSelection(components);
-
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.B))
 				return GoBack();
 
@@ -123,6 +125,13 @@ namespace Badminton.Screens.Menus
 						return new OneVsAll();
 				}
 			}
+
+			if (prevScreen.Colors.Length == 1)
+			{
+				((CheckBox)components[8]).Checked = true;
+				checkValues["bots"] = true;
+			}
+
 			return this;
 		}
 
@@ -144,9 +153,9 @@ namespace Badminton.Screens.Menus
 						selectedMap = 0;
 				}
 				else if (s == "time")
-					timeLimit = Math.Min(10, timeLimit + delta);
+					timeLimit = timeLimit + delta > 10 ? 10 : (timeLimit + delta < 0 ? 0 : timeLimit + delta);
 				else if (s == "lives")
-					lives = Math.Min(10, lives + delta);
+					lives = lives + delta > 10 ? 10 : (lives + delta < 1 ? 1 : lives + delta);
 				else if (s == "death" || s == "ranged" || s == "traps" || s == "bots")
 				{
 					((CheckBox)Component.GetSelectedComponent(components)).Checked = !((CheckBox)Component.GetSelectedComponent(components)).Checked;
@@ -155,9 +164,9 @@ namespace Badminton.Screens.Menus
 			}
 
 			if (s == "grav")
-				gravity = Math.Min(12f, gravity + 0.02f * delta);
+				gravity = gravity + 0.04f * delta > 12 ? 12 : (gravity + 0.04f * delta < 0 ? 0 : gravity + 0.04f * delta);
 			else if (s == "limb")
-				limbStrength = Math.Min(1, limbStrength + 0.01f * delta);
+				limbStrength = limbStrength + 0.01f * delta > 1 ? 1 : (limbStrength + 0.01f * delta < 0 ? 0 : limbStrength + 0.01f * delta);
 		}
 
 		public GameScreen GoBack()

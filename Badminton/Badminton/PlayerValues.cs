@@ -43,20 +43,14 @@ namespace Badminton
 		public void Draw(SpriteBatch sb, Vector2 position, StickFigure figure)
 		{
 			sb.Draw(MainGame.tex_blank, position, null, Color.Black, 0f, Vector2.Zero, new Vector2(172, 32), SpriteEffects.None, 0f);
-			sb.Draw(MainGame.tex_blank, position + Vector2.UnitY + Vector2.UnitX, null, figure.Color, 0f, Vector2.Zero, new Vector2(figure.ScalarHealth * 170, 30), SpriteEffects.None, 0f);
+			sb.Draw(MainGame.tex_blank, position + Vector2.UnitY + Vector2.UnitX, null, figure.Color, 0f, Vector2.Zero, new Vector2(figure != null && figure.ScalarHealth > 0 ? figure.ScalarHealth * 170 : 0, 30), SpriteEffects.None, 0f);
+			
 			sb.Draw(MainGame.tex_head, position - Vector2.UnitX * 40 - Vector2.UnitY * 10, null, figure.Color, 0f, Vector2.Zero, Vector2.One * 0.55f, SpriteEffects.None, 0f);
+			
 			sb.Draw(MainGame.tex_heart, position + Vector2.UnitX * 20 + Vector2.UnitY * 35, null, Color.White, 0f, Vector2.Zero, Vector2.One * 0.33f, SpriteEffects.None, 0f);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + this.Lives, position + Vector2.UnitX * 58 + Vector2.UnitY * 41, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + this.Lives, position + Vector2.UnitX * 58 + Vector2.UnitY * 39, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + this.Lives, position + Vector2.UnitX * 56 + Vector2.UnitY * 39, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + this.Lives, position + Vector2.UnitX * 56 + Vector2.UnitY * 41, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + this.Lives, position + Vector2.UnitX * 57 + Vector2.UnitY * 40, Color.White);
+			MainGame.DrawOutlineText(sb, MainGame.fnt_basicFont, "x" + this.Lives, position + Vector2.UnitX * 57 + Vector2.UnitY * 40, Color.White);
 			sb.Draw(MainGame.tex_trapClosed, position + Vector2.UnitX * 96 + Vector2.UnitY * 37, null, Color.White, 0f, Vector2.Zero, Vector2.One * 1f, SpriteEffects.None, 0f);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + figure.TrapAmmo, position + Vector2.UnitX * 129 + Vector2.UnitY * 41, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + figure.TrapAmmo, position + Vector2.UnitX * 129 + Vector2.UnitY * 39, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + figure.TrapAmmo, position + Vector2.UnitX * 127 + Vector2.UnitY * 39, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + figure.TrapAmmo, position + Vector2.UnitX * 127 + Vector2.UnitY * 41, Color.Black);
-			sb.DrawString(MainGame.fnt_basicFont, "x" + figure.TrapAmmo, position + Vector2.UnitX * 128 + Vector2.UnitY * 40, Color.White);
+			MainGame.DrawOutlineText(sb, MainGame.fnt_basicFont, "x" + figure.TrapAmmo, position + Vector2.UnitX * 128 + Vector2.UnitY * 40, Color.White);
 		}
 	}
 }

@@ -212,5 +212,14 @@ namespace Badminton
 
 			base.Draw(gameTime);
 		}
+
+		public static void DrawOutlineText(SpriteBatch sb, SpriteFont font, string text, Vector2 position, Color c)
+		{
+			sb.DrawString(font, text, position + Vector2.UnitX + Vector2.UnitY, Color.Black);
+			sb.DrawString(font, text, position + Vector2.UnitX - Vector2.UnitY, Color.Black);
+			sb.DrawString(font, text, position - Vector2.UnitX - Vector2.UnitY, Color.Black);
+			sb.DrawString(font, text, position - Vector2.UnitX + Vector2.UnitY, Color.Black);
+			sb.DrawString(font, text, position, c);
+		}
 	}
 }

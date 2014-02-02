@@ -3,7 +3,6 @@ Content\textures\stick figure\head.xnb
 Content\textures\stick figure\limb.xnb
 Content\textures\stick figure\torso.xnb
 Content\textures\force wave.xnb
-Content\textures\background.xnb
 Content\textures\long range.xnb
 Content\textures\trap_closed.xnb
 Content\textures\trap_open.xnb
@@ -30,3 +29,10 @@ Content\textures\stick figure\leglower.xnb
 Content\textures\stick figure\legupper.xnb
 Content\textures\stick figure\debug head.xnb
 Content\textures\stick figure\debug torso.xnb
+Content\textures\castle.xnb
+Content\textures\menu assets\checkbox_checked.xnb
+Content\textures\menu assets\checkbox_unchecked.xnb
+Content\textures\menu assets\ps_next.xnb
+Content\textures\menu assets\down.xnb
+Content\textures\menu assets\up.xnb
+Content\textures\heart.xnb

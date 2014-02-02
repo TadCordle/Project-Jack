@@ -48,7 +48,7 @@ namespace Badminton.Attacks
 			if (body.UserData == null)
 				return;
 
-			body.ApplyForce(-Vector2.UnitY * body.Mass * 9.8f);
+			body.ApplyForce(-Vector2.UnitY * body.Mass * world.Gravity.Y);
 		}
 
 		public override void Draw(SpriteBatch sb, Color c)
