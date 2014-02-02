@@ -115,6 +115,7 @@
     <Compile Include="Attacks\Trap.cs" />
     <Compile Include="Attacks\TrapAmmo.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="PlayerValues.cs" />
     <Compile Include="Screens\Menus\Components\Button.cs" />
     <Compile Include="Screens\Menus\Components\CheckBox.cs" />
     <Compile Include="Screens\Menus\Components\Component.cs" />

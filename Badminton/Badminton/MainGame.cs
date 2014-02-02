@@ -38,7 +38,7 @@ namespace Badminton
 		GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont;
-		public static Texture2D tex_box, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
+		public static Texture2D tex_box, tex_heart, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
 		public static Texture2D tex_bg_castle;
 		public static Texture2D tex_blank;
@@ -105,6 +105,7 @@ namespace Badminton
 			tex_bg_castle = Content.Load<Texture2D>("textures/castle");
 
 			tex_box = Content.Load<Texture2D>("textures/box");
+			tex_heart = Content.Load<Texture2D>("textures/heart");
 			tex_head = Content.Load<Texture2D>("textures/stick figure/head");
 			tex_armUpper = Content.Load<Texture2D>("textures/stick figure/armupper");
 			tex_armLower = Content.Load<Texture2D>("textures/stick figure/armlower");

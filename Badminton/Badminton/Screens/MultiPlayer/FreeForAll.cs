@@ -24,9 +24,7 @@ namespace Badminton.Screens.MultiPlayer
         TrapAmmo[] ammo;
         Texture2D background;
 
-        int[] lives;
-		int[] respawnTime;
-		const int MAX_RESPAWN_TIME = 300;
+		PlayerValues[] info;
 
 		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
 		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
@@ -49,9 +47,8 @@ namespace Badminton.Screens.MultiPlayer
 			StickFigure.AllowTraps = traps;
 			StickFigure.AllowLongRange = longRange;
 
-			this.lives = new int[bots ? 4 : colors.Length];
-			this.respawnTime = new int[bots ? 4 : colors.Length];
 			player = new StickFigure[bots ? 4 : colors.Length];
+			this.info = new PlayerValues[bots ? 4 : colors.Length];
 
 			for (int i = 0; i < colors.Length; i++)
 				player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath, colors[i], Players[i]);
@@ -62,39 +59,33 @@ namespace Badminton.Screens.MultiPlayer
 					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath, new Color(i * 60, i * 60, i * 60), Players[i], player[0]);
 			}
 
-			for (int i = 0; i < player.Length; i++)
-			{
-				this.lives[i] = lives;
-				this.respawnTime[i] = -1;
-			}
+			for (int i = 0; i < info.Length; i++)
+				info[i] = new PlayerValues(lives);
 		}
 
         public GameScreen Update(GameTime gameTime)
         {
 			for (int i = 0; i < player.Length; i++)
 			{
-				if (player[i] != null && lives[i] > 0)
+				if (player[i] != null && info[i].HasLives())
 				{
 					player[i].Update();
 					if (player[i].IsDead || player[i].Position.Y * MainGame.METER_TO_PIXEL > 1080)
 					{
-						if (respawnTime[i] < 0)
-						{
-							lives[i]--;
-							respawnTime[i] = MAX_RESPAWN_TIME;
-						}
+						if (info[i].RespawnTimer < 0)
+							info[i].Kill();
 
-						if (respawnTime[i] == 0)
+						if (info[i].ShouldRespawn())
 						{
 							player[i].Destroy();
-							if (lives[i] > 0)
+							if (info[i].HasLives())
 								player[i] = player[i].Respawn();
 							else
 								player[i] = null;
-							respawnTime[i]--;
+							info[i].RespawnTimer--;
 						}
 						else
-							respawnTime[i]--;
+							info[i].RespawnTimer--;
 					}
 				}
 			}
@@ -130,11 +121,14 @@ namespace Badminton.Screens.MultiPlayer
 //				w.Draw(sb);
 
             // draw player status
-            for (int i = 0; i < player.Length; i++)
-	            sb.DrawString(MainGame.fnt_basicFont, "Player" + (i + 1).ToString() + ": " + lives[i], new Vector2(20, 20 + i * 20), Color.Gold);
+//			for (int i = 0; i < player.Length; i++)
+//				sb.DrawString(MainGame.fnt_basicFont, "Player" + (i + 1).ToString() + ": " + info[i].Lives, new Vector2(20, 20 + i * 20), Color.Gold);
+
+			for (int i = 0; i < info.Length; i++)
+				info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
         }
 
-        public GameScreen GoBack()
+		public GameScreen GoBack()
         {
             return null;
 //			return new MainMenu();

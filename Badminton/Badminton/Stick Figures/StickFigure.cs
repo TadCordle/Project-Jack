@@ -248,6 +248,23 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public Color Color { set { this.color = value; } get { return this.color; } }
 
+		/// <summary>
+		/// Gets the overall health of the stick figure (0=0%, 1=100%)
+		/// </summary>
+		public float ScalarHealth
+		{
+			get
+			{
+				return (0.5f + (health[leftLowerArm] + health[leftUpperArm] + health[rightLowerArm] + health[rightUpperArm] + health[leftLowerLeg] + health[leftUpperLeg] + health[rightLowerLeg] + health[rightUpperLeg]) / 16f) *
+						health[head] * health[torso];
+			}
+		}
+
+		/// <summary>
+		/// Returns the amount of ammo the stick figure has
+		/// </summary>
+		public int TrapAmmo { get { return trapAmmo; } }
+
 		#endregion
 
 		#region Creation/Destruction
@@ -953,6 +970,8 @@ namespace Badminton.Stick_Figures
 				coolDown--;
 			if (trapThrowTime > 0)
 				trapThrowTime--;
+			if (!AllowTraps)
+				trapAmmo = 0;
 
 			UpdateLimbStrength();
 			UpdateLimbAttachment();
