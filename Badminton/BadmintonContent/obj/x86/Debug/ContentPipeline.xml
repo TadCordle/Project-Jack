@@ -47,6 +47,15 @@
       <Time>2013-09-21T16:02:16.6573108-04:00</Time>
     </Item>
     <Item>
+      <Source>textures\castle.jpg</Source>
+      <Name>textures\castle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\castle.xnb</Output>
+      <Time>2013-10-30T11:27:21.5840317-04:00</Time>
+    </Item>
+    <Item>
       <Source>textures\long range.png</Source>
       <Name>textures\long range</Name>
       <Importer>TextureImporter</Importer>
@@ -245,6 +254,24 @@
       <Time>2013-11-23T15:47:36.7128927-05:00</Time>
     </Item>
     <Item>
+      <Source>textures\menu assets\down.png</Source>
+      <Name>textures\menu assets\down</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\down.xnb</Output>
+      <Time>2013-12-06T16:50:13.4760522-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\menu assets\up.png</Source>
+      <Name>textures\menu assets\up</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\up.xnb</Output>
+      <Time>2013-12-06T16:50:23.4016199-05:00</Time>
+    </Item>
+    <Item>
       <Source>fonts\basicFont.spritefont</Source>
       <Name>fonts\basicFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -298,33 +325,6 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb</Output>
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
       <Time>2013-04-19T10:52:54-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\castle.jpg</Source>
-      <Name>textures\castle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\castle.xnb</Output>
-      <Time>2013-10-30T11:27:21.5840317-04:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\menu assets\down.png</Source>
-      <Name>textures\menu assets\down</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\down.xnb</Output>
-      <Time>2013-12-06T16:50:13.4760522-05:00</Time>
-    </Item>
-    <Item>
-      <Source>textures\menu assets\up.png</Source>
-      <Name>textures\menu assets\up</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\up.xnb</Output>
-      <Time>2013-12-06T16:50:23.4016199-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

@@ -70,44 +70,6 @@ E:\FT Project\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Fighting Game thing\Badminton\Badminton\bin\x86\Debug\Content\textures\explosion particle.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\explosion particle.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Badminton.exe
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Badminton.pdb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.dll
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.pdb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.xml
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Badminton.csprojResolveAssemblyReference.cache
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Badminton.exe
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_competitive.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_cooperative.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_custom.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_exit.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\logo.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_blank.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_controller.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_keyboard.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_off.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\armlower.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\armupper.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\leglower.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\legupper.xnb
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb
@@ -147,13 +109,8 @@ C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\R
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.exe
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb
 C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_checked.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_unchecked.xnb
-C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_next.xnb
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb
@@ -198,6 +155,49 @@ C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.exe
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\castle.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\explosion particle.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_competitive.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_cooperative.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_custom.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_exit.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\logo.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_blank.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_controller.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_keyboard.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_off.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\armlower.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\armupper.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\leglower.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\legupper.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_checked.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_unchecked.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_next.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\down.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\up.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Badminton.exe
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Badminton.pdb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.dll
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.pdb
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.xml
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Badminton.csprojResolveAssemblyReference.cache
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Badminton.exe
+C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
