@@ -918,6 +918,7 @@ namespace Badminton.Stick_Figures
 			if (coolDown <= 0)
 			{
 				attacks.Add(new LongRangeAttack(world, health[leftLowerArm] > 0f ? LeftHandPosition : RightHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f), 0.1f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
+				ApplyForce((-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f) * 0.4f * scale);
 				chargeUp = 0;
 				coolDown = COOL_PERIOD;
 			}
@@ -1399,6 +1400,24 @@ namespace Badminton.Stick_Figures
 			}
 			else
 				return physAngle;
+		}
+
+		/// <summary>
+		/// Applies a force to the stick figure
+		/// </summary>
+		/// <param name="force">The force to apply</param>
+		public void ApplyForce(Vector2 force)
+		{
+			head.ApplyForce(force * head.Mass);
+			torso.ApplyForce(force * torso.Mass);
+			leftLowerArm.ApplyForce(force * leftLowerArm.Mass);
+			leftUpperArm.ApplyForce(force * leftUpperArm.Mass);
+			rightLowerArm.ApplyForce(force * rightLowerArm.Mass);
+			rightUpperArm.ApplyForce(force * rightUpperArm.Mass);
+			leftLowerLeg.ApplyForce(force * leftLowerLeg.Mass);
+			leftUpperLeg.ApplyForce(force * leftUpperLeg.Mass);
+			rightLowerLeg.ApplyForce(force * rightLowerLeg.Mass);
+			rightUpperLeg.ApplyForce(force * rightUpperLeg.Mass);
 		}
 
 		#endregion

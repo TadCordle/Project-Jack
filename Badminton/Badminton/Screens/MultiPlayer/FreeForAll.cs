@@ -5,6 +5,7 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 using FarseerPhysics.Dynamics;
 
@@ -30,6 +31,8 @@ namespace Badminton.Screens.MultiPlayer
 		int millisLeft;
 
 		bool gameOver;
+		List<int> winners;
+		StickFigure winStick;
 
 		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
 		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
@@ -70,6 +73,7 @@ namespace Badminton.Screens.MultiPlayer
 			timed = minutes > 0;
 			millisLeft = minutes * 60000;
 			gameOver = false;
+			winners = new List<int>();
 		}
 
         public GameScreen Update(GameTime gameTime)
@@ -105,30 +109,61 @@ namespace Badminton.Screens.MultiPlayer
 					t.Update();
 
 			// Endgame
-			gameOver = true;
-			for (int i = 0, remaining = 0; i < info.Length; i++)
+			if (!gameOver)
 			{
-				if (info[i].Lives > 0)
+				gameOver = true;
+				winners.Clear();
+				for (int i = 0; i < info.Length; i++)
 				{
-					remaining++;
-					if (remaining >= 2)
+					if (info[i].Lives > 0)
 					{
-						gameOver = false;
-						break;
+						winners.Add(i);
+						if (winners.Count >= 2)
+						{
+							gameOver = false;
+							winners.Clear();
+							break;
+						}
+					}
+				}
+
+				if (timed && !gameOver)
+				{
+					millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
+					if (millisLeft <= 0)
+					{
+						gameOver = true;
+						winners.Add(0);
+						for (int i = 1, max = info[0].Lives; i < info.Length; i++)
+						{
+							if (info[i].Lives > max)
+							{
+								winners.Clear();
+								winners.Add(i);
+								max = info[i].Lives;
+							}
+							else if (info[i].Lives == max)
+								winners.Add(i);
+						}
 					}
 				}
 			}
-
-			if (timed && !gameOver)
+			else
 			{
-				millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
-				if (millisLeft <= 0)
-					gameOver = true;
+				if (winStick == null)
+				{
+					winStick = new StickFigure(world, new Vector2(600, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, false, player[winners[0]].Color);
+					winStick.Stand();
+				}
+				winStick.Update();
+				winStick.ApplyForce(world.Gravity * -1);
+
+				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
+					return GoBack();
 			}
 
-            world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
-            return this;
-
+			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
+			return this;
         }
 
         public void Draw(SpriteBatch sb)
@@ -154,17 +189,30 @@ namespace Badminton.Screens.MultiPlayer
 			MainGame.DrawOutlineText(sb, MainGame.fnt_basicFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.One, Color.White);
 			for (int i = 0; i < info.Length; i++)
 				info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
-
+			
+			// TODO: Change font
 			if (gameOver)
 			{
-				// draw game over results
+				sb.Draw(MainGame.tex_blank, new Rectangle(450, 200, 1020, 680), Color.White);
+				sb.DrawString(MainGame.fnt_basicFont, "Game over!", new Vector2(900, 300), Color.Black);
+
+				if (winners.Count == 1)
+				{
+					sb.DrawString(MainGame.fnt_basicFont, "Winner: Player " + (winners[0] + 1) + "!", new Vector2(1000, 500), Color.Black);
+					if (winStick != null)
+						winStick.Draw(sb);
+				}
+				else
+				{
+					// Say there's a tie
+				}
+				sb.DrawString(MainGame.fnt_basicFont, "Press start to continue", new Vector2(1200, 800), Color.Black);
 			}
         }
 
 		public GameScreen GoBack()
         {
-            return null;
-//			return new MainMenu();
+			return new MainMenu();
         }
     }
 }
