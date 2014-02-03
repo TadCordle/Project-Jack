@@ -63,8 +63,15 @@ namespace Badminton.Screens.Menus
 			checkValues.Add("bots", false);
 			components[0].Selected = true;
 
+			((CheckBox)components[6]).Checked = true;
+			checkValues["ranged"] = true;
+			((CheckBox)components[7]).Checked = true;
+			checkValues["traps"] = true;
 			if (prevScreen.Colors.Length == 1)
+			{
+				checkValues["bots"] = true;
 				((CheckBox)components[8]).Checked = true;
+			}
 		}
 
 		public GameScreen Update(GameTime time)

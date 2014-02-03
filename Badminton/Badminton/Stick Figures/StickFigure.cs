@@ -918,7 +918,7 @@ namespace Badminton.Stick_Figures
 			if (coolDown <= 0)
 			{
 				attacks.Add(new LongRangeAttack(world, health[leftLowerArm] > 0f ? LeftHandPosition : RightHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f), 0.1f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
-				ApplyForce((-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f) * 0.4f * scale);
+				ApplyForce((-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f) * -5f * scale);
 				chargeUp = 0;
 				coolDown = COOL_PERIOD;
 			}
@@ -1408,16 +1408,16 @@ namespace Badminton.Stick_Figures
 		/// <param name="force">The force to apply</param>
 		public void ApplyForce(Vector2 force)
 		{
-			head.ApplyForce(force * head.Mass);
-			torso.ApplyForce(force * torso.Mass);
-			leftLowerArm.ApplyForce(force * leftLowerArm.Mass);
-			leftUpperArm.ApplyForce(force * leftUpperArm.Mass);
-			rightLowerArm.ApplyForce(force * rightLowerArm.Mass);
-			rightUpperArm.ApplyForce(force * rightUpperArm.Mass);
-			leftLowerLeg.ApplyForce(force * leftLowerLeg.Mass);
-			leftUpperLeg.ApplyForce(force * leftUpperLeg.Mass);
-			rightLowerLeg.ApplyForce(force * rightLowerLeg.Mass);
-			rightUpperLeg.ApplyForce(force * rightUpperLeg.Mass);
+			if (health[head] > 0) head.ApplyForce(force * head.Mass);
+			if (health[torso] > 0) torso.ApplyForce(force * torso.Mass);
+			if (health[leftLowerArm] > 0) leftLowerArm.ApplyForce(force * leftLowerArm.Mass);
+			if (health[leftUpperArm] > 0) leftUpperArm.ApplyForce(force * leftUpperArm.Mass);
+			if (health[rightLowerArm] > 0) rightLowerArm.ApplyForce(force * rightLowerArm.Mass);
+			if (health[rightUpperArm] > 0) rightUpperArm.ApplyForce(force * rightUpperArm.Mass);
+			if (health[leftLowerLeg] > 0) leftLowerLeg.ApplyForce(force * leftLowerLeg.Mass);
+			if (health[leftUpperLeg] > 0) leftUpperLeg.ApplyForce(force * leftUpperLeg.Mass);
+			if (health[rightLowerLeg] > 0) rightLowerLeg.ApplyForce(force * rightLowerLeg.Mass);
+			if (health[rightUpperLeg] > 0) rightUpperLeg.ApplyForce(force * rightUpperLeg.Mass);
 		}
 
 		#endregion

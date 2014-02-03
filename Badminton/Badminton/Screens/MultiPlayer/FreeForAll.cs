@@ -204,7 +204,7 @@ namespace Badminton.Screens.MultiPlayer
 				}
 				else
 				{
-					// Say there's a tie
+					sb.DrawString(MainGame.fnt_basicFont, "Tie reached!", new Vector2(1000, 500), Color.Black);
 				}
 				sb.DrawString(MainGame.fnt_basicFont, "Press start to continue", new Vector2(1200, 800), Color.Black);
 			}

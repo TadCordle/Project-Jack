@@ -2,47 +2,32 @@ StickFigure (Tad will work on this mostly)
 	- Draw laser sight when charging long range attack
 	- Customization
 LocalPlayer
-	- Fix controls
-		* Number of players = num of controllers plugged in + keyboard, if num of controllers < 4
-			For n players, players 1-n use controller, player n uses keyboard
-		* Set default to aim priority: right stick > leftstick > last direction you fired
 	- Add name property
 
 Game Modes
 	- Implement GameScreen interface to make something like the "SingleMap" class, but
 		for each game mode
-		* Match_TDM
-			- Randomly assign 4 players to teams
-			- Make colors of teammates similar
-			- In player constructors, making the collision categories of the
-				each player in a pair the same to handle friendly fire
 		* Match_FreeForAll
-			- Pretty much how SingleMap is now, but add stuff like endgame
-				conditions/rounds
-			- Probably best to start here, then do TDM
+			- Implement ties
+			- Update fonts
+		* Match_TDM
+			- Copy paste free for all
+			- Make teams by changing collision categories
+			- Change win screen to show team rather than individual player
 		* Match_OneVsAll
 			- Same as TDM, but only one player has a different collision cat
-			- Tweak end game so that lone player wins if timer runs out
-	- Pass parameters in constructors for things listed under "Custom games" in 
-		project doc
-		* For maps, pass file name, and load map from file in constructor probably
+			- Tweak end game so that lone player wins if timer runs outs
 
 Menus
 	- Main Menu
 		* Background video
 		* Update art
 	- Character Select
-		* Add all button based components to single list so you can select one at a time
-		* Show stick figure in select phase
 		* Name entry
 			- Make text entry object
 	- Game Settings
-		* Map select
-		* Custom game settings
-			- Gravity entry (0 - 9.8)
-			- Limb strength (20% - 100%)
-			- Time Limit (1:00 - 10:00) (or none)
-			- Sudden death (check box)
-			- Allow long range (check box)
-			- Allow traps (check box)
+		* Update graphics
+		* Update controls
 	- Character customization
+
+Add maps
