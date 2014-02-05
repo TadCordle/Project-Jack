@@ -40,6 +40,7 @@ namespace Badminton
 		public static SpriteFont fnt_basicFont;
 		public static Texture2D tex_box, tex_heart, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
+		public static Texture2D tex_evil_head, tex_evil_torso, tex_evil_armUpper, tex_evil_armLower, tex_evil_legUpper, tex_evil_legLower;
 		public static Texture2D tex_bg_castle;
 		public static Texture2D tex_blank;
 
@@ -112,6 +113,12 @@ namespace Badminton
 			tex_legUpper = Content.Load<Texture2D>("textures/stick figure/legupper");
 			tex_legLower = Content.Load<Texture2D>("textures/stick figure/leglower");
 			tex_torso = Content.Load<Texture2D>("textures/stick figure/torso");
+			tex_evil_head = Content.Load<Texture2D>("textures/evil stick figure/head");
+			tex_evil_armUpper = Content.Load<Texture2D>("textures/evil stick figure/armupper");
+			tex_evil_armLower = Content.Load<Texture2D>("textures/evil stick figure/armlower");
+			tex_evil_legUpper = Content.Load<Texture2D>("textures/evil stick figure/legupper");
+			tex_evil_legLower = Content.Load<Texture2D>("textures/evil stick figure/leglower");
+			tex_evil_torso = Content.Load<Texture2D>("textures/evil stick figure/torso");
 			tex_debugHead = Content.Load<Texture2D>("textures/stick figure/debug head");
 			tex_debugTorso = Content.Load<Texture2D>("textures/stick figure/debug torso");
 			tex_debugLimb = Content.Load<Texture2D>("textures/stick figure/limb");

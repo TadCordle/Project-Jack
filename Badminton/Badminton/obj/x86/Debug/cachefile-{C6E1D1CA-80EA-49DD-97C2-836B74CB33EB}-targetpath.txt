@@ -36,3 +36,13 @@ Content\sfx\Whoosh.xnb
 Content\music.xnb
 Content\music.wma
 Content\textures\heart.xnb
+Content\textures\evil stick figure\armlower.xnb
+Content\textures\evil stick figure\armlower1.xnb
+Content\textures\evil stick figure\armupper.xnb
+Content\textures\evil stick figure\armupper1.xnb
+Content\textures\evil stick figure\head.xnb
+Content\textures\evil stick figure\leglower.xnb
+Content\textures\evil stick figure\leglower1.xnb
+Content\textures\evil stick figure\legupper.xnb
+Content\textures\evil stick figure\legupper1.xnb
+Content\textures\evil stick figure\torso.xnb

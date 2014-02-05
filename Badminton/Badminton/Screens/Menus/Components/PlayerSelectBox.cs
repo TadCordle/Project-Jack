@@ -101,7 +101,7 @@ namespace Badminton.Screens.Menus.Components
 			{
 				if (player == null)
 				{
-					player = new StickFigure(w, (position + Vector2.UnitY * 200 + Vector2.UnitX * 250) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1f, false, LocalPlayer.Colors[selectedColor]);
+					player = new StickFigure(w, (position + Vector2.UnitY * 200 + Vector2.UnitX * 250) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1f, 1f, false, LocalPlayer.Colors[selectedColor]);
 					player.Stand();
 				}
 				else

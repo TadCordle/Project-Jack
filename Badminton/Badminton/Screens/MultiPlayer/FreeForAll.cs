@@ -59,12 +59,12 @@ namespace Badminton.Screens.MultiPlayer
 			this.info = new PlayerValues[bots ? 4 : colors.Length];
 
 			for (int i = 0; i < colors.Length; i++)
-				player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath, colors[i], Players[i]);
+				player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, colors[i], Players[i]);
 
 			if (bots && colors.Length < 4)
 			{
 				for (int i = colors.Length; i < 4; i++)
-					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath, new Color(i * 60, i * 60, i * 60), Players[i], player[0]);
+					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player[0]);
 			}
 
 			for (int i = 0; i < info.Length; i++)
@@ -152,7 +152,7 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				if (winStick == null)
 				{
-					winStick = new StickFigure(world, new Vector2(600, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, false, player[winners[0]].Color);
+					winStick = new StickFigure(world, new Vector2(600, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[0]].Color);
 					winStick.Stand();
 				}
 				winStick.Update();

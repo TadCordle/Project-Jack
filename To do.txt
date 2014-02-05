@@ -1,33 +1,48 @@
 StickFigure (Tad will work on this mostly)
-	- Draw laser sight when charging long range attack
-	- Customization
-LocalPlayer
-	- Add name property
+	- Fix stances locking up when limbs are too weak to reach certain position
+	- Add particle effects to long range attacks
+	- Balance scalar health function
+	- Customization?
 
 Game Modes
 	- Implement GameScreen interface to make something like the "SingleMap" class, but
 		for each game mode
-		* Match_FreeForAll
+		* Free for All
+			- Compare health as well as lives
 			- Implement ties
+				* Start new sudden death game w/ tied players, 1 life each?
 			- Update fonts
-		* Match_TDM
+		* Team Deathmatch
 			- Copy paste free for all
 			- Make teams by changing collision categories
+			- Make some way of identifying teams
+			- Implement ties
+				* Start new sudden death game w/ tied players, 1 life each
 			- Change win screen to show team rather than individual player
-		* Match_OneVsAll
+		* One Vs All
 			- Same as TDM, but only one player has a different collision cat
 			- Tweak end game so that lone player wins if timer runs outs
+		* Co op
+			- 4 players on one team, bots spawn infinitely 4 at a time from the sky
+			- Timer counts up instead of down and keep track of high score?
+		* Other possibilities
+			- Capture the flag: copy TDM, add flags, change win condition
+			- King of the hill: copy free for all
+			- Soccer
 
 Menus
 	- Main Menu
 		* Background video
 		* Update art
 	- Character Select
-		* Name entry
-			- Make text entry object
+		* Prevent duplicate colors
+		* Show text demonstrating teams when different gamemode is checked (players 1/3 vs 2/4?)
+			also change skin to inverted stick figure
+		* Possibly add more game modes?
 	- Game Settings
 		* Update graphics
 		* Update controls
-	- Character customization
+		* Replace "press start to start" with on screen button to make checkboxes more intuitive
+	- Character customization?
 
 Add maps

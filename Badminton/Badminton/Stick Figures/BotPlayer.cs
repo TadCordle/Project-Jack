@@ -25,8 +25,8 @@ namespace Badminton.Stick_Figures
 
         public List<StickFigure> ListStickFigures;
 
-        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, bool suddenDeath, Color color, PlayerIndex player, StickFigure target)
-            : base(world, position, collisionCat, scale, limbStrength, suddenDeath, color)
+        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure target)
+            : base(world, position, collisionCat, scale, limbStrength, limbDefense, evilSkin, color)
         {
             this.player = player;
             this.hasTarget = false;
@@ -37,7 +37,7 @@ namespace Badminton.Stick_Figures
 
 		public override StickFigure Respawn()
 		{
-			return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, suddenDeath, color, player, this.target);
+			return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, evilSkin, color, player, this.target);
 		}
 
         public override void Update()

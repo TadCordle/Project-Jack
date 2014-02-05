@@ -335,6 +335,96 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\heart.xnb</Output>
       <Time>2014-02-01T23:29:34.3219122-05:00</Time>
     </Item>
+    <Item>
+      <Source>textures\evil stick figure\armlower.png</Source>
+      <Name>textures\evil stick figure\armlower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armlower.xnb</Output>
+      <Time>2014-02-05T18:14:29.0630887-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\armlower1.png</Source>
+      <Name>textures\evil stick figure\armlower1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armlower1.xnb</Output>
+      <Time>2014-02-05T18:14:36.1164921-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\armupper.png</Source>
+      <Name>textures\evil stick figure\armupper</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armupper.xnb</Output>
+      <Time>2014-02-05T18:14:42.6588663-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\armupper1.png</Source>
+      <Name>textures\evil stick figure\armupper1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armupper1.xnb</Output>
+      <Time>2014-02-05T18:14:45.9350537-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\head.png</Source>
+      <Name>textures\evil stick figure\head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\head.xnb</Output>
+      <Time>2014-02-05T18:14:55.2545868-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\leglower.png</Source>
+      <Name>textures\evil stick figure\leglower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\leglower.xnb</Output>
+      <Time>2014-02-05T18:14:53.719499-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\leglower1.png</Source>
+      <Name>textures\evil stick figure\leglower1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\leglower1.xnb</Output>
+      <Time>2014-02-05T18:14:52.5224305-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\legupper.png</Source>
+      <Name>textures\evil stick figure\legupper</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper.xnb</Output>
+      <Time>2014-02-05T18:14:51.0943488-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\legupper1.png</Source>
+      <Name>textures\evil stick figure\legupper1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper1.xnb</Output>
+      <Time>2014-02-05T18:14:49.7582724-05:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\evil stick figure\torso.png</Source>
+      <Name>textures\evil stick figure\torso</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\torso.xnb</Output>
+      <Time>2014-02-05T18:14:48.4801993-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
