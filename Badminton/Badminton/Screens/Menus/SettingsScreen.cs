@@ -116,7 +116,7 @@ namespace Badminton.Screens.Menus
 			else
 				downPressed = false;
 
-			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start) || Keyboard.GetState().IsKeyDown(Keys.Enter))
 			{
 
 				switch (prevScreen.Mode)

@@ -30,6 +30,7 @@ namespace Badminton.Stick_Figures
 
 		// Limb control
 		public Dictionary<Body, float> health;
+		private Dictionary<Body, int> forceNextPos;
 		private float maxImpulse;
 		protected float limbStrength;
 		protected float limbDefense;
@@ -40,6 +41,7 @@ namespace Badminton.Stick_Figures
 		// Keep track of animation states
 		private int walkStage;
 		private int punchStage, kickStage;
+		private const int MIN_POSE_TIME = 30;
 
 		// Attacking
 		public static bool AllowTraps = true;
@@ -256,7 +258,7 @@ namespace Badminton.Stick_Figures
 		{
 			get
 			{
-				return (0.5f + (health[leftLowerArm] + health[leftUpperArm] + health[rightLowerArm] + health[rightUpperArm] + health[leftLowerLeg] + health[leftUpperLeg] + health[rightLowerLeg] + health[rightUpperLeg]) / 16f) *
+				return (0.1f + (health[leftLowerArm] + health[leftUpperArm] + health[rightLowerArm] + health[rightUpperArm] + health[leftLowerLeg] + health[leftUpperLeg] + health[rightLowerLeg] + health[rightUpperLeg]) * 9 / 80f) *
 						health[head] * health[torso];
 			}
 		}
@@ -292,6 +294,7 @@ namespace Badminton.Stick_Figures
 			friction = 5f * scale;
 			Crouching = false;
 			this.health = new Dictionary<Body, float>();
+			this.forceNextPos = new Dictionary<Body, int>();
 			this.color = c;
 			this.scale = scale;
 			this.increaseFall = false;
@@ -356,6 +359,7 @@ namespace Badminton.Stick_Figures
 			gyro.Mass = 0.00001f;
 			gyro.FixedRotation = true;
 			health.Add(torso, 1.0f);
+			forceNextPos.Add(torso, MIN_POSE_TIME);
 
 			head = BodyFactory.CreateCircle(world, 12.5f * scale * MainGame.PIXEL_TO_METER, 1.0f);
 			head.Position = torso.Position - new Vector2(0, 29f) * scale * MainGame.PIXEL_TO_METER;
@@ -365,6 +369,7 @@ namespace Badminton.Stick_Figures
 			head.Restitution = 0.2f;
 			head.Friction = friction;
 			health.Add(head, 1.0f);
+			forceNextPos.Add(head, MIN_POSE_TIME);
 
 			leftUpperArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			leftUpperArm.Rotation = -MathHelper.PiOver2;
@@ -374,6 +379,7 @@ namespace Badminton.Stick_Figures
 			leftUpperArm.CollidesWith = Category.All & ~collisionCat;
 			leftUpperArm.Friction = friction;
 			health.Add(leftUpperArm, 1.0f);
+			forceNextPos.Add(leftUpperArm, MIN_POSE_TIME);
 
 			rightUpperArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			rightUpperArm.Rotation = MathHelper.PiOver2;
@@ -383,6 +389,7 @@ namespace Badminton.Stick_Figures
 			rightUpperArm.CollidesWith = Category.All & ~collisionCat;
 			rightUpperArm.Friction = friction;
 			health.Add(rightUpperArm, 1.0f);
+			forceNextPos.Add(rightUpperArm, MIN_POSE_TIME);
 
 			leftLowerArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			leftLowerArm.Rotation = -MathHelper.PiOver2;
@@ -392,6 +399,7 @@ namespace Badminton.Stick_Figures
 			leftLowerArm.CollidesWith = Category.All & ~collisionCat;
 			leftLowerArm.Friction = friction;
 			health.Add(leftLowerArm, 1.0f);
+			forceNextPos.Add(leftLowerArm, MIN_POSE_TIME);
 
 			rightLowerArm = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 0.1f);
 			rightLowerArm.Rotation = MathHelper.PiOver2;
@@ -401,6 +409,7 @@ namespace Badminton.Stick_Figures
 			rightLowerArm.CollidesWith = Category.All & ~collisionCat;
 			rightLowerArm.Friction = friction;
 			health.Add(rightLowerArm, 1.0f);
+			forceNextPos.Add(rightLowerArm, MIN_POSE_TIME);
 
 			leftUpperLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 5f);
 			leftUpperLeg.Rotation = -3 * MathHelper.PiOver4;
@@ -411,6 +420,7 @@ namespace Badminton.Stick_Figures
 			leftUpperLeg.Restitution = 0.15f;
 			leftUpperLeg.Friction = friction;
 			health.Add(leftUpperLeg, 1.0f);
+			forceNextPos.Add(leftUpperLeg, MIN_POSE_TIME);
 
 			rightUpperLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 5f);
 			rightUpperLeg.Rotation = 3 * MathHelper.PiOver4;
@@ -421,6 +431,7 @@ namespace Badminton.Stick_Figures
 			rightUpperLeg.Restitution = 0.15f;
 			rightUpperLeg.Friction = friction;
 			health.Add(rightUpperLeg, 1.0f);
+			forceNextPos.Add(rightUpperLeg, MIN_POSE_TIME);
 
 			leftLowerLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 10.0f);
 			leftLowerLeg.Position = torso.Position + new Vector2(-50f / (float)Math.Sqrt(8) + 6, 25 + 25f / (float)Math.Sqrt(8)) * scale * MainGame.PIXEL_TO_METER;
@@ -430,6 +441,7 @@ namespace Badminton.Stick_Figures
 			leftLowerLeg.Restitution = 0.15f;
 			leftLowerLeg.Friction = friction;
 			health.Add(leftLowerLeg, 1.0f);
+			forceNextPos.Add(leftLowerLeg, MIN_POSE_TIME);
 
 			rightLowerLeg = BodyFactory.CreateCapsule(world, 25 * scale * MainGame.PIXEL_TO_METER, 5 * scale * MainGame.PIXEL_TO_METER, 10.0f);
 			rightLowerLeg.Position = torso.Position + new Vector2(50f / (float)Math.Sqrt(8) - 6, 25 + 25f / (float)Math.Sqrt(8)) * scale * MainGame.PIXEL_TO_METER;
@@ -439,6 +451,7 @@ namespace Badminton.Stick_Figures
 			rightLowerLeg.Restitution = 0.15f;
 			rightLowerLeg.Friction = friction;
 			health.Add(rightLowerLeg, 1.0f);
+			forceNextPos.Add(rightLowerLeg, MIN_POSE_TIME);
 		}
 
 		/// <summary>
@@ -1337,12 +1350,38 @@ namespace Badminton.Stick_Figures
 		/// <returns>True if the joints are at their target angles, false if not</returns>
 		private bool JointsAreInPosition(List<AngleJoint> joints)
 		{
+			List<Body> bodyCheck = new List<Body>();
 			foreach (AngleJoint j in joints)
 			{
 				if (Math.Abs(j.BodyB.Rotation - j.BodyA.Rotation - j.TargetAngle) > 0.20)
-					return false;
+				{
+					if (!bodyCheck.Contains(j.BodyA))
+					{
+						bodyCheck.Add(j.BodyA);
+						forceNextPos[j.BodyA]--;
+					}
+					if (!bodyCheck.Contains(j.BodyB))
+					{
+						bodyCheck.Add(j.BodyB);
+						forceNextPos[j.BodyB]--;
+					}
+				}
 			}
-			return true;
+
+			bool ret = true;
+			if (bodyCheck.Count > 0)
+			{
+				foreach (Body b in bodyCheck)
+				{
+					if (forceNextPos[b] > 0)
+						ret = false;
+				}
+			}
+			if (ret == true)
+				foreach (Body b in bodyCheck)
+					forceNextPos[b] = MIN_POSE_TIME;
+			
+			return ret;
 		}
 
 		/// <summary>

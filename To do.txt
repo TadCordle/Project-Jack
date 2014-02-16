@@ -1,7 +1,5 @@
 StickFigure (Tad will work on this mostly)
-	- Fix stances locking up when limbs are too weak to reach certain position
 	- Add particle effects to long range attacks
-	- Balance scalar health function
 	- Customization?
 
 Game Modes
