@@ -64,7 +64,7 @@ namespace Badminton.Screens.MultiPlayer
 			if (bots && colors.Length < 4)
 			{
 				for (int i = colors.Length; i < 4; i++)
-					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player[0]);
+					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player);
 			}
 
 			for (int i = 0; i < info.Length; i++)

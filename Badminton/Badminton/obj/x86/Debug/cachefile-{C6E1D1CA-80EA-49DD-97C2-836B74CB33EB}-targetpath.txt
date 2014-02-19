@@ -28,13 +28,6 @@ Content\textures\menu assets\checkbox_unchecked.xnb
 Content\textures\menu assets\ps_next.xnb
 Content\textures\menu assets\down.xnb
 Content\textures\menu assets\up.xnb
-Content\fonts\basicFont.xnb
-Content\sfx\Punch1.xnb
-Content\sfx\Punch2.xnb
-Content\sfx\Thwap.xnb
-Content\sfx\Whoosh.xnb
-Content\music.xnb
-Content\music.wma
 Content\textures\heart.xnb
 Content\textures\evil stick figure\armlower.xnb
 Content\textures\evil stick figure\armlower1.xnb
@@ -46,3 +39,10 @@ Content\textures\evil stick figure\leglower1.xnb
 Content\textures\evil stick figure\legupper.xnb
 Content\textures\evil stick figure\legupper1.xnb
 Content\textures\evil stick figure\torso.xnb
+Content\fonts\basicFont.xnb
+Content\sfx\Punch1.xnb
+Content\sfx\Punch2.xnb
+Content\sfx\Thwap.xnb
+Content\sfx\Whoosh.xnb
+Content\music.xnb
+Content\music.wma

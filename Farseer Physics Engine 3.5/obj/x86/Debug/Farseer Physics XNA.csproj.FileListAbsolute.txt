@@ -41,3 +41,9 @@ C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Farseer 
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Farseer Physics Engine 3.5\obj\x86\Debug\Farseer Physics XNA.csprojResolveAssemblyReference.cache
+C:\Games\Project-Jack\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.dll
+C:\Games\Project-Jack\Farseer Physics Engine 3.5\bin\x86\Debug\FarseerPhysics XNA.pdb
+C:\Games\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\Farseer Physics XNA.csprojResolveAssemblyReference.cache
+C:\Games\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Games\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.dll
+C:\Games\Project-Jack\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics XNA.pdb

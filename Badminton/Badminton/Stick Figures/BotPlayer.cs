@@ -19,55 +19,62 @@ namespace Badminton.Stick_Figures
     {
         private PlayerIndex player;
         private StickFigure target;
-        private float attention_radius;
+        private float attention_radius, attention_countdown, attention_countdown_max, attention_countdown_delta;
         private bool hasTarget;
         private float melee_radius;
 
-        public List<StickFigure> ListStickFigures;
+        public StickFigure[] ListStickFigures;
 
-        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure target)
+        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes)
             : base(world, position, collisionCat, scale, limbStrength, limbDefense, evilSkin, color)
         {
             this.player = player;
             this.hasTarget = false;
             attention_radius = 100;
-            //this.ListStickFigures = list;
-            this.target = target;
+            this.ListStickFigures = dudes;
+            attention_countdown_max = 5f;
+            attention_countdown = attention_countdown_max;
+            attention_countdown_delta = 0.003f;
         }
 
 		public override StickFigure Respawn()
 		{
-			return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, evilSkin, color, player, this.target);
+            return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, evilSkin, color, player, this.ListStickFigures);
 		}
 
         public override void Update()
         {
             bool stand = true;
             // get target
-            //foreach (StickFigure s in ListStickFigures)
-            //{
-                    // check collisioncat
-                if ((target.Position - this.Position).Length() <= attention_radius)
-                {
-                    this.hasTarget = true;
-                    //this.target = target;
-                }
-            //}
-            if (this.hasTarget == false)
-            {/*
-                foreach (StickFigure s in ListStickFigures)
-                {
-                    // check collisioncat
-                    if (true)
-                    {
-                        this.hasTarget = true;
-                        this.target = s;
-                    }
-                }*/
-                ;;
+            if (attention_countdown <= 0)
+            {
+                this.hasTarget = false;
+                attention_countdown = attention_countdown_max;
             }
             else
             {
+                attention_countdown -= attention_countdown_delta;
+            }
+
+            if (!this.hasTarget || (this.target is BotPlayer))
+            {
+                foreach (StickFigure s in ListStickFigures)
+                {
+                    if ((s.CollisionCategory!=this.collisionCat)) {
+                    // check collisioncat
+                        if ((s.Position - this.Position).Length() <= attention_radius)
+                        {
+                            this.hasTarget = true;
+                            this.target = s;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                
+
                 if (target.Position.X > this.Position.X)
                 {
                     WalkRight();

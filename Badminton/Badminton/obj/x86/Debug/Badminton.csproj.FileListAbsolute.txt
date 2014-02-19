@@ -212,3 +212,60 @@ C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminto
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper1.xnb
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\torso.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\box.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\head.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\limb.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\torso.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\force wave.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\castle.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\explosion particle.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_competitive.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_cooperative.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_custom.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_exit.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\logo.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_blank.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_controller.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_keyboard.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_off.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\armlower.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\armupper.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\leglower.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\legupper.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug head.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\stick figure\debug torso.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_checked.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_unchecked.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_next.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\down.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\up.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\heart.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armlower.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armlower1.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armupper.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armupper1.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\head.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\leglower.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\leglower1.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper1.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\torso.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\basicFont.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch1.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Punch2.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Thwap.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\Whoosh.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Badminton.exe
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\Badminton.pdb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.dll
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.pdb
+C:\Games\Project-Jack\Badminton\Badminton\bin\x86\Debug\FarseerPhysics XNA.xml
+C:\Games\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.csprojResolveAssemblyReference.cache
+C:\Games\Project-Jack\Badminton\Badminton\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Games\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.exe
+C:\Games\Project-Jack\Badminton\Badminton\obj\x86\Debug\Badminton.pdb
