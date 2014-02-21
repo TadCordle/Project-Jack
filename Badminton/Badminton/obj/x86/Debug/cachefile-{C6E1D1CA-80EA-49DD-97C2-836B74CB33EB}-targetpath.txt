@@ -46,3 +46,5 @@ Content\sfx\Thwap.xnb
 Content\sfx\Whoosh.xnb
 Content\music.xnb
 Content\music.wma
+Content\fonts\bigFont.xnb
+Content\fonts\midFont.xnb

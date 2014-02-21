@@ -32,7 +32,7 @@ namespace Badminton.Screens.MultiPlayer
 
 		bool gameOver;
 		List<int> winners;
-		StickFigure winStick;
+		List<StickFigure> winSticks;
 
 		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
 		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
@@ -59,7 +59,8 @@ namespace Badminton.Screens.MultiPlayer
 			this.info = new PlayerValues[bots ? 4 : colors.Length];
 
 			for (int i = 0; i < colors.Length; i++)
-				player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, colors[i], Players[i]);
+				if (colors[i] != null)
+					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, colors[i], Players[i]);
 
 			if (bots && colors.Length < 4)
 			{
@@ -71,9 +72,10 @@ namespace Badminton.Screens.MultiPlayer
 				info[i] = new PlayerValues(lives);
 
 			timed = minutes > 0;
-			millisLeft = minutes * 60000;
+			millisLeft = (minutes == 0 ? -1 : minutes * 60000);
 			gameOver = false;
 			winners = new List<int>();
+			winSticks = new List<StickFigure>();
 		}
 
         public GameScreen Update(GameTime gameTime)
@@ -150,13 +152,20 @@ namespace Badminton.Screens.MultiPlayer
 			}
 			else
 			{
-				if (winStick == null)
+				if (winSticks.Count == 0)
 				{
-					winStick = new StickFigure(world, new Vector2(600, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[0]].Color);
-					winStick.Stand();
+					for (int i = 0; i < winners.Count; i++)
+					{
+						winSticks.Add(new StickFigure(world, new Vector2(600 + 80 * i, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[i]].Color));
+						winSticks[i].Stand();
+					}
 				}
-				winStick.Update();
-				winStick.ApplyForce(world.Gravity * -1);
+
+				foreach (StickFigure s in winSticks)
+				{
+					s.Update();
+					s.ApplyForce(world.Gravity * -1);
+				}
 
 				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
 					return GoBack();
@@ -185,26 +194,32 @@ namespace Badminton.Screens.MultiPlayer
 //			foreach (Wall w in walls)
 //				w.Draw(sb);
 
-			// Todo: reposition, make font bigger
-			MainGame.DrawOutlineText(sb, MainGame.fnt_basicFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.One, Color.White);
+			// Draw HUD
+			if (millisLeft >= 0)
+				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.One, Color.White);
 			for (int i = 0; i < info.Length; i++)
 				info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
 			
-			// TODO: Change font
-			if (gameOver)
+			if (gameOver) // Exactly what it sounds like
 			{
 				sb.Draw(MainGame.tex_blank, new Rectangle(450, 200, 1020, 680), Color.White);
-				sb.DrawString(MainGame.fnt_basicFont, "Game over!", new Vector2(900, 300), Color.Black);
+				sb.DrawString(MainGame.fnt_bigFont, "Game over!", new Vector2(860, 290), Color.Black);
 
 				if (winners.Count == 1)
 				{
-					sb.DrawString(MainGame.fnt_basicFont, "Winner: Player " + (winners[0] + 1) + "!", new Vector2(1000, 500), Color.Black);
-					if (winStick != null)
-						winStick.Draw(sb);
+					sb.DrawString(MainGame.fnt_midFont, "Winner: Player " + (winners[0] + 1) + "!", new Vector2(1000, 500), Color.Black);
+					if (winSticks.Count > 0)
+						winSticks[0].Draw(sb);
 				}
 				else
 				{
-					sb.DrawString(MainGame.fnt_basicFont, "Tie reached!", new Vector2(1000, 500), Color.Black);
+					sb.DrawString(MainGame.fnt_midFont, "Tie reached!", new Vector2(1000, 450), Color.Black);
+					string tiedPlayers = "Tied players: ";
+					foreach (int i in winners)
+						tiedPlayers += (tiedPlayers.Length == 14 ? "" : ", ") + (i + 1).ToString();
+					sb.DrawString(MainGame.fnt_midFont, tiedPlayers, new Vector2(1000, 515), Color.Black);
+					foreach (StickFigure s in winSticks)
+						s.Draw(sb);
 				}
 				sb.DrawString(MainGame.fnt_basicFont, "Press start to continue", new Vector2(1200, 800), Color.Black);
 			}

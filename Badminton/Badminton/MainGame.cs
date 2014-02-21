@@ -37,7 +37,7 @@ namespace Badminton
 	    public static float RESOLUTION_SCALE;
 		GameScreen currentScreen;
 
-		public static SpriteFont fnt_basicFont;
+		public static SpriteFont fnt_basicFont, fnt_bigFont, fnt_midFont;
 		public static Texture2D tex_box, tex_heart, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
 		public static Texture2D tex_evil_head, tex_evil_torso, tex_evil_armUpper, tex_evil_armLower, tex_evil_legUpper, tex_evil_legLower;
@@ -102,6 +102,8 @@ namespace Badminton
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			fnt_basicFont = Content.Load<SpriteFont>("fonts/basicFont");
+			fnt_bigFont = Content.Load<SpriteFont>("fonts/bigFont");
+			fnt_midFont = Content.Load<SpriteFont>("fonts/midFont");
 
 			tex_bg_castle = Content.Load<Texture2D>("textures/castle");
 

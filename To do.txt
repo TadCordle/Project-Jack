@@ -6,16 +6,14 @@ Game Modes
 	- Implement GameScreen interface to make something like the "SingleMap" class, but
 		for each game mode
 		* Free for All
-			- Compare health as well as lives
+			- Compare health as well as lives?
 			- Implement ties
 				* Start new sudden death game w/ tied players, 1 life each?
 			- Update fonts
 		* Team Deathmatch
 			- Copy paste free for all
 			- Make teams by changing collision categories
-			- Make some way of identifying teams
-			- Implement ties
-				* Start new sudden death game w/ tied players, 1 life each
+			- Make some way of identifying teams (use alternate skin)
 			- Change win screen to show team rather than individual player
 		* One Vs All
 			- Same as TDM, but only one player has a different collision cat
