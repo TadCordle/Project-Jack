@@ -242,6 +242,11 @@ namespace Badminton.Stick_Figures
 		protected bool LastFacedLeft { get; set; }
 
 		/// <summary>
+		/// Gets/sets whether or not the stick figure can perform any actions
+		/// </summary>
+		public bool LockControl { get; set; }
+
+		/// <summary>
 		/// Returns the collision category (or team) of the stick figure
 		/// </summary>
 		public Category CollisionCategory { get { return collisionCat; } }
@@ -313,6 +318,7 @@ namespace Badminton.Stick_Figures
 
 			this.collisionCat = collisionCat;
 			LastFacedLeft = true;
+			LockControl = false;
 
 			GenerateBody(world, position, collisionCat);
 			ConnectBody(world);
@@ -663,7 +669,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void WalkRight()
 		{
-			if (kicking || IsDead)
+			if (kicking || IsDead || LockControl)
 				return;
 
 			leftLegLeft = false;
@@ -728,7 +734,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void WalkLeft()
 		{
-			if (kicking || IsDead)
+			if (kicking || IsDead || LockControl)
 				return;
 
 			LastFacedLeft = true;
@@ -793,7 +799,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void Jump()
 		{
-			if (IsDead)
+			if (IsDead || LockControl)
 				return;
 
 			leftLegLeft = true;
@@ -851,6 +857,9 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void Crouch()
 		{
+			if (IsDead || LockControl)
+				return;
+
 			leftLegLeft = true;
 			rightLegLeft = false;
 			upright.TargetAngle = 0.0f;
@@ -883,7 +892,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle at which to punch</param>
 		public void Punch(float angle)
 		{
-			if (!IsDead)
+			if (!IsDead && !LockControl)
 			{
 				punching = true;
 				attackAngle = angle;
@@ -896,7 +905,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle at which to kick</param>
 		public void Kick(float angle)
 		{
-			if (!IsDead && (health[leftUpperLeg] > 0f || health[rightUpperLeg] > 0f))
+			if (!IsDead && (health[leftUpperLeg] > 0f || health[rightUpperLeg] > 0f) && !LockControl)
 			{
 				kicking = true;
 				kickLeg = (angle > MathHelper.PiOver2 || angle < -MathHelper.PiOver2) && health[leftUpperLeg] > 0f || health[rightUpperLeg] <= 0f;
@@ -910,7 +919,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="angle">The angle to aim at</param>
 		public void Aim(float angle)
 		{
-			if (!IsDead && AllowLongRange)
+			if (!IsDead && AllowLongRange && !LockControl)
 			{
 				aiming = true;
 				attackAngle = angle;
@@ -928,7 +937,7 @@ namespace Badminton.Stick_Figures
 		public void LongRangeAttack()
 		{
 			aiming = false;
-			if (IsDead || health[leftLowerArm] <= 0f && health[rightLowerArm] <= 0f || !AllowLongRange)
+			if (IsDead || health[leftLowerArm] <= 0f && health[rightLowerArm] <= 0f || !AllowLongRange || LockControl)
 				return;
 
 			if (coolDown <= 0)
@@ -947,7 +956,7 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public void ThrowTrap(float angle)
 		{
-			if (!IsDead && trapAmmo > 0 && trapThrowTime <= 0 && AllowTraps)
+			if (!IsDead && trapAmmo > 0 && trapThrowTime <= 0 && AllowTraps && !LockControl)
 			{
 				trapAmmo--;
 				trapThrowTime = THROW_TIME;

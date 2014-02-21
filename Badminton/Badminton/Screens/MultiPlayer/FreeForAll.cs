@@ -29,6 +29,7 @@ namespace Badminton.Screens.MultiPlayer
 
 		bool timed;
 		int millisLeft;
+		int startPause;
 
 		bool gameOver;
 		List<int> winners;
@@ -60,12 +61,18 @@ namespace Badminton.Screens.MultiPlayer
 
 			for (int i = 0; i < colors.Length; i++)
 				if (colors[i] != null)
+				{
 					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, colors[i], Players[i]);
+					player[i].LockControl = true;
+				}
 
 			if (bots && colors.Length < 4)
 			{
 				for (int i = colors.Length; i < 4; i++)
+				{
 					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player);
+					player[i].LockControl = true;
+				}
 			}
 
 			for (int i = 0; i < info.Length; i++)
@@ -73,6 +80,7 @@ namespace Badminton.Screens.MultiPlayer
 
 			timed = minutes > 0;
 			millisLeft = (minutes == 0 ? -1 : minutes * 60000);
+			startPause = 180;
 			gameOver = false;
 			winners = new List<int>();
 			winSticks = new List<StickFigure>();
@@ -80,6 +88,14 @@ namespace Badminton.Screens.MultiPlayer
 
         public GameScreen Update(GameTime gameTime)
         {
+			startPause--;
+			if (startPause == 0)
+			{
+				foreach (StickFigure s in player)
+					if (s != null)
+						s.LockControl = false;
+			}
+
 			for (int i = 0; i < player.Length; i++)
 			{
 				if (player[i] != null && info[i].HasLives())
@@ -131,7 +147,8 @@ namespace Badminton.Screens.MultiPlayer
 
 				if (timed && !gameOver)
 				{
-					millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
+					if (startPause < 0)
+						millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
 					if (millisLeft <= 0)
 					{
 						gameOver = true;
@@ -223,6 +240,11 @@ namespace Badminton.Screens.MultiPlayer
 				}
 				sb.DrawString(MainGame.fnt_basicFont, "Press start to continue", new Vector2(1200, 800), Color.Black);
 			}
+
+			if (startPause > 0)
+				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "Ready...", new Vector2(900, 500), Color.Red);
+			else if (startPause > -120)
+				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "GO!", new Vector2(930, 500), Color.Green);
         }
 
 		public GameScreen GoBack()
