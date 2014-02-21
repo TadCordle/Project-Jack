@@ -943,7 +943,7 @@ namespace Badminton.Stick_Figures
 			if (coolDown <= 0)
 			{
 				attacks.Add(new LongRangeAttack(world, health[leftLowerArm] > 0f ? LeftHandPosition : RightHandPosition, (-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f), 0.1f + 0.2f * (chargeUp / MAX_CHARGE), collisionCat));
-				ApplyForce((-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (15f + chargeUp / 15f) * -5f * scale);
+				ApplyForce((-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (20f + chargeUp / 20f) * -5f * scale);
 				chargeUp = 0;
 				coolDown = COOL_PERIOD;
 			}

@@ -1,15 +1,6 @@
-StickFigure (Tad will work on this mostly)
-	- Add particle effects to long range attacks
-	- Customization?
-
 Game Modes
 	- Implement GameScreen interface to make something like the "SingleMap" class, but
 		for each game mode
-		* Free for All
-			- Compare health as well as lives?
-			- Implement ties
-				* Start new sudden death game w/ tied players, 1 life each?
-			- Update fonts
 		* Team Deathmatch
 			- Copy paste free for all
 			- Make teams by changing collision categories
@@ -39,6 +30,6 @@ Menus
 		* Update graphics
 		* Update controls
 		* Replace "press start to start" with on screen button to make checkboxes more intuitive
-	- Character customization?
+	- Replace Character Customization with Help
 
 Add maps
