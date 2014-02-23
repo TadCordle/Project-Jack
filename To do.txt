@@ -17,10 +17,14 @@ Game Modes
 			- King of the hill: copy free for all
 			- Soccer
 
+AI
+	- Use other attacks (long range, explosives)
+	- Make them attack each other if collision category is different
+	- Make sure they don't attack dead bodies (check IsDead property)
+
 Menus
 	- Main Menu
 		* Background video
-		* Update art
 	- Character Select
 		* Prevent duplicate colors
 		* Show text demonstrating teams when different gamemode is checked (players 1/3 vs 2/4?)
@@ -33,3 +37,8 @@ Menus
 	- Replace Character Customization with Help
 
 Add maps
+
+Art
+	- Update menu art when menu layout is finished
+	- Music
+	- Update end game art
