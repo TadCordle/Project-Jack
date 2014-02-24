@@ -36,9 +36,13 @@ Menus
 		* Replace "press start to start" with on screen button to make checkboxes more intuitive
 	- Replace Character Customization with Help
 
-Add maps
-
 Art
+	- Update trap art
+	- Add match start animation to replace static "Ready... Go" text
+	- Add new arena(s)
+	- Update end-game art
 	- Update menu art when menu layout is finished
+	- Update alternate skeleton skins?
+	- Help screen
 	- Music
-	- Update end game art
+	- Better sfx
