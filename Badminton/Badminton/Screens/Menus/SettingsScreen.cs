@@ -127,7 +127,7 @@ namespace Badminton.Screens.Menus
 					case 0:
 						return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 					case 1:
-						return new Match_TDM();
+						return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 					case 2:
 						return new OneVsAll();
 				}

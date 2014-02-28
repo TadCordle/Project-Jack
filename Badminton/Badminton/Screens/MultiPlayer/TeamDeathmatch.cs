@@ -15,15 +15,15 @@ using Badminton.Attacks;
 
 namespace Badminton.Screens.MultiPlayer
 {
-    class FreeForAll : GameScreen
-    {
-        World world;
-        List<Wall> walls;
+	class TeamDeathmatch : GameScreen
+	{
+		World world;
+		List<Wall> walls;
 
 		StickFigure[] player;
-        Vector2[] spawnPoints;
-        TrapAmmo[] ammo;
-        Texture2D background;
+		Vector2[] spawnPoints;
+		TrapAmmo[] ammo;
+		Texture2D background;
 
 		PlayerValues[] info;
 
@@ -35,10 +35,10 @@ namespace Badminton.Screens.MultiPlayer
 		List<int> winners;
 		List<StickFigure> winSticks;
 
-		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
+		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat1, Category.Cat2 };
 		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
 
-		public FreeForAll(Color[] colors, string mapString, float gravity, int minutes, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
+		public TeamDeathmatch(Color[] colors, string mapString, float gravity, int minutes, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
 		{
 			world = new World(new Vector2(0, gravity));
 
@@ -61,7 +61,7 @@ namespace Badminton.Screens.MultiPlayer
 			for (int i = 0; i < colors.Length; i++)
 				if (colors[i] != null)
 				{
-					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, colors[i], Players[i]);
+					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, i % 2 == 1, colors[i], Players[i]);
 					player[i].LockControl = true;
 				}
 
@@ -69,7 +69,7 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				for (int i = colors.Length; i < 4; i++)
 				{
-					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player);
+					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, i % 2 == 1, new Color(i * 60, i * 60, i * 60), Players[i], player);
 					player[i].LockControl = true;
 				}
 			}
@@ -85,8 +85,8 @@ namespace Badminton.Screens.MultiPlayer
 			winSticks = new List<StickFigure>();
 		}
 
-        public GameScreen Update(GameTime gameTime)
-        {
+		public GameScreen Update(GameTime gameTime)
+		{
 			startPause--;
 			if (startPause == 0)
 			{
@@ -120,8 +120,8 @@ namespace Badminton.Screens.MultiPlayer
 				}
 			}
 
-            // Update ammo
-            foreach (TrapAmmo t in ammo)
+			// Update ammo
+			foreach (TrapAmmo t in ammo)
 				if (t != null)
 					t.Update();
 
@@ -138,7 +138,7 @@ namespace Badminton.Screens.MultiPlayer
 				{
 					for (int i = 0; i < winners.Count; i++)
 					{
-						winSticks.Add(new StickFigure(world, new Vector2(600 + 80 * i, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[i]].Color));
+						winSticks.Add(new StickFigure(world, new Vector2(600 + 80 * i, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, i % 2 == 1, player[winners[i]].Color));
 						winSticks[i].Stand();
 					}
 				}
@@ -155,18 +155,19 @@ namespace Badminton.Screens.MultiPlayer
 
 			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
 			return this;
-        }
+		}
 
 		protected virtual bool GameIsOver(List<int> winners)
 		{
 			bool gameOver = true;
 			winners.Clear();
-			for (int i = 0; i < info.Length; i++)
+			for (int i = 0; i <= 1; i++)
 			{
-				if (info[i].Lives > 0)
+				if (info[i].Lives > 0 || (info.Length > i + 2 ? info[i + 2].Lives > 0 : false))
 				{
 					winners.Add(i);
-					if (winners.Count >= 2)
+					if (info.Length > i + 2) winners.Add(i + 2);
+					if (winners.Count > (info.Length > 2 ? 2 : 1))
 					{
 						gameOver = false;
 						winners.Clear();
@@ -180,41 +181,41 @@ namespace Badminton.Screens.MultiPlayer
 			else if (timed && millisLeft <= 0)
 			{
 				gameOver = true;
-				winners.Add(0);
-				for (int i = 1, max = info[0].Lives; i < info.Length; i++)
+				int lives1 = (info.Length > 2 ? (info[0].Lives + info[2].Lives) / 2 : info[0].Lives);
+				int lives2 = (info.Length > 3 ? (info[1].Lives + info[3].Lives) / 2 : info[1].Lives);
+				if (lives1 >= lives2)
 				{
-					if (info[i].Lives > max)
-					{
-						winners.Clear();
-						winners.Add(i);
-						max = info[i].Lives;
-					}
-					else if (info[i].Lives == max)
-						winners.Add(i);
+					winners.Add(0);
+					if (info.Length > 2) winners.Add(2);
+				}
+				if (lives2 >= lives1)
+				{
+					winners.Add(1);
+					if (info.Length > 3) winners.Add(3);
 				}
 			}
 
 			return gameOver;
 		}
 
-        public void Draw(SpriteBatch sb)
-        {
-            // draw background
-            sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
+		public void Draw(SpriteBatch sb)
+		{
+			// draw background
+			sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
 
-            // draw ammo
-            foreach (TrapAmmo t in ammo)
+			// draw ammo
+			foreach (TrapAmmo t in ammo)
 				if (t != null)
 					t.Draw(sb);
 
-            // draw players
+			// draw players
 			for (int i = 0; i < player.Length; i++)
 				if (player[i] != null)
 					player[i].Draw(sb);
 
-            // draw walls
-//			foreach (Wall w in walls)
-//				w.Draw(sb);
+			// draw walls
+			//			foreach (Wall w in walls)
+			//				w.Draw(sb);
 
 			// Draw HUD
 			if (millisLeft >= 0)
@@ -229,18 +230,22 @@ namespace Badminton.Screens.MultiPlayer
 				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "Ready...", new Vector2(900, 500), Color.Red);
 			else if (startPause > -120)
 				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "GO!", new Vector2(930, 500), Color.Green);
-        }
+		}
 
 		protected virtual void DrawGameOver(SpriteBatch sb)
 		{
 			sb.Draw(MainGame.tex_blank, new Rectangle(450, 200, 1020, 680), Color.White);
 			sb.DrawString(MainGame.fnt_bigFont, "Game over!", new Vector2(860, 290), Color.Black);
 
-			if (winners.Count == 1)
+			if (winners.Count <= (info.Length > 2 ? 2 : 1))
 			{
-				sb.DrawString(MainGame.fnt_midFont, "Winner: Player " + (winners[0] + 1) + "!", new Vector2(1000, 500), Color.Black);
+				sb.DrawString(MainGame.fnt_midFont, "Winners: Player" + (winners.Count == 1 ? "" : "s") + " " + (winners.Count == 1 ? (winners[0] + 1) + "" : (winners[0] + 1) + ", " + (winners[1] + 1)) + "!", new Vector2(1000, 500), Color.Black);
 				if (winSticks.Count > 0)
+				{
 					winSticks[0].Draw(sb);
+					if (winSticks.Count > 1)
+						winSticks[1].Draw(sb);
+				}
 			}
 			else
 			{
@@ -256,8 +261,8 @@ namespace Badminton.Screens.MultiPlayer
 		}
 
 		public GameScreen GoBack()
-        {
+		{
 			return new MainMenu();
-        }
-    }
+		}
+	}
 }

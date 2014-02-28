@@ -1,11 +1,7 @@
 Game Modes
+	- Fix giant health bar glitch
 	- Implement GameScreen interface to make something like the "SingleMap" class, but
 		for each game mode
-		* Team Deathmatch
-			- Copy paste free for all
-			- Make teams by changing collision categories
-			- Make some way of identifying teams (use alternate skin)
-			- Change win screen to show team rather than individual player
 		* One Vs All
 			- Same as TDM, but only one player has a different collision cat
 			- Tweak end game so that lone player wins if timer runs outs
