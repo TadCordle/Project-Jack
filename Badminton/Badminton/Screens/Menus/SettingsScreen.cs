@@ -129,7 +129,7 @@ namespace Badminton.Screens.Menus
 					case 1:
 						return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 					case 2:
-						return new OneVsAll();
+						return new OneVsAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 				}
 			}
 
