@@ -138,7 +138,7 @@ namespace Badminton.Screens.MultiPlayer
 				{
 					for (int i = 0; i < winners.Count; i++)
 					{
-						winSticks.Add(new StickFigure(world, new Vector2(600 + 80 * i, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, i % 2 == 1, player[winners[i]].Color));
+						winSticks.Add(new StickFigure(world, new Vector2(600 + 80 * i, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, winners[i] % 2 == 1, player[winners[i]].Color));
 						winSticks[i].Stand();
 					}
 				}
@@ -243,8 +243,7 @@ namespace Badminton.Screens.MultiPlayer
 				if (winSticks.Count > 0)
 				{
 					winSticks[0].Draw(sb);
-					if (winSticks.Count > 1)
-						winSticks[1].Draw(sb);
+					winSticks[1].Draw(sb);
 				}
 			}
 			else
