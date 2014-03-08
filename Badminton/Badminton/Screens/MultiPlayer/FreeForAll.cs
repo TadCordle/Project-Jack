@@ -149,7 +149,7 @@ namespace Badminton.Screens.MultiPlayer
 					s.ApplyForce(world.Gravity * -1);
 				}
 
-				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
+				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
 					return GoBack();
 			}
 
