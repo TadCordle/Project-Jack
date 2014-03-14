@@ -62,6 +62,8 @@ namespace Badminton.Stick_Figures
 		private Vector2 groundSensorStart, groundSensorEnd;
 		private bool increaseFall;
 		private bool leftLegLeft, rightLegLeft;
+		private bool colliding;
+		private bool leftArmDoneAttacking, rightArmDoneAttacking, leftLegDoneAttacking, rightLegDoneAttacking;
 
 		#region Properties
 
@@ -319,6 +321,8 @@ namespace Badminton.Stick_Figures
 			this.collisionCat = collisionCat;
 			LastFacedLeft = true;
 			LockControl = false;
+			this.colliding = false;
+			leftArmDoneAttacking = rightArmDoneAttacking = leftLegDoneAttacking = rightLegDoneAttacking = false;
 
 			GenerateBody(world, position, collisionCat);
 			ConnectBody(world);
@@ -359,6 +363,7 @@ namespace Badminton.Stick_Figures
 			torso.CollisionCategories = collisionCat;
 			torso.CollidesWith = Category.All & ~collisionCat;
 			torso.Friction = friction;
+			torso.UserData = "torso";
 			gyro = BodyFactory.CreateBody(world, torso.Position);
 			gyro.CollidesWith = Category.None;
 			gyro.BodyType = BodyType.Dynamic;
@@ -374,6 +379,7 @@ namespace Badminton.Stick_Figures
 			head.CollidesWith = Category.All & ~collisionCat;
 			head.Restitution = 0.2f;
 			head.Friction = friction;
+			head.UserData = "head";
 			health.Add(head, 1.0f);
 			forceNextPos.Add(head, MIN_POSE_TIME);
 
@@ -384,6 +390,7 @@ namespace Badminton.Stick_Figures
 			leftUpperArm.CollisionCategories = collisionCat;
 			leftUpperArm.CollidesWith = Category.All & ~collisionCat;
 			leftUpperArm.Friction = friction;
+			leftUpperArm.UserData = "leftUpperArm";
 			health.Add(leftUpperArm, 1.0f);
 			forceNextPos.Add(leftUpperArm, MIN_POSE_TIME);
 
@@ -394,6 +401,7 @@ namespace Badminton.Stick_Figures
 			rightUpperArm.CollisionCategories = collisionCat;
 			rightUpperArm.CollidesWith = Category.All & ~collisionCat;
 			rightUpperArm.Friction = friction;
+			rightUpperArm.UserData = "rightUpperArm";
 			health.Add(rightUpperArm, 1.0f);
 			forceNextPos.Add(rightUpperArm, MIN_POSE_TIME);
 
@@ -404,6 +412,7 @@ namespace Badminton.Stick_Figures
 			leftLowerArm.CollisionCategories = collisionCat;
 			leftLowerArm.CollidesWith = Category.All & ~collisionCat;
 			leftLowerArm.Friction = friction;
+			leftLowerArm.UserData = "leftLowerArm";
 			health.Add(leftLowerArm, 1.0f);
 			forceNextPos.Add(leftLowerArm, MIN_POSE_TIME);
 
@@ -414,6 +423,7 @@ namespace Badminton.Stick_Figures
 			rightLowerArm.CollisionCategories = collisionCat;
 			rightLowerArm.CollidesWith = Category.All & ~collisionCat;
 			rightLowerArm.Friction = friction;
+			rightLowerArm.UserData = "rightLowerArm";
 			health.Add(rightLowerArm, 1.0f);
 			forceNextPos.Add(rightLowerArm, MIN_POSE_TIME);
 
@@ -425,6 +435,7 @@ namespace Badminton.Stick_Figures
 			leftUpperLeg.CollidesWith = Category.All & ~collisionCat;
 			leftUpperLeg.Restitution = 0.15f;
 			leftUpperLeg.Friction = friction;
+			leftUpperLeg.UserData = "leftUpperLeg";
 			health.Add(leftUpperLeg, 1.0f);
 			forceNextPos.Add(leftUpperLeg, MIN_POSE_TIME);
 
@@ -436,6 +447,7 @@ namespace Badminton.Stick_Figures
 			rightUpperLeg.CollidesWith = Category.All & ~collisionCat;
 			rightUpperLeg.Restitution = 0.15f;
 			rightUpperLeg.Friction = friction;
+			rightUpperLeg.UserData = "rightUpperLeg";
 			health.Add(rightUpperLeg, 1.0f);
 			forceNextPos.Add(rightUpperLeg, MIN_POSE_TIME);
 
@@ -446,6 +458,7 @@ namespace Badminton.Stick_Figures
 			leftLowerLeg.CollidesWith = Category.All & ~collisionCat;
 			leftLowerLeg.Restitution = 0.15f;
 			leftLowerLeg.Friction = friction;
+			leftLowerLeg.UserData = "leftLowerLeg";
 			health.Add(leftLowerLeg, 1.0f);
 			forceNextPos.Add(leftLowerLeg, MIN_POSE_TIME);
 
@@ -456,6 +469,7 @@ namespace Badminton.Stick_Figures
 			rightLowerLeg.CollidesWith = Category.All & ~collisionCat;
 			rightLowerLeg.Restitution = 0.15f;
 			rightLowerLeg.Friction = friction;
+			rightLowerLeg.UserData = "rightLowerLeg";
 			health.Add(rightLowerLeg, 1.0f);
 			forceNextPos.Add(rightLowerLeg, MIN_POSE_TIME);
 		}
@@ -608,6 +622,15 @@ namespace Badminton.Stick_Figures
 			{
 				((TrapAmmo)fixtureB.Body.UserData).PickUp();
 				this.trapAmmo = MAX_AMMO;
+			}
+			else if (fixtureB.Body.UserData is string)
+			{
+				colliding = true;
+				if ((string)fixtureA.Body.UserData == "leftUpperArm" && leftArmDoneAttacking ||
+						(string)fixtureA.Body.UserData == "rightUpperArm" && rightArmDoneAttacking ||
+						(string)fixtureA.Body.UserData == "leftLowerLeg" && leftLegDoneAttacking ||
+						(string)fixtureA.Body.UserData == "rightLowerLeg" && rightLegDoneAttacking)
+					return false;
 			}
 
 			return contact.IsTouching;
@@ -999,6 +1022,15 @@ namespace Badminton.Stick_Figures
 			if (!AllowTraps)
 				trapAmmo = 0;
 
+			if (!colliding)
+			{
+				leftArmDoneAttacking = false;
+				rightLegDoneAttacking = false;
+				leftLegDoneAttacking = false;
+				rightLegDoneAttacking = false;
+			}
+			colliding = false;
+
 			UpdateLimbStrength();
 			UpdateLimbAttachment();
 			UpdateLimbFriction();
@@ -1117,8 +1149,10 @@ namespace Badminton.Stick_Figures
 						punchStage = -1;
 						leftUpperArm.CollidesWith = Category.All & ~this.collisionCat;
 						leftLowerArm.CollidesWith = Category.All & ~this.collisionCat;
+						leftArmDoneAttacking = true;
 						rightUpperArm.CollidesWith = Category.All & ~this.collisionCat;
 						rightLowerArm.CollidesWith = Category.All & ~this.collisionCat;
+						rightArmDoneAttacking = true;
 					}
 				}
 			}
@@ -1197,8 +1231,10 @@ namespace Badminton.Stick_Figures
 					kickStage = -1;
 					leftLowerLeg.CollidesWith = Category.All & ~this.collisionCat;
 					leftUpperLeg.CollidesWith = Category.All & ~this.collisionCat;
+					leftLegDoneAttacking = true;
 					rightLowerLeg.CollidesWith = Category.All & ~this.collisionCat;
 					rightUpperLeg.CollidesWith = Category.All & ~this.collisionCat;
+					rightLegDoneAttacking = true;
 				}
 			}
 		}
