@@ -15,7 +15,7 @@ namespace Badminton.Screens.Menus
 	class SettingsScreen : GameScreen
 	{
 		private PlayerSelect prevScreen;
-		bool upPressed, downPressed, leftPressed, rightPressed;
+		bool upPressed, downPressed, leftPressed, rightPressed, startPressed;
 
 		float gravity;
 		float limbStrength;
@@ -34,6 +34,7 @@ namespace Badminton.Screens.Menus
 			downPressed = true;
 			leftPressed = true;
 			rightPressed = true;
+			startPressed = true;
 
 			gravity = 9.8f;
 			limbStrength = 1f;
@@ -118,20 +119,25 @@ namespace Badminton.Screens.Menus
 
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start) || Keyboard.GetState().IsKeyDown(Keys.Enter))
 			{
-
-				switch (prevScreen.Mode)
+				if (!startPressed)
 				{
-					// Pass parameters eventually
-					case -1:
-						return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
-					case 0:
-						return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
-					case 1:
-						return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
-					case 2:
-						return new OneVsAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+					startPressed = true;
+					switch (prevScreen.Mode)
+					{
+						// Pass parameters eventually
+						case -1:
+							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+						case 0:
+							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+						case 1:
+							return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+						case 2:
+							return new OneVsAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+					}
 				}
 			}
+			else
+				startPressed = false;
 
 			if (prevScreen.Colors.Length == 1)
 			{

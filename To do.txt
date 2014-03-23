@@ -1,5 +1,4 @@
 Stick Figure
-	- Fix respawning on top of each other
 	- Self destruct action
 
 Game Modes
