@@ -23,12 +23,9 @@ Menus
 		* Possibly add more game modes?
 	- Game Settings
 		* Update graphics
-		* Update controls
-		* Replace "press start to start" with on screen button to make checkboxes more intuitive
-	- Replace Character Customization with Help
+	- Character customization
 
 Art
-	- Update trap art
 	- Add match start animation to replace static "Ready... Go" text
 	- Add new arena(s)
 	- Update end-game art

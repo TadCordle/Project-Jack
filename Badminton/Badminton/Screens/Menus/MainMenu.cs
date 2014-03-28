@@ -21,7 +21,7 @@ namespace Badminton.Screens.Menus
 			choices = new List<Component>();
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 500, MainGame.tex_mm_comp, "comp"));
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 620, MainGame.tex_mm_coop, "coop"));
-			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 740, MainGame.tex_mm_cust, "cust"));
+			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 740, MainGame.tex_mm_cust, "help"));
 			choices.Add(new Button(Vector2.UnitX * 960 + Vector2.UnitY * 860, MainGame.tex_mm_exit, "exit"));
 			choices[0].Selected = true;
 			confirmPressed = true;
@@ -114,7 +114,7 @@ namespace Badminton.Screens.Menus
 								return new Menus.PlayerSelect(0);
 							else if (b.ReturnString == "coop")
 								return new Menus.PlayerSelect(-1);
-							else if (b.ReturnString == "cust")		// TODO: Change this when we have character customization
+							else if (b.ReturnString == "help")		// TODO: Change this when we have a help screen
 								return this;
 							else
 								return null;
@@ -135,10 +135,12 @@ namespace Badminton.Screens.Menus
 
 		public void Draw(SpriteBatch sb)
 		{
+			sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
+			Color c = new Color(255, 255, 255, 150);
+			sb.Draw(MainGame.tex_blank, new Rectangle(600, 32, 723, 1016), c);
 			sb.Draw(MainGame.tex_logo, Vector2.UnitX * 960 + Vector2.UnitY * 240, null, Color.White, 0f, new Vector2(MainGame.tex_logo.Width / 2, MainGame.tex_logo.Height / 2), 1f, SpriteEffects.None, 0);
 			foreach (Button b in choices)
 				b.Draw(sb);
-			sb.DrawString(MainGame.fnt_basicFont, Mouse.GetState().X.ToString() + ", " + Mouse.GetState().Y.ToString(), Vector2.Zero, choices[0].IsMouseOver() ? Color.Red : Color.Black);
 		}
 	}
 }
