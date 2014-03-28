@@ -1,6 +1,3 @@
-Stick Figure
-	- Self destruct action
-
 Game Modes
 	* Co op
 		- 4 players on one team, bots spawn infinitely 4 at a time from the sky

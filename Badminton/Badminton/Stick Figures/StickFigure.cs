@@ -1012,6 +1012,44 @@ namespace Badminton.Stick_Figures
 			}
 		}
 
+		/// <summary>
+		/// Self destructs the stick figure
+		/// </summary>
+		public void Explode()
+		{
+			if (!IsDead && !LockControl && Invulnerability <= 0)
+			{
+				Random r = new Random();
+				for (int i = 0; i < 50; i++)
+				{
+					float angle = (float)r.NextDouble() * MathHelper.TwoPi;
+					attacks.Add(new ExplosionParticle(world, torso.Position, new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * r.Next(15, 20), collisionCat));
+				}
+
+				health[head] = 0f;
+				head.ApplyLinearImpulse(Vector2.UnitY * -100);
+				health[torso] = 0f;
+				health[leftUpperArm] = 0f;
+				leftUpperArm.ApplyLinearImpulse(Vector2.UnitX * -10 + Vector2.UnitY * -10);
+				health[leftLowerArm] = 0f;
+				leftLowerArm.ApplyLinearImpulse(Vector2.UnitX * -12 + Vector2.UnitY * -5);
+				health[rightUpperArm] = 0f;
+				rightUpperArm.ApplyLinearImpulse(Vector2.UnitX * 10 + Vector2.UnitY * -10);
+				health[rightLowerArm] = 0f;
+				rightLowerArm.ApplyLinearImpulse(Vector2.UnitX * 12 + Vector2.UnitY * -5);
+				health[leftUpperLeg] = 0f;
+				leftUpperLeg.ApplyLinearImpulse(Vector2.UnitX * -12 + Vector2.UnitY * 5);
+				health[rightUpperLeg] = 0f;
+				rightUpperLeg.ApplyLinearImpulse(Vector2.UnitX * 12 + Vector2.UnitY * 5);
+				health[leftLowerLeg] = 0f;
+				leftLowerLeg.ApplyLinearImpulse(Vector2.UnitX * -10 + Vector2.UnitY * 10);
+				health[rightLowerLeg] = 0f;
+				rightLowerLeg.ApplyLinearImpulse(Vector2.UnitX * 10 + Vector2.UnitY * 10);
+
+				// TODO: Play explosion sound
+			}
+		}
+
 		#endregion
 
 		#region Updating
