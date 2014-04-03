@@ -139,6 +139,7 @@ namespace Badminton.Screens.MultiPlayer
 					for (int i = 0; i < winners.Count; i++)
 					{
 						winSticks.Add(new StickFigure(world, new Vector2(600 + 80 * i, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[i]].Color));
+						winSticks[i].Invulnerability = 0;
 						winSticks[i].Stand();
 					}
 				}
@@ -149,7 +150,7 @@ namespace Badminton.Screens.MultiPlayer
 					s.ApplyForce(world.Gravity * -1);
 				}
 
-				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
+				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
 					return GoBack();
 			}
 

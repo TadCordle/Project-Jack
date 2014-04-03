@@ -23,7 +23,7 @@ namespace Badminton.Attacks
 		public LongRangeAttack(World w, Vector2 position, Vector2 power, float damage, Category collisionCat)
 			: base(w, collisionCat, damage)
 		{
-			body = BodyFactory.CreateRectangle(w, 16f * MainGame.PIXEL_TO_METER, 16f * MainGame.PIXEL_TO_METER, 50f);
+			body = BodyFactory.CreateRectangle(w, 24f * MainGame.PIXEL_TO_METER, 24f * MainGame.PIXEL_TO_METER, 50f);
 			body.BodyType = BodyType.Dynamic;
 			body.Position = position;
 			body.LinearVelocity = power;
@@ -72,7 +72,7 @@ namespace Badminton.Attacks
 
 		public override void Draw(SpriteBatch sb, Color c)
 		{
-			sb.Draw(MainGame.tex_box, body.Position * MainGame.METER_TO_PIXEL, null, c, body.Rotation, new Vector2(MainGame.tex_box.Width / 2, MainGame.tex_box.Height / 2), new Vector2(16f / MainGame.tex_box.Width, 16f / MainGame.tex_box.Height), SpriteEffects.None, 1f);
+			sb.Draw(MainGame.tex_longRange, body.Position * MainGame.METER_TO_PIXEL, null, c, body.Rotation, new Vector2(MainGame.tex_box.Width / 2, MainGame.tex_box.Height / 2), new Vector2(24f / MainGame.tex_box.Width, 24f / MainGame.tex_box.Height), SpriteEffects.None, 1f);
 			foreach (Particle p in particles)
 				sb.Draw(MainGame.tex_explosionParticle, p.position, c);
 		}

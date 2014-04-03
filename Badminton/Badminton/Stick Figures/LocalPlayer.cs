@@ -98,6 +98,9 @@ namespace Badminton.Stick_Figures
 			else
 				Crouching = false;
 
+			if (usesKeyboard ? Keyboard.GetState().IsKeyDown(Keys.Enter) : GamePad.GetState(player).IsButtonDown(Buttons.LeftShoulder))
+				Explode();
+
 			if (usesKeyboard)
 			{
 				// Shoot

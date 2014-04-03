@@ -1,22 +1,17 @@
 Game Modes
-	- Fix giant health bar glitch
-	- Implement GameScreen interface to make something like the "SingleMap" class, but
-		for each game mode
-		* One Vs All
-			- Same as TDM, but only one player has a different collision cat
-			- Tweak end game so that lone player wins if timer runs outs
-		* Co op
-			- 4 players on one team, bots spawn infinitely 4 at a time from the sky
-			- Timer counts up instead of down and keep track of high score?
-		* Other possibilities
-			- Capture the flag: copy TDM, add flags, change win condition
-			- King of the hill: copy free for all
-			- Soccer
+	* Co op
+		- 4 players on one team, bots spawn infinitely 4 at a time from the sky
+		- Timer counts up instead of down and keep track of high score?
+	* Other possibilities
+		- Capture the flag: copy TDM, add flags, change win condition
+		- King of the hill: copy free for all
+		- Soccer
 
 AI
-	- Use other attacks (long range, explosives)
 	- Make them attack each other if collision category is different
-	- Make sure they don't attack dead bodies (check IsDead property)
+	- Check time since last hit to change target
+	- Use other attacks (long range, explosives)
+	- Self destruct under certain conditions
 
 Menus
 	- Main Menu
@@ -28,12 +23,9 @@ Menus
 		* Possibly add more game modes?
 	- Game Settings
 		* Update graphics
-		* Update controls
-		* Replace "press start to start" with on screen button to make checkboxes more intuitive
-	- Replace Character Customization with Help
+	- Character customization
 
 Art
-	- Update trap art
 	- Add match start animation to replace static "Ready... Go" text
 	- Add new arena(s)
 	- Update end-game art

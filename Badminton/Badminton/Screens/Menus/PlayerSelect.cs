@@ -238,11 +238,15 @@ namespace Badminton.Screens.Menus
 
 		public void Draw(SpriteBatch sb)
 		{
+			sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
+			Color c = new Color(255, 255, 255, 150);
+			sb.Draw(MainGame.tex_blank, new Rectangle(100, 50, 1720, 980), c);
+
 			foreach (PlayerSelectBox box in boxes)
 				box.Draw(sb);
-			foreach (Component c in components)
-				if (c is CheckBox)
-					c.Draw(sb);
+			foreach (Component comp in components)
+				if (comp is CheckBox)
+					comp.Draw(sb);
 
 			if (showButton)
 				components[components.Count - 1].Draw(sb);

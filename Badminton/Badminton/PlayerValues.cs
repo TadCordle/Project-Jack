@@ -43,7 +43,10 @@ namespace Badminton
 		public void Draw(SpriteBatch sb, Vector2 position, StickFigure figure)
 		{
 			sb.Draw(MainGame.tex_blank, position, null, Color.Black, 0f, Vector2.Zero, new Vector2(172, 32), SpriteEffects.None, 0f);
-			sb.Draw(MainGame.tex_blank, position + Vector2.UnitY + Vector2.UnitX, null, figure.Color, 0f, Vector2.Zero, new Vector2(figure != null && figure.ScalarHealth > 0 ? figure.ScalarHealth * 170 : 0, 30), SpriteEffects.None, 0f);
+			float health = figure != null ? figure.ScalarHealth : 0f;
+			if (health > 1f || health < 0f)
+				health = 0f;
+			sb.Draw(MainGame.tex_blank, position + Vector2.UnitY + Vector2.UnitX, null, figure.Color, 0f, Vector2.Zero, new Vector2(health * 170, 30), SpriteEffects.None, 0f);
 			
 			sb.Draw(MainGame.tex_head, position - Vector2.UnitX * 40 - Vector2.UnitY * 10, null, figure.Color, 0f, Vector2.Zero, Vector2.One * 0.55f, SpriteEffects.None, 0f);
 			
