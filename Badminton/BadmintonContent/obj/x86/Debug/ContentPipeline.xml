@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\castle.xnb</Output>
-      <Time>2013-10-30T11:27:21.5840317-04:00</Time>
+      <Time>2014-04-15T19:50:14.4833101-04:00</Time>
     </Item>
     <Item>
       <Source>textures\long range.png</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\long range.xnb</Output>
-      <Time>2014-03-23T18:59:27.363306-04:00</Time>
+      <Time>2014-04-15T19:50:15.5983739-04:00</Time>
     </Item>
     <Item>
       <Source>textures\trap_closed.png</Source>
@@ -71,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_closed.xnb</Output>
-      <Time>2014-03-28T15:43:45.7126786-04:00</Time>
+      <Time>2014-04-15T19:50:15.9533942-04:00</Time>
     </Item>
     <Item>
       <Source>textures\trap_open.png</Source>
@@ -80,7 +80,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\trap_open.xnb</Output>
-      <Time>2014-03-28T15:51:03.5817232-04:00</Time>
+      <Time>2014-04-15T19:50:15.9903963-04:00</Time>
     </Item>
     <Item>
       <Source>textures\explosion particle.png</Source>
@@ -116,7 +116,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\mm_custom.xnb</Output>
-      <Time>2014-03-28T16:06:20.1261466-04:00</Time>
+      <Time>2014-04-15T19:50:15.7603832-04:00</Time>
     </Item>
     <Item>
       <Source>textures\menu assets\mm_exit.png</Source>
@@ -134,7 +134,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\logo.xnb</Output>
-      <Time>2014-03-23T19:13:50.4006689-04:00</Time>
+      <Time>2014-04-15T19:50:15.7203809-04:00</Time>
     </Item>
     <Item>
       <Source>textures\menu assets\ps_blank.png</Source>
@@ -143,7 +143,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_blank.xnb</Output>
-      <Time>2013-11-15T20:18:39.7995043-05:00</Time>
+      <Time>2014-04-15T22:31:59.9367693-04:00</Time>
     </Item>
     <Item>
       <Source>textures\menu assets\ps_controller.png</Source>
@@ -233,7 +233,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_checked.xnb</Output>
-      <Time>2013-11-23T15:21:33.6074882-05:00</Time>
+      <Time>2014-04-15T19:50:15.599374-04:00</Time>
     </Item>
     <Item>
       <Source>textures\menu assets\checkbox_unchecked.png</Source>
@@ -242,7 +242,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\checkbox_unchecked.xnb</Output>
-      <Time>2013-11-23T15:21:05.7958974-05:00</Time>
+      <Time>2014-04-15T19:50:15.600374-04:00</Time>
     </Item>
     <Item>
       <Source>textures\menu assets\ps_next.png</Source>
@@ -251,7 +251,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\ps_next.xnb</Output>
-      <Time>2013-11-23T15:47:36.7128927-05:00</Time>
+      <Time>2014-04-15T22:31:11.5980045-04:00</Time>
     </Item>
     <Item>
       <Source>textures\menu assets\down.png</Source>
@@ -260,7 +260,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\down.xnb</Output>
-      <Time>2013-12-06T16:50:13.4760522-05:00</Time>
+      <Time>2014-04-15T19:50:15.6793786-04:00</Time>
     </Item>
     <Item>
       <Source>textures\menu assets\up.png</Source>
@@ -269,7 +269,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\menu assets\up.xnb</Output>
-      <Time>2014-03-23T19:06:46.0994003-04:00</Time>
+      <Time>2014-04-15T19:50:15.8383877-04:00</Time>
     </Item>
     <Item>
       <Source>textures\heart.png</Source>
@@ -278,7 +278,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\heart.xnb</Output>
-      <Time>2014-02-01T23:29:34.3219122-05:00</Time>
+      <Time>2014-04-15T19:50:15.4573659-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\armlower.png</Source>
@@ -287,7 +287,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armlower.xnb</Output>
-      <Time>2014-02-05T18:14:29.0630887-05:00</Time>
+      <Time>2014-04-15T19:50:14.516312-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\armlower1.png</Source>
@@ -296,7 +296,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armlower1.xnb</Output>
-      <Time>2014-02-05T18:14:36.1164921-05:00</Time>
+      <Time>2014-04-15T19:50:14.5733153-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\armupper.png</Source>
@@ -305,7 +305,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armupper.xnb</Output>
-      <Time>2014-02-05T18:14:42.6588663-05:00</Time>
+      <Time>2014-04-15T19:50:14.7103231-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\armupper1.png</Source>
@@ -314,7 +314,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\armupper1.xnb</Output>
-      <Time>2014-02-05T18:14:45.9350537-05:00</Time>
+      <Time>2014-04-15T19:50:14.8343302-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\head.png</Source>
@@ -323,7 +323,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\head.xnb</Output>
-      <Time>2014-02-05T18:14:55.2545868-05:00</Time>
+      <Time>2014-04-15T19:50:14.8713323-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\leglower.png</Source>
@@ -332,7 +332,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\leglower.xnb</Output>
-      <Time>2014-02-05T18:14:53.719499-05:00</Time>
+      <Time>2014-04-15T19:50:14.9443365-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\leglower1.png</Source>
@@ -341,7 +341,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\leglower1.xnb</Output>
-      <Time>2014-02-05T18:14:52.5224305-05:00</Time>
+      <Time>2014-04-15T19:50:14.987339-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\legupper.png</Source>
@@ -350,7 +350,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper.xnb</Output>
-      <Time>2014-02-05T18:14:51.0943488-05:00</Time>
+      <Time>2014-04-15T19:50:15.0373418-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\legupper1.png</Source>
@@ -359,7 +359,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\legupper1.xnb</Output>
-      <Time>2014-02-05T18:14:49.7582724-05:00</Time>
+      <Time>2014-04-15T19:50:15.2693551-04:00</Time>
     </Item>
     <Item>
       <Source>textures\evil stick figure\torso.png</Source>
@@ -368,7 +368,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\evil stick figure\torso.xnb</Output>
-      <Time>2014-02-05T18:14:48.4801993-05:00</Time>
+      <Time>2014-04-15T19:50:15.425364-04:00</Time>
     </Item>
     <Item>
       <Source>fonts\basicFont.spritefont</Source>
@@ -432,7 +432,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\bigFont.xnb</Output>
-      <Time>2014-02-21T16:05:00.2213556-05:00</Time>
+      <Time>2014-04-15T19:50:14.3723038-04:00</Time>
     </Item>
     <Item>
       <Source>fonts\midFont.spritefont</Source>
@@ -441,7 +441,25 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\fonts\midFont.xnb</Output>
-      <Time>2014-02-21T16:08:26.8161722-05:00</Time>
+      <Time>2014-04-15T19:50:14.3823044-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\end game.png</Source>
+      <Name>textures\end game</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\end game.xnb</Output>
+      <Time>2014-04-15T22:57:06.591945-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\clock.png</Source>
+      <Name>textures\clock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\clock.xnb</Output>
+      <Time>2014-04-15T23:08:42.6497573-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

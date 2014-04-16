@@ -38,11 +38,12 @@ namespace Badminton
 		GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont, fnt_bigFont, fnt_midFont;
-		public static Texture2D tex_box, tex_heart, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
+		public static Texture2D tex_box, tex_heart, tex_clock, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
 		public static Texture2D tex_evil_head, tex_evil_torso, tex_evil_armUpper, tex_evil_armLower, tex_evil_legUpper, tex_evil_legLower;
 		public static Texture2D tex_bg_castle;
 		public static Texture2D tex_blank;
+		public static Texture2D tex_endGame;
 
 		public static Texture2D tex_logo, tex_mm_coop, tex_mm_comp, tex_mm_cust, tex_mm_exit;
 		public static Texture2D tex_ps_blank, tex_ps_controller, tex_ps_keyboard, tex_ps_off, tex_ps_next;
@@ -109,6 +110,7 @@ namespace Badminton
 
 			tex_box = Content.Load<Texture2D>("textures/box");
 			tex_heart = Content.Load<Texture2D>("textures/heart");
+			tex_clock = Content.Load<Texture2D>("textures/clock");
 			tex_head = Content.Load<Texture2D>("textures/stick figure/head");
 			tex_armUpper = Content.Load<Texture2D>("textures/stick figure/armupper");
 			tex_armLower = Content.Load<Texture2D>("textures/stick figure/armlower");
@@ -129,6 +131,7 @@ namespace Badminton
 			tex_trapClosed = Content.Load<Texture2D>("textures/trap_closed");
 			tex_trapOpen = Content.Load<Texture2D>("textures/trap_open");
 			tex_explosionParticle = Content.Load<Texture2D>("textures/explosion particle");
+			tex_endGame = Content.Load<Texture2D>("textures/end game");
 
 			tex_cbChecked = Content.Load<Texture2D>("textures/menu assets/checkbox_checked");
 			tex_cbUnchecked = Content.Load<Texture2D>("textures/menu assets/checkbox_unchecked");

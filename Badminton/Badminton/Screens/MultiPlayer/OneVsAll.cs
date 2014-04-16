@@ -138,7 +138,7 @@ namespace Badminton.Screens.MultiPlayer
 				{
 					for (int i = 0; i < winners.Count; i++)
 					{
-						winSticks.Add(new StickFigure(world, new Vector2(600 + 90 * i, 500) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, winners[i] == 0, player[winners[i]].Color));
+						winSticks.Add(new StickFigure(world, new Vector2(960 + 160 * i - 80 * (winners.Count - 1), 440) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[i]].Color));
 						winSticks[i].Invulnerability = 0;
 						winSticks[i].Stand();
 					}
@@ -217,12 +217,16 @@ namespace Badminton.Screens.MultiPlayer
 
 			// Draw HUD
 			if (millisLeft >= 0)
-				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.One, Color.White);
-			for (int i = 0; i < info.Length; i++)
-				info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
+			{
+				sb.Draw(MainGame.tex_clock, Vector2.One, null, Color.White, 0f, Vector2.Zero, 0.7f, SpriteEffects.None, 1f);
+				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.White);
+			}
 
 			if (gameOver) // Exactly what it sounds like
 				DrawGameOver(sb);
+			else
+				for (int i = 0; i < info.Length; i++)
+					info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
 
 			if (startPause > 0)
 				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "Ready...", new Vector2(900, 500), Color.Red);
@@ -232,22 +236,24 @@ namespace Badminton.Screens.MultiPlayer
 
 		protected virtual void DrawGameOver(SpriteBatch sb)
 		{
-			sb.Draw(MainGame.tex_blank, new Rectangle(450, 200, 1020, 680), Color.White);
-			sb.DrawString(MainGame.fnt_bigFont, "Game over!", new Vector2(860, 290), Color.Black);
+			Color c = new Color(255, 255, 255, 220);
+			sb.Draw(MainGame.tex_blank, new Rectangle(550, 100, 820, 880), c);
+			sb.Draw(MainGame.tex_endGame, new Rectangle(550, 100, 820, 880), Color.White);
 
 			if (winners[0] == 0)
 			{
-				sb.DrawString(MainGame.fnt_midFont, "Winner: Player 1!", new Vector2(1000, 500), Color.Black);
+				string winString = "Winner: Player 1!";
+				sb.DrawString(MainGame.fnt_midFont, winString, new Vector2(960 - MainGame.fnt_midFont.MeasureString(winString).X / 2, 700), Color.Black);
 				if (winSticks.Count > 0)
 					winSticks[0].Draw(sb);
 			}
 			else
 			{
-				sb.DrawString(MainGame.fnt_midFont, "Winner: The team!", new Vector2(1000, 500), Color.Black);
+				string winString = "Winner: The team!";
+				sb.DrawString(MainGame.fnt_midFont, winString, new Vector2(960 - MainGame.fnt_midFont.MeasureString(winString).X / 2, 700), Color.Black);
 				foreach (StickFigure s in winSticks)
 					s.Draw(sb);
 			}
-			sb.DrawString(MainGame.fnt_basicFont, "Press start to continue", new Vector2(1200, 800), Color.Black);
 		}
 
 		public GameScreen GoBack()

@@ -27,6 +27,7 @@ namespace Badminton.Screens.Menus.Components
 		private int selectedColor;
 
 		public Color Color { get { return player.Color; } }
+		public bool SpecialSkin { get; set; }
 
 		public PlayerSelectBox(Vector2 position, PlayerIndex index, int colorIndex)
 		{
@@ -192,6 +193,9 @@ namespace Badminton.Screens.Menus.Components
 				else
 					backPressed = false;
 			}
+
+			if (player != null)
+				player.EvilSkin = SpecialSkin;
 		}
 
 		public bool IsReady()
@@ -221,9 +225,17 @@ namespace Badminton.Screens.Menus.Components
 			{
 				sb.Draw(MainGame.tex_ps_blank, position, Color.White);
 				if (player != null)
+				{
 					player.Draw(sb);
-				if (state == State.Ready)
-					sb.DrawString(MainGame.fnt_basicFont, "Ready!", this.position + Vector2.One * 10, Color.Green);
+					if (state == State.Ready)
+					{
+						sb.Draw(MainGame.tex_blank, new Rectangle((int)(position.X + 10), (int)(position.Y + 16), 100, 350), Color.White);
+						sb.Draw(MainGame.tex_blank, new Rectangle((int)(position.X + 385), (int)(position.Y + 16), 100, 350), Color.White);
+						sb.DrawString(MainGame.fnt_midFont, "Ready!", this.position + Vector2.UnitX * 10 + Vector2.UnitY * 5, Color.Green);
+					}
+					else
+						sb.DrawString(MainGame.fnt_midFont, "Press " + (usesKeyboard ? "enter" : "A") + " to ready up!", this.position + Vector2.UnitX * 10 + Vector2.UnitY * 5, Color.Red);
+				}
 			}
 		}
 

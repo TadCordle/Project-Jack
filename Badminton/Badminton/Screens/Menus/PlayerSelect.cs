@@ -223,6 +223,31 @@ namespace Badminton.Screens.Menus
 				components[components.Count - 1].Selected = false;
 			}
 
+			if (components.Count > 1)
+			{
+				if (((CheckBox)components[0]).Checked)
+				{
+					boxes[0].SpecialSkin = false;
+					boxes[1].SpecialSkin = false;
+					boxes[2].SpecialSkin = false;
+					boxes[3].SpecialSkin = false;
+				}
+				else if (((CheckBox)components[1]).Checked)
+				{
+					boxes[0].SpecialSkin = false;
+					boxes[1].SpecialSkin = true;
+					boxes[2].SpecialSkin = false;
+					boxes[3].SpecialSkin = true;
+				}
+				else if (((CheckBox)components[2]).Checked)
+				{
+					boxes[0].SpecialSkin = true;
+					boxes[1].SpecialSkin = false;
+					boxes[2].SpecialSkin = false;
+					boxes[3].SpecialSkin = false;
+				}
+			}
+
 			world.Step((float)time.ElapsedGameTime.TotalSeconds);
 			return this;
 		}
@@ -250,6 +275,8 @@ namespace Badminton.Screens.Menus
 
 			if (showButton)
 				components[components.Count - 1].Draw(sb);
+			if (boxes[0].IsReady() && boxes[0].PlayerSelected())
+				sb.DrawString(MainGame.fnt_midFont, "Player 1: Select game mode!", new Vector2(1283, 200), Color.Black);
 		}
 	}
 }

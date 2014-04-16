@@ -58,7 +58,7 @@ namespace Badminton.Stick_Figures
 
 		public override StickFigure Respawn()
 		{
-			return new LocalPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, evilSkin, color, player);
+			return new LocalPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color, player);
 		}
 
 		public override void Update()

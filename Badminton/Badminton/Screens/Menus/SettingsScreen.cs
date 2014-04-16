@@ -227,7 +227,7 @@ namespace Badminton.Screens.Menus
 			sb.DrawString(MainGame.fnt_midFont, Map.MapKeys[maps[selectedMap]], new Vector2(970, 220), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, "Gravity:", new Vector2(680, 300), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, gravity.ToString(), new Vector2(970, 300), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Limb strength:", new Vector2(680, 380), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Sober-ness:", new Vector2(680, 380), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, ((int)(limbStrength * 100)).ToString() + "%", new Vector2(970, 380), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, "Time limit:", new Vector2(680, 460), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, timeLimit.ToString(), new Vector2(970, 460), Color.Black);

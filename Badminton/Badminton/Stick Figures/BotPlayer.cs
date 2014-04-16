@@ -39,7 +39,7 @@ namespace Badminton.Stick_Figures
 
 		public override StickFigure Respawn()
 		{
-            return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, evilSkin, color, player, this.ListStickFigures);
+            return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color, player, this.ListStickFigures);
 		}
 
         public override void Update()

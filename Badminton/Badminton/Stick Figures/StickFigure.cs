@@ -58,7 +58,6 @@ namespace Badminton.Stick_Figures
 		protected float scale;
 		protected Color color;
 		protected Category collisionCat;
-		protected bool evilSkin;
 		private Vector2 groundSensorStart, groundSensorEnd;
 		private bool increaseFall;
 		private bool leftLegLeft, rightLegLeft;
@@ -281,6 +280,11 @@ namespace Badminton.Stick_Figures
 		/// </summary>
 		public int Invulnerability { get; set; }
 
+		/// <summary>
+		/// Gets/sets whether the stick figure uses the alternate skin
+		/// </summary>
+		public bool EvilSkin { get; set; }
+
 		#endregion
 
 		#region Creation/Destruction
@@ -303,7 +307,7 @@ namespace Badminton.Stick_Figures
 			this.limbStrength = limbStrength;
 			this.maxImpulse = 0.2f * scale * scale * limbStrength;
 			this.limbDefense = limbDefense;
-			this.evilSkin = evilSkin;
+			this.EvilSkin = evilSkin;
 			friction = 5f * scale;
 			Crouching = false;
 			this.health = new Dictionary<Body, float>();
@@ -353,7 +357,7 @@ namespace Badminton.Stick_Figures
 		/// <returns> a new stick figure at its original spawn point</returns>
 		public virtual StickFigure Respawn()
 		{
-			return new StickFigure(world, startPosition, collisionCat, scale, limbStrength, limbDefense, evilSkin, color);
+			return new StickFigure(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color);
 		}
 	
 		/// <summary>
@@ -1596,25 +1600,25 @@ namespace Badminton.Stick_Figures
 
 			Color deathColor = Color.Black;
 			Color c = Blend(color, deathColor, health[leftUpperArm]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_armUpper : MainGame.tex_armUpper, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 7f, LastFacedLeft || health[leftUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_armUpper : MainGame.tex_armUpper, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 7f, LastFacedLeft || health[leftUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperArm]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_armUpper : MainGame.tex_armUpper, rightUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 7f, LastFacedLeft || health[rightUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_armUpper : MainGame.tex_armUpper, rightUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 7f, LastFacedLeft || health[rightUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftUpperLeg]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_legUpper : MainGame.tex_legUpper, leftUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 7f, !leftLegLeft || health[leftUpperLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_legUpper : MainGame.tex_legUpper, leftUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 7f, !leftLegLeft || health[leftUpperLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightUpperLeg]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_legUpper : MainGame.tex_legUpper, rightUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 7f, !rightLegLeft || health[rightUpperLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_legUpper : MainGame.tex_legUpper, rightUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 7f, !rightLegLeft || health[rightUpperLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerLeg]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_legLower : MainGame.tex_legLower, leftLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 7f, leftLegLeft || health[leftLowerLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_legLower : MainGame.tex_legLower, leftLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 7f, leftLegLeft || health[leftLowerLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerLeg]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_legLower : MainGame.tex_legLower, rightLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 7f, rightLegLeft || health[rightLowerLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_legLower : MainGame.tex_legLower, rightLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 7f, rightLegLeft || health[rightLowerLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[torso]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_torso : MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL + Vector2.UnitY * 5, null, c, torso.Rotation, new Vector2(MainGame.tex_torso.Width / 2, MainGame.tex_torso.Height / 2), scale / 5f, LastFacedLeft || health[torso] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_torso : MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL + Vector2.UnitY * 5, null, c, torso.Rotation, new Vector2(MainGame.tex_torso.Width / 2, MainGame.tex_torso.Height / 2), scale / 5f, LastFacedLeft || health[torso] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[leftLowerArm]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_armLower : MainGame.tex_armLower, leftLowerArm.Position * MainGame.METER_TO_PIXEL - Vector2.UnitX * 2, null, c, leftLowerArm.Rotation + MathHelper.Pi, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 7f, LastFacedLeft || health[leftLowerArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_armLower : MainGame.tex_armLower, leftLowerArm.Position * MainGame.METER_TO_PIXEL - Vector2.UnitX * 2, null, c, leftLowerArm.Rotation + MathHelper.Pi, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 7f, LastFacedLeft || health[leftLowerArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[rightLowerArm]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_armLower : MainGame.tex_armLower, rightLowerArm.Position * MainGame.METER_TO_PIXEL + Vector2.UnitX * 2, null, c, rightLowerArm.Rotation + MathHelper.Pi, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 7f, LastFacedLeft || health[rightUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_armLower : MainGame.tex_armLower, rightLowerArm.Position * MainGame.METER_TO_PIXEL + Vector2.UnitX * 2, null, c, rightLowerArm.Rotation + MathHelper.Pi, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 7f, LastFacedLeft || health[rightUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 			c = Blend(color, deathColor, health[head]);
-			sb.Draw(evilSkin ? MainGame.tex_evil_head : MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL, null, c, head.Rotation, new Vector2(MainGame.tex_head.Width / 2, MainGame.tex_head.Height / 2), scale / 4f, LastFacedLeft || health[head] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
+			sb.Draw(EvilSkin ? MainGame.tex_evil_head : MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL, null, c, head.Rotation, new Vector2(MainGame.tex_head.Width / 2, MainGame.tex_head.Height / 2), scale / 4f, LastFacedLeft || health[head] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 
 			foreach (Attack a in attacks)
 				a.Draw(sb, this.color);
