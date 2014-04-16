@@ -30,6 +30,7 @@ namespace Badminton.Screens.MultiPlayer
 		bool timed;
 		int millisLeft;
 		int startPause;
+		bool enterPressed = false;
 
 		bool gameOver;
 		List<int> winners;
@@ -83,6 +84,7 @@ namespace Badminton.Screens.MultiPlayer
 			gameOver = false;
 			winners = new List<int>();
 			winSticks = new List<StickFigure>();
+			enterPressed = true;
 		}
 
 		public GameScreen Update(GameTime gameTime)
@@ -131,6 +133,14 @@ namespace Badminton.Screens.MultiPlayer
 				if (timed && startPause < 0)
 					millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
 				gameOver = GameIsOver(winners);
+
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+				{
+					if (!enterPressed)
+						return GoBack();
+				}
+				else
+					enterPressed = false;
 			}
 			else
 			{
@@ -138,7 +148,7 @@ namespace Badminton.Screens.MultiPlayer
 				{
 					for (int i = 0; i < winners.Count; i++)
 					{
-						winSticks.Add(new StickFigure(world, new Vector2(960 + 160 * i - 80 * (winners.Count - 1), 440) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[i]].Color));
+						winSticks.Add(new StickFigure(world, new Vector2(960 + 160 * i - 80 * (winners.Count - 1), 440) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, winners[i] % 2 != 0, player[winners[i]].Color));
 						winSticks[i].Invulnerability = 0;
 						winSticks[i].Stand();
 					}

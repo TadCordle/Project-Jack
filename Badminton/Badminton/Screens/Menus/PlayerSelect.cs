@@ -241,10 +241,10 @@ namespace Badminton.Screens.Menus
 				}
 				else if (((CheckBox)components[2]).Checked)
 				{
-					boxes[0].SpecialSkin = true;
-					boxes[1].SpecialSkin = false;
-					boxes[2].SpecialSkin = false;
-					boxes[3].SpecialSkin = false;
+					boxes[0].SpecialSkin = false;
+					boxes[1].SpecialSkin = true;
+					boxes[2].SpecialSkin = true;
+					boxes[3].SpecialSkin = true;
 				}
 			}
 

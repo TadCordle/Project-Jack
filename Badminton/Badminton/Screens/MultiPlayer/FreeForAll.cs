@@ -30,6 +30,7 @@ namespace Badminton.Screens.MultiPlayer
 		bool timed;
 		int millisLeft;
 		int startPause;
+		bool enterPressed;
 
 		bool gameOver;
 		List<int> winners;
@@ -83,6 +84,7 @@ namespace Badminton.Screens.MultiPlayer
 			gameOver = false;
 			winners = new List<int>();
 			winSticks = new List<StickFigure>();
+			enterPressed = true;
 		}
 
         public GameScreen Update(GameTime gameTime)
@@ -131,6 +133,9 @@ namespace Badminton.Screens.MultiPlayer
 				if (timed && startPause < 0)
 					millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
 				gameOver = GameIsOver(winners);
+
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+					enterPressed = true;
 			}
 			else
 			{
@@ -150,8 +155,13 @@ namespace Badminton.Screens.MultiPlayer
 					s.ApplyForce(world.Gravity * -1);
 				}
 
-				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
-					return GoBack();
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+				{
+					if (!enterPressed)
+						return GoBack();
+				}
+				else
+					enterPressed = false;
 			}
 
 			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);

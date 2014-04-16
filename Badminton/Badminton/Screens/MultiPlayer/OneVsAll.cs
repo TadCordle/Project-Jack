@@ -30,6 +30,7 @@ namespace Badminton.Screens.MultiPlayer
 		bool timed;
 		int millisLeft;
 		int startPause;
+		bool enterPressed;
 
 		bool gameOver;
 		List<int> winners;
@@ -61,7 +62,7 @@ namespace Badminton.Screens.MultiPlayer
 			for (int i = 0; i < colors.Length; i++)
 				if (colors[i] != null)
 				{
-					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, i == 0, colors[i], Players[i]);
+					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, i != 0, colors[i], Players[i]);
 					player[i].LockControl = true;
 				}
 
@@ -69,7 +70,7 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				for (int i = colors.Length; i < 4; i++)
 				{
-					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player);
+					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, true, new Color(i * 60, i * 60, i * 60), Players[i], player);
 					player[i].LockControl = true;
 				}
 			}
@@ -83,6 +84,7 @@ namespace Badminton.Screens.MultiPlayer
 			gameOver = false;
 			winners = new List<int>();
 			winSticks = new List<StickFigure>();
+			enterPressed = true;
 		}
 
 		public GameScreen Update(GameTime gameTime)
@@ -131,6 +133,9 @@ namespace Badminton.Screens.MultiPlayer
 				if (timed && startPause < 0)
 					millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
 				gameOver = GameIsOver(winners);
+
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+					enterPressed = true;
 			}
 			else
 			{
@@ -138,7 +143,7 @@ namespace Badminton.Screens.MultiPlayer
 				{
 					for (int i = 0; i < winners.Count; i++)
 					{
-						winSticks.Add(new StickFigure(world, new Vector2(960 + 160 * i - 80 * (winners.Count - 1), 440) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, false, player[winners[i]].Color));
+						winSticks.Add(new StickFigure(world, new Vector2(960 + 160 * i - 80 * (winners.Count - 1), 440) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, winners[i] != 0, player[winners[i]].Color));
 						winSticks[i].Invulnerability = 0;
 						winSticks[i].Stand();
 					}
@@ -150,8 +155,13 @@ namespace Badminton.Screens.MultiPlayer
 					s.ApplyForce(world.Gravity * -1);
 				}
 
-				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
-					return GoBack();
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+				{
+					if (!enterPressed)
+						return GoBack();
+				}
+				else
+					enterPressed = false;
 			}
 
 			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
