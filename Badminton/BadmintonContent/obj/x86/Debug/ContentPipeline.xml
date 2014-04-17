@@ -416,16 +416,6 @@
       <Time>2013-09-21T16:18:30.1014346-04:00</Time>
     </Item>
     <Item>
-      <Source>music.mp3</Source>
-      <Name>music</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.xnb</Output>
-      <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\music.wma</Extra>
-      <Time>2013-04-19T10:52:54-04:00</Time>
-    </Item>
-    <Item>
       <Source>fonts\bigFont.spritefont</Source>
       <Name>fonts\bigFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -460,6 +450,16 @@
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\clock.xnb</Output>
       <Time>2014-04-15T23:08:42.6497573-04:00</Time>
+    </Item>
+    <Item>
+      <Source>castle music.mp3</Source>
+      <Name>castle music</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\castle music.xnb</Output>
+      <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\castle music.wma</Extra>
+      <Time>2014-04-17T15:06:53.0224967-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

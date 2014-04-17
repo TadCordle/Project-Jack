@@ -52,7 +52,7 @@ namespace Badminton
 
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh;
-		public static Song music;
+		public static Song castle_music;
 
 		public static Game mainGame;
 
@@ -155,9 +155,9 @@ namespace Badminton
 				Content.Load<SoundEffect>("sfx/Punch2"),
 				Content.Load<SoundEffect>("sfx/Thwap") };
 			sfx_whoosh = Content.Load<SoundEffect>("sfx/Whoosh");
-			music = Content.Load<Song>("music");
+			castle_music = Content.Load<Song>("castle music");
 			MediaPlayer.IsRepeating = true;
-//			MediaPlayer.Play(music);
+			MediaPlayer.Volume = 0.8f;
 
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });

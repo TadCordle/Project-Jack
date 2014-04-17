@@ -121,6 +121,7 @@
     <Compile Include="Screens\Menus\Components\Component.cs" />
     <Compile Include="Screens\Menus\Components\PlayerSelectBox.cs" />
     <Compile Include="Screens\Menus\Components\TextField.cs" />
+    <Compile Include="Screens\Menus\HelpScreen.cs" />
     <Compile Include="Screens\Menus\PlayerSelect.cs" />
     <Compile Include="Screens\Menus\SettingsScreen.cs" />
     <Compile Include="Screens\MultiPlayer\FreeForAll.cs" />

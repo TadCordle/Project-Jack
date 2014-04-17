@@ -115,7 +115,7 @@ namespace Badminton.Screens.Menus
 							else if (b.ReturnString == "coop")
 								return new Menus.PlayerSelect(-1);
 							else if (b.ReturnString == "help")		// TODO: Change this when we have a help screen
-								return new HelpScreen();
+								return new Menus.HelpScreen();
 							else
 								return null;
 						}

@@ -44,9 +44,9 @@ Content\sfx\Punch1.xnb
 Content\sfx\Punch2.xnb
 Content\sfx\Thwap.xnb
 Content\sfx\Whoosh.xnb
-Content\music.xnb
-Content\music.wma
 Content\fonts\bigFont.xnb
 Content\fonts\midFont.xnb
 Content\textures\end game.xnb
 Content\textures\clock.xnb
+Content\castle music.xnb
+Content\castle music.wma

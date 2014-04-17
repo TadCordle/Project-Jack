@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -24,6 +25,7 @@ namespace Badminton.Screens.MultiPlayer
 		Vector2[] spawnPoints;
 		TrapAmmo[] ammo;
 		Texture2D background;
+		Song music;
 
 		PlayerValues[] info;
 
@@ -52,6 +54,8 @@ namespace Badminton.Screens.MultiPlayer
 			if (traps)
 				for (int i = 0; i < ammoPoints.Length; i++)
 					ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
+			music = (Song)map[4];
+			MediaPlayer.Play(music);
 
 			StickFigure.AllowTraps = traps;
 			StickFigure.AllowLongRange = longRange;
