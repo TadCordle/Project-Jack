@@ -47,7 +47,7 @@ namespace Badminton
 			map[1] = walls;
 			map[2] = spawnPoints;
 			map[3] = ammoPoints;
-			map[4] = MainGame.castle_music;
+			map[4] = MainGame.mus_castle;
 
 			return map;
 		}

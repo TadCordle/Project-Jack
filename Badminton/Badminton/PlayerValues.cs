@@ -48,7 +48,7 @@ namespace Badminton
 				health = 0f;
 			sb.Draw(MainGame.tex_blank, position + Vector2.UnitY + Vector2.UnitX, null, figure.Color, 0f, Vector2.Zero, new Vector2(health * 170, 30), SpriteEffects.None, 0f);
 			
-			sb.Draw(MainGame.tex_head, position - Vector2.UnitX * 40 - Vector2.UnitY * 10, null, figure.Color, 0f, Vector2.Zero, Vector2.One * 0.55f, SpriteEffects.None, 0f);
+			sb.Draw(figure.EvilSkin ? MainGame.tex_evil_head : MainGame.tex_head, position - Vector2.UnitX * 40 - Vector2.UnitY * 10, null, figure.Color, 0f, Vector2.Zero, Vector2.One * 0.55f, SpriteEffects.None, 0f);
 			
 			sb.Draw(MainGame.tex_heart, position + Vector2.UnitX * 20 + Vector2.UnitY * 35, null, Color.White, 0f, Vector2.Zero, Vector2.One * 0.33f, SpriteEffects.None, 0f);
 			MainGame.DrawOutlineText(sb, MainGame.fnt_basicFont, "x" + this.Lives, position + Vector2.UnitX * 57 + Vector2.UnitY * 40, Color.White);

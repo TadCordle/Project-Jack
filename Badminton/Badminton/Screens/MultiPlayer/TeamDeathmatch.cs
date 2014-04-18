@@ -281,6 +281,7 @@ namespace Badminton.Screens.MultiPlayer
 
 		public GameScreen GoBack()
 		{
+			MediaPlayer.Stop();
 			return new MainMenu();
 		}
 	}

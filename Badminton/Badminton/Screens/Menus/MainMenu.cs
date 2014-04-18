@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -27,6 +28,9 @@ namespace Badminton.Screens.Menus
 			confirmPressed = true;
 			upPressed = true;
 			downPressed = true;
+
+			if (MediaPlayer.State == MediaState.Stopped)
+				MediaPlayer.Play(MainGame.mus_menu);
 		}
 
 		public GameScreen Update(GameTime gameTime)
