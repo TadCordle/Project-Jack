@@ -8,8 +8,6 @@ Game Modes
 		- Soccer
 
 AI
-	- Make them attack each other if collision category is different
-	- Check time since last hit to change target
 	- Use other attacks (long range, explosives)
 	- Self destruct under certain conditions
 
@@ -18,19 +16,13 @@ Menus
 		* Background video
 	- Character Select
 		* Prevent duplicate colors
-		* Show text demonstrating teams when different gamemode is checked (players 1/3 vs 2/4?)
-			also change skin to inverted stick figure
 		* Possibly add more game modes?
-	- Game Settings
-		* Update graphics
-	- Character customization
+	- Help screen
+		* Look prettier
 
 Art
 	- Add match start animation to replace static "Ready... Go" text
 	- Add new arena(s)
-	- Update end-game art
-	- Update menu art when menu layout is finished
 	- Update alternate skeleton skins?
 	- Help screen
-	- Music
 	- Better sfx

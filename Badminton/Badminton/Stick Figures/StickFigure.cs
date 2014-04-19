@@ -620,7 +620,7 @@ namespace Badminton.Stick_Figures
 
 				health[fixtureA.Body] -= f.Damage / limbDefense;
 
-				// TODO: Play sound
+				MainGame.sfx_hit.Play();
 			}
 			else if (fixtureB.Body.UserData is Trap)
 			{
@@ -996,9 +996,8 @@ namespace Badminton.Stick_Figures
 				ApplyForce((-Vector2.UnitX * (float)Math.Sin(attackAngle - MathHelper.PiOver2) - Vector2.UnitY * (float)Math.Cos(attackAngle - MathHelper.PiOver2)) * (20f + chargeUp / 20f) * -5f * scale);
 				chargeUp = 0;
 				coolDown = COOL_PERIOD;
+				MainGame.sfx_shoot.Play();
 			}
-
-			// TODO: End charge up sound, play shoot sound
 		}
 
 		/// <summary>
@@ -1050,7 +1049,7 @@ namespace Badminton.Stick_Figures
 				health[rightLowerLeg] = 0f;
 				rightLowerLeg.ApplyLinearImpulse(Vector2.UnitX * 10 + Vector2.UnitY * 10);
 
-				// TODO: Play explosion sound
+				MainGame.sfx_explode.Play();
 			}
 		}
 

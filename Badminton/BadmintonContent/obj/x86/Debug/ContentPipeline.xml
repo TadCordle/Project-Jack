@@ -471,6 +471,33 @@
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\menu music.wma</Extra>
       <Time>2014-04-18T16:00:07.9415492-04:00</Time>
     </Item>
+    <Item>
+      <Source>sfx\hit.wav</Source>
+      <Name>sfx\hit</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\hit.xnb</Output>
+      <Time>2014-04-19T14:48:35.7939295-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\boom.wav</Source>
+      <Name>sfx\boom</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\boom.xnb</Output>
+      <Time>2007-09-18T20:33:22-04:00</Time>
+    </Item>
+    <Item>
+      <Source>sfx\shoot.wav</Source>
+      <Name>sfx\shoot</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\shoot.xnb</Output>
+      <Time>2014-04-19T14:36:39.7389735-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
