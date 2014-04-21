@@ -137,14 +137,6 @@ namespace Badminton.Screens.MultiPlayer
 				if (timed && startPause < 0)
 					millisLeft -= gameTime.ElapsedGameTime.Milliseconds;
 				gameOver = GameIsOver(winners);
-
-				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
-				{
-					if (!enterPressed)
-						return GoBack();
-				}
-				else
-					enterPressed = false;
 			}
 			else
 			{
@@ -164,8 +156,13 @@ namespace Badminton.Screens.MultiPlayer
 					s.ApplyForce(world.Gravity * -1);
 				}
 
-				if ((Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start)))
-					return GoBack();
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+				{
+					if (!enterPressed)
+						return GoBack();
+				}
+				else
+					enterPressed = false;
 			}
 
 			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
