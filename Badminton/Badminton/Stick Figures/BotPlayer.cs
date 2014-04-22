@@ -103,7 +103,8 @@ namespace Badminton.Stick_Figures
                         }
                         if (b)
                         {
-                            Explode();
+							if (random.NextDouble() <= 0.01)
+								Explode();
                             return;
                         }
                     }
@@ -177,7 +178,7 @@ namespace Badminton.Stick_Figures
                         }
                         else // need to calculate angle
                         {
-                            angle = (float)Math.Atan((-target.Position.Y + this.Position.Y) / (target.Position.X - this.Position.X));
+                            angle = (float)Math.Atan2((-target.Position.Y + this.Position.Y), (target.Position.X - this.Position.X));
                             if (target.Position.Y < this.Position.Y)
                                 Punch(angle);
                             else
@@ -187,7 +188,7 @@ namespace Badminton.Stick_Figures
                     }
                     else if (shoot_countdown <= 0)// && (target.Position - this.Position).Length() > 5f)
                     { // too far -> shoot projectile
-                        angle = (float)Math.Atan((-target.Position.Y + this.Position.Y) / (target.Position.X - this.Position.X));
+                        angle = (float)Math.Atan2((-target.Position.Y + this.Position.Y), (target.Position.X - this.Position.X));
                         Aim(angle);
                         LongRangeAttack();
                         shoot_countdown = 0.5f + (float)random.NextDouble(); // delay 0.5-1.5 sec

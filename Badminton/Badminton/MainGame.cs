@@ -61,11 +61,13 @@ namespace Badminton
 		public MainGame()
 		{
 			graphics = new GraphicsDeviceManager(this);
-			
+#if DEBUG
 			RESOLUTION_SCALE = 0.667f;
+#else
+			RESOLUTION_SCALE = 1f;
+#endif
 			graphics.PreferredBackBufferWidth = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, (int)(1920 * RESOLUTION_SCALE));
 			graphics.PreferredBackBufferHeight = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height, (int)(1080 * RESOLUTION_SCALE));
-
 #if DEBUG
 			graphics.IsFullScreen = false;
 #else

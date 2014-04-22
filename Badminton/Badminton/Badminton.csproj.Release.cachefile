@@ -12,7 +12,6 @@ Content\sfx\Punch1.xnb
 Content\sfx\Punch2.xnb
 Content\sfx\Thwap.xnb
 Content\sfx\Whoosh.xnb
-Content\music.xnb
 Content\textures\menu assets\mm_competitive.xnb
 Content\textures\menu assets\mm_cooperative.xnb
 Content\textures\menu assets\mm_custom.xnb
@@ -35,4 +34,24 @@ Content\textures\menu assets\ps_next.xnb
 Content\textures\menu assets\down.xnb
 Content\textures\menu assets\up.xnb
 Content\textures\heart.xnb
-Content\music.wma
+Content\textures\evil stick figure\armlower.xnb
+Content\textures\evil stick figure\armlower1.xnb
+Content\textures\evil stick figure\armupper.xnb
+Content\textures\evil stick figure\armupper1.xnb
+Content\textures\evil stick figure\head.xnb
+Content\textures\evil stick figure\leglower.xnb
+Content\textures\evil stick figure\leglower1.xnb
+Content\textures\evil stick figure\legupper.xnb
+Content\textures\evil stick figure\legupper1.xnb
+Content\textures\evil stick figure\torso.xnb
+Content\textures\end game.xnb
+Content\textures\clock.xnb
+Content\fonts\bigFont.xnb
+Content\fonts\midFont.xnb
+Content\sfx\hit.xnb
+Content\sfx\boom.xnb
+Content\sfx\shoot.xnb
+Content\castle music.xnb
+Content\menu music.xnb
+Content\castle music.wma
+Content\menu music.wma

@@ -23,14 +23,13 @@ namespace Badminton.Screens.Menus
         {
             world = new World(new Vector2(0, 9.8f));
 
-            
             walls = new List<Wall>();
-            walls.Add(new Wall(world, 300, 100, 400,20,0));
-            walls.Add(new Wall(world, 300, 700, 400, 20, 0));
-            walls.Add(new Wall(world, 100, 400, 20, 600, 0));
-            walls.Add(new Wall(world, 500, 400, 20, 600, 0));
+            walls.Add(new Wall(world, 570, 240, 400,20,0));
+			walls.Add(new Wall(world, 570, 840, 400, 20, 0));
+            walls.Add(new Wall(world, 370, 540, 20, 600, 0));
+            walls.Add(new Wall(world, 770, 540, 20, 600, 0));
 
-            player = new LocalPlayer(world, new Vector2(400, 400) * MainGame.PIXEL_TO_METER, Category.Cat1, 3f, 1f, 1f, false, LocalPlayer.Colors[1], PlayerIndex.One);
+            player = new LocalPlayer(world, new Vector2(700, 500) * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, 1f, 1f, false, LocalPlayer.Colors[1], PlayerIndex.One);
         
         }
 
@@ -52,16 +51,16 @@ namespace Badminton.Screens.Menus
 
            
             sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
-            sb.Draw(MainGame.tex_blank, new Rectangle(100, 50, 1720, 980), new Color(255, 255, 255, 150));
+            sb.Draw(MainGame.tex_blank, new Rectangle(100, 50, 1720, 980), new Color(255, 255, 255, 200));
 
-            sb.DrawString(MainGame.fnt_midFont, "MoveRight  LeftThumbstickRight / D", new Vector2(800, 200), Color.Brown);
-            sb.DrawString(MainGame.fnt_midFont, "MoveLeft:  LeftThumbstickLeft / A", new Vector2(800, 300), Color.Brown);
-            sb.DrawString(MainGame.fnt_midFont, "Crouch:  LeftThumbstickDown / S", new Vector2(800, 400), Color.Brown);
-            sb.DrawString(MainGame.fnt_midFont, "Jump:  Button-A / SpaceBar", new Vector2(800, 500), Color.Brown);
-            sb.DrawString(MainGame.fnt_midFont, "Punch:  Button-X / LeftClick", new Vector2(800, 600), Color.Brown);
-            sb.DrawString(MainGame.fnt_midFont, "Kick:  Button-B / RightClick", new Vector2(800, 700), Color.Brown);
-            sb.DrawString(MainGame.fnt_midFont, "Shoot:  RightTrigger / ScrollWheel", new Vector2(800, 800), Color.Brown);
-            sb.DrawString(MainGame.fnt_midFont, "Trap:  Button-Y / T", new Vector2(800, 900), Color.Brown);
+            sb.DrawString(MainGame.fnt_midFont, "MoveRight  LeftThumbstickRight / D", new Vector2(800, 200), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "MoveLeft:  LeftThumbstickLeft / A", new Vector2(800, 300), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Crouch:  LeftThumbstickDown / S", new Vector2(800, 400), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Jump:  Button-A / W", new Vector2(800, 500), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Punch:  Button-X / LeftClick", new Vector2(800, 600), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Kick:  Button-B / RightClick", new Vector2(800, 700), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Shoot:  RightTrigger / MiddleClick", new Vector2(800, 800), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Trap:  Button-Y / T", new Vector2(800, 900), Color.Black);
 
             player.Draw(sb);
 
@@ -83,8 +82,8 @@ namespace Badminton.Screens.Menus
             /*/
 
 
-            foreach (Wall w in walls)
-                w.Draw(sb);
+//          foreach (Wall w in walls)
+//              w.Draw(sb);
         }
     }
 }
