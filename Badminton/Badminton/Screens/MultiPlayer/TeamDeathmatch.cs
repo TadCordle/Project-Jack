@@ -259,9 +259,11 @@ namespace Badminton.Screens.MultiPlayer
 
 			if (winners.Count <= (info.Length > 2 ? 2 : 1))
 			{
-				string winString = "Winners: Player" + (winners.Count == 1 ? "" : "s") + " " + (winners.Count == 1 ? (winners[0] + 1) + "" : (winners[0] + 1) + ", " + (winners[1] + 1)) + "!";
+				string winString = "Winners: Nobody";
+				if (winners.Count > 0)
+					winString = "Winners: Player" + (winners.Count == 1 ? "" : "s") + " " + (winners.Count == 1 ? (winners[0] + 1) + "" : (winners[0] + 1) + ", " + (winners[1] + 1)) + "!";
 				sb.DrawString(MainGame.fnt_midFont, winString, new Vector2(960 - MainGame.fnt_midFont.MeasureString(winString).X / 2, 700), Color.Black);
-				if (winSticks.Count > 0)
+				if (winSticks.Count == 2)
 				{
 					winSticks[0].Draw(sb);
 					winSticks[1].Draw(sb);

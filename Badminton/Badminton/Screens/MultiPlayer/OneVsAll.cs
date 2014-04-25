@@ -236,7 +236,7 @@ namespace Badminton.Screens.MultiPlayer
 				sb.Draw(MainGame.tex_blank, new Rectangle(0, 0, 200, 63), c);
 				sb.Draw(MainGame.tex_clock, Vector2.One, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1f);
 				sb.DrawString(MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.Black);
-				//				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.White);
+//				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.White);
 			}
 
 			if (gameOver) // Exactly what it sounds like
@@ -257,20 +257,21 @@ namespace Badminton.Screens.MultiPlayer
 			sb.Draw(MainGame.tex_blank, new Rectangle(550, 100, 820, 880), c);
 			sb.Draw(MainGame.tex_endGame, new Rectangle(550, 100, 820, 880), Color.White);
 
-			if (winners[0] == 0)
+			string winString = "Winner: Nobody";
+			if (winners.Count > 0 && winners[0] == 0)
 			{
-				string winString = "Winner: Player 1!";
-				sb.DrawString(MainGame.fnt_midFont, winString, new Vector2(960 - MainGame.fnt_midFont.MeasureString(winString).X / 2, 700), Color.Black);
-				if (winSticks.Count > 0)
-					winSticks[0].Draw(sb);
+				winString = "Winner: Player1!";
+				winSticks[0].Draw(sb);
 			}
-			else
+			else if (winners.Count > 0)
 			{
-				string winString = "Winner: The team!";
-				sb.DrawString(MainGame.fnt_midFont, winString, new Vector2(960 - MainGame.fnt_midFont.MeasureString(winString).X / 2, 700), Color.Black);
+				winString = "Winner: The team!";
 				foreach (StickFigure s in winSticks)
-					s.Draw(sb);
+					if (s != null)
+						s.Draw(sb);
 			}
+
+			sb.DrawString(MainGame.fnt_midFont, winString, new Vector2(960 - MainGame.fnt_midFont.MeasureString(winString).X / 2, 700), Color.Black);
 		}
 
 		public GameScreen GoBack()

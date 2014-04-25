@@ -101,12 +101,15 @@ namespace Badminton.Stick_Figures
                             if (s != this && !s.IsDead && (s.CollisionCategory != this.collisionCat) && (s.Position - this.Position).Length() < 1.5f)
                                 b = true;
                         }
-                        if (b)
-                        {
+						if (b)
+						{
 							if (random.NextDouble() <= 0.01)
+							{
 								Explode();
-                            return;
-                        }
+								base.Update();
+								return;
+							}
+						}
                     }
                 }
 

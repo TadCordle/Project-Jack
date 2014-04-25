@@ -60,33 +60,6 @@ namespace Badminton.Screens.Menus
 
 			Component.UpdateSelection(components);
 			
-
-//			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-//			{
-//				if (!mouseClicked)
-//				{
-//					mouseClicked = true;
-//					foreach (Component c in components)
-//					{
-//						if (c.IsMouseOver())
-//						{
-//							if (c is CheckBox)
-//							{
-//								CheckBox.UncheckAll(components);
-//								((CheckBox)c).Checked = true;
-//							}
-//							else
-//							{
-//								if (showButton && components[components.Count - 1].IsMouseOver())
-//									return new SettingsScreen(this);
-//							}
-//						}
-//					}
-//				}
-//			}
-//			else
-//				mouseClicked = false;
-
 			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.B))
 			{
 				if (!backPressed)
@@ -109,7 +82,7 @@ namespace Badminton.Screens.Menus
 							selectedBoxes = true;
 
 					if (!selectedBoxes)
-						components[0].Selected = true;
+						components[3].Selected = true;
 				}
 
 				if (usingKeyboard && Keyboard.GetState().IsKeyDown(Keys.Down) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown))
@@ -254,11 +227,9 @@ namespace Badminton.Screens.Menus
 
 		public GameScreen GoBack()
 		{
-			foreach (PlayerSelectBox p in boxes)
-				if (!p.CanExit())
-					return this;
-
-			return new MainMenu();
+			if (boxes[0].CanExit())
+				return new MainMenu();
+			return this;
 		}
 
 		public void Draw(SpriteBatch sb)

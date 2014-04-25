@@ -40,9 +40,9 @@ namespace Badminton.Screens.Menus
 			gravity = 9.8f;
 			limbStrength = 1f;
 			timeLimit = 0;
-			lives = 5;
+			lives = 3;
 
-			selectedComponent = 0;
+			selectedComponent = 9;
 			selectedMap = 0;
 
 			maps = new List<Texture2D>();
@@ -64,17 +64,17 @@ namespace Badminton.Screens.Menus
 			components.Add(new CheckBox(new Vector2(800, 875), "Fill empty slots with bots", "bots"));
 			checkValues.Add("bots", false);
 			components.Add(new Button(new Vector2(960, 980), MainGame.tex_ps_next, "start"));
-			components[0].Selected = true;
+			components[9].Selected = true;
 
 			((CheckBox)components[6]).Checked = true;
 			checkValues["ranged"] = true;
 			((CheckBox)components[7]).Checked = true;
 			checkValues["traps"] = true;
-			if (prevScreen.Colors.Length == 1)
-			{
+//			if (prevScreen.Colors.Length == 1)
+//			{
 				checkValues["bots"] = true;
 				((CheckBox)components[8]).Checked = true;
-			}
+//			}
 		}
 
 		public GameScreen Update(GameTime time)

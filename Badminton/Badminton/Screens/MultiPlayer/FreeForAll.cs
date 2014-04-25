@@ -270,8 +270,11 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				sb.DrawString(MainGame.fnt_midFont, "Tie reached!", new Vector2(960 - MainGame.fnt_midFont.MeasureString("Tie reached!").X / 2, 700), Color.Black);
 				string tiedPlayers = "Tied players: ";
-				foreach (int i in winners)
-					tiedPlayers += (tiedPlayers.Length == 14 ? "" : ", ") + (i + 1).ToString();
+				if (winners.Count == 0)
+					tiedPlayers += "Nobody";
+				else
+					foreach (int i in winners)
+						tiedPlayers += (tiedPlayers.Length == 14 ? "" : ", ") + (i + 1).ToString();
 				sb.DrawString(MainGame.fnt_midFont, tiedPlayers, new Vector2(960 - MainGame.fnt_midFont.MeasureString(tiedPlayers).X / 2, 775), Color.Black);
 				foreach (StickFigure s in winSticks)
 					s.Draw(sb);
