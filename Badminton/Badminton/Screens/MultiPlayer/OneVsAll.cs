@@ -261,7 +261,8 @@ namespace Badminton.Screens.MultiPlayer
 			if (winners.Count > 0 && winners[0] == 0)
 			{
 				winString = "Winner: Player1!";
-				winSticks[0].Draw(sb);
+				if (winSticks.Count > 0)
+					winSticks[0].Draw(sb);
 			}
 			else if (winners.Count > 0)
 			{

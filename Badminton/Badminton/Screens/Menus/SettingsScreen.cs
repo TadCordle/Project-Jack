@@ -42,7 +42,6 @@ namespace Badminton.Screens.Menus
 			timeLimit = 0;
 			lives = 3;
 
-			selectedComponent = 9;
 			selectedMap = 0;
 
 			maps = new List<Texture2D>();
@@ -64,19 +63,18 @@ namespace Badminton.Screens.Menus
 			components.Add(new CheckBox(new Vector2(800, 875), "Fill empty slots with bots", "bots"));
 			checkValues.Add("bots", false);
 			components.Add(new Button(new Vector2(960, 980), MainGame.tex_ps_next, "start"));
-			components[9].Selected = true;
+			components[components.Count - 1].Selected = true;
 
 			((CheckBox)components[6]).Checked = true;
 			checkValues["ranged"] = true;
 			((CheckBox)components[7]).Checked = true;
 			checkValues["traps"] = true;
-//			if (prevScreen.Colors.Length == 1)
-//			{
-				checkValues["bots"] = true;
-				((CheckBox)components[8]).Checked = true;
-//			}
-		}
+			checkValues["bots"] = true;
+			((CheckBox)components[8]).Checked = true;
 
+			selectedComponent = components.Count - 1;
+
+		}
 		public GameScreen Update(GameTime time)
 		{
 			Component.UpdateSelection(components);
@@ -134,7 +132,7 @@ namespace Badminton.Screens.Menus
 					{
 						// Pass parameters eventually
 						case -1:
-							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 0:
 							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 1:
@@ -176,7 +174,7 @@ namespace Badminton.Screens.Menus
 					else if (selectedMap >= maps.Count)
 						selectedMap = 0;
 				}
-				else if (s == "time")
+				else if (s == "time" && prevScreen.Mode != -1)
 					timeLimit = timeLimit + delta > 10 ? 10 : (timeLimit + delta < 0 ? 0 : timeLimit + delta);
 				else if (s == "lives")
 					lives = lives + delta > 10 ? 10 : (lives + delta < 1 ? 1 : lives + delta);
@@ -191,7 +189,7 @@ namespace Badminton.Screens.Menus
 					{
 						// Pass parameters eventually
 						case -1:
-							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 0:
 							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 1:

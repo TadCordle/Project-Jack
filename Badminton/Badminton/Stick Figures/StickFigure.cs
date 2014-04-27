@@ -63,6 +63,7 @@ namespace Badminton.Stick_Figures
 		private bool leftLegLeft, rightLegLeft;
 		private bool colliding;
 		private bool leftArmDoneInvulnerable, rightArmDoneInvulnerable, leftLegDoneInvulnerable, rightLegDoneInvulnerable, bodyDoneInvulnerable;
+		private bool torsoMadeVulnerable;
 		private const int MAX_INVULNERABILITY = 180;
 
 		#region Properties
@@ -333,6 +334,7 @@ namespace Badminton.Stick_Figures
 			LockControl = false;
 			this.colliding = false;
 			leftArmDoneInvulnerable = rightArmDoneInvulnerable = leftLegDoneInvulnerable = rightLegDoneInvulnerable = bodyDoneInvulnerable = true;
+			torsoMadeVulnerable = false;
 			Invulnerability = MAX_INVULNERABILITY;
 
 			GenerateBody(world, position, collisionCat);
@@ -660,7 +662,7 @@ namespace Badminton.Stick_Figures
 					return false;
 			}
 
-			return contact.IsTouching;
+			return true;
 		}
 
 		#endregion
@@ -1315,16 +1317,24 @@ namespace Badminton.Stick_Figures
 			// Left arm
 			if (health[leftUpperArm] <= 0)
 			{
+				leftUpperArm.CollidesWith = Category.Cat31;
+				leftUpperArm.CollisionCategories = Category.Cat30;
 				health[leftLowerArm] = 0f;
 				leftUpperArm.Friction = 3.0f;
 				if (world.JointList.Contains(leftShoulder))
 					world.RemoveJoint(leftShoulder);
 				if (world.JointList.Contains(r_leftShoulder))
 					world.RemoveJoint(r_leftShoulder);
-				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+				if (!torsoMadeVulnerable)
+				{
+					torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+					torsoMadeVulnerable = true;
+				}
 			}
 			if (health[leftLowerArm] <= 0)
 			{
+				leftLowerArm.CollidesWith = Category.Cat31;
+				leftLowerArm.CollisionCategories = Category.Cat30;
 				leftLowerArm.Friction = 3.0f;
 				if (world.JointList.Contains(leftElbow))
 					world.RemoveJoint(leftElbow);
@@ -1335,16 +1345,24 @@ namespace Badminton.Stick_Figures
 			// Right arm
 			if (health[rightUpperArm] <= 0)
 			{
+				rightUpperArm.CollidesWith = Category.Cat31;
+				rightUpperArm.CollisionCategories = Category.Cat30;
 				health[rightLowerArm] = 0f;
 				rightUpperArm.Friction = 3.0f;
 				if (world.JointList.Contains(rightShoulder))
 					world.RemoveJoint(rightShoulder);
 				if (world.JointList.Contains(r_rightShoulder))
 					world.RemoveJoint(r_rightShoulder);
-				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+				if (!torsoMadeVulnerable)
+				{
+					torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+					torsoMadeVulnerable = true;
+				}
 			}
 			if (health[rightLowerArm] <= 0)
 			{
+				rightLowerArm.CollidesWith = Category.Cat31;
+				rightLowerArm.CollisionCategories = Category.Cat30;
 				rightLowerArm.Friction = 3.0f;
 				if (world.JointList.Contains(rightElbow))
 					world.RemoveJoint(rightElbow);
@@ -1355,16 +1373,24 @@ namespace Badminton.Stick_Figures
 			// Left leg
 			if (health[leftUpperLeg] <= 0)
 			{
+				leftUpperLeg.CollidesWith = Category.Cat31;
+				leftUpperLeg.CollisionCategories = Category.Cat30;
 				health[leftLowerLeg] = 0f;
 				leftUpperLeg.Friction = 3.0f;
 				if (world.JointList.Contains(leftHip))
 					world.RemoveJoint(leftHip);
 				if (world.JointList.Contains(r_leftHip))
 					world.RemoveJoint(r_leftHip);
-				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+				if (!torsoMadeVulnerable)
+				{
+					torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+					torsoMadeVulnerable = true;
+				}
 			}
 			if (health[leftLowerLeg] <= 0)
 			{
+				leftLowerLeg.CollidesWith = Category.Cat31;
+				leftLowerLeg.CollisionCategories = Category.Cat30;
 				leftLowerLeg.Friction = 3.0f;
 				if (world.JointList.Contains(leftKnee))
 					world.RemoveJoint(leftKnee);
@@ -1375,16 +1401,24 @@ namespace Badminton.Stick_Figures
 			// Right leg
 			if (health[rightUpperLeg] <= 0)
 			{
+				rightUpperLeg.CollidesWith = Category.Cat31;
+				rightUpperLeg.CollisionCategories = Category.Cat30;
 				health[rightLowerLeg] = 0f;
 				rightUpperLeg.Friction = 3.0f;
 				if (world.JointList.Contains(rightHip))
 					world.RemoveJoint(rightHip);
 				if (world.JointList.Contains(r_rightHip))
 					world.RemoveJoint(r_rightHip);
-				torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+				if (!torsoMadeVulnerable)
+				{
+					torso.OnCollision += new OnCollisionEventHandler(SpecialCollisions);
+					torsoMadeVulnerable = true;
+				}
 			}
 			if (health[rightLowerLeg] <= 0)
 			{
+				rightLowerLeg.CollidesWith = Category.Cat31;
+				rightLowerLeg.CollisionCategories = Category.Cat30;
 				rightLowerLeg.Friction = 3.0f;
 				if (world.JointList.Contains(rightKnee))
 					world.RemoveJoint(rightKnee);
@@ -1395,6 +1429,8 @@ namespace Badminton.Stick_Figures
 			// Torso
 			if (health[torso] <= 0)
 			{
+				torso.CollidesWith = Category.Cat31;
+				torso.CollisionCategories = Category.Cat30;
 				torso.Friction = 3.0f;
 				if (world.JointList.Contains(upright))
 					world.RemoveJoint(upright);
@@ -1403,6 +1439,8 @@ namespace Badminton.Stick_Figures
 			// Head
 			if (health[head] <= 0)
 			{
+				head.CollidesWith = Category.Cat31;
+				head.CollisionCategories = Category.Cat30;
 				head.Friction = 3.0f;
 				if (world.JointList.Contains(neck))
 					world.RemoveJoint(neck);

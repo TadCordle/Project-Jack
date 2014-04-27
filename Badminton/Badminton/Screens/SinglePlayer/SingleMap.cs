@@ -2,80 +2,237 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using FarseerPhysics;
-using FarseerPhysics.Collision;
-using FarseerPhysics.Common;
-using FarseerPhysics.Controllers;
 using FarseerPhysics.Dynamics;
-using FarseerPhysics.Dynamics.Contacts;
-using FarseerPhysics.Dynamics.Joints;
-using FarseerPhysics.Factories;
 
 using Badminton.Stick_Figures;
+using Badminton.Screens.Menus;
 using Badminton.Attacks;
 
-namespace Badminton.Screens
+namespace Badminton.Screens.MultiPlayer
 {
 	class SingleMap : GameScreen
 	{
 		World world;
 		List<Wall> walls;
+		List<StickFigure> enemies;
+
+		StickFigure[] player;
 		Vector2[] spawnPoints;
 		TrapAmmo[] ammo;
 		Texture2D background;
+		Song music;
 
-		StickFigure testFigure1;
+		PlayerValues[] info;
 
-		public SingleMap()
+		int millis;
+		int startPause;
+		bool enterPressed;
+		float limbStrength;
+		bool suddenDeath;
+
+		bool gameOver;
+		int kills;
+		float maxEnemies;
+
+		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
+		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
+
+		public SingleMap(Color[] colors, string mapString, float gravity, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
 		{
-			world = new World(new Vector2(0, 9.8f)); // That'd be cool to have gravity as a map property, so you could play 0G levels
+			world = new World(new Vector2(0, gravity));
+			this.limbStrength = limbStrength;
+			this.suddenDeath = suddenDeath;
 
-			object[] map = Map.LoadCastle(world);
+			object[] map = Map.LoadMap(world, mapString);
 			background = (Texture2D)map[0];
 			walls = (List<Wall>)map[1];
 			spawnPoints = (Vector2[])map[2];
 			Vector3[] ammoPoints = (Vector3[])map[3];
 			ammo = new TrapAmmo[ammoPoints.Length];
-			for (int i = 0; i < ammoPoints.Length; i++)
-				ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
+			if (traps)
+				for (int i = 0; i < ammoPoints.Length; i++)
+					ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
+			music = (Song)map[4];
+			MediaPlayer.Play(music);
 
-			testFigure1 = new LocalPlayer(world, spawnPoints[0] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, 1.0f, 1.0f, true, Color.Red, PlayerIndex.One);
+			StickFigure.AllowTraps = traps;
+			StickFigure.AllowLongRange = longRange;
+
+			player = new StickFigure[bots ? 4 : colors.Length];
+			this.info = new PlayerValues[bots ? 4 : colors.Length];
+			enemies = new List<StickFigure>();
+
+			for (int i = 0; i < colors.Length; i++)
+				if (colors[i] != null)
+				{
+					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, colors[i], Players[i]);
+					player[i].LockControl = true;
+				}
+
+			if (bots && colors.Length < 4)
+			{
+				for (int i = colors.Length; i < 4; i++)
+				{
+					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player);
+					player[i].LockControl = true;
+				}
+			}
+
+			for (int i = 0; i < info.Length; i++)
+				info[i] = new PlayerValues(lives);
+
+			maxEnemies = player.Length;
+
+			millis = 0;
+			startPause = 180;
+			gameOver = false;
+			enterPressed = true;
 		}
 
-		public virtual GameScreen Update(GameTime gameTime)
+		public GameScreen Update(GameTime gameTime)
 		{
-			testFigure1.Update();
+			startPause--;
+			if (startPause == 0)
+			{
+				foreach (StickFigure s in player)
+					if (s != null)
+						s.LockControl = false;
+			}
 
+			for (int i = 0; i < player.Length; i++)
+			{
+				if (player[i] != null && info[i].HasLives())
+				{
+					player[i].Update();
+					if (player[i].IsDead || player[i].Position.Y * MainGame.METER_TO_PIXEL > 1080)
+					{
+						if (info[i].RespawnTimer < 0)
+							info[i].Kill();
+
+						if (info[i].ShouldRespawn())
+						{
+							player[i].Destroy();
+							if (info[i].HasLives())
+								player[i] = player[i].Respawn();
+							else
+								player[i] = null;
+							info[i].RespawnTimer--;
+						}
+						else
+							info[i].RespawnTimer--;
+					}
+				}
+			}
+
+			foreach (StickFigure s in enemies)
+				if (s != null)
+					s.Update();
+
+			if (enemies.Count < (int)maxEnemies && startPause < 0)
+				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1150) + 300, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 1, true, Color.White, PlayerIndex.Four, player));
+
+			// Update ammo
 			foreach (TrapAmmo t in ammo)
-				t.Update();
+				if (t != null)
+					t.Update();
 
-			// These two lines stay here, even after we delete testing stuff
+			// Endgame
+			if (!gameOver)
+			{
+				maxEnemies += 0.0005f;
+				if (startPause < 0)
+					millis += gameTime.ElapsedGameTime.Milliseconds;
+				gameOver = GameIsOver();
+
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+					enterPressed = true;
+			}
+			else
+			{
+				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
+				{
+					if (!enterPressed)
+						return GoBack();
+				}
+				else
+					enterPressed = false;
+			}
+
 			world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
 			return this;
 		}
 
-		public virtual GameScreen GoBack()
+		protected virtual bool GameIsOver()
 		{
-			return null; //new MainMenu(); // Change this to show confirmation dialog later
+			for (int i = 0; i < info.Length; i++)
+				if (info[i].Lives > 0)
+					return false;
+			return true;
 		}
 
-		public virtual void Draw(SpriteBatch sb)
+		public void Draw(SpriteBatch sb)
 		{
-			sb.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+			// draw background
+			sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
 
-			testFigure1.Draw(sb);
-
+			// draw ammo
 			foreach (TrapAmmo t in ammo)
-				t.Draw(sb);
+				if (t != null)
+					t.Draw(sb);
 
-			foreach (Wall w in walls)
-				w.Draw(sb);
+			// draw players
+			for (int i = 0; i < player.Length; i++)
+				if (player[i] != null)
+					player[i].Draw(sb);
+
+			// draw enemies
+			foreach (StickFigure s in enemies)
+				if (s != null)
+					s.Draw(sb);
+
+			// draw walls
+			//			foreach (Wall w in walls)
+			//				w.Draw(sb);
+
+			// Draw HUD
+			if (millis >= 0)
+			{
+				Color c = new Color(255, 255, 255, 150);
+				sb.Draw(MainGame.tex_blank, new Rectangle(0, 0, 200, 63), c);
+				sb.Draw(MainGame.tex_clock, Vector2.One, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1f);
+				sb.DrawString(MainGame.fnt_midFont, millis / 60000 + ":" + (millis % 60000 / 1000 < 10 ? "0" : "") + (millis % 60000 / 1000 < 0 ? 0 : millis % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.Black);
+				//				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.White);
+			}
+
+			if (gameOver) // Exactly what it sounds like
+				DrawGameOver(sb);
+			else
+				for (int i = 0; i < info.Length; i++)
+					info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
+
+			if (startPause > 0)
+				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "Ready...", new Vector2(900, 500), Color.Red);
+			else if (startPause > -120)
+				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "GO!", new Vector2(930, 500), Color.Green);
+		}
+
+		protected virtual void DrawGameOver(SpriteBatch sb)
+		{
+			Color c = new Color(255, 255, 255, 220);
+			sb.Draw(MainGame.tex_blank, new Rectangle(550, 100, 820, 880), c);
+			sb.Draw(MainGame.tex_endGame, new Rectangle(550, 100, 820, 880), Color.White);
+		}
+
+		public GameScreen GoBack()
+		{
+			MediaPlayer.Stop();
+			return new MainMenu();
 		}
 	}
 }

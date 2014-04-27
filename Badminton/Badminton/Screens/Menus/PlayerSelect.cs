@@ -82,7 +82,7 @@ namespace Badminton.Screens.Menus
 							selectedBoxes = true;
 
 					if (!selectedBoxes)
-						components[3].Selected = true;
+						components[components.Count - 1].Selected = true;
 				}
 
 				if (usingKeyboard && Keyboard.GetState().IsKeyDown(Keys.Down) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown))
@@ -246,7 +246,7 @@ namespace Badminton.Screens.Menus
 
 			if (showButton)
 				components[components.Count - 1].Draw(sb);
-			if (boxes[0].IsReady() && boxes[0].PlayerSelected())
+			if (boxes[0].IsReady() && boxes[0].PlayerSelected() && Mode != -1)
 				sb.DrawString(MainGame.fnt_midFont, "Player 1: Select game mode!", new Vector2(1283, 200), Color.Black);
 		}
 	}

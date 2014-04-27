@@ -81,30 +81,6 @@ namespace Badminton.Screens.Menus
 			else
 				upPressed = false;
 
-//			if (Mouse.GetState().LeftButton == ButtonState.Pressed)
-//			{
-//				if (!mouseClicked)
-//				{
-//					mouseClicked = true;
-//					foreach (Button b in choices)
-//					{
-//						if (b.IsMouseOver())
-//						{
-//							if (b.ReturnString == "comp")
-//								return new Menus.PlayerSelect(0);
-//							else if (b.ReturnString == "coop")
-//								return new Menus.PlayerSelect(1);
-//							else if (b.ReturnString == "cust")		// TODO: Change this when we have character customization
-//								return this;
-//							else
-//								return null;
-//						}
-//					}
-//				}
-//			}
-//			else
-//				mouseClicked = false;
-
 			if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.A))
 			{
 				if (!confirmPressed)
@@ -117,8 +93,7 @@ namespace Badminton.Screens.Menus
 							if (b.ReturnString == "comp")
 								return new Menus.PlayerSelect(0);
 							else if (b.ReturnString == "coop")
-								return this;
-//								return new Menus.PlayerSelect(-1);
+								return new Menus.PlayerSelect(-1);
 							else if (b.ReturnString == "help")
 								return new Menus.HelpScreen();
 							else
