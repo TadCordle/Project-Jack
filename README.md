@@ -7,12 +7,22 @@ and more difficult to use, and may eventually fall off!
 
 Controls (Keyboard/360 controller)
 ==================================
+
 A / Left stick left - run left
+
 D / Left stick right - run right
+
 S / Left trigger - crouch
+
 W / A - jump
+
 Left click / X - punch
+
 Right click / B - kick
+
 Middle click / Right trigger - long range attack
+
 T / Y - throw stick bomb
+
 Enter / Left bumper - self destruct
+
