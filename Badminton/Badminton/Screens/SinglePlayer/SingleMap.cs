@@ -21,6 +21,8 @@ namespace Badminton.Screens.MultiPlayer
 		World world;
 		List<Wall> walls;
 		List<StickFigure> enemies;
+		List<StickFigure> temp;
+		Dictionary<StickFigure, int> toRemove;
 
 		StickFigure[] player;
 		Vector2[] spawnPoints;
@@ -67,6 +69,8 @@ namespace Badminton.Screens.MultiPlayer
 			player = new StickFigure[bots ? 4 : colors.Length];
 			this.info = new PlayerValues[bots ? 4 : colors.Length];
 			enemies = new List<StickFigure>();
+			toRemove = new Dictionary<StickFigure, int>();
+			temp = new List<StickFigure>();
 
 			for (int i = 0; i < colors.Length; i++)
 				if (colors[i] != null)
@@ -75,20 +79,11 @@ namespace Badminton.Screens.MultiPlayer
 					player[i].LockControl = true;
 				}
 
-			if (bots && colors.Length < 4)
-			{
-				for (int i = colors.Length; i < 4; i++)
-				{
-					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, new Color(i * 60, i * 60, i * 60), Players[i], player);
-					player[i].LockControl = true;
-				}
-			}
-
 			for (int i = 0; i < info.Length; i++)
 				info[i] = new PlayerValues(lives);
 
 			maxEnemies = player.Length;
-
+			kills = 0;
 			millis = 0;
 			startPause = 180;
 			gameOver = false;
@@ -131,11 +126,30 @@ namespace Badminton.Screens.MultiPlayer
 			}
 
 			foreach (StickFigure s in enemies)
-				if (s != null)
-					s.Update();
-
-			if (enemies.Count < (int)maxEnemies && startPause < 0)
-				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1150) + 300, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 1, true, Color.White, PlayerIndex.Four, player));
+			{
+				s.Update();
+				if (s.IsDead && !toRemove.ContainsKey(s))
+				{
+					kills++;
+					toRemove.Add(s, 255);
+				}
+			}
+			temp.Clear();
+			foreach (StickFigure s in from StickFigure s in toRemove.Keys select s)
+				if (!temp.Contains(s))
+					temp.Add(s);
+			foreach (StickFigure s in temp)
+			{
+				toRemove[s]--;
+				if (toRemove[s] <= 0)
+				{
+					enemies.Remove(s);
+					toRemove.Remove(s);
+				}
+			}
+			
+			if (enemies.Count - toRemove.Count < (int)maxEnemies && startPause < 0)
+				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1050) + 400, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 1, true, Color.White, PlayerIndex.Four, player));
 
 			// Update ammo
 			foreach (TrapAmmo t in ammo)
@@ -145,7 +159,8 @@ namespace Badminton.Screens.MultiPlayer
 			// Endgame
 			if (!gameOver)
 			{
-				maxEnemies += 0.0005f;
+				if (maxEnemies < 4)
+					maxEnemies += 0.0002f;
 				if (startPause < 0)
 					millis += gameTime.ElapsedGameTime.Milliseconds;
 				gameOver = GameIsOver();
@@ -194,7 +209,7 @@ namespace Badminton.Screens.MultiPlayer
 			// draw enemies
 			foreach (StickFigure s in enemies)
 				if (s != null)
-					s.Draw(sb);
+					s.Draw(sb, toRemove.ContainsKey(s) ? (byte)toRemove[s] : (byte)255);
 
 			// draw walls
 			//			foreach (Wall w in walls)

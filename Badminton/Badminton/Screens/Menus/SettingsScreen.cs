@@ -60,8 +60,11 @@ namespace Badminton.Screens.Menus
 			checkValues.Add("ranged", false);
 			components.Add(new CheckBox(new Vector2(800, 795), "Allow mines", "traps"));
 			checkValues.Add("traps", false);
-			components.Add(new CheckBox(new Vector2(800, 875), "Fill empty slots with bots", "bots"));
-			checkValues.Add("bots", false);
+			if (prevScreen.Mode != -1)
+			{
+				components.Add(new CheckBox(new Vector2(800, 875), "Fill empty slots with bots", "bots"));
+				checkValues.Add("bots", false);
+			}
 			components.Add(new Button(new Vector2(960, 980), MainGame.tex_ps_next, "start"));
 			components[components.Count - 1].Selected = true;
 
@@ -69,8 +72,11 @@ namespace Badminton.Screens.Menus
 			checkValues["ranged"] = true;
 			((CheckBox)components[7]).Checked = true;
 			checkValues["traps"] = true;
-			checkValues["bots"] = true;
-			((CheckBox)components[8]).Checked = true;
+			if (prevScreen.Mode != -1)
+			{
+				checkValues["bots"] = true;
+				((CheckBox)components[8]).Checked = true;
+			}
 
 			selectedComponent = components.Count - 1;
 
@@ -145,7 +151,7 @@ namespace Badminton.Screens.Menus
 			else
 				startPressed = false;
 
-			if (prevScreen.Colors.Length == 1)
+			if (prevScreen.Mode != -1 && prevScreen.Colors.Length == 1)
 			{
 				((CheckBox)components[8]).Checked = true;
 				checkValues["bots"] = true;
@@ -189,7 +195,7 @@ namespace Badminton.Screens.Menus
 					{
 						// Pass parameters eventually
 						case -1:
-							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], false);
 						case 0:
 							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 1:

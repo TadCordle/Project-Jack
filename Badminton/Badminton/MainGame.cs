@@ -164,6 +164,7 @@ namespace Badminton
 			mus_castle = Content.Load<Song>("castle music");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.8f;
+			MediaPlayer.Volume = 0f;
 
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });

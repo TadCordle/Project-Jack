@@ -1617,11 +1617,16 @@ namespace Badminton.Stick_Figures
 
 		#region Drawing
 
+		public virtual void Draw(SpriteBatch sb)
+		{
+			this.Draw(sb, 255);
+		}
+
 		/// <summary>
 		/// Draws the stick figure
 		/// </summary>
 		/// <param name="sb">The SpriteBatch used to draw the stick figure</param>
-		public virtual void Draw(SpriteBatch sb)
+		public void Draw(SpriteBatch sb, byte alpha)
 		{
 			// More debug
 //			sb.Draw(MainGame.tex_debugLimb, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, color, leftUpperArm.Rotation, new Vector2(MainGame.tex_debugLimb.Width / 2, MainGame.tex_debugLimb.Height / 2), scale, SpriteEffects.None, 0.0f);
@@ -1636,25 +1641,25 @@ namespace Badminton.Stick_Figures
 //			sb.Draw(MainGame.tex_debugHead, head.Position * MainGame.METER_TO_PIXEL, null, color, head.Rotation, new Vector2(MainGame.tex_debugHead.Width / 2, MainGame.tex_debugHead.Height / 2), scale, SpriteEffects.None, 0.0f);
 
 			Color deathColor = Color.Black;
-			Color c = Blend(color, deathColor, health[leftUpperArm]);
+			Color c = Blend(color, deathColor, alpha, health[leftUpperArm]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_armUpper : MainGame.tex_armUpper, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 7f, LastFacedLeft || health[leftUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[rightUpperArm]);
+			c = Blend(color, deathColor, alpha, health[rightUpperArm]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_armUpper : MainGame.tex_armUpper, rightUpperArm.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperArm.Rotation, new Vector2(MainGame.tex_armUpper.Width / 2, MainGame.tex_armUpper.Height / 2), scale / 7f, LastFacedLeft || health[rightUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[leftUpperLeg]);
+			c = Blend(color, deathColor, alpha, health[leftUpperLeg]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_legUpper : MainGame.tex_legUpper, leftUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 7f, !leftLegLeft || health[leftUpperLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[rightUpperLeg]);
+			c = Blend(color, deathColor, alpha, health[rightUpperLeg]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_legUpper : MainGame.tex_legUpper, rightUpperLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightUpperLeg.Rotation, new Vector2(MainGame.tex_legUpper.Width / 2, MainGame.tex_legUpper.Height / 2), scale / 7f, !rightLegLeft || health[rightUpperLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[leftLowerLeg]);
+			c = Blend(color, deathColor, alpha, health[leftLowerLeg]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_legLower : MainGame.tex_legLower, leftLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, leftLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 7f, leftLegLeft || health[leftLowerLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[rightLowerLeg]);
+			c = Blend(color, deathColor, alpha, health[rightLowerLeg]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_legLower : MainGame.tex_legLower, rightLowerLeg.Position * MainGame.METER_TO_PIXEL, null, c, rightLowerLeg.Rotation, new Vector2(MainGame.tex_legLower.Width / 2, MainGame.tex_legLower.Height / 2), scale / 7f, rightLegLeft || health[rightLowerLeg] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[torso]);
+			c = Blend(color, deathColor, alpha, health[torso]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_torso : MainGame.tex_torso, torso.Position * MainGame.METER_TO_PIXEL + Vector2.UnitY * 5, null, c, torso.Rotation, new Vector2(MainGame.tex_torso.Width / 2, MainGame.tex_torso.Height / 2), scale / 5f, LastFacedLeft || health[torso] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[leftLowerArm]);
+			c = Blend(color, deathColor, alpha, health[leftLowerArm]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_armLower : MainGame.tex_armLower, leftLowerArm.Position * MainGame.METER_TO_PIXEL - Vector2.UnitX * 2, null, c, leftLowerArm.Rotation + MathHelper.Pi, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 7f, LastFacedLeft || health[leftLowerArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[rightLowerArm]);
+			c = Blend(color, deathColor, alpha, health[rightLowerArm]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_armLower : MainGame.tex_armLower, rightLowerArm.Position * MainGame.METER_TO_PIXEL + Vector2.UnitX * 2, null, c, rightLowerArm.Rotation + MathHelper.Pi, new Vector2(MainGame.tex_armLower.Width / 2, MainGame.tex_armLower.Height / 2), scale / 7f, LastFacedLeft || health[rightUpperArm] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
-			c = Blend(color, deathColor, health[head]);
+			c = Blend(color, deathColor, alpha, health[head]);
 			sb.Draw(EvilSkin ? MainGame.tex_evil_head : MainGame.tex_head, head.Position * MainGame.METER_TO_PIXEL, null, c, head.Rotation, new Vector2(MainGame.tex_head.Width / 2, MainGame.tex_head.Height / 2), scale / 4f, LastFacedLeft || health[head] <= 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0.0f);
 
 			foreach (Attack a in attacks)
@@ -1696,12 +1701,12 @@ namespace Badminton.Stick_Figures
 		/// <param name="amount">How much of <paramref name="color"/> to keep,
 		/// “on top of” <paramref name="backColor"/>.</param>
 		/// <returns>The blended colors.</returns>
-		private Color Blend(Color c1, Color c2, float amount)
+		private Color Blend(Color c1, Color c2, byte alpha, float amount)
 		{
 			byte r = (byte)((c1.R * amount) + c2.R * (1 - amount));
 			byte g = (byte)((c1.G * amount) + c2.G * (1 - amount));
 			byte b = (byte)((c1.B * amount) + c2.B * (1 - amount));
-			byte a = Invulnerability > 0 ? (byte)200 : (byte)255;
+			byte a = Invulnerability > 0 ? (byte)200 : alpha;
 			return Color.FromNonPremultiplied(r, g, b, a);
 		}
 
