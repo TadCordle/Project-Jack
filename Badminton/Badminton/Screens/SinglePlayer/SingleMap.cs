@@ -23,6 +23,7 @@ namespace Badminton.Screens.MultiPlayer
 		List<StickFigure> enemies;
 		List<StickFigure> temp;
 		Dictionary<StickFigure, int> toRemove;
+		StickFigure winStick;
 
 		StickFigure[] player;
 		Vector2[] spawnPoints;
@@ -71,6 +72,7 @@ namespace Badminton.Screens.MultiPlayer
 			enemies = new List<StickFigure>();
 			toRemove = new Dictionary<StickFigure, int>();
 			temp = new List<StickFigure>();
+			winStick = null;
 
 			for (int i = 0; i < colors.Length; i++)
 				if (colors[i] != null)
@@ -145,11 +147,15 @@ namespace Badminton.Screens.MultiPlayer
 				{
 					enemies.Remove(s);
 					toRemove.Remove(s);
+					s.Destroy();
 				}
 			}
-			
+
 			if (enemies.Count - toRemove.Count < (int)maxEnemies && startPause < 0)
-				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1050) + 400, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 1, true, Color.White, PlayerIndex.Four, player));
+			{
+				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1000) + 460, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 1, true, Color.White, PlayerIndex.Four, player));
+				enemies[enemies.Count - 1].Invulnerability = 0;
+			}
 
 			// Update ammo
 			foreach (TrapAmmo t in ammo)
@@ -170,6 +176,19 @@ namespace Badminton.Screens.MultiPlayer
 			}
 			else
 			{
+				if (winStick == null)
+				{
+					winStick = new StickFigure(world, new Vector2(960, 440) * MainGame.PIXEL_TO_METER, Category.None, 3f, 1, 1, true, Color.White);
+					winStick.Invulnerability = 0;
+					winStick.Stand();
+				}
+				
+				if (winStick != null)
+				{
+					winStick.Update();
+					winStick.ApplyForce(world.Gravity * -1);
+				}
+
 				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
 				{
 					if (!enterPressed)
@@ -220,8 +239,8 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				Color c = new Color(255, 255, 255, 150);
 				sb.Draw(MainGame.tex_blank, new Rectangle(0, 0, 200, 63), c);
-				sb.Draw(MainGame.tex_clock, Vector2.One, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1f);
-				sb.DrawString(MainGame.fnt_midFont, millis / 60000 + ":" + (millis % 60000 / 1000 < 10 ? "0" : "") + (millis % 60000 / 1000 < 0 ? 0 : millis % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.Black);
+				sb.Draw(MainGame.tex_evil_head, Vector2.One, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1f);
+				sb.DrawString(MainGame.fnt_midFont, kills.ToString(), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.Black);
 				//				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.White);
 			}
 
@@ -242,6 +261,10 @@ namespace Badminton.Screens.MultiPlayer
 			Color c = new Color(255, 255, 255, 220);
 			sb.Draw(MainGame.tex_blank, new Rectangle(550, 100, 820, 880), c);
 			sb.Draw(MainGame.tex_endGame, new Rectangle(550, 100, 820, 880), Color.White);
+			if (winStick != null)
+				winStick.Draw(sb);
+			string winString = "Kills: " + kills.ToString();
+			sb.DrawString(MainGame.fnt_bigFont, winString, new Vector2(960 - MainGame.fnt_bigFont.MeasureString(winString).X / 2, 700), Color.Black);
 		}
 
 		public GameScreen GoBack()
