@@ -56,3 +56,5 @@ Content\castle music.wma
 Content\menu music.xnb
 Content\menu music.wma
 Content\textures\pillar.xnb
+Content\pillar music.xnb
+Content\pillar music.wma

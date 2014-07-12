@@ -163,7 +163,7 @@ namespace Badminton
 			sfx_explode = Content.Load<SoundEffect>("sfx/boom");
 			mus_menu = Content.Load<Song>("menu music");
 			mus_castle = Content.Load<Song>("castle music");
-			mus_pillar = Content.Load<Song>("castle music");
+			mus_pillar = Content.Load<Song>("pillar music");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.8f;
 //			MediaPlayer.Volume = 0f;

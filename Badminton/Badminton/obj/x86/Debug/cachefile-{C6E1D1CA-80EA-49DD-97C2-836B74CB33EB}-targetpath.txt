@@ -56,3 +56,5 @@ Content\sfx\hit.xnb
 Content\sfx\boom.xnb
 Content\sfx\shoot.xnb
 Content\textures\pillar.xnb
+Content\pillar music.xnb
+Content\pillar music.wma

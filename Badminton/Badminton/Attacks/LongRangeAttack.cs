@@ -68,6 +68,9 @@ namespace Badminton.Attacks
 				particles.Add(new Particle(this.PhysicsBody.Position * MainGame.METER_TO_PIXEL + Vector2.UnitX * (r.Next(10) - 5) + Vector2.UnitY * (r.Next(10) - 5), maxParticleTime));
 			
 			body.ApplyForce(-Vector2.UnitY * body.Mass * world.Gravity.Y);
+
+			if (body.LinearVelocity.Length() < 15f)
+				body.UserData = null;
 		}
 
 		public override void Draw(SpriteBatch sb, Color c)

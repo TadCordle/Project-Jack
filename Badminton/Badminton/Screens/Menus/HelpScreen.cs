@@ -23,14 +23,12 @@ namespace Badminton.Screens.Menus
         {
             world = new World(new Vector2(0, 9.8f));
 
-            walls = new List<Wall>();
-            walls.Add(new Wall(world, 570, 240, 400,20,0));
-			walls.Add(new Wall(world, 570, 840, 400, 20, 0));
-            walls.Add(new Wall(world, 370, 540, 20, 600, 0));
-            walls.Add(new Wall(world, 770, 540, 20, 600, 0));
-
+			object[] map = Map.LoadCastle(world);
+			walls = (List<Wall>)map[1];
+			walls.Add(new Wall(world, 970, 540, 20, 1500, 0));
+			LocalPlayer.AllowLongRange = true;
+			LocalPlayer.AllowTraps = true;
             player = new LocalPlayer(world, new Vector2(700, 500) * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, 1f, 1f, false, LocalPlayer.Colors[1], PlayerIndex.One);
-        
         }
 
         public GameScreen GoBack() 
@@ -48,19 +46,19 @@ namespace Badminton.Screens.Menus
 
         public void Draw(SpriteBatch sb)
         {
-
-           
             sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
-            sb.Draw(MainGame.tex_blank, new Rectangle(100, 50, 1720, 980), new Color(255, 255, 255, 200));
+            sb.Draw(MainGame.tex_blank, new Rectangle(960, 50, 900, 980), new Color(255, 255, 255, 200));
 
-            sb.DrawString(MainGame.fnt_midFont, "MoveRight  LeftThumbstickRight / D", new Vector2(800, 200), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "MoveLeft:  LeftThumbstickLeft / A", new Vector2(800, 300), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Crouch:  LeftThumbstickDown / S", new Vector2(800, 400), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Jump:  Button-A / W", new Vector2(800, 500), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Punch:  Button-X / LeftClick", new Vector2(800, 600), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Kick:  Button-B / RightClick", new Vector2(800, 700), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Shoot:  RightTrigger / MiddleClick", new Vector2(800, 800), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Trap:  Button-Y / T", new Vector2(800, 900), Color.Black);
+			sb.DrawString(MainGame.fnt_bigFont, "Help", Vector2.UnitX * 1315 + Vector2.UnitY * 102, Color.Black);
+            sb.DrawString(MainGame.fnt_midFont, "MoveRight:  Left Stick / D", new Vector2(1000, 200), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "MoveLeft:  Left Stick / A", new Vector2(1000, 300), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Crouch:  Left Trigger / S", new Vector2(1000, 400), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Jump:  Button-A / W", new Vector2(1000, 500), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Punch:  Button-X / LeftClick", new Vector2(1000, 600), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Kick:  Button-B / RightClick", new Vector2(1000, 700), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Shoot:  Right Trigger / MiddleClick", new Vector2(1000, 800), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Trap:  Button-Y / T", new Vector2(1000, 900), Color.Black);
+			sb.DrawString(MainGame.fnt_basicFont, "(Select/Esc to go back)", new Vector2(1600, 992), Color.Black);
 
             player.Draw(sb);
 

@@ -1101,7 +1101,8 @@ namespace Badminton.Stick_Figures
 			}
 			colliding = false;
 
-			if (Position.Y * MainGame.METER_TO_PIXEL > 1080)
+			if (Position.Y * MainGame.METER_TO_PIXEL > 1080 || Position.Y * MainGame.METER_TO_PIXEL < -300 ||
+					Position.X * MainGame.METER_TO_PIXEL > 2300 || Position.X * MainGame.METER_TO_PIXEL < -300)
 				health[torso] = 0f;
 
 			UpdateLimbStrength();
