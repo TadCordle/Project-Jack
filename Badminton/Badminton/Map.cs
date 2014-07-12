@@ -18,8 +18,10 @@ namespace Badminton
 		{
 			if (name == "castle")
 				return LoadCastle(w);
-
-			return LoadCastle(w);
+			else if (name == "pillar")
+				return LoadPillar(w);
+			else
+				return LoadCastle(w);
 		}
 
 		public static object[] LoadCastle(World w)
@@ -48,6 +50,31 @@ namespace Badminton
 			map[2] = spawnPoints;
 			map[3] = ammoPoints;
 			map[4] = MainGame.mus_castle;
+
+			return map;
+		}
+
+		public static object[] LoadPillar(World w)
+		{
+			List<Wall> walls = new List<Wall>();
+			walls.Add(new Wall(w, 960, 850, 1530, 130, 0));
+			walls.Add(new Wall(w, 960, 969, 1406, 222, 0));
+
+			Vector2[] spawnPoints = new Vector2[4];
+			spawnPoints[0] = new Vector2(500, 640);
+			spawnPoints[1] = new Vector2(820, 640);
+			spawnPoints[2] = new Vector2(1120, 640);
+			spawnPoints[3] = new Vector2(1420, 640);
+
+			Vector3[] ammoPoints = new Vector3[1];
+			ammoPoints[0] = new Vector3(960, 440, 1800);
+
+			object[] map = new object[5];
+			map[0] = MainGame.tex_bg_pillar;
+			map[1] = walls;
+			map[2] = spawnPoints;
+			map[3] = ammoPoints;
+			map[4] = MainGame.mus_pillar;
 
 			return map;
 		}

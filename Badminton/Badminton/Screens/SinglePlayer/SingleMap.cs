@@ -107,7 +107,7 @@ namespace Badminton.Screens.MultiPlayer
 				if (player[i] != null && info[i].HasLives())
 				{
 					player[i].Update();
-					if (player[i].IsDead || player[i].Position.Y * MainGame.METER_TO_PIXEL > 1080)
+					if (player[i].IsDead)
 					{
 						if (info[i].RespawnTimer < 0)
 							info[i].Kill();
@@ -153,7 +153,7 @@ namespace Badminton.Screens.MultiPlayer
 
 			if (enemies.Count - toRemove.Count < (int)maxEnemies && startPause < 0)
 			{
-				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1000) + 460, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 1, true, Color.White, PlayerIndex.Four, player));
+				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1000) + 460, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 0.5f, true, Color.White, PlayerIndex.Four, player));
 				enemies[enemies.Count - 1].Invulnerability = 0;
 			}
 
@@ -213,7 +213,7 @@ namespace Badminton.Screens.MultiPlayer
 		public void Draw(SpriteBatch sb)
 		{
 			// draw background
-			sb.Draw(MainGame.tex_bg_castle, new Rectangle(0, 0, 1920, 1080), Color.White);
+			sb.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
 
 			// draw ammo
 			foreach (TrapAmmo t in ammo)
@@ -248,7 +248,7 @@ namespace Badminton.Screens.MultiPlayer
 				DrawGameOver(sb);
 			else
 				for (int i = 0; i < info.Length; i++)
-					info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 940, player[i]);
+					info[i].Draw(sb, Vector2.UnitX * 450 + Vector2.UnitX * i * 300 + Vector2.UnitY * 970, player[i]);
 
 			if (startPause > 0)
 				MainGame.DrawOutlineText(sb, MainGame.fnt_bigFont, "Ready...", new Vector2(900, 500), Color.Red);

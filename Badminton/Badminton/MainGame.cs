@@ -41,7 +41,7 @@ namespace Badminton
 		public static Texture2D tex_box, tex_heart, tex_clock, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
 		public static Texture2D tex_evil_head, tex_evil_torso, tex_evil_armUpper, tex_evil_armLower, tex_evil_legUpper, tex_evil_legLower;
-		public static Texture2D tex_bg_castle;
+		public static Texture2D tex_bg_castle, tex_bg_pillar;
 		public static Texture2D tex_blank;
 		public static Texture2D tex_endGame;
 
@@ -52,7 +52,7 @@ namespace Badminton
 
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh, sfx_shoot, sfx_explode, sfx_hit;
-		public static Song mus_menu, mus_castle;
+		public static Song mus_menu, mus_castle, mus_pillar;
 
 		public static Game mainGame;
 
@@ -64,7 +64,7 @@ namespace Badminton
 #if DEBUG
 			RESOLUTION_SCALE = 0.667f;
 #else
-			RESOLUTION_SCALE = 1f;
+			RESOLUTION_SCALE = 1f; //0.9185185185f; //1f;
 #endif
 			graphics.PreferredBackBufferWidth = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, (int)(1920 * RESOLUTION_SCALE));
 			graphics.PreferredBackBufferHeight = Math.Min(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height, (int)(1080 * RESOLUTION_SCALE));
@@ -109,6 +109,7 @@ namespace Badminton
 			fnt_midFont = Content.Load<SpriteFont>("fonts/midFont");
 
 			tex_bg_castle = Content.Load<Texture2D>("textures/castle");
+			tex_bg_pillar = Content.Load<Texture2D>("textures/pillar");
 
 			tex_box = Content.Load<Texture2D>("textures/box");
 			tex_heart = Content.Load<Texture2D>("textures/heart");
@@ -162,14 +163,16 @@ namespace Badminton
 			sfx_explode = Content.Load<SoundEffect>("sfx/boom");
 			mus_menu = Content.Load<Song>("menu music");
 			mus_castle = Content.Load<Song>("castle music");
+			mus_pillar = Content.Load<Song>("castle music");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.8f;
-			MediaPlayer.Volume = 0f;
+//			MediaPlayer.Volume = 0f;
 
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			tex_blank.SetData(new[] { Color.White });
 
 			Map.MapKeys.Add(MainGame.tex_bg_castle, "castle");
+			Map.MapKeys.Add(MainGame.tex_bg_pillar, "pillar");
 
 //			currentScreen = new SingleMap();
 //			currentScreen = new FreeForAll();

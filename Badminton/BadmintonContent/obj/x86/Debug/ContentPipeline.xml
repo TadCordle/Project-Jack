@@ -498,6 +498,15 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\sfx\shoot.xnb</Output>
       <Time>2014-04-19T14:36:39.7389735-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\pillar.png</Source>
+      <Name>textures\pillar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Debug\Content\textures\pillar.xnb</Output>
+      <Time>2014-07-11T19:39:01.8283953-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

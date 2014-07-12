@@ -46,6 +46,7 @@ namespace Badminton.Screens.Menus
 
 			maps = new List<Texture2D>();
 			maps.Add(MainGame.tex_bg_castle);
+			maps.Add(MainGame.tex_bg_pillar);
 
 			checkValues = new Dictionary<string, bool>();
 			components = new List<Component>();
