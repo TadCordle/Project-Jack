@@ -132,7 +132,8 @@ namespace Badminton.Screens.MultiPlayer
 				s.Update();
 				if (s.IsDead && !toRemove.ContainsKey(s))
 				{
-					kills++;
+					if (!gameOver)
+						kills++;
 					toRemove.Add(s, 255);
 				}
 			}
