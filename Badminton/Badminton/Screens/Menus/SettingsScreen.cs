@@ -47,14 +47,18 @@ namespace Badminton.Screens.Menus
 			maps = new List<Texture2D>();
 			maps.Add(MainGame.tex_bg_castle);
 			maps.Add(MainGame.tex_bg_pillar);
+			maps.Add(MainGame.tex_bg_octopus);
+			maps.Add(MainGame.tex_bg_graveyard);
+			maps.Add(MainGame.tex_bg_clocktower);
+			maps.Add(MainGame.tex_bg_circus);
 
 			checkValues = new Dictionary<string, bool>();
 			components = new List<Component>();
-			components.Add(new Button(new Vector2(1160, 235), MainGame.tex_btnUp, "map"));
-			components.Add(new Button(new Vector2(1160, 315), MainGame.tex_btnUp, "grav"));
-			components.Add(new Button(new Vector2(1160, 395), MainGame.tex_btnUp, "limb"));
-			components.Add(new Button(new Vector2(1160, 475), MainGame.tex_btnUp, "time"));
-			components.Add(new Button(new Vector2(1160, 555), MainGame.tex_btnUp, "lives"));
+			components.Add(new Button(new Vector2(1190, 235), MainGame.tex_btnUp, "map"));
+			components.Add(new Button(new Vector2(1190, 315), MainGame.tex_btnUp, "grav"));
+			components.Add(new Button(new Vector2(1190, 395), MainGame.tex_btnUp, "limb"));
+			components.Add(new Button(new Vector2(1190, 475), MainGame.tex_btnUp, "time"));
+			components.Add(new Button(new Vector2(1190, 555), MainGame.tex_btnUp, "lives"));
 			components.Add(new CheckBox(new Vector2(800, 635), "Sudden death mode", "death"));
 			checkValues.Add("death", false);
 			components.Add(new CheckBox(new Vector2(800, 715), "Allow ranged attacks", "ranged"));
@@ -139,7 +143,7 @@ namespace Badminton.Screens.Menus
 					{
 						// Pass parameters eventually
 						case -1:
-							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], false);
 						case 0:
 							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 1:

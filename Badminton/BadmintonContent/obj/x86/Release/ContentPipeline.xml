@@ -517,6 +517,42 @@
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\pillar music.wma</Extra>
       <Time>2014-07-12T22:23:24.5219821-04:00</Time>
     </Item>
+    <Item>
+      <Source>textures\octopus.png</Source>
+      <Name>textures\octopus</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\octopus.xnb</Output>
+      <Time>2014-07-15T20:48:58.5813015-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\graveyard.png</Source>
+      <Name>textures\graveyard</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\graveyard.xnb</Output>
+      <Time>2014-07-15T21:11:47.8046166-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\circus.png</Source>
+      <Name>textures\circus</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\circus.xnb</Output>
+      <Time>2014-07-15T21:42:01.6013599-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\clocktower.png</Source>
+      <Name>textures\clocktower</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\clocktower.xnb</Output>
+      <Time>2014-07-15T21:42:33.1761658-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

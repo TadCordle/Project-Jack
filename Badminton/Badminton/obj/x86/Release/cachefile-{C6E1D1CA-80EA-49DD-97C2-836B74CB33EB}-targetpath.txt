@@ -58,3 +58,7 @@ Content\menu music.wma
 Content\textures\pillar.xnb
 Content\pillar music.xnb
 Content\pillar music.wma
+Content\textures\octopus.xnb
+Content\textures\graveyard.xnb
+Content\textures\circus.xnb
+Content\textures\clocktower.xnb

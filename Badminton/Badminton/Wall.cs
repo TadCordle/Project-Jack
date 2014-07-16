@@ -21,6 +21,10 @@ namespace Badminton
 		public float Width { get { return width; } }
 		public float Height { get { return height; } }
 
+		public Wall()
+		{
+		}
+
 		public Wall(World w, float x, float y, float width, float height, float rotation)
 		{
 			this.width = width * MainGame.PIXEL_TO_METER;

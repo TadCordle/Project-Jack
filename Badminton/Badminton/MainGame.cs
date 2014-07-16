@@ -41,7 +41,7 @@ namespace Badminton
 		public static Texture2D tex_box, tex_heart, tex_clock, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
 		public static Texture2D tex_evil_head, tex_evil_torso, tex_evil_armUpper, tex_evil_armLower, tex_evil_legUpper, tex_evil_legLower;
-		public static Texture2D tex_bg_castle, tex_bg_pillar;
+		public static Texture2D tex_bg_castle, tex_bg_pillar, tex_bg_octopus, tex_bg_graveyard, tex_bg_clocktower, tex_bg_circus;
 		public static Texture2D tex_blank;
 		public static Texture2D tex_endGame;
 
@@ -52,7 +52,7 @@ namespace Badminton
 
 		public static SoundEffect[] sfx_punches;
 		public static SoundEffect sfx_whoosh, sfx_shoot, sfx_explode, sfx_hit;
-		public static Song mus_menu, mus_castle, mus_pillar;
+		public static Song mus_menu, mus_castle, mus_pillar, mus_octopus, mus_graveyard, mus_clocktower, mus_circus;
 
 		public static Game mainGame;
 
@@ -110,6 +110,10 @@ namespace Badminton
 
 			tex_bg_castle = Content.Load<Texture2D>("textures/castle");
 			tex_bg_pillar = Content.Load<Texture2D>("textures/pillar");
+			tex_bg_octopus = Content.Load<Texture2D>("textures/octopus");
+			tex_bg_graveyard = Content.Load<Texture2D>("textures/graveyard");
+			tex_bg_clocktower = Content.Load<Texture2D>("textures/clocktower");
+			tex_bg_circus = Content.Load<Texture2D>("textures/circus");
 
 			tex_box = Content.Load<Texture2D>("textures/box");
 			tex_heart = Content.Load<Texture2D>("textures/heart");
@@ -164,6 +168,10 @@ namespace Badminton
 			mus_menu = Content.Load<Song>("menu music");
 			mus_castle = Content.Load<Song>("castle music");
 			mus_pillar = Content.Load<Song>("pillar music");
+			mus_octopus = Content.Load<Song>("castle music");
+			mus_graveyard = Content.Load<Song>("castle music");
+			mus_clocktower = Content.Load<Song>("pillar music");
+			mus_circus = Content.Load<Song>("castle music");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.8f;
 //			MediaPlayer.Volume = 0f;
@@ -173,6 +181,10 @@ namespace Badminton
 
 			Map.MapKeys.Add(MainGame.tex_bg_castle, "castle");
 			Map.MapKeys.Add(MainGame.tex_bg_pillar, "pillar");
+			Map.MapKeys.Add(MainGame.tex_bg_octopus, "octopus");
+			Map.MapKeys.Add(MainGame.tex_bg_graveyard, "graveyard");
+			Map.MapKeys.Add(MainGame.tex_bg_clocktower, "clocktower");
+			Map.MapKeys.Add(MainGame.tex_bg_circus, "circus");
 
 //			currentScreen = new SingleMap();
 //			currentScreen = new FreeForAll();
