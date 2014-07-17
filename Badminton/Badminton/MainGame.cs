@@ -168,9 +168,9 @@ namespace Badminton
 			mus_menu = Content.Load<Song>("menu music");
 			mus_castle = Content.Load<Song>("castle music");
 			mus_pillar = Content.Load<Song>("pillar music");
-			mus_octopus = Content.Load<Song>("castle music");
+			mus_octopus = Content.Load<Song>("octopus music");
 			mus_graveyard = Content.Load<Song>("castle music");
-			mus_clocktower = Content.Load<Song>("pillar music");
+			mus_clocktower = Content.Load<Song>("octopus music");
 			mus_circus = Content.Load<Song>("castle music");
 			MediaPlayer.IsRepeating = true;
 			MediaPlayer.Volume = 0.8f;

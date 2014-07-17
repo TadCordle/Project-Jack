@@ -553,6 +553,16 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\clocktower.xnb</Output>
       <Time>2014-07-15T21:42:33.1761658-04:00</Time>
     </Item>
+    <Item>
+      <Source>octopus music.mp3</Source>
+      <Name>octopus music</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\octopus music.xnb</Output>
+      <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\octopus music.wma</Extra>
+      <Time>2014-07-16T20:08:08.575068-04:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
