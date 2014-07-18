@@ -524,7 +524,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\octopus.xnb</Output>
-      <Time>2014-07-15T20:48:58.5813015-04:00</Time>
+      <Time>2014-07-17T22:01:24.3737191-04:00</Time>
     </Item>
     <Item>
       <Source>textures\graveyard.png</Source>
@@ -542,7 +542,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\circus.xnb</Output>
-      <Time>2014-07-15T21:42:01.6013599-04:00</Time>
+      <Time>2014-07-17T22:04:17.9296459-04:00</Time>
     </Item>
     <Item>
       <Source>textures\clocktower.png</Source>
@@ -562,6 +562,15 @@
       <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\octopus music.xnb</Output>
       <Extra>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\octopus music.wma</Extra>
       <Time>2014-07-16T20:08:08.575068-04:00</Time>
+    </Item>
+    <Item>
+      <Source>textures\circus foreground.png</Source>
+      <Name>textures\circus foreground</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\Badminton\bin\x86\Release\Content\textures\circus foreground.xnb</Output>
+      <Time>2014-07-17T22:37:35.8899227-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

@@ -48,8 +48,8 @@ namespace Badminton.Screens.Menus
 			maps.Add(MainGame.tex_bg_castle);
 			maps.Add(MainGame.tex_bg_pillar);
 			maps.Add(MainGame.tex_bg_octopus);
-			maps.Add(MainGame.tex_bg_graveyard);
-			maps.Add(MainGame.tex_bg_clocktower);
+//			maps.Add(MainGame.tex_bg_graveyard);
+//			maps.Add(MainGame.tex_bg_clocktower);
 			maps.Add(MainGame.tex_bg_circus);
 
 			checkValues = new Dictionary<string, bool>();

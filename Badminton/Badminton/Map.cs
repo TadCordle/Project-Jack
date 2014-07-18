@@ -189,22 +189,24 @@ namespace Badminton
 			walls.Add(new Wall(w, 1932, 476, 24, 1000, 0));
 			walls.Add(new Wall(w, 1038, 960, 2174, 282, 0));
 			walls.Add(new Wall(w, 933, 729, 525, 164, 0));
+			walls.Add(new Wall(w, 1390, 481, 139, 31, 0));
 
 			Vector2[] spawnPoints = new Vector2[4];
 			spawnPoints[0] = new Vector2(250, 690);
-			spawnPoints[1] = new Vector2(1670, 690);
+			spawnPoints[1] = new Vector2(1422, 348);
 			spawnPoints[2] = new Vector2(550, 690);
 			spawnPoints[3] = new Vector2(1370, 690);
 
 			Vector3[] ammoPoints = new Vector3[1];
 			ammoPoints[0] = new Vector3(950, 405, 1800);
 
-			object[] map = new object[5];
+			object[] map = new object[6];
 			map[0] = MainGame.tex_bg_circus;
 			map[1] = walls;
 			map[2] = spawnPoints;
 			map[3] = ammoPoints;
 			map[4] = MainGame.mus_circus;
+			map[5] = MainGame.tex_fg_circus;
 
 			return map;
 		}

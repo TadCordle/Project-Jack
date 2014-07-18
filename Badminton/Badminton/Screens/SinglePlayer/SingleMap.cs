@@ -28,7 +28,7 @@ namespace Badminton.Screens.MultiPlayer
 		StickFigure[] player;
 		Vector2[] spawnPoints;
 		TrapAmmo[] ammo;
-		Texture2D background;
+		Texture2D background, foreground;
 		Song music;
 
 		PlayerValues[] info;
@@ -63,6 +63,8 @@ namespace Badminton.Screens.MultiPlayer
 					ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
 			music = (Song)map[4];
 			MediaPlayer.Play(music);
+			if (map.Length > 5)
+				foreground = (Texture2D)map[5];
 
 			StickFigure.AllowTraps = traps;
 			StickFigure.AllowLongRange = longRange;
@@ -234,6 +236,9 @@ namespace Badminton.Screens.MultiPlayer
 			// draw walls
 			//			foreach (Wall w in walls)
 			//				w.Draw(sb);
+
+			if (foreground != null)
+				sb.Draw(foreground, new Rectangle(0, 0, 1920, 1080), Color.White);
 
 			// Draw HUD
 			if (millis >= 0)

@@ -41,7 +41,7 @@ namespace Badminton
 		public static Texture2D tex_box, tex_heart, tex_clock, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;
 		public static Texture2D tex_head, tex_torso, tex_armUpper, tex_armLower, tex_legUpper, tex_legLower, tex_debugHead, tex_debugTorso, tex_debugLimb;
 		public static Texture2D tex_evil_head, tex_evil_torso, tex_evil_armUpper, tex_evil_armLower, tex_evil_legUpper, tex_evil_legLower;
-		public static Texture2D tex_bg_castle, tex_bg_pillar, tex_bg_octopus, tex_bg_graveyard, tex_bg_clocktower, tex_bg_circus;
+		public static Texture2D tex_bg_castle, tex_bg_pillar, tex_bg_octopus, tex_bg_graveyard, tex_bg_clocktower, tex_bg_circus, tex_fg_circus;
 		public static Texture2D tex_blank;
 		public static Texture2D tex_endGame;
 
@@ -114,6 +114,7 @@ namespace Badminton
 			tex_bg_graveyard = Content.Load<Texture2D>("textures/graveyard");
 			tex_bg_clocktower = Content.Load<Texture2D>("textures/clocktower");
 			tex_bg_circus = Content.Load<Texture2D>("textures/circus");
+			tex_fg_circus = Content.Load<Texture2D>("textures/circus foreground");
 
 			tex_box = Content.Load<Texture2D>("textures/box");
 			tex_heart = Content.Load<Texture2D>("textures/heart");
