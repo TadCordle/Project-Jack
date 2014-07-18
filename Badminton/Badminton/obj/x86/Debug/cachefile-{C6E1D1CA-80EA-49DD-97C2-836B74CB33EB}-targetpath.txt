@@ -62,3 +62,6 @@ Content\textures\octopus.xnb
 Content\textures\graveyard.xnb
 Content\textures\circus.xnb
 Content\textures\clocktower.xnb
+Content\textures\circus foreground.xnb
+Content\octopus music.xnb
+Content\octopus music.wma
