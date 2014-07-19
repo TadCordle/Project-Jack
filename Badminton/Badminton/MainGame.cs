@@ -174,7 +174,7 @@ namespace Badminton
 			mus_clocktower = Content.Load<Song>("octopus music");
 			mus_circus = Content.Load<Song>("castle music");
 			MediaPlayer.IsRepeating = true;
-			MediaPlayer.Volume = 0.8f;
+			MediaPlayer.Volume = 1f;
 //			MediaPlayer.Volume = 0f;
 
 			tex_blank = new Texture2D(GraphicsDevice, 1, 1, false, SurfaceFormat.Color);

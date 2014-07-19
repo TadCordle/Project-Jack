@@ -18,7 +18,6 @@ namespace Badminton.Screens.Menus
 		bool upPressed, downPressed, leftPressed, rightPressed, startPressed, enterPressed;
 
 		float gravity;
-		float limbStrength;
 		int timeLimit;
 		int lives;
 
@@ -38,8 +37,7 @@ namespace Badminton.Screens.Menus
 			enterPressed = true;
 
 			gravity = 9.8f;
-			limbStrength = 1f;
-			timeLimit = 0;
+			timeLimit = prevScreen.Mode == 2 ? 2 : 0;
 			lives = 3;
 
 			selectedMap = 0;
@@ -56,31 +54,30 @@ namespace Badminton.Screens.Menus
 			components = new List<Component>();
 			components.Add(new Button(new Vector2(1190, 235), MainGame.tex_btnUp, "map"));
 			components.Add(new Button(new Vector2(1190, 315), MainGame.tex_btnUp, "grav"));
-			components.Add(new Button(new Vector2(1190, 395), MainGame.tex_btnUp, "limb"));
-			components.Add(new Button(new Vector2(1190, 475), MainGame.tex_btnUp, "time"));
-			components.Add(new Button(new Vector2(1190, 555), MainGame.tex_btnUp, "lives"));
-			components.Add(new CheckBox(new Vector2(800, 635), "Sudden death mode", "death"));
+			components.Add(new Button(new Vector2(1190, 395), MainGame.tex_btnUp, "time"));
+			components.Add(new Button(new Vector2(1190, 475), MainGame.tex_btnUp, "lives"));
+			components.Add(new CheckBox(new Vector2(800, 555), "Sudden death mode", "death"));
 			checkValues.Add("death", false);
-			components.Add(new CheckBox(new Vector2(800, 715), "Allow ranged attacks", "ranged"));
+			components.Add(new CheckBox(new Vector2(800, 635), "Allow ranged attacks", "ranged"));
 			checkValues.Add("ranged", false);
-			components.Add(new CheckBox(new Vector2(800, 795), "Allow mines", "traps"));
+			components.Add(new CheckBox(new Vector2(800, 715), "Allow mines", "traps"));
 			checkValues.Add("traps", false);
 			if (prevScreen.Mode != -1)
 			{
-				components.Add(new CheckBox(new Vector2(800, 875), "Fill empty slots with bots", "bots"));
+				components.Add(new CheckBox(new Vector2(800, 795), "Fill empty slots with bots", "bots"));
 				checkValues.Add("bots", false);
 			}
-			components.Add(new Button(new Vector2(960, 980), MainGame.tex_ps_next, "start"));
+			components.Add(new Button(new Vector2(960, 940), MainGame.tex_ps_next, "start"));
 			components[components.Count - 1].Selected = true;
 
-			((CheckBox)components[6]).Checked = true;
+			((CheckBox)components[5]).Checked = true;
 			checkValues["ranged"] = true;
-			((CheckBox)components[7]).Checked = true;
+			((CheckBox)components[6]).Checked = true;
 			checkValues["traps"] = true;
 			if (prevScreen.Mode != -1)
 			{
 				checkValues["bots"] = true;
-				((CheckBox)components[8]).Checked = true;
+				((CheckBox)components[7]).Checked = true;
 			}
 
 			selectedComponent = components.Count - 1;
@@ -93,12 +90,12 @@ namespace Badminton.Screens.Menus
 				return GoBack();
 
 			GameScreen ret = null;
-			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickLeft) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft) || Keyboard.GetState().IsKeyDown(Keys.Left))
+			if (selectedComponent != components.Count - 1 && (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickLeft) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft) || Keyboard.GetState().IsKeyDown(Keys.Left)))
 				ret = UpdateSelection(false, ref leftPressed);
 			else
 				leftPressed = false;
 
-			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickRight) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) || Keyboard.GetState().IsKeyDown(Keys.Right))
+			if (selectedComponent != components.Count - 1 && (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickRight) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) || Keyboard.GetState().IsKeyDown(Keys.Right)))
 				ret = UpdateSelection(true, ref rightPressed);
 			else
 				rightPressed = false;
@@ -143,13 +140,13 @@ namespace Badminton.Screens.Menus
 					{
 						// Pass parameters eventually
 						case -1:
-							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], false);
+							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], false);
 						case 0:
-							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 1:
-							return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 2:
-							return new OneVsAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new OneVsAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 					}
 				}
 			}
@@ -158,7 +155,7 @@ namespace Badminton.Screens.Menus
 
 			if (prevScreen.Mode != -1 && prevScreen.Colors.Length == 1)
 			{
-				((CheckBox)components[8]).Checked = true;
+				((CheckBox)components[7]).Checked = true;
 				checkValues["bots"] = true;
 			}
 
@@ -200,21 +197,19 @@ namespace Badminton.Screens.Menus
 					{
 						// Pass parameters eventually
 						case -1:
-							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], false);
+							return new SingleMap(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], false);
 						case 0:
-							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new FreeForAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 1:
-							return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new TeamDeathmatch(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 						case 2:
-							return new OneVsAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, limbStrength, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
+							return new OneVsAll(prevScreen.Colors, Map.MapKeys[maps[selectedMap]], gravity, timeLimit, lives, 1f, checkValues["death"], checkValues["traps"], checkValues["ranged"], checkValues["bots"]);
 					}
 				}
 			}
 
 			if (s == "grav")
 				gravity = gravity + 0.04f * delta > 12 ? 12 : (gravity + 0.04f * delta < 0 ? 0 : gravity + 0.04f * delta);
-			else if (s == "limb")
-				limbStrength = limbStrength + 0.01f * delta > 1 ? 1 : (limbStrength + 0.01f * delta < 0 ? 0 : limbStrength + 0.01f * delta);
 
 			return this;
 		}
@@ -236,12 +231,10 @@ namespace Badminton.Screens.Menus
 			sb.DrawString(MainGame.fnt_midFont, Map.MapKeys[maps[selectedMap]], new Vector2(970, 220), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, "Gravity:", new Vector2(680, 300), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, gravity.ToString("0.00"), new Vector2(970, 300), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Sober-ness:", new Vector2(680, 380), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, ((int)(limbStrength * 100)).ToString() + "%", new Vector2(970, 380), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Time limit:", new Vector2(680, 460), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, (timeLimit == 0 ? "None" : timeLimit.ToString() + " min"), new Vector2(970, 460), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Lives:", new Vector2(680, 540), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, lives.ToString(), new Vector2(970, 540), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Time limit:", new Vector2(680, 380), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, (timeLimit == 0 ? "None" : timeLimit.ToString() + " min"), new Vector2(970, 380), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Lives:", new Vector2(680, 460), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, lives.ToString(), new Vector2(970, 460), Color.Black);
 			foreach (Component comp in components)
 				comp.Draw(sb);
 		}
