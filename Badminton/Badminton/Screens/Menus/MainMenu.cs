@@ -37,7 +37,7 @@ namespace Badminton.Screens.Menus
 		{
 			Component.UpdateSelection(choices);
 
-			if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown))
+			if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown)/* || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown)*/)
 			{
 				if (!downPressed)
 				{
@@ -59,7 +59,7 @@ namespace Badminton.Screens.Menus
 			else
 				downPressed = false;
 
-			if (Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadUp) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickUp))
+			if (Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadUp)/* || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickUp)*/)
 			{
 				if (!upPressed)
 				{

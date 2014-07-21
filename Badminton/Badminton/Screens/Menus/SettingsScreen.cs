@@ -90,12 +90,12 @@ namespace Badminton.Screens.Menus
 				return GoBack();
 
 			GameScreen ret = null;
-			if (selectedComponent != components.Count - 1 && (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickLeft) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft) || Keyboard.GetState().IsKeyDown(Keys.Left)))
+			if (selectedComponent != components.Count - 1 && (/*GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickLeft) || */GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadLeft) || Keyboard.GetState().IsKeyDown(Keys.Left)))
 				ret = UpdateSelection(false, ref leftPressed);
 			else
 				leftPressed = false;
 
-			if (selectedComponent != components.Count - 1 && (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickRight) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) || Keyboard.GetState().IsKeyDown(Keys.Right)))
+			if (selectedComponent != components.Count - 1 && (/*GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickRight) ||  */GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadRight) || Keyboard.GetState().IsKeyDown(Keys.Right)))
 				ret = UpdateSelection(true, ref rightPressed);
 			else
 				rightPressed = false;
@@ -105,7 +105,7 @@ namespace Badminton.Screens.Menus
 			else
 				enterPressed = false;
 
-			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickUp) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadUp) || Keyboard.GetState().IsKeyDown(Keys.Up))
+			if (/*GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickUp) ||  */GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadUp) || Keyboard.GetState().IsKeyDown(Keys.Up))
 			{
 				if (!upPressed)
 				{
@@ -118,7 +118,7 @@ namespace Badminton.Screens.Menus
 			else
 				upPressed = false;
 
-			if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || Keyboard.GetState().IsKeyDown(Keys.Down))
+			if (/*GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown) || */GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || Keyboard.GetState().IsKeyDown(Keys.Down))
 			{
 				if (!downPressed)
 				{

@@ -85,7 +85,7 @@ namespace Badminton.Screens.Menus
 						components[components.Count - 1].Selected = true;
 				}
 
-				if (usingKeyboard && Keyboard.GetState().IsKeyDown(Keys.Down) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown))
+				if (usingKeyboard && Keyboard.GetState().IsKeyDown(Keys.Down) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadDown)/* || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickDown)*/)
 				{
 					if (!downPressed)
 					{
@@ -107,7 +107,7 @@ namespace Badminton.Screens.Menus
 				else
 					downPressed = false;
 
-				if (usingKeyboard && Keyboard.GetState().IsKeyDown(Keys.Up) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadUp) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickUp))
+				if (usingKeyboard && Keyboard.GetState().IsKeyDown(Keys.Up) || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.DPadUp)/* || !usingKeyboard && GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftThumbstickUp)*/)
 				{
 					if (!upPressed)
 					{

@@ -50,14 +50,14 @@ namespace Badminton.Screens.Menus
             sb.Draw(MainGame.tex_blank, new Rectangle(960, 50, 900, 980), new Color(255, 255, 255, 200));
 
 			sb.DrawString(MainGame.fnt_bigFont, "Help", Vector2.UnitX * 1315 + Vector2.UnitY * 102, Color.Black);
-            sb.DrawString(MainGame.fnt_midFont, "MoveRight:  Left Stick / D", new Vector2(1000, 200), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "MoveLeft:  Left Stick / A", new Vector2(1000, 300), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Crouch:  Left Trigger / S", new Vector2(1000, 400), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Jump:  Button-A / W", new Vector2(1000, 500), Color.Black);
+            sb.DrawString(MainGame.fnt_midFont, "MoveRight:  Left Stick / D Key", new Vector2(1000, 200), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "MoveLeft:  Left Stick / A Key", new Vector2(1000, 300), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Crouch:  Left Trigger / S Key", new Vector2(1000, 400), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Jump:  Button-A / W Key", new Vector2(1000, 500), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, "Punch:  Button-X / LeftClick", new Vector2(1000, 600), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, "Kick:  Button-B / RightClick", new Vector2(1000, 700), Color.Black);
 			sb.DrawString(MainGame.fnt_midFont, "Shoot:  Right Trigger / MiddleClick", new Vector2(1000, 800), Color.Black);
-			sb.DrawString(MainGame.fnt_midFont, "Trap:  Button-Y / T", new Vector2(1000, 900), Color.Black);
+			sb.DrawString(MainGame.fnt_midFont, "Trap:  Button-Y / T Key", new Vector2(1000, 900), Color.Black);
 			sb.DrawString(MainGame.fnt_basicFont, "(Select/Esc to go back)", new Vector2(1600, 992), Color.Black);
 
             player.Draw(sb);

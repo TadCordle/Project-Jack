@@ -214,7 +214,7 @@ namespace Badminton
 //				this.TargetElapsedTime = TimeSpan.FromSeconds(0.016f);
 
 			// Allows the game to exit
-			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+			if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed && !(currentScreen is MainMenu))|| Keyboard.GetState().IsKeyDown(Keys.Escape))
 			{
 				if (!escapePressed)
 				{
