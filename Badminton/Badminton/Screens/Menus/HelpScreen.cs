@@ -23,8 +23,8 @@ namespace Badminton.Screens.Menus
         {
             world = new World(new Vector2(0, 9.8f));
 
-			object[] map = Map.LoadCastle(world);
-			walls = (List<Wall>)map[1];
+			MapData data = Map.LoadCastle(world);
+            walls = data.walls;
 			walls.Add(new Wall(world, 970, 540, 20, 1500, 0));
 			LocalPlayer.AllowLongRange = true;
 			LocalPlayer.AllowTraps = true;

@@ -13,7 +13,7 @@ using FarseerPhysics.Factories;
 
 namespace Badminton
 {
-	class Wall
+	public class Wall
 	{
 		private Body body;
 

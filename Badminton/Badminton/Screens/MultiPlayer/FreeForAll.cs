@@ -45,19 +45,18 @@ namespace Badminton.Screens.MultiPlayer
 		{
 			world = new World(new Vector2(0, gravity));
 
-			object[] map = Map.LoadMap(world, mapString);
-			background = (Texture2D)map[0];
-			walls = (List<Wall>)map[1];
-			spawnPoints = (Vector2[])map[2];
-			Vector3[] ammoPoints = (Vector3[])map[3];
+			MapData data = Map.LoadMap(world, mapString);
+            background = data.background;
+            walls = data.walls;
+            spawnPoints = data.spawnPoints;
+            Vector3[] ammoPoints = data.ammoPoints;
 			ammo = new TrapAmmo[ammoPoints.Length];
 			if (traps)
 				for (int i = 0; i < ammoPoints.Length; i++)
 					ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
-			music = (Song)map[4];
+            music = data.music;
 			MediaPlayer.Play(music);
-			if (map.Length > 5)
-				foreground = (Texture2D)map[5];
+            foreground = data.foreground;
 
 			StickFigure.AllowTraps = traps;
 			StickFigure.AllowLongRange = longRange;
