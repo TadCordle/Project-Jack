@@ -20,6 +20,7 @@ namespace Badminton.Screens.MultiPlayer
 	{
 		World world;
 		List<Wall> walls;
+        Pathfinding.NavMesh navmesh;
 
 		StickFigure[] player;
 		Vector2[] spawnPoints;
@@ -57,6 +58,7 @@ namespace Badminton.Screens.MultiPlayer
             music = data.music;
 			MediaPlayer.Play(music);
             foreground = data.foreground;
+            navmesh = data.navmesh;
 
 			StickFigure.AllowTraps = traps;
 			StickFigure.AllowLongRange = longRange;
@@ -75,7 +77,7 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				for (int i = colors.Length; i < 4; i++)
 				{
-					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, i % 2 == 1, new Color(i * 60, i * 60, i * 60), Players[i], player);
+					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, i % 2 == 1, new Color(i * 60, i * 60, i * 60), Players[i], player, navmesh);
 					player[i].LockControl = true;
 				}
 			}

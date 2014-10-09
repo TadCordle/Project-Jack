@@ -7,20 +7,22 @@ using FarseerPhysics.Common;
 namespace Badminton.Pathfinding
 {
     // Each level has a tree made of these
-    public class PathNode
+    public class NavNode
     {
         public Vector2 Position;
-        public List<PathNode> Neighbors;
+        public List<NavNode> Neighbors;
         public List<float> Costs;
 
-        public PathNode(float x, float y)
+        public NavNode Previous = null; // for pathfinding
+
+        public NavNode(float x, float y)
         {
             Position = new Vector2(x, y);
-            Neighbors = new List<PathNode>();
+            Neighbors = new List<NavNode>();
             Costs = new List<float>();
         }
 
-        public void AddNeighbor(PathNode n)
+        public void AddNeighbor(NavNode n)
         {
             if (!Neighbors.Contains(n))
             {
@@ -29,7 +31,7 @@ namespace Badminton.Pathfinding
             }
         }
 
-        private float EdgeCost(PathNode n)
+        private float EdgeCost(NavNode n)
         {
             float x, y;
             x = Math.Abs(n.Position.X - this.Position.X);

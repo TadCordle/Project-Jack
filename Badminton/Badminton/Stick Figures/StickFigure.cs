@@ -1630,7 +1630,7 @@ namespace Badminton.Stick_Figures
 		/// Draws the stick figure
 		/// </summary>
 		/// <param name="sb">The SpriteBatch used to draw the stick figure</param>
-		public void Draw(SpriteBatch sb, byte alpha)
+		public virtual void Draw(SpriteBatch sb, byte alpha)
 		{
 			// More debug
 //			sb.Draw(MainGame.tex_debugLimb, leftUpperArm.Position * MainGame.METER_TO_PIXEL, null, color, leftUpperArm.Rotation, new Vector2(MainGame.tex_debugLimb.Width / 2, MainGame.tex_debugLimb.Height / 2), scale, SpriteEffects.None, 0.0f);
@@ -1688,7 +1688,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="color">The color of the line</param>
 		/// <param name="point1">Start point of line draw</param>
 		/// <param name="point2">End point of line draw</param>
-		private void DrawLine(SpriteBatch batch, Texture2D blank,
+		protected void DrawLine(SpriteBatch batch, Texture2D blank,
 			  float width, Color color, Vector2 point1, Vector2 point2)
 		{
 			float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);

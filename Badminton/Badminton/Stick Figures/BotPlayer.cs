@@ -1,219 +1,289 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using FarseerPhysics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Dynamics.Joints;
 using FarseerPhysics.Dynamics.Contacts;
 using FarseerPhysics.Factories;
+using Badminton.Pathfinding;
 
 namespace Badminton.Stick_Figures
 {
     class BotPlayer : StickFigure
     {
+        /* Bot is capable of pathfinding
+         * by using the node graphs that are on a map.
+         */
+
         private PlayerIndex player;
         private StickFigure target;
-        private float newtarget_countdown = 0.1f, delta_time=0.006f, move_countdown, melee_countdown, shoot_countdown;
-        private bool should_walk_left = false, should_walk_right = false, should_jump = false;
-        private float angle;
-        
         private Random random;
+        private List<Vector2> destinations;
+
         public StickFigure[] ListStickFigures;
-            
-        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes)
+        public NavMesh navmesh;
+
+        private float distanceSelfDestruct = 1.5f;
+        private float percentSelfDestruct = 40;
+        private float attackCooldown, attackCooldownMax, attackCooldownMin;
+        private float missileCooldown, missileCooldownMax, missileCooldownMin;
+        protected float bombCooldown, bombCooldownMax, bombCooldownMin;
+        private float pathcheckCooldown, pathcheckCooldownMax, pathcheckCooldownMin;
+        protected float tick = 0.006f;
+
+        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes, NavMesh mesh)
             : base(world, position, collisionCat, scale, limbStrength, limbDefense, evilSkin, color)
         {
+            destinations = new List<Vector2>();
             this.player = player;
             this.target = null;
-            //attention_radius = 100;
             this.ListStickFigures = dudes;
-            random = new Random();
-            move_countdown = 0.05f + 0.15f * (float)random.NextDouble(); // initial delay 0.05-0.25s
-            melee_countdown = 0.1f + 0.5f * (float)random.NextDouble(); // initial delay 0.1-0.4s
-            shoot_countdown = 0.2f + 0.5f * (float)random.NextDouble(); // initial delay 0.2-0.7s
+            this.random = new Random();
+            navmesh = mesh;
+            SetAttackTimeRange(0.1f, 0.3f);
+            SetMissileTimeRange(0.25f, 0.75f);
+            SetBombTimeRange(2f, 4f);
+            SetPathcheckTimeRange(0.25f, 0.55f);
         }
 
-		public override StickFigure Respawn()
-		{
-            return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color, player, this.ListStickFigures);
-		}
-
-        private void ResetTarget()
+        #region CustomizeAI
+        public void SetAttackTimeRange(float TimeMin, float TimeMax)
         {
-            float closestDist = 999f, dist;
-            foreach (StickFigure s in ListStickFigures)
+            attackCooldownMax = TimeMax;
+            attackCooldownMin = TimeMin;
+            attackCooldown = attackCooldownMin + (float)random.NextDouble() * (attackCooldownMax - attackCooldownMin);
+        }
+
+        public void SetBombTimeRange(float TimeMin, float TimeMax)
+        {
+            bombCooldownMax = TimeMax;
+            bombCooldownMin = TimeMin;
+            bombCooldown = bombCooldownMin + (float)random.NextDouble() * (bombCooldownMax - bombCooldownMin);
+        }
+
+        public void SetMissileTimeRange(float TimeMin, float TimeMax)
+        {
+            missileCooldownMax = TimeMax;
+            missileCooldownMin = TimeMin;
+            missileCooldown = missileCooldownMin + (float)random.NextDouble() * (missileCooldownMax - missileCooldownMin);
+        }
+
+        public void SetPathcheckTimeRange(float TimeMin, float TimeMax)
+        {
+            pathcheckCooldownMax = TimeMax;
+            pathcheckCooldownMin = TimeMin;
+            pathcheckCooldown = pathcheckCooldownMin + (float)random.NextDouble() * (pathcheckCooldownMax - pathcheckCooldownMin);
+        }
+        #endregion
+
+        public override StickFigure Respawn()
+        {
+            return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color, player, this.ListStickFigures, this.navmesh);
+        }
+
+        protected void ThrowBomb()
+        {
+            // TODO: Custom aiming patterns
+            ThrowTrap((float)(random.NextDouble() * Math.PI * 2));
+            bombCooldown = bombCooldownMin + (float)random.NextDouble() * (bombCooldownMax - bombCooldownMin); 
+        }
+
+        private void GetNewTarget()
+        {
+            float mindist = float.MaxValue;
+            float dist;
+            this.target = ListStickFigures[0];
+            //foreach (StickFigure s in ListStickFigures)
+            //{
+            //    if (s != this && !s.IsDead && (s.CollisionCategory != this.collisionCat))
+            //    {
+            //        dist = 1; // estimate path distance
+            //        if (dist < mindist)
+            //        {
+            //            mindist = dist;
+            //            this.target = s;
+            //        }
+            //    }
+            //}
+        }
+
+        private void UpdatePath()
+        {
+            destinations.Clear();
+            destinations.Add(this.target.Position);
+            destinations.Add(this.target.LeftKneePosition);
+            destinations.Add(this.target.RightKneePosition);
+            destinations.Add(this.target.LeftFootPosition);
+            //destinations = navmesh.GetPathPositions(this.Position, target.Position);
+            pathcheckCooldown = pathcheckCooldownMin + (float)random.NextDouble() * (pathcheckCooldownMax - pathcheckCooldownMin);
+        }
+
+        // DEBUG PURPOSES - DRAW PATH
+        public override void Draw(SpriteBatch sb)
+        {
+            if (destinations.Count > 0)
             {
-                if (s != this && !s.IsDead && (s.CollisionCategory != this.collisionCat) && !IsRaycast(s.Position))
+                DrawLine(sb, MainGame.tex_blank, 2, Color.Red, Position * MainGame.METER_TO_PIXEL, destinations[0] * MainGame.METER_TO_PIXEL);
+                for (int i = 0; i < destinations.Count - 1; i++)
                 {
-                    if ((this.target != null) && (s is BotPlayer) && (float)random.NextDouble() < 0.25f)
+                    DrawLine(sb, MainGame.tex_blank, 2, Color.Red, destinations[i] * MainGame.METER_TO_PIXEL, destinations[i + 1] * MainGame.METER_TO_PIXEL);
+                }
+            }
+            base.Draw(sb);
+        }
+
+        private bool ShouldSelfDestruct()
+        {
+            // Blow up if about to die
+            if (ScalarHealth < 0.1f && (random.Next(100) < percentSelfDestruct))
+            {
+                foreach (StickFigure s in ListStickFigures)
+                {
+                    if (s != this &&
+                        !s.IsDead &&
+                        (s.CollisionCategory != this.collisionCat) &&
+                        (s.Position - this.Position).Length() < distanceSelfDestruct)
                     {
-                        continue; // sometimes prefer humans
-                    }
-                    dist = (s.Position - this.Position).Length();
-                    if (((float)random.NextDouble() < 0.6f) && (dist < closestDist))
-                    {
-                        closestDist = dist; // sometimes not pick the closest guy
-                        this.target = s;
+                        return true;
                     }
                 }
-            }    
+            }
+            return false;
         }
 
-        private bool IsRaycast(Vector2 v)
+        public override void Update()
         {
-            bool b=false;
-            world.RayCast((f, p, n, fr) =>
+            // update timers
+            bool stand = true;
+            attackCooldown -= tick;
+            missileCooldown -= tick;
+            bombCooldown -= tick;
+            pathcheckCooldown -= tick;
+
+            // update behavior
+            if (ShouldSelfDestruct())
             {
-                if (f != null && f.Body.UserData is Wall)
+                Explode();
+            }
+            else if (!IsDead)
+            {
+                // Verify that current target is still valid
+                
+                if ((this.target == null) || this.target.IsDead)
                 {
-                    b = true;
-                    return 1; // raycast is dumb
+                    GetNewTarget();
+                    UpdatePath();
+                }
+                else if (destinations.Count == 0 || pathcheckCooldown <= 0)
+                {
+                    // Also periodically update path
+                    UpdatePath();
                 }
                 else
                 {
-                    b = false;
-                    return 0;
-                }
-            }, Position, v);
-            return b;
-        }
-        
-        public override void Update()
-        {
-            if (!IsDead)
-            {
-                bool stand = true;
-
-                // Before determining movement or anything, determine whether to blow up
-                if (melee_countdown <= 0 || shoot_countdown <= 0)
-                {
-                    if (ScalarHealth < 0.1f)
+                    // Move along path
+                    if ((destinations[0] - this.Position).Length() < 0.2f)
                     {
-                        bool b = false;
-                        foreach (StickFigure s in ListStickFigures)
+                        Console.WriteLine("Reached destination, updating path");
+                        destinations.RemoveAt(0);
+                        if (destinations.Count == 0)
                         {
-                            if (s != this && !s.IsDead && (s.CollisionCategory != this.collisionCat) && (s.Position - this.Position).Length() < 1.5f)
-                                b = true;
+                            // Get a new list of destinations
+                            UpdatePath();
                         }
-						if (b)
-						{
-							if (random.NextDouble() <= 0.01)
-							{
-								Explode();
-								base.Update();
-								return;
-							}
-						}
                     }
-                }
-
-                // first, check the target
-                if ((this.target == null) || this.target.IsDead || (newtarget_countdown<=0))
-                {
-                    ResetTarget();
-                    newtarget_countdown = 4f;
-                }
-
-                // check motion
-                if (move_countdown>0) // continue the current motion
-                {
-                    if (should_walk_left)
+                    else if (attackCooldown <= 0 || missileCooldown <= 0) // ready to attack
                     {
-                        WalkLeft();
-                        stand = false;
+                        Attack();
                     }
-                    else if (should_walk_right)
+                    else if (bombCooldown <= 0 && TrapAmmo > 0)
+                    {
+                        ThrowBomb();
+                    }
+                    // Determine movement
+                    float dx = destinations[0].X - this.Position.X;
+                    if (dx > 0.1f)
                     {
                         WalkRight();
                         stand = false;
                     }
-                    if (should_jump)
+                    else if (dx < -0.1f)
+                    {
+                        WalkLeft();
+                        stand = false;
+                    }
+                    if (destinations[0].Y - this.Position.Y < -4f)
                     {
                         Jump();
                         stand = false;
-                        should_jump = false; // only jump once
                     }
+
                 }
-                else if (target != null)
-                {
-                    // choose new direction every 0.1-0.5 sec
-                    move_countdown = 0.1f + 0.4f * (float)random.NextDouble();
-                    should_walk_left = false;
-                    should_walk_right = false;
-                    should_jump = false;
-                    if (target.Position.X - this.Position.X > 0.1f)
-                    {
-                        should_walk_right = true;
-                    }
-                    else if (target.Position.X - this.Position.X < -0.1f)
-                    {
-                        should_walk_left = true;
-                    }
-                    if ((target.Position.Y - this.Position.Y < -4f))
-                    {
-                        should_jump = true;
-                    }
-                }
-                
-                if (target != null) // determine attack
-                {
-                    if (melee_countdown<= 0 && (target.Position - this.Position).Length() < 3f)
-                    {
-                        if (Math.Abs(target.Position.Y - this.Position.Y) < 0.1f) // approximate left/right
-                        {
-                            if (target.Position.X > this.Position.X)
-                                Punch(0f); //  right
-                            else
-                                Punch(MathHelper.Pi); // left
-                        }
-                        else if (Math.Abs(target.Position.X - this.Position.X) < 0.1f) // approximate up/down
-                        {
-                            if (target.Position.Y < this.Position.Y) // above
-                                Punch(MathHelper.PiOver2);
-                            else // below
-                                Kick(-MathHelper.PiOver2);
-                        }
-                        else // need to calculate angle
-                        {
-                            angle = (float)Math.Atan2((-target.Position.Y + this.Position.Y), (target.Position.X - this.Position.X));
-                            if (target.Position.Y < this.Position.Y)
-                                Punch(angle);
-                            else
-                                Kick(angle);
-                        }
-                        melee_countdown = 0.1f + 0.1f*(float)random.NextDouble(); // delay 0.1-0.2s
-                    }
-                    else if (shoot_countdown <= 0)// && (target.Position - this.Position).Length() > 5f)
-                    { // too far -> shoot projectile
-                        angle = (float)Math.Atan2((-target.Position.Y + this.Position.Y), (target.Position.X - this.Position.X));
-                        Aim(angle);
-                        LongRangeAttack();
-                        shoot_countdown = 0.5f + (float)random.NextDouble(); // delay 0.5-1.5 sec
-                    }
-                }
-                if (stand) Stand();
-                // Decrement countdowns
-                if (newtarget_countdown > 0)
-                    newtarget_countdown -= delta_time;
-                if (move_countdown > 0)
-                    move_countdown -= delta_time;
-                if (melee_countdown > 0)
-                    melee_countdown -= delta_time;
-                if (shoot_countdown > 0)
-                    shoot_countdown -= delta_time;
+
             }
+            if (stand) Stand();
             base.Update();
         }
 
-        public override void Draw(SpriteBatch sb)
+        private bool HasLineOfSight(Vector2 location)
         {
-            base.Draw(sb);
+            bool b = false;
+            world.RayCast((f, p, n, fr) =>
+            {
+                if (f != null && f.Body.UserData is Wall)
+                {
+                    b = false;
+                    return 1;
+                }
+                else
+                {
+                    b = true;
+                    return 0;
+                }
+            }, Position, location);
+            return b;
         }
+
+        private void Attack() // returns true if has attacked
+        {
+            // TODO (eventually): exact angles
+            if (attackCooldown<=0 && (target.Position - this.Position).Length() < 3f)
+            {
+                if (Math.Abs(target.Position.Y - this.Position.Y) < 0.1f) // approximate left/right
+                {
+                    if (target.Position.X > this.Position.X)
+                        Punch(0f); //  right
+                    else
+                        Punch(MathHelper.Pi); // left
+                }
+                else if (Math.Abs(target.Position.X - this.Position.X) < 0.1f) // approximate up/down
+                {
+                    if (target.Position.Y < this.Position.Y) // above
+                        Punch(MathHelper.PiOver2);
+                    else // below
+                        Kick(-MathHelper.PiOver2);
+                }
+                else // need to calculate angle
+                {
+                    float angle = (float)Math.Atan2((-target.Position.Y + this.Position.Y), (target.Position.X - this.Position.X));
+                    if (target.Position.Y < this.Position.Y)
+                        Punch(angle);
+                    else
+                        Kick(angle);
+                }
+                attackCooldown = attackCooldownMin + (float)random.NextDouble() * (attackCooldownMax - attackCooldownMin);
+            }
+            else if (missileCooldown <=0 && HasLineOfSight(target.Position))
+            { // too far -> shoot projectile
+                float angle = (float)Math.Atan2((-target.Position.Y + this.Position.Y), (target.Position.X - this.Position.X));
+                Aim(angle);
+                LongRangeAttack();
+                missileCooldown = missileCooldownMin + (float)random.NextDouble() * (missileCooldownMax - missileCooldownMin);
+            }
+        }
+
     }
 }

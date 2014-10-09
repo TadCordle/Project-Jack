@@ -17,7 +17,7 @@ namespace Badminton
         public List<Wall> walls;
         public Vector2[] spawnPoints;
         public Vector3[] ammoPoints;
-        public PathMesh pathMesh = null;
+        public NavMesh navmesh = null;
         public Texture2D background = null;
         public Texture2D foreground = null;
         public Song music = null;
@@ -70,9 +70,9 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(960, 170, 1800); // (x, y, respawn time)
 
-            data.pathMesh = new PathMesh();
-            PathNode node01 = new PathNode(0, 0);
-            PathNode node02 = new PathNode(1, 1);
+            data.navmesh = new NavMesh();
+            NavNode node01 = new NavNode(0, 0);
+            NavNode node02 = new NavNode(1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -100,9 +100,9 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(960, 440, 1800);
 
-            data.pathMesh = new PathMesh();
-            PathNode node01 = new PathNode(0, 0);
-            PathNode node02 = new PathNode(1, 1);
+            data.navmesh = new NavMesh();
+            NavNode node01 = new NavNode(0, 0);
+            NavNode node02 = new NavNode(1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -132,9 +132,9 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(1000, 300, 1800);
 
-            data.pathMesh = new PathMesh();
-            PathNode node01 = new PathNode(0, 0);
-            PathNode node02 = new PathNode(1, 1);
+            data.navmesh = new NavMesh();
+            NavNode node01 = new NavNode(0, 0);
+            NavNode node02 = new NavNode(1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -166,9 +166,9 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(837, 292, 1800);
 
-            data.pathMesh = new PathMesh();
-            PathNode node01 = new PathNode(0, 0);
-            PathNode node02 = new PathNode(1, 1);
+            data.navmesh = new NavMesh();
+            NavNode node01 = new NavNode(0, 0);
+            NavNode node02 = new NavNode(1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -206,9 +206,9 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(1285, 427, 1800);
 
-            data.pathMesh = new PathMesh();
-            PathNode node01 = new PathNode(0, 0);
-            PathNode node02 = new PathNode(1, 1);
+            data.navmesh = new NavMesh();
+            NavNode node01 = new NavNode(0, 0);
+            NavNode node02 = new NavNode(1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -238,9 +238,9 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(950, 405, 1800);
 
-            data.pathMesh = new PathMesh();
-            PathNode node01 = new PathNode(0, 0);
-            PathNode node02 = new PathNode(1, 1);
+            data.navmesh = new NavMesh();
+            NavNode node01 = new NavNode(0, 0);
+            NavNode node02 = new NavNode(1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
