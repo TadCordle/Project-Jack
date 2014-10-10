@@ -17,7 +17,7 @@ using Badminton.Attacks;
 
 namespace Badminton.Stick_Figures
 {
-	class StickFigure
+	public class StickFigure
 	{
 		protected World world;
 
@@ -1688,7 +1688,7 @@ namespace Badminton.Stick_Figures
 		/// <param name="color">The color of the line</param>
 		/// <param name="point1">Start point of line draw</param>
 		/// <param name="point2">End point of line draw</param>
-		protected void DrawLine(SpriteBatch batch, Texture2D blank,
+		public void DrawLine(SpriteBatch batch, Texture2D blank,
 			  float width, Color color, Vector2 point1, Vector2 point2)
 		{
 			float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);

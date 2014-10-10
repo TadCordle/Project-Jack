@@ -33,6 +33,7 @@ namespace Badminton
 
 		public static MapData LoadMap(World w, string name)
 		{
+            Console.WriteLine("Loading map: " + name);
 			if (name == "castle")
 				return LoadCastle(w);
 			else if (name == "pillar")
@@ -71,10 +72,14 @@ namespace Badminton
             data.ammoPoints[0] = new Vector3(960, 170, 1800); // (x, y, respawn time)
 
             data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(0, 0);
-            NavNode node02 = new NavNode(1, 1);
-            node01.AddNeighbor(node02);
-            node02.AddNeighbor(node01);
+            NavNode node01 = new NavNode(data.navmesh, 468, 366);
+            NavNode node02 = new NavNode(data.navmesh, 1383, 375);
+            NavNode node03 = new NavNode(data.navmesh, 486, 699);
+            NavNode node04 = new NavNode(data.navmesh, 1380, 704);
+            node01.AddNeighbors(node02, node03, node04);
+            node02.AddNeighbors(node01, node03, node04);
+            node03.AddNeighbors(node01, node02, node04);
+            node04.AddNeighbors(node01, node02, node03);
 
 			data.background = MainGame.tex_bg_castle;
             data.music = MainGame.mus_castle;
@@ -100,9 +105,10 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(960, 440, 1800);
 
+            //TODO
             data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(0, 0);
-            NavNode node02 = new NavNode(1, 1);
+            NavNode node01 = new NavNode(data.navmesh, 0, 0);
+            NavNode node02 = new NavNode(data.navmesh, 1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -132,9 +138,10 @@ namespace Badminton
             data.ammoPoints = new Vector3[1];
             data.ammoPoints[0] = new Vector3(1000, 300, 1800);
 
+            // TODO
             data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(0, 0);
-            NavNode node02 = new NavNode(1, 1);
+            NavNode node01 = new NavNode(data.navmesh, 0, 0);
+            NavNode node02 = new NavNode(data.navmesh, 1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -167,8 +174,8 @@ namespace Badminton
             data.ammoPoints[0] = new Vector3(837, 292, 1800);
 
             data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(0, 0);
-            NavNode node02 = new NavNode(1, 1);
+            NavNode node01 = new NavNode(data.navmesh, 0, 0);
+            NavNode node02 = new NavNode(data.navmesh, 1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -207,8 +214,8 @@ namespace Badminton
             data.ammoPoints[0] = new Vector3(1285, 427, 1800);
 
             data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(0, 0);
-            NavNode node02 = new NavNode(1, 1);
+            NavNode node01 = new NavNode(data.navmesh, 0, 0);
+            NavNode node02 = new NavNode(data.navmesh, 1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
@@ -239,8 +246,8 @@ namespace Badminton
             data.ammoPoints[0] = new Vector3(950, 405, 1800);
 
             data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(0, 0);
-            NavNode node02 = new NavNode(1, 1);
+            NavNode node01 = new NavNode(data.navmesh, 0, 0);
+            NavNode node02 = new NavNode(data.navmesh, 1, 1);
             node01.AddNeighbor(node02);
             node02.AddNeighbor(node01);
 
