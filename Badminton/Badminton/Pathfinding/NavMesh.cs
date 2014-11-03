@@ -2,85 +2,24 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 using FarseerPhysics;
 using FarseerPhysics.Common;
 
 namespace Badminton.Pathfinding
 {
     // Each level gets one of these
-    public class NavMesh
+    public class NavMesh : DrawableGameComponent
     {
         List<NavNode> nodes;
 
-        public NavMesh()
+        public NavMesh(): base(MainGame.mainGame)
         {
             nodes = new List<NavNode>();
-        }
-/*
-        public List<Vector2> GetPathPositions(Vector2 vstart, Vector2 vgoal, Stick_Figures.BotPlayer bot)
-        {
-            List<NavNode> path = GetPathFromNodes(GetNearestNode(vstart), GetNearestNode(vgoal), bot);
-            return NodesToPositions(path);
+            Console.WriteLine("New NavMesh");
+            if (!Game.Components.Contains(this)) Game.Components.Add(this);
         }
 
-        public List<NavNode> GetPathFromNodes(NavNode nstart, NavNode ngoal, Stick_Figures.BotPlayer bot)
-        {
-            List<NavNode> closedset = new List<NavNode>();
-            //List<NavNode> openset = new List<NavNode>();
-            List<NavNode> path = new List<NavNode>();
-            Dictionary<NavNode, float> opensetCosts = new Dictionary<NavNode, float>();
-
-            NavNode ncurrent = nstart; // initial value, is meaningless
-
-            opensetCosts[nstart] = 0;
-            while (opensetCosts.Count > 0)
-            {
-                // next node has the minimum cost in the open set
-                float minTotalCost = float.MaxValue;
-                foreach (NavNode n in opensetCosts.Keys)
-                {
-                    if (opensetCosts[n] < minTotalCost)
-                    {
-                        ncurrent = n;
-                        minTotalCost = opensetCosts[n];
-                    }
-                }
-
-                opensetCosts.Remove(ncurrent);
-                if (ncurrent == ngoal)
-                {
-                    path.Add(ncurrent);
-                    goto Succeeded;
-                }
-                else
-                {
-                    closedset.Add(ncurrent);
-                    for (int j = 0; j < ncurrent.Neighbors.Count; j++)
-                    {
-                        NavNode n = ncurrent.Neighbors[j];
-                        if (!closedset.Contains(n) && !opensetCosts.ContainsKey(n))
-                        {
-                            // Add to open set and calculate costs
-                            opensetCosts[n] = opensetCosts[ncurrent] + ncurrent.Costs[j];
-                            n.SetPrevious(bot, ncurrent);
-                        }
-                    }
-                }
-            }
-            goto Cleanup;
-            Succeeded:
-            // Chain the nodes together into a path, starting at the end
-            while (ncurrent.GetPrevious(bot) != null)
-            {
-                path.Insert(0, ncurrent);
-                ncurrent = ncurrent.GetPrevious(bot);
-            }
-        Cleanup: // reset nodes
-            foreach (NavNode p in closedset) p.SetPrevious(bot, null);
-            foreach (NavNode p in opensetCosts.Keys) p.SetPrevious(bot, null);
-            return path;
-        }
-        */
         // Get the result from a path search and get their positions
         public static List<Vector2> NodesToPositions(List<NavNode> nlist)
         {
@@ -105,14 +44,14 @@ namespace Badminton.Pathfinding
             NavNode n = null;
             for (int i = 0; i < nodes.Count; i++)
             {
-                d = (location - nodes[i].Position).LengthSquared();
+                d = Vector2.Distance(location, nodes[i].Position);
                 if (d < dmin)
                 {
                     dmin = d;
                     n = nodes[i];
                 }
             }
-            Console.WriteLine("Nearest node to " + location + " is at " + n.Position);
+            //Console.WriteLine("Nearest node to " + location + " is at " + n.Position);
             return n;
         }
 
@@ -122,17 +61,27 @@ namespace Badminton.Pathfinding
             return GetNearestNode(location).Position;
         }
 
-        public void DrawNodes(SpriteBatch sb, Stick_Figures.StickFigure sf)
+        float linewidth = 2f;
+        public void DrawLine(SpriteBatch batch, Vector2 point1, Vector2 point2)
         {
-            foreach (NavNode node in nodes)
-            {
-                sf.DrawLine(sb, MainGame.tex_blank, 2, Color.Green, sf.Position * MainGame.METER_TO_PIXEL, node.Position * MainGame.METER_TO_PIXEL);
-                foreach (NavNode neighbor in node.Neighbors)
-                {
-                    sf.DrawLine(sb, MainGame.tex_blank, 2, Color.Red, node.Position * MainGame.METER_TO_PIXEL, neighbor.Position * MainGame.METER_TO_PIXEL);
-                    
-                }
-            }
+            float angle = (float)Math.Atan2(point2.Y - point1.Y, point2.X - point1.X);
+            float length = Vector2.Distance(point1, point2);
+            if (batch.IsDisposed) batch.Begin();
+            batch.Draw(MainGame.tex_blank, point1, null, Color.Red,
+                       angle, Vector2.Zero, new Vector2(length, linewidth),
+                       SpriteEffects.None, 0);
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            //foreach (NavNode node in nodes)
+            //{
+            //    foreach (NavNode neighbor in node.Neighbors)
+            //    {
+            //        DrawLine(sb, node.Position * MainGame.METER_TO_PIXEL, neighbor.Position * MainGame.METER_TO_PIXEL);
+            //    }
+            //}
+           
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using FarseerPhysics;
 using FarseerPhysics.Common;
 
@@ -79,5 +80,6 @@ namespace Badminton.Pathfinding
                 Costs.Add(EdgeCost(Neighbors[i]));
             }
         }
+
     }
 }

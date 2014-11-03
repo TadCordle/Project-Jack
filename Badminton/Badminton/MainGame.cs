@@ -35,7 +35,8 @@ namespace Badminton
 		public const float METER_TO_PIXEL = 60f;
         public const float PIXEL_TO_METER = 1f / METER_TO_PIXEL;
 	    public static float RESOLUTION_SCALE;
-		GameScreen currentScreen;
+		
+        GameScreen currentScreen;
 
 		public static SpriteFont fnt_basicFont, fnt_bigFont, fnt_midFont;
 		public static Texture2D tex_box, tex_heart, tex_clock, tex_wave, tex_longRange, tex_trapClosed, tex_trapOpen, tex_explosionParticle;

@@ -15,27 +15,29 @@ using FarseerPhysics.Factories;
 
 namespace Badminton.Stick_Figures
 {
-    class BotPlayer : StickFigure
+    public class BotPlayer : StickFigure
     {
         private PlayerIndex player;
         private StickFigure target;
         private float newtarget_countdown = 0.1f, delta_time = 0.006f, move_countdown, melee_countdown, shoot_countdown;
         private bool should_walk_left = false, should_walk_right = false, should_jump = false;
         private float angle;
-        private Pathfinding.NavMesh mesh;
 
         private Random random;
         public StickFigure[] ListStickFigures;
 
-        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes, Pathfinding.NavMesh mesh)
+        private Pathfinding.NavAgent nav;
+        public StickFigure Target { get { return this.target; } }
+
+        public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes)
             : base(world, position, collisionCat, scale, limbStrength, limbDefense, evilSkin, color)
         {
             this.player = player;
             this.target = null;
             //attention_radius = 100;
             this.ListStickFigures = dudes;
-            this.mesh = mesh;
             random = new Random();
+            //if (nav == null) nav = new Pathfinding.NavAgent(this, mesh);
             move_countdown = 0.05f + 0.15f * (float)random.NextDouble(); // initial delay 0.05-0.25s
             melee_countdown = 0.1f + 0.5f * (float)random.NextDouble(); // initial delay 0.1-0.4s
             shoot_countdown = 0.2f + 0.5f * (float)random.NextDouble(); // initial delay 0.2-0.7s
@@ -43,7 +45,7 @@ namespace Badminton.Stick_Figures
 
         public override StickFigure Respawn()
         {
-            return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color, player, this.ListStickFigures, mesh);
+            return new BotPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color, player, this.ListStickFigures);
         }
 
         private void ResetTarget()
@@ -213,9 +215,5 @@ namespace Badminton.Stick_Figures
             base.Update();
         }
 
-        public override void Draw(SpriteBatch sb)
-        {
-            base.Draw(sb);
-        }
     }
 }

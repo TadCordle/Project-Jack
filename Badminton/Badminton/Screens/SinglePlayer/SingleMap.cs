@@ -24,7 +24,6 @@ namespace Badminton.Screens.MultiPlayer
 		List<StickFigure> temp;
 		Dictionary<StickFigure, int> toRemove;
 		StickFigure winStick;
-        Pathfinding.NavMesh navmesh;
 		StickFigure[] player;
 		Vector2[] spawnPoints;
 		TrapAmmo[] ammo;
@@ -55,7 +54,6 @@ namespace Badminton.Screens.MultiPlayer
 			MapData data = Map.LoadMap(world, mapString);
             background = data.background;
             walls = data.walls;
-            navmesh = data.navmesh;
             spawnPoints = data.spawnPoints;
             Vector3[] ammoPoints = data.ammoPoints;
 			ammo = new TrapAmmo[ammoPoints.Length];
@@ -156,7 +154,7 @@ namespace Badminton.Screens.MultiPlayer
 
 			if (enemies.Count - toRemove.Count < (int)maxEnemies && startPause < 0)
 			{
-				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1000) + 460, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 0.4f, true, Color.White, PlayerIndex.Four, player, navmesh));
+				enemies.Add(new BotPlayer(world, new Vector2(new Random().Next(1000) + 460, 0) * MainGame.PIXEL_TO_METER, Category.Cat2, 1.5f, this.limbStrength, suddenDeath ? 0.001f : 0.4f, true, Color.White, PlayerIndex.Four, player));
 				enemies[enemies.Count - 1].Invulnerability = 0;
 			}
 

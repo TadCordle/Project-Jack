@@ -31,23 +31,28 @@ namespace Badminton
 	{
 		public static Dictionary<Texture2D, string> MapKeys;
 
+        public static NavMesh navMesh;
+
 		public static MapData LoadMap(World w, string name)
 		{
             Console.WriteLine("Loading map: " + name);
+            MapData data;
 			if (name == "castle")
-				return LoadCastle(w);
+				data = LoadCastle(w);
 			else if (name == "pillar")
-				return LoadPillar(w);
+                data = LoadPillar(w);
 			else if (name == "octopus")
-				return LoadOctopus(w);
+                data = LoadOctopus(w);
 			else if (name == "graveyard")
-				return LoadGraveyard(w);
+                data = LoadGraveyard(w);
 			else if (name == "clocktower")
-				return LoadClocktower(w);
+                data = LoadClocktower(w);
 			else if (name == "circus")
-				return LoadCircus(w);
+                data = LoadCircus(w);
 			else
-				return LoadCastle(w);
+                data = LoadCastle(w);
+            Map.navMesh = data.navmesh;
+            return data;
 		}
 
 		public static MapData LoadCastle(World w)
@@ -72,14 +77,49 @@ namespace Badminton
             data.ammoPoints[0] = new Vector3(960, 170, 1800); // (x, y, respawn time)
 
             data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(data.navmesh, 468, 366);
-            NavNode node02 = new NavNode(data.navmesh, 1383, 375);
-            NavNode node03 = new NavNode(data.navmesh, 486, 699);
-            NavNode node04 = new NavNode(data.navmesh, 1380, 704);
-            node01.AddNeighbors(node02, node03, node04);
-            node02.AddNeighbors(node01, node03, node04);
-            node03.AddNeighbors(node01, node02, node04);
-            node04.AddNeighbors(node01, node02, node03);
+            NavNode node01 = new NavNode(data.navmesh, 470, 700);
+            NavNode node02 = new NavNode(data.navmesh, 630, 700);
+            NavNode node03 = new NavNode(data.navmesh, 790, 700);
+            NavNode node04 = new NavNode(data.navmesh, 950, 700);
+            NavNode node05 = new NavNode(data.navmesh, 1110, 700);
+            NavNode node06 = new NavNode(data.navmesh, 1270, 700);
+            NavNode node07 = new NavNode(data.navmesh, 1430, 700);
+            NavNode node08 = new NavNode(data.navmesh, 470, 370);
+            NavNode node09 = new NavNode(data.navmesh, 630, 370);
+            NavNode node10 = new NavNode(data.navmesh, 790, 370);
+            NavNode node11 = new NavNode(data.navmesh, 950, 370);
+            NavNode node12 = new NavNode(data.navmesh, 1110, 370);
+            NavNode node13 = new NavNode(data.navmesh, 1270, 370);
+            NavNode node14 = new NavNode(data.navmesh, 1430, 370);
+            NavNode node15 = new NavNode(data.navmesh, 470, 170);
+            NavNode node16 = new NavNode(data.navmesh, 630, 170);
+            NavNode node17 = new NavNode(data.navmesh, 790, 170);
+            NavNode node18 = new NavNode(data.navmesh, 950, 170);
+            NavNode node19 = new NavNode(data.navmesh, 1110, 170);
+            NavNode node20 = new NavNode(data.navmesh, 1270, 170);
+            NavNode node21 = new NavNode(data.navmesh, 1430, 170);
+            
+            node01.AddNeighbors(node02);
+            node02.AddNeighbors(node01, node03, node09, node10);
+            node03.AddNeighbors(node02, node04, node10, node11);
+            node04.AddNeighbors(node03, node05, node10, node11, node12);
+            node05.AddNeighbors(node04, node06, node11, node12);
+            node06.AddNeighbors(node05, node07, node12, node13);
+            node07.AddNeighbors(node06);
+            node08.AddNeighbors(node09, node15, node16);
+            node09.AddNeighbors(node02, node08, node10, node15, node16, node17);
+            node10.AddNeighbors(node02, node03, node04, node09, node11);
+            node11.AddNeighbors(node03, node04, node05, node10, node12);
+            node12.AddNeighbors(node04, node05, node06, node11, node13);
+            node13.AddNeighbors(node06, node12, node14, node19, node20, node21);
+            node14.AddNeighbors(node13, node20, node21);
+            node15.AddNeighbors(node08, node09, node16);
+            node16.AddNeighbors(node08, node09, node10, node15, node17);
+            node17.AddNeighbors(node09, node16, node18);
+            node18.AddNeighbors(node17, node19);
+            node19.AddNeighbors(node13, node18, node20);
+            node20.AddNeighbors(node12, node13, node14, node19, node21);
+            node21.AddNeighbors(node13, node14, node20);
 
 			data.background = MainGame.tex_bg_castle;
             data.music = MainGame.mus_castle;
