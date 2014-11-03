@@ -74,7 +74,7 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				for (int i = colors.Length; i < 4; i++)
 				{
-					player[i] = new BotPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, true, new Color(i * 60, i * 60, i * 60), Players[i], player);
+					player[i] = new AiPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, true, new Color(i * 60, i * 60, i * 60), Players[i], player);
 					player[i].LockControl = true;
 				}
 			}

@@ -32,6 +32,7 @@ namespace Badminton.Stick_Figures
         private int attackCooldown, attackCooldownMax, attackCooldownMin;
         private int missileCooldown, missileCooldownMax, missileCooldownMin;
         protected int bombCooldown, bombCooldownMax, bombCooldownMin;
+        private int attentionCooldown, attentionCooldownMax, attentionCooldownMin;
 
         public StickFigure Target { get { return this.target; } }
 
@@ -48,6 +49,7 @@ namespace Badminton.Stick_Figures
             SetAttackTimeRange(100, 300); // milliseconds
             SetMissileTimeRange(250, 750);
             SetBombTimeRange(2000, 4000);
+            SetAttentionTimeRange(5000, 10000);
         }
 
         public override void Draw(SpriteBatch sb)
@@ -57,6 +59,13 @@ namespace Badminton.Stick_Figures
         }
 
         #region CooldownParameters
+        private void SetAttentionTimeRange(int MillisecondsMin, int MillisecondsMax)
+        {
+            attentionCooldownMin = MillisecondsMin;
+            attentionCooldownMax = MillisecondsMax;
+            attentionCooldown = random.Next(MillisecondsMin, MillisecondsMax);
+        }
+
         public void SetAttackTimeRange(int MillisecondsMin, int MillisecondsMax)
         {
             attackCooldownMax = MillisecondsMax;
@@ -96,19 +105,21 @@ namespace Badminton.Stick_Figures
         {
             float mindist = float.MaxValue;
             float dist;
-            this.target = ListStickFigures[0];
+            //this.target = ListStickFigures[0];
             foreach (StickFigure s in ListStickFigures)
             {
                 if (s != this && !s.IsDead && (s.CollisionCategory != this.collisionCat))
                 {
                     dist = 1; // estimate path distance
-                    if (dist < mindist)
+                    dist = (s.Position - this.Position).Length();
+                    if (((float)random.NextDouble() < 0.6f) && (dist < mindist))
                     {
-                        mindist = dist;
+                        mindist = dist; // sometimes not pick the closest guy
                         this.target = s;
                     }
                 }
             }
+            attentionCooldown = random.Next(attentionCooldownMin, attentionCooldownMax);
         }
 
         private bool ShouldSelfDestruct()
@@ -138,6 +149,7 @@ namespace Badminton.Stick_Figures
             attackCooldown -= tick;
             missileCooldown -= tick;
             bombCooldown -= tick;
+            attentionCooldown -= tick;
             // update behavior
             if (ShouldSelfDestruct())
             {
@@ -152,7 +164,7 @@ namespace Badminton.Stick_Figures
             {
                 // Verify that current target is still valid
 
-                if ((this.target == null) || this.target.IsDead)
+                if (attentionCooldown<=0 || (this.target == null) || this.target.IsDead)
                 {
                     GetNewTarget();
                     //  destinations = nav.GetDestinations(target);
@@ -242,10 +254,10 @@ namespace Badminton.Stick_Figures
             return b;
         }
 
-        private void Attack() // returns true if has attacked
+        private void Attack()
         {
-            // TODO (eventually): exact angles
-            if (attackCooldown <= 0 && Vector2.Distance(target.Position, this.Position) < 3f)
+            // TODO (eventually): exact angles and values
+            if (attackCooldown <= 0 && Vector2.Distance(target.Position, this.Position) < 5f)
             {
                 if (Math.Abs(target.Position.Y - this.Position.Y) < 0.1f) // approximate left/right
                 {
