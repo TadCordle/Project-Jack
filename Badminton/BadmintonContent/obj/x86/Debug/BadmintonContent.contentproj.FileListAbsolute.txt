@@ -7,3 +7,4 @@ C:\Users\Dylan\Documents\GitHub\Project-Jack\Badminton\BadmintonContent\obj\x86\
 C:\Users\MDavis\Documents\GitHub\Project-Jack\Badminton\BadmintonContent\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\Tad\Desktop\Documents\Visual Studio 2010\Projects\Project Jack\Badminton\BadmintonContent\obj\x86\Debug\BadmintonContent.contentprojResolveAssemblyReference.cache
 C:\Games\Project-Jack\Badminton\BadmintonContent\obj\x86\Debug\BadmintonContent.contentprojResolveAssemblyReference.cache
+C:\Users\Michael\Documents\Project-Jack\Badminton\BadmintonContent\obj\x86\Debug\BadmintonContent.contentprojResolveAssemblyReference.cache

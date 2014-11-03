@@ -39,29 +39,29 @@ Content\textures\evil stick figure\leglower1.xnb
 Content\textures\evil stick figure\legupper.xnb
 Content\textures\evil stick figure\legupper1.xnb
 Content\textures\evil stick figure\torso.xnb
-Content\fonts\basicFont.xnb
-Content\sfx\Punch1.xnb
-Content\sfx\Punch2.xnb
-Content\sfx\Thwap.xnb
-Content\sfx\Whoosh.xnb
-Content\fonts\bigFont.xnb
-Content\fonts\midFont.xnb
 Content\textures\end game.xnb
 Content\textures\clock.xnb
-Content\castle music.xnb
-Content\castle music.wma
-Content\menu music.xnb
-Content\menu music.wma
-Content\sfx\hit.xnb
-Content\sfx\boom.xnb
-Content\sfx\shoot.xnb
 Content\textures\pillar.xnb
-Content\pillar music.xnb
-Content\pillar music.wma
 Content\textures\octopus.xnb
 Content\textures\graveyard.xnb
 Content\textures\circus.xnb
 Content\textures\clocktower.xnb
 Content\textures\circus foreground.xnb
+Content\fonts\basicFont.xnb
+Content\fonts\bigFont.xnb
+Content\fonts\midFont.xnb
+Content\sfx\Punch1.xnb
+Content\sfx\Punch2.xnb
+Content\sfx\Thwap.xnb
+Content\sfx\Whoosh.xnb
+Content\sfx\hit.xnb
+Content\sfx\boom.xnb
+Content\sfx\shoot.xnb
+Content\castle music.xnb
+Content\castle music.wma
+Content\menu music.xnb
+Content\menu music.wma
+Content\pillar music.xnb
+Content\pillar music.wma
 Content\octopus music.xnb
 Content\octopus music.wma
