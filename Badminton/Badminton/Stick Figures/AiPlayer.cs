@@ -141,15 +141,14 @@ namespace Badminton.Stick_Figures
             return false;
         }
 
-        public override void Update()
+        public override void Update(int milliseconds)
         {
             // update timers
             bool stand = true;
-            int tick = 1;// gameTime.ElapsedGameTime.Milliseconds;
-            attackCooldown -= tick;
-            missileCooldown -= tick;
-            bombCooldown -= tick;
-            attentionCooldown -= tick;
+            attackCooldown -= milliseconds;
+            missileCooldown -= milliseconds;
+            bombCooldown -= milliseconds;
+            attentionCooldown -= milliseconds;
             // update behavior
             if (ShouldSelfDestruct())
             {
@@ -226,7 +225,7 @@ namespace Badminton.Stick_Figures
 
             }
             if (stand) Stand();
-            base.Update();
+            base.Update(milliseconds);
         }
 
         public void SetDestinations(List<Vector2> d)

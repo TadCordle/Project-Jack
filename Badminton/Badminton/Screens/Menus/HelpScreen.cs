@@ -39,7 +39,7 @@ namespace Badminton.Screens.Menus
         public GameScreen Update(GameTime gameTime)
         {
             world.Step((float)gameTime.ElapsedGameTime.TotalSeconds);
-            player.Update();
+            player.Update(gameTime.ElapsedGameTime.Milliseconds);
        
             return this;
         }

@@ -1062,9 +1062,10 @@ namespace Badminton.Stick_Figures
 		/// <summary>
 		/// Updates some of the stick figures' key stances
 		/// </summary>
-		public virtual void Update()
+		public virtual void Update(int milliseconds)
 		{
-			UpdateArms();
+            
+            UpdateArms();
 			if (kicking)
 				UpdateKicks();
 
@@ -1081,15 +1082,17 @@ namespace Badminton.Stick_Figures
 					world.RemoveBody(a.PhysicsBody);
 				attacks.Remove(a);
 			}
-			if (coolDown > 0)
-				coolDown--;
-			if (trapThrowTime > 0)
-				trapThrowTime--;
+            if (coolDown > 0)
+                coolDown -= milliseconds;
+            
+            
+            if (trapThrowTime > 0)
+                trapThrowTime -= milliseconds;
 			if (!AllowTraps)
 				trapAmmo = 0;
 
-			if (Invulnerability > 0)
-				Invulnerability--;
+            if (Invulnerability > 0)
+                Invulnerability -= milliseconds;
 
 			if (!colliding && Invulnerability <= 0)
 			{

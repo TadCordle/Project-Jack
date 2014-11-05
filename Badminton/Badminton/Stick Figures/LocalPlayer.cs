@@ -61,7 +61,7 @@ namespace Badminton.Stick_Figures
 			return new LocalPlayer(world, startPosition, collisionCat, scale, limbStrength, limbDefense, EvilSkin, color, player);
 		}
 
-		public override void Update()
+		public override void Update(int milliseconds)
 		{
 			bool stand = true;
 
@@ -277,7 +277,7 @@ namespace Badminton.Stick_Figures
 			if (stand)
 				Stand();
 
-			base.Update();
+			base.Update(milliseconds);
 		}
 
 		public override void Draw(SpriteBatch sb)

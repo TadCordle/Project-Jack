@@ -94,8 +94,9 @@ namespace Badminton.Screens.MultiPlayer
 
 		public GameScreen Update(GameTime gameTime)
 		{
-			startPause--;
-			if (startPause == 0)
+            int deltatime = gameTime.ElapsedGameTime.Milliseconds;
+            startPause -= deltatime;
+			if (startPause <= 0)
 			{
 				foreach (StickFigure s in player)
 					if (s != null)
@@ -106,30 +107,30 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				if (player[i] != null && info[i].HasLives())
 				{
-					player[i].Update();
+                    player[i].Update(deltatime);
 					if (player[i].IsDead)
 					{
 						if (info[i].RespawnTimer < 0)
 							info[i].Kill();
 
-						if (info[i].ShouldRespawn())
-						{
-							player[i].Destroy();
-							if (info[i].HasLives())
-								player[i] = player[i].Respawn();
-							else
-								player[i] = null;
-							info[i].RespawnTimer--;
-						}
-						else
-							info[i].RespawnTimer--;
+                        if (info[i].ShouldRespawn())
+                        {
+                            player[i].Destroy();
+                            if (info[i].HasLives())
+                                player[i] = player[i].Respawn();
+                            else
+                                player[i] = null;
+                            info[i].RespawnTimer -= deltatime;
+                        }
+                        else
+                            info[i].RespawnTimer -= deltatime;
 					}
 				}
 			}
 
 			foreach (StickFigure s in enemies)
 			{
-				s.Update();
+                s.Update(deltatime);
 				if (s.IsDead && !toRemove.ContainsKey(s))
 				{
 					if (!gameOver)
@@ -169,7 +170,7 @@ namespace Badminton.Screens.MultiPlayer
 				if (maxEnemies < 4)
 					maxEnemies += 0.0002f;
 				if (startPause < 0)
-					millis += gameTime.ElapsedGameTime.Milliseconds;
+                    millis += deltatime;
 				gameOver = GameIsOver();
 
 				if (Keyboard.GetState().IsKeyDown(Keys.Enter) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.Start))
@@ -186,7 +187,7 @@ namespace Badminton.Screens.MultiPlayer
 				
 				if (winStick != null)
 				{
-					winStick.Update();
+                    winStick.Update(deltatime);
 					winStick.ApplyForce(world.Gravity * -1);
 				}
 

@@ -19,7 +19,7 @@ namespace Badminton.Stick_Figures
     {
         private PlayerIndex player;
         private StickFigure target;
-        private float newtarget_countdown = 0.1f, delta_time = 0.006f, move_countdown, melee_countdown, shoot_countdown;
+        private int newtarget_countdown = 100, move_countdown, melee_countdown, shoot_countdown;
         private bool should_walk_left = false, should_walk_right = false, should_jump = false;
         private float angle;
 
@@ -38,9 +38,9 @@ namespace Badminton.Stick_Figures
             this.ListStickFigures = dudes;
             random = new Random();
             //if (nav == null) nav = new Pathfinding.NavAgent(this, mesh);
-            move_countdown = 0.05f + 0.15f * (float)random.NextDouble(); // initial delay 0.05-0.25s
-            melee_countdown = 0.1f + 0.5f * (float)random.NextDouble(); // initial delay 0.1-0.4s
-            shoot_countdown = 0.2f + 0.5f * (float)random.NextDouble(); // initial delay 0.2-0.7s
+            move_countdown = 50 + 150 * random.Next(); // initial delay 0.05-0.25s
+            melee_countdown = 100 + 500 * random.Next(); // initial delay 0.1-0.4s
+            shoot_countdown = 200 + 500 * random.Next(); // initial delay 0.2-0.7s
         }
 
         public override StickFigure Respawn()
@@ -55,12 +55,12 @@ namespace Badminton.Stick_Figures
             {
                 if (s != this && !s.IsDead && (s.CollisionCategory != this.collisionCat) && !IsRaycast(s.Position))
                 {
-                    if ((this.target != null) && (s is BotPlayer) && (float)random.NextDouble() < 0.25f)
+                    if ((this.target != null) && (s is BotPlayer) && random.Next(100) < 25)
                     {
                         continue; // sometimes prefer humans
                     }
                     dist = (s.Position - this.Position).Length();
-                    if (((float)random.NextDouble() < 0.6f) && (dist < closestDist))
+                    if ((random.Next(100) < 60) && (dist < closestDist))
                     {
                         closestDist = dist; // sometimes not pick the closest guy
                         this.target = s;
@@ -88,7 +88,7 @@ namespace Badminton.Stick_Figures
             return b;
         }
 
-        public override void Update()
+        public override void Update(int milliseconds)
         {
             if (!IsDead)
             {
@@ -107,10 +107,10 @@ namespace Badminton.Stick_Figures
                         }
                         if (b)
                         {
-                            if (random.NextDouble() <= 0.01)
+                            if (random.Next(100) <= 1)
                             {
                                 Explode();
-                                base.Update();
+                                base.Update(milliseconds);
                                 return;
                             }
                         }
@@ -121,7 +121,7 @@ namespace Badminton.Stick_Figures
                 if ((this.target == null) || this.target.IsDead || (newtarget_countdown <= 0))
                 {
                     ResetTarget();
-                    newtarget_countdown = 4f;
+                    newtarget_countdown = 4000;
                 }
 
                 // check motion
@@ -147,7 +147,7 @@ namespace Badminton.Stick_Figures
                 else if (target != null)
                 {
                     // choose new direction every 0.1-0.5 sec
-                    move_countdown = 0.1f + 0.4f * (float)random.NextDouble();
+                    move_countdown = random.Next(100,500);
                     should_walk_left = false;
                     should_walk_right = false;
                     should_jump = false;
@@ -191,28 +191,28 @@ namespace Badminton.Stick_Figures
                             else
                                 Kick(angle);
                         }
-                        melee_countdown = 0.1f + 0.1f * (float)random.NextDouble(); // delay 0.1-0.2s
+                        melee_countdown = random.Next(100,200); // delay 0.1-0.2s
                     }
                     else if (shoot_countdown <= 0)// && (target.Position - this.Position).Length() > 5f)
                     { // too far -> shoot projectile
                         angle = (float)Math.Atan2((-target.Position.Y + this.Position.Y), (target.Position.X - this.Position.X));
                         Aim(angle);
                         LongRangeAttack();
-                        shoot_countdown = 0.5f + (float)random.NextDouble(); // delay 0.5-1.5 sec
+                        shoot_countdown = random.Next(500, 1500); // delay 0.5-1.5 sec
                     }
                 }
                 if (stand) Stand();
                 // Decrement countdowns
                 if (newtarget_countdown > 0)
-                    newtarget_countdown -= delta_time;
+                    newtarget_countdown -= milliseconds;
                 if (move_countdown > 0)
-                    move_countdown -= delta_time;
+                    move_countdown -= milliseconds;
                 if (melee_countdown > 0)
-                    melee_countdown -= delta_time;
+                    melee_countdown -= milliseconds;
                 if (shoot_countdown > 0)
-                    shoot_countdown -= delta_time;
+                    shoot_countdown -= milliseconds;
             }
-            base.Update();
+            base.Update(milliseconds);
         }
 
     }

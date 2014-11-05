@@ -109,7 +109,7 @@ namespace Badminton.Screens.Menus.Components
 				else
 				{
 					player.Color = LocalPlayer.Colors[selectedColor];
-					player.Update();
+					player.Update(1);
 				}
 
 				bool pressingLeft, pressingRight, pressingBack;
