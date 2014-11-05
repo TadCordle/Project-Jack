@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using FarseerPhysics;
 using FarseerPhysics.Common;
 using FarseerPhysics.Dynamics;
@@ -31,9 +27,9 @@ namespace Badminton
 			body.UserData = this;
 		}
 
-		public void Draw(SpriteBatch sb)
-		{
-			// don't worry about it
-		}
+        //public void Draw(SpriteBatch sb)
+        //{
+        //    // don't worry about it
+        //}
 	}
 }

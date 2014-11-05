@@ -120,6 +120,7 @@
     <Compile Include="Pathfinding\NavNode.cs" />
     <Compile Include="PlayerValues.cs" />
     <Compile Include="RoundWall.cs" />
+    <Compile Include="Screens\GameMode.cs" />
     <Compile Include="Screens\Menus\Components\Button.cs" />
     <Compile Include="Screens\Menus\Components\CheckBox.cs" />
     <Compile Include="Screens\Menus\Components\Component.cs" />

@@ -56,13 +56,13 @@ namespace Badminton.Pathfinding
             Vector2 pos = bot.Position * MainGame.METER_TO_PIXEL;
             //Console.WriteLine(bot.Position.ToString() + "->" + pos.ToString());
 
-            if (mesh == null) sb.DrawString(MainGame.fnt_midFont, "no mesh", pos, Color.Red);
-            else if (bot.Target == null) sb.DrawString(MainGame.fnt_midFont, "no target", pos, Color.Red);
-            else if (state == States.idle) sb.DrawString(MainGame.fnt_midFont, "idle " + idlecooldown.ToString(), pos, Color.Cyan);
-            else if (state == States.done) sb.DrawString(MainGame.fnt_midFont, "done", pos, Color.Cyan);
-            else if (state == States.start) sb.DrawString(MainGame.fnt_midFont, "start", pos, Color.Cyan);
-            else if (state == States.getnext) sb.DrawString(MainGame.fnt_midFont, "getnext", pos, Color.Cyan);
-            else if (state == States.expand) sb.DrawString(MainGame.fnt_midFont, "expand", pos, Color.Cyan);
+            if (mesh == null) sb.DrawString(MainGame.fnt_midFont, "MESH?", pos, Color.Red);
+            //else if (bot.Target == null) sb.DrawString(MainGame.fnt_midFont, "no target", pos, Color.Red);
+            //else if (state == States.idle) sb.DrawString(MainGame.fnt_midFont, "idle " + idlecooldown.ToString(), pos, Color.Cyan);
+            //else if (state == States.done) sb.DrawString(MainGame.fnt_midFont, "done", pos, Color.Cyan);
+            //else if (state == States.start) sb.DrawString(MainGame.fnt_midFont, "start", pos, Color.Cyan);
+            //else if (state == States.getnext) sb.DrawString(MainGame.fnt_midFont, "getnext", pos, Color.Cyan);
+            //else if (state == States.expand) sb.DrawString(MainGame.fnt_midFont, "expand", pos, Color.Cyan);
         }
         #endregion
 
@@ -71,8 +71,6 @@ namespace Badminton.Pathfinding
         {
             this.bot = bot;
             mesh = Map.navMesh;
-            if (mesh == null) Console.WriteLine("New NavAgent NO MESH");
-            else Console.WriteLine("New NavAgent OKAY");
             if (random == null) random = new Random();
             Game.Components.Add(this);
         }
@@ -104,8 +102,7 @@ namespace Badminton.Pathfinding
             if (bot == null || mesh == null) this.Delete();
             else
             {
-                int tick = 1;// gameTime.ElapsedGameTime.Milliseconds;
-                idlecooldown -= tick;
+                int tick = gameTime.ElapsedGameTime.Milliseconds;
                 if (bot.Target == null)
                 {
                     // stall

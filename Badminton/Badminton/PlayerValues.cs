@@ -10,17 +10,17 @@ using Badminton.Stick_Figures;
 
 namespace Badminton
 {
-	class PlayerValues
+	public class PlayerValues
 	{
 		public int Lives { get; set; }
 		public int RespawnTimer { get; set; }
 
-		private const int MAX_RESPAWN_TIME = 300;
+		private const int MAX_RESPAWN_TIME = 1500;
 
 		public PlayerValues(int lives)
 		{
 			this.Lives = lives;
-			this.RespawnTimer = -1;
+            this.RespawnTimer = MAX_RESPAWN_TIME;
 		}
 
 		public void Kill()
@@ -31,7 +31,7 @@ namespace Badminton
 
 		public bool ShouldRespawn()
 		{
-			return RespawnTimer == 0;
+			return RespawnTimer <= 0;
 		}
 
 		public bool HasLives()

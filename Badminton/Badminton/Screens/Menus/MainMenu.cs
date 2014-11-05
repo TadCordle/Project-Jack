@@ -31,6 +31,7 @@ namespace Badminton.Screens.Menus
 
 			if (MediaPlayer.State == MediaState.Stopped)
 				MediaPlayer.Play(MainGame.mus_menu);
+            Map.navMesh = null; // clear the current navmesh, if any
 		}
 
 		public GameScreen Update(GameTime gameTime)

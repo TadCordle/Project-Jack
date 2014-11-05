@@ -240,11 +240,14 @@ namespace Badminton
 		protected override void Draw(GameTime gameTime)
 		{
 			GraphicsDevice.Clear(Color.Multiply(Color.DarkGray, 0.7f));
-
+            
 			Matrix transformMatrix = Matrix.CreateScale(RESOLUTION_SCALE);
 			spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied, null, null, null, null, transformMatrix);
 			currentScreen.Draw(spriteBatch);
-			spriteBatch.End();
+            if (Map.navMesh != null)
+                Map.navMesh.Draw(spriteBatch);
+            
+            spriteBatch.End();
 
 			base.Draw(gameTime);
 		}

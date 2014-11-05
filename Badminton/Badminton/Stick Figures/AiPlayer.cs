@@ -28,6 +28,7 @@ namespace Badminton.Stick_Figures
         public NavAgent nav;
 
         private float distanceSelfDestruct = 1.5f;
+        private float distanceMeleeAttack = 5f;
         private float percentSelfDestruct = 40;
         private int attackCooldown, attackCooldownMax, attackCooldownMin;
         private int missileCooldown, missileCooldownMax, missileCooldownMin;
@@ -36,7 +37,10 @@ namespace Badminton.Stick_Figures
 
         public StickFigure Target { get { return this.target; } }
 
-        public AiPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes)
+        public static int MAX_DIFFICULTY = 10;
+        public static int MIN_DIFFICULTY = 0;
+
+        public AiPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes, int difficulty = 3)
             : base(world, position, collisionCat, scale, limbStrength, limbDefense, evilSkin, color)
         {
             destinations = new List<Vector2>();
@@ -45,11 +49,18 @@ namespace Badminton.Stick_Figures
             this.ListStickFigures = dudes;
             random = new Random();
             if (nav == null) nav = new NavAgent(this);
-            
-            SetAttackTimeRange(100, 300); // milliseconds
-            SetMissileTimeRange(250, 750);
-            SetBombTimeRange(2000, 4000);
-            SetAttentionTimeRange(5000, 10000);
+
+            // higher difficulty = lower difficulty factor, approaches 1/2
+            // difficulty = 0 : 2x slower
+            // difficulty = 1 : 1x slower
+            // difficulty = 3 : default
+            // difficulty = 10 : 2x faster
+            double difficultyFactor = 0.5 + 3/( 1 + Math.Pow(4, difficulty/2.5));
+
+            SetAttackTimeRange((int)(350 * difficultyFactor), (int)(1000 * difficultyFactor)); // milliseconds
+            SetMissileTimeRange((int)(650 * difficultyFactor), (int)(1500 * difficultyFactor));
+            SetBombTimeRange((int)(4000 * difficultyFactor), (int)(8000 * difficultyFactor));
+            SetAttentionTimeRange(5000, 7500);
         }
 
         public override void Draw(SpriteBatch sb)
@@ -256,7 +267,7 @@ namespace Badminton.Stick_Figures
         private void Attack()
         {
             // TODO (eventually): exact angles and values
-            if (attackCooldown <= 0 && Vector2.Distance(target.Position, this.Position) < 5f)
+            if (attackCooldown <= 0 && Vector2.Distance(target.Position, this.Position) < distanceMeleeAttack)
             {
                 if (Math.Abs(target.Position.Y - this.Position.Y) < 0.1f) // approximate left/right
                 {

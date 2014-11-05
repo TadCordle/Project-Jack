@@ -20,6 +20,15 @@ namespace Badminton.Pathfinding
             if (!Game.Components.Contains(this)) Game.Components.Add(this);
         }
 
+        ~NavMesh()
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                nodes[i] = null;
+            }
+            GC.Collect();
+        }
+
         // Get the result from a path search and get their positions
         public static List<Vector2> NodesToPositions(List<NavNode> nlist)
         {
@@ -74,13 +83,16 @@ namespace Badminton.Pathfinding
 
         public void Draw(SpriteBatch sb)
         {
-            //foreach (NavNode node in nodes)
-            //{
-            //    foreach (NavNode neighbor in node.Neighbors)
-            //    {
-            //        DrawLine(sb, node.Position * MainGame.METER_TO_PIXEL, neighbor.Position * MainGame.METER_TO_PIXEL);
-            //    }
-            //}
+            int i = 1;
+            foreach (NavNode node in nodes)
+            {
+                sb.DrawString(MainGame.fnt_midFont, i.ToString(), node.Position * MainGame.METER_TO_PIXEL, Color.Red);
+                foreach (NavNode neighbor in node.Neighbors)
+                {
+                    DrawLine(sb, node.Position * MainGame.METER_TO_PIXEL, neighbor.Position * MainGame.METER_TO_PIXEL);
+                }
+                i++;
+            }
            
         }
     }

@@ -12,7 +12,7 @@ using FarseerPhysics.Factories;
 
 namespace Badminton.Attacks
 {
-	class TrapAmmo
+	public class TrapAmmo
 	{
 		private World world;
 		private Body body;

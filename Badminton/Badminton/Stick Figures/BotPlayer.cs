@@ -26,7 +26,6 @@ namespace Badminton.Stick_Figures
         private Random random;
         public StickFigure[] ListStickFigures;
 
-        private Pathfinding.NavAgent nav;
         public StickFigure Target { get { return this.target; } }
 
         public BotPlayer(World world, Vector2 position, Category collisionCat, float scale, float limbStrength, float limbDefense, bool evilSkin, Color color, PlayerIndex player, StickFigure[] dudes)
@@ -37,7 +36,6 @@ namespace Badminton.Stick_Figures
             //attention_radius = 100;
             this.ListStickFigures = dudes;
             random = new Random();
-            //if (nav == null) nav = new Pathfinding.NavAgent(this, mesh);
             move_countdown = 50 + 150 * random.Next(); // initial delay 0.05-0.25s
             melee_countdown = 100 + 500 * random.Next(); // initial delay 0.1-0.4s
             shoot_countdown = 200 + 500 * random.Next(); // initial delay 0.2-0.7s

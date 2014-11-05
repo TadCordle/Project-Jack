@@ -16,80 +16,31 @@ using Badminton.Attacks;
 
 namespace Badminton.Screens.MultiPlayer
 {
-	class SingleMap : GameScreen
+	class SingleMap : GameMode, GameScreen
 	{
-		World world;
-		List<Wall> walls;
 		List<StickFigure> enemies;
 		List<StickFigure> temp;
 		Dictionary<StickFigure, int> toRemove;
 		StickFigure winStick;
-		StickFigure[] player;
-		Vector2[] spawnPoints;
-		TrapAmmo[] ammo;
-		Texture2D background, foreground;
-		Song music;
-
-		PlayerValues[] info;
-
 		int millis;
-		int startPause;
-		bool enterPressed;
 		float limbStrength;
 		bool suddenDeath;
 
-		bool gameOver;
 		int kills;
 		float maxEnemies;
-
-		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
-		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
-
-		public SingleMap(Color[] colors, string mapString, float gravity, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
+        
+        public SingleMap(Color[] colors, string mapString, float gravity, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
+            : base(colors, mapString, gravity, lives, limbStrength, suddenDeath, traps, longRange, bots)
 		{
-			world = new World(new Vector2(0, gravity));
-			this.limbStrength = limbStrength;
-			this.suddenDeath = suddenDeath;
-
-			MapData data = Map.LoadMap(world, mapString);
-            background = data.background;
-            walls = data.walls;
-            spawnPoints = data.spawnPoints;
-            Vector3[] ammoPoints = data.ammoPoints;
-			ammo = new TrapAmmo[ammoPoints.Length];
-			if (traps)
-				for (int i = 0; i < ammoPoints.Length; i++)
-					ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
-            music = data.music;
-			MediaPlayer.Play(music);
-            foreground = data.foreground;
-
-			StickFigure.AllowTraps = traps;
-			StickFigure.AllowLongRange = longRange;
-
-			player = new StickFigure[bots ? 4 : colors.Length];
-			this.info = new PlayerValues[bots ? 4 : colors.Length];
 			enemies = new List<StickFigure>();
 			toRemove = new Dictionary<StickFigure, int>();
 			temp = new List<StickFigure>();
 			winStick = null;
-
-			for (int i = 0; i < colors.Length; i++)
-				if (colors[i] != null)
-				{
-					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Category.Cat1, 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, false, colors[i], Players[i]);
-					player[i].LockControl = true;
-				}
-
-			for (int i = 0; i < info.Length; i++)
-				info[i] = new PlayerValues(lives);
-
+            this.limbStrength = limbStrength;
+            this.suddenDeath = suddenDeath;
 			maxEnemies = player.Length;
 			kills = 0;
 			millis = 0;
-			startPause = 180;
-			gameOver = false;
-			enterPressed = true;
 		}
 
 		public GameScreen Update(GameTime gameTime)
@@ -110,8 +61,8 @@ namespace Badminton.Screens.MultiPlayer
                     player[i].Update(deltatime);
 					if (player[i].IsDead)
 					{
-						if (info[i].RespawnTimer < 0)
-							info[i].Kill();
+                        //if (info[i].RespawnTimer < 0)
+                        //    info[i].Kill();
 
                         if (info[i].ShouldRespawn())
                         {
@@ -120,7 +71,7 @@ namespace Badminton.Screens.MultiPlayer
                                 player[i] = player[i].Respawn();
                             else
                                 player[i] = null;
-                            info[i].RespawnTimer -= deltatime;
+                            //info[i].RespawnTimer -= deltatime;
                         }
                         else
                             info[i].RespawnTimer -= deltatime;

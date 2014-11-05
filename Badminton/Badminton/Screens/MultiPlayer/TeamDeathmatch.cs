@@ -16,61 +16,11 @@ using Badminton.Attacks;
 
 namespace Badminton.Screens.MultiPlayer
 {
-	class TeamDeathmatch : GameScreen
+	class TeamDeathmatch : GameMode, GameScreen
 	{
-		World world;
-		List<Wall> walls;
-
-		StickFigure[] player;
-		Vector2[] spawnPoints;
-		TrapAmmo[] ammo;
-		Texture2D background, foreground;
-		Song music;
-
-		PlayerValues[] info;
-
-		bool timed;
-		int millisLeft;
-		int startPause;
-		bool enterPressed = false;
-
-		bool gameOver;
-		List<int> winners;
-		List<StickFigure> winSticks;
-
-		private static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat1, Category.Cat2 };
-		private static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
-
-		public TeamDeathmatch(Color[] colors, string mapString, float gravity, int minutes, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
+        public TeamDeathmatch(Color[] colors, string mapString, float gravity, int minutes, int lives, float limbStrength, bool suddenDeath, bool traps, bool longRange, bool bots)
+            : base(colors, mapString, gravity, lives, limbStrength, suddenDeath, traps, longRange, bots)
 		{
-			world = new World(new Vector2(0, gravity));
-
-			MapData data = Map.LoadMap(world, mapString);
-            background = data.background;
-            walls = data.walls;
-            spawnPoints = data.spawnPoints;
-            Vector3[] ammoPoints = data.ammoPoints;
-			ammo = new TrapAmmo[ammoPoints.Length];
-			if (traps)
-				for (int i = 0; i < ammoPoints.Length; i++)
-					ammo[i] = new TrapAmmo(world, new Vector2(ammoPoints[i].X, ammoPoints[i].Y) * MainGame.PIXEL_TO_METER, (int)ammoPoints[i].Z);
-            music = data.music;
-			MediaPlayer.Play(music);
-            foreground = data.foreground;
-
-			StickFigure.AllowTraps = traps;
-			StickFigure.AllowLongRange = longRange;
-
-			player = new StickFigure[bots ? 4 : colors.Length];
-			this.info = new PlayerValues[bots ? 4 : colors.Length];
-
-			for (int i = 0; i < colors.Length; i++)
-				if (colors[i] != null)
-				{
-					player[i] = new LocalPlayer(world, spawnPoints[i] * MainGame.PIXEL_TO_METER, Categories[i], 1.5f, limbStrength, suddenDeath ? 0.001f : 1f, i % 2 == 1, colors[i], Players[i]);
-					player[i].LockControl = true;
-				}
-
 			if (bots && colors.Length < 4)
 			{
 				for (int i = colors.Length; i < 4; i++)
@@ -80,16 +30,9 @@ namespace Badminton.Screens.MultiPlayer
 				}
 			}
 
-			for (int i = 0; i < info.Length; i++)
-				info[i] = new PlayerValues(lives);
-
 			timed = minutes > 0;
-			millisLeft = (minutes == 0 ? -1 : minutes * 60000);
-			startPause = 180;
-			gameOver = false;
-			winners = new List<int>();
-			winSticks = new List<StickFigure>();
-			enterPressed = true;
+			timeRemaining = (minutes == 0 ? -1 : minutes * 60000);
+
 		}
 
 		public GameScreen Update(GameTime gameTime)
@@ -110,8 +53,8 @@ namespace Badminton.Screens.MultiPlayer
 					player[i].Update(gameTime.ElapsedGameTime.Milliseconds);
 					if (player[i].IsDead)
 					{
-						if (info[i].RespawnTimer < 0)
-							info[i].Kill();
+                        //if (info[i].RespawnTimer < 0)
+                        //    info[i].Kill();
 
                         if (info[i].ShouldRespawn())
                         {
@@ -120,7 +63,7 @@ namespace Badminton.Screens.MultiPlayer
                                 player[i] = player[i].Respawn();
                             else
                                 player[i] = null;
-                            info[i].RespawnTimer -= deltatime;
+ //                           info[i].RespawnTimer -= deltatime;
                         }
                         else
                             info[i].RespawnTimer -= deltatime;
@@ -137,7 +80,7 @@ namespace Badminton.Screens.MultiPlayer
 			if (!gameOver)
 			{
 				if (timed && startPause < 0)
-					millisLeft -= deltatime;
+					timeRemaining -= deltatime;
 				gameOver = GameIsOver(winners);
 			}
 			else
@@ -192,7 +135,7 @@ namespace Badminton.Screens.MultiPlayer
 
 			if (gameOver)
 				return true;
-			else if (timed && millisLeft <= 0)
+			else if (timed && timeRemaining <= 0)
 			{
 				gameOver = true;
 				int lives1 = (info.Length > 2 ? (info[0].Lives + info[2].Lives) / 2 : info[0].Lives);
@@ -235,13 +178,13 @@ namespace Badminton.Screens.MultiPlayer
 				sb.Draw(foreground, new Rectangle(0, 0, 1920, 1080), Color.White);
 
 			// Draw HUD
-			if (millisLeft >= 0)
+			if (timeRemaining >= 0)
 			{
 				Color c = new Color(255, 255, 255, 150);
 				sb.Draw(MainGame.tex_blank, new Rectangle(0, 0, 200, 63), c);
 				sb.Draw(MainGame.tex_clock, Vector2.One, null, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1f);
-				sb.DrawString(MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.Black);
-				//				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, millisLeft / 60000 + ":" + (millisLeft % 60000 / 1000 < 10 ? "0" : "") + (millisLeft % 60000 / 1000 < 0 ? 0 : millisLeft % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.White);
+				sb.DrawString(MainGame.fnt_midFont, timeRemaining / 60000 + ":" + (timeRemaining % 60000 / 1000 < 10 ? "0" : "") + (timeRemaining % 60000 / 1000 < 0 ? 0 : timeRemaining % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.Black);
+				//				MainGame.DrawOutlineText(sb, MainGame.fnt_midFont, timeRemaining / 60000 + ":" + (timeRemaining % 60000 / 1000 < 10 ? "0" : "") + (timeRemaining % 60000 / 1000 < 0 ? 0 : timeRemaining % 60000 / 1000), Vector2.UnitX * 70 + Vector2.UnitY * 5, Color.White);
 			}
 
 			if (gameOver) // Exactly what it sounds like
