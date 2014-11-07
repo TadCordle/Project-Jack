@@ -83,16 +83,16 @@ namespace Badminton.Pathfinding
 
         public void Draw(SpriteBatch sb)
         {
-            int i = 1;
-            foreach (NavNode node in nodes)
-            {
-                sb.DrawString(MainGame.fnt_midFont, i.ToString(), node.Position * MainGame.METER_TO_PIXEL, Color.Red);
-                foreach (NavNode neighbor in node.Neighbors)
-                {
-                    DrawLine(sb, node.Position * MainGame.METER_TO_PIXEL, neighbor.Position * MainGame.METER_TO_PIXEL);
-                }
-                i++;
-            }
+            //int i = 1;
+            //foreach (NavNode node in nodes)
+            //{
+            //    sb.DrawString(MainGame.fnt_midFont, i.ToString(), node.Position * MainGame.METER_TO_PIXEL, Color.Red);
+            //    foreach (NavNode neighbor in node.Neighbors)
+            //    {
+            //        DrawLine(sb, node.Position * MainGame.METER_TO_PIXEL, neighbor.Position * MainGame.METER_TO_PIXEL);
+            //    }
+            //    i++;
+            //}
            
         }
     }

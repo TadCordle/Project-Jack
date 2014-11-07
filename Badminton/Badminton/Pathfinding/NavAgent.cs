@@ -56,8 +56,8 @@ namespace Badminton.Pathfinding
             Vector2 pos = bot.Position * MainGame.METER_TO_PIXEL;
             //Console.WriteLine(bot.Position.ToString() + "->" + pos.ToString());
 
-            if (mesh == null) sb.DrawString(MainGame.fnt_midFont, "MESH?", pos, Color.Red);
-            //else if (bot.Target == null) sb.DrawString(MainGame.fnt_midFont, "no target", pos, Color.Red);
+            //if (mesh == null) sb.DrawString(MainGame.fnt_midFont, "MESH?", pos, Color.Red);
+            if (bot.Target == null) sb.DrawString(MainGame.fnt_midFont, "no target", pos, Color.Red);
             //else if (state == States.idle) sb.DrawString(MainGame.fnt_midFont, "idle " + idlecooldown.ToString(), pos, Color.Cyan);
             //else if (state == States.done) sb.DrawString(MainGame.fnt_midFont, "done", pos, Color.Cyan);
             //else if (state == States.start) sb.DrawString(MainGame.fnt_midFont, "start", pos, Color.Cyan);
@@ -99,7 +99,7 @@ namespace Badminton.Pathfinding
 
         public override void Update(GameTime gameTime)
         {
-            if (bot == null || mesh == null) this.Delete();
+            if (bot == null) this.Delete();
             else
             {
                 int tick = gameTime.ElapsedGameTime.Milliseconds;

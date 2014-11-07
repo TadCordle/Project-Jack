@@ -50,22 +50,26 @@ namespace Badminton.Screens.MultiPlayer
 			{
 				if (player[i] != null && info[i].HasLives())
 				{
-					player[i].Update(deltatime);
-					if (player[i].IsDead)
-					{
-                        info[i].RespawnTimer -= deltatime;
-                        //if (info[i].RespawnTimer < 0)
-                        //    info[i].Kill();
-                        if (info[i].ShouldRespawn())
+                    player[i].Update(deltatime);
+                    if (player[i].IsDead)
+                    {
+                        info[i].SubtractLivesIfNeeded();
+                        if (info[i].RespawnTimer > 0)
                         {
-                            info[i].Kill();
+                            info[i].RespawnTimer -= deltatime;
+                        }
+                        else
+                        {
                             player[i].Destroy();
                             if (info[i].HasLives())
+                            {
                                 player[i] = player[i].Respawn();
+                                info[i].ResetTimer();
+                            }
                             else
                                 player[i] = null;
                         }
-					}
+                    }
 				}
 			}
 

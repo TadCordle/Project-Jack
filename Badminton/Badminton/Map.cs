@@ -146,11 +146,11 @@ namespace Badminton
             data.ammoPoints[0] = new Vector3(960, 440, 1800);
 
             //TODO
-            data.navmesh = new NavMesh();
-            NavNode node01 = new NavNode(data.navmesh, 0, 0);
-            NavNode node02 = new NavNode(data.navmesh, 1, 1);
-            node01.AddNeighbor(node02);
-            node02.AddNeighbor(node01);
+            //data.navmesh = new NavMesh();
+            //NavNode node01 = new NavNode(data.navmesh, 0, 0);
+            //NavNode node02 = new NavNode(data.navmesh, 1, 1);
+            //node01.AddNeighbor(node02);
+            //node02.AddNeighbor(node01);
 
 			data.background = MainGame.tex_bg_pillar;
 			data.music = MainGame.mus_pillar;

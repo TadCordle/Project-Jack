@@ -12,10 +12,11 @@ namespace Badminton
 {
 	public class PlayerValues
 	{
-		public int Lives { get; set; }
-		public int RespawnTimer { get; set; }
+        public int Lives;
+        public int RespawnTimer;
 
-		private const int MAX_RESPAWN_TIME = 15;
+		private const int MAX_RESPAWN_TIME = 500;
+        private bool hasKilled = false;
 
 		public PlayerValues(int lives)
 		{
@@ -26,12 +27,16 @@ namespace Badminton
         public void ResetTimer()
         {
             RespawnTimer = MAX_RESPAWN_TIME;
+            hasKilled = false;
         }
 
-		public void Kill()
+		public void SubtractLivesIfNeeded()
 		{
-            Lives--;
-            RespawnTimer = MAX_RESPAWN_TIME;
+            if (!hasKilled)
+            {
+                hasKilled = true;
+                Lives--;
+            }
 		}
 
 		public bool ShouldRespawn()
