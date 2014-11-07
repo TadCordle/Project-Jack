@@ -108,79 +108,86 @@ namespace Badminton.Pathfinding
                     // stall
                     //    Console.WriteLine("stalling...");
                 }
-                else if (state == States.idle)
+                else if (mesh == null)
                 {
-                    //  Console.WriteLine("idle...");
-                    if (idlecooldown >= 0) idlecooldown -= tick;
-                    else state = States.start;
+                    bot.SetDestinations(new List<Vector2> { bot.Target.Position });
                 }
-                else if (state == States.start)
+                else
                 {
-                    //Console.WriteLine("starting...");
-                    Clear();
-                    path.Add(bot.Position);
-                    path.Add(bot.Target.Position);
-                    ncurrent = mesh.GetNearestNode(bot.Position);
-                    ngoal = mesh.GetNearestNode(bot.Target.Position);
-                    openSet.Add(ncurrent);
-                    costs[ncurrent] = 0;
-                    state = States.getnext; // initialize
-                }
-                else if (state == States.getnext)
-                {
-                    //Console.WriteLine("get next");
-                    if (openSet.Count == 0) Reset();
-                    else
+                    if (state == States.idle)
                     {
-                        // next node has the minimum cost in the open set
-                        float minTotalCost = float.MaxValue;
-                        foreach (NavNode n in openSet)
-                        {
-                            if (costs[n] < minTotalCost)
-                            {
-                                ncurrent = n;
-                                minTotalCost = costs[n];
-                            }
-                        }
-                        if (ncurrent == ngoal)
-                        {
-                            state = States.done;
-                        }
+                        //  Console.WriteLine("idle...");
+                        if (idlecooldown >= 0) idlecooldown -= tick;
+                        else state = States.start;
+                    }
+                    else if (state == States.start)
+                    {
+                        //Console.WriteLine("starting...");
+                        Clear();
+                        path.Add(bot.Position);
+                        path.Add(bot.Target.Position);
+                        ncurrent = mesh.GetNearestNode(bot.Position);
+                        ngoal = mesh.GetNearestNode(bot.Target.Position);
+                        openSet.Add(ncurrent);
+                        costs[ncurrent] = 0;
+                        state = States.getnext; // initialize
+                    }
+                    else if (state == States.getnext)
+                    {
+                        //Console.WriteLine("get next");
+                        if (openSet.Count == 0) Reset();
                         else
                         {
-                            closedSet.Add(ncurrent);
-                            openSet.Remove(ncurrent);
-                            // state = States.expand;
+                            // next node has the minimum cost in the open set
+                            float minTotalCost = float.MaxValue;
+                            foreach (NavNode n in openSet)
+                            {
+                                if (costs[n] < minTotalCost)
+                                {
+                                    ncurrent = n;
+                                    minTotalCost = costs[n];
+                                }
+                            }
+                            if (ncurrent == ngoal)
+                            {
+                                state = States.done;
+                            }
+                            else
+                            {
+                                closedSet.Add(ncurrent);
+                                openSet.Remove(ncurrent);
+                                // state = States.expand;
+                            }
                         }
-                    }
-                    //}
-                    //else if (state == States.expand)
-                    //{
-                    //    //Console.WriteLine("Expand...");
-                    for (int j = 0; j < ncurrent.Neighbors.Count; j++)
-                    {
-                        NavNode neighbor = ncurrent.Neighbors[j];
-                        if (!closedSet.Contains(neighbor) && !openSet.Contains(neighbor))
+                        //}
+                        //else if (state == States.expand)
+                        //{
+                        //    //Console.WriteLine("Expand...");
+                        for (int j = 0; j < ncurrent.Neighbors.Count; j++)
                         {
-                            // Add to open set and calculate costs
-                            openSet.Add(neighbor);
-                            costs[neighbor] = costs[ncurrent] + ncurrent.Costs[j];
-                            neighbor.SetPrevious(this, ncurrent);
+                            NavNode neighbor = ncurrent.Neighbors[j];
+                            if (!closedSet.Contains(neighbor) && !openSet.Contains(neighbor))
+                            {
+                                // Add to open set and calculate costs
+                                openSet.Add(neighbor);
+                                costs[neighbor] = costs[ncurrent] + ncurrent.Costs[j];
+                                neighbor.SetPrevious(this, ncurrent);
+                            }
                         }
+                        //state = States.getnext;
                     }
-                    //state = States.getnext;
-                }
-                else if (state == States.done)
-                {
-                    //Console.WriteLine("done");
-                    path.Clear();
-                    while (ncurrent.GetPrevious(this) != null)
+                    else if (state == States.done)
                     {
-                        path.Insert(0, ncurrent.Position);
-                        ncurrent = ncurrent.GetPrevious(this);
+                        //Console.WriteLine("done");
+                        path.Clear();
+                        while (ncurrent.GetPrevious(this) != null)
+                        {
+                            path.Insert(0, ncurrent.Position);
+                            ncurrent = ncurrent.GetPrevious(this);
+                        }
+                        bot.SetDestinations(path);
+                        Reset();
                     }
-                    bot.SetDestinations(path);
-                    Reset();
                 }
             }
         }

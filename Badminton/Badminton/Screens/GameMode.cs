@@ -31,7 +31,7 @@ namespace Badminton.Screens
         protected bool gameOver = false;
         protected List<int> winners = new List<int>();
         protected List<StickFigure> winSticks = new List<StickFigure>();
-        protected int startPause = 2500; // milliseconds
+        protected int startPause = 2; // milliseconds
         protected static Category[] Categories = new Category[] { Category.Cat1, Category.Cat2, Category.Cat3, Category.Cat4 };
         protected static PlayerIndex[] Players = new PlayerIndex[] { PlayerIndex.One, PlayerIndex.Two, PlayerIndex.Three, PlayerIndex.Four };
 
